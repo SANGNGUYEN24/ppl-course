@@ -1,0 +1,6 @@
+
+        Function: loop_functioncall
+        Body:
+            Return loop_functioncall(loop_functioncall(loop_functioncall(loop_functioncall(loop_functioncall(loop_functioncall(1))))));
+        EndBody.
+        

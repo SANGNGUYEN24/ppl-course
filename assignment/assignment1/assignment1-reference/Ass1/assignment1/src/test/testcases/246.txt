@@ -1,0 +1,21 @@
+
+        Var: a[12] = {1,{"a",True,{1,2}},False};
+        Function: while_stmt
+        Parameter: a
+        Body:
+            While a < {1,{},True,{"a",** null **True,"a"}} Do
+                a = b \. 003e150;
+                If (a == 12) Then
+                    Break;
+                ElseIf (a *. 1.) Then
+                    a[while_stmt(13)] = while_stmt(13);
+                ElseIf (a != False) Then
+                    a[12] = True;
+                ElseIf (a + b) Then
+                    a[b] = a[b()];
+                Else
+                    Break;
+                EndIf.
+            EndWhile.
+        EndBody.
+        

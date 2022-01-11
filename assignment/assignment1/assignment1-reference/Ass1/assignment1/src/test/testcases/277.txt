@@ -1,0 +1,20 @@
+
+        Function: my_test
+        Parameter: x
+        Body:
+            If (x == 0) || !y || a[foo({1,{},"////"})] Then
+                Return 1;
+            EndIf.
+
+            Return fibo(x-1) + fibo(x-2);
+        EndBody.
+
+        Function: main
+        Body:
+            Var: a[10], i; 
+            For(i = 0, i < 10, 1) 
+            Do
+                a[i] = fibo(i);
+            EndFor.
+        EndBody.
+        

@@ -1,0 +1,12 @@
+
+        Var: x = True;
+        Function: normal_if_statement
+        Body:
+            If (x == False) Then
+                x = x + 1;
+                x[foo(x)] = 0xAF;
+                Return x;
+            EndIf.
+            Return;
+        EndBody.
+        

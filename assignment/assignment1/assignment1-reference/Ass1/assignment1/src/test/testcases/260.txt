@@ -1,0 +1,12 @@
+
+        Function: foo
+        Parameter: x
+        Body:
+            For (x = i, i < 10, i + 1) Do
+                If (i == 5) Then
+                    x = 0;
+                    Continue;
+                EndIf.
+            EndFor.
+        EndBody.
+        

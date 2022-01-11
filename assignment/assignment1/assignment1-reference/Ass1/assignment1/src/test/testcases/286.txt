@@ -1,0 +1,9 @@
+
+         ** This array declaraion does not accepted **
+        Var: a["13"] = {1,2,  3,{} ,""   };
+        Function: for
+        Body:
+            ** This is accepted **
+            a["13"] = {1, 2, 3, {},    "12"};
+        EndBody.
+        

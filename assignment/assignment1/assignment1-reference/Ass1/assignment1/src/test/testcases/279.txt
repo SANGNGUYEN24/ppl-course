@@ -1,0 +1,12 @@
+
+        ** Functional programming **
+        Function: functional_prog
+        Body:
+            Return (Function: foo
+                    Parameter: x, t
+                    Body:
+                        Return x * t;
+                    EndBody.
+                    );
+        EndBody.
+        

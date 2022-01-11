@@ -1,0 +1,1 @@
+ ** No double star appear to create unterminated comment error * *, *a*, a*,* *\*/* *aa*1* 

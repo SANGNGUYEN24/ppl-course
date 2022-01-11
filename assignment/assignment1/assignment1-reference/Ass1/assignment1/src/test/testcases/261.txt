@@ -1,0 +1,10 @@
+
+        Function: continue
+        Body:
+            Continue;
+            Break;
+            Continue;
+            ** continue again **
+            Continue;
+        EndBody.
+        

@@ -1,0 +1,4 @@
+
+        ** Error variable declaration **
+        Var: 1student, NumOfStudent, _class;
+        

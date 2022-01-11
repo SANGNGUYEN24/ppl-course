@@ -1,0 +1,9 @@
+
+        ** Missing Body **
+        Var: x = {1, {},      "a", {"b", ** Comment ** "d"}};
+        Function: foo
+            a = a + 1;
+            Break;
+            Return a;
+        EndBody.
+        

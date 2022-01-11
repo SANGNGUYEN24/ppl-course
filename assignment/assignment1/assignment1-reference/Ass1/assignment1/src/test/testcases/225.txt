@@ -1,0 +1,7 @@
+
+        Function: array
+        Parameter: z,d,e
+        Body:
+            (z + d + e)[12] = {1,2,3,4};
+        EndBody.
+        

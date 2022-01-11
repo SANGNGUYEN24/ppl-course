@@ -1,0 +1,7 @@
+ "Multiline comments: " 
+        ** This is a multiline comment
+        * Line 1
+        * Line 2
+        Oups only 1 star at the end
+        *
+        

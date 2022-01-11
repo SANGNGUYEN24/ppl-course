@@ -1,0 +1,9 @@
+
+        Var: assignment;
+        Function: foo
+        Parameter: a,b
+        Body:
+            a[{1,2,3}][True]["c"] = a && b || a >=. 2.12;
+            Return b =/= 12E-13;
+        EndBody.
+        

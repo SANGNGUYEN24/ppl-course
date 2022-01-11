@@ -1,0 +1,12 @@
+
+        Var: b, a;
+        Function: return
+        Body:
+            Continue;
+            Return  Function: return_stmt
+                    Parameter: x
+                    Body:
+                        Return 2;
+                    EndBody.
+        EndBody.
+        

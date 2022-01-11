@@ -1,0 +1,19 @@
+
+        Function: nested_dowhile_stmt
+        Parameter: a
+        Body:
+            Do
+                Do
+                    Do 
+                        Do
+                        
+                        While False
+                        EndDo.
+                    While (False)
+                    EndDo.
+                While (True)
+                EndDo.
+            While (a[((foo(1) * 1) + (b \. 0e12))] =/= 31E12)
+            EndDo.
+        EndBody.
+        

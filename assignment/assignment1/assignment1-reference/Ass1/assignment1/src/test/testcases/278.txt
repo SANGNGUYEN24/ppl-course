@@ -1,0 +1,21 @@
+
+        Function: func_a
+        Body:
+            Function: func_b
+                Body:
+                Function: func_c
+                Body:
+                    Function: func_d
+                    Body:
+                        Function: func_e
+                        Body:
+                            Functino: func_f
+                            Body:
+
+                            EndBody.
+                        EndBody.
+                    EndBody.
+                EndBody.
+            EndBody.
+        EndBody.
+        

@@ -1,0 +1,1 @@
+numOfStudent maxTeacherInClass has_prerequesite check_medicine 

@@ -1,0 +1,13 @@
+
+        Function: comment_return
+        Body:
+            Return **   ABC
+                        * DEF
+                        *  GHI
+                        * JKL
+                        * MNO
+                        PQRSTUV
+                        QWXYZ
+                    **;
+        EndBody.
+        

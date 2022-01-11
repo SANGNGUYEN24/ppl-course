@@ -1,0 +1,1 @@
+Free space in string,can,not,free,space,here,<EOF>

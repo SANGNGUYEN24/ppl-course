@@ -1,0 +1,7 @@
+
+        Function: functioncall_in_array
+        Body:
+            a[foo(foo(foo(foo())))] = foo((a * {1,2,3}) + foo(a[13]));
+            Return a[foo(a[x * 12])];
+        EndBody.
+        

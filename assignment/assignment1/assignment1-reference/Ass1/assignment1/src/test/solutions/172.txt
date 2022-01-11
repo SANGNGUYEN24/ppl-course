@@ -1,0 +1,1 @@
+This comment is in the string: ** This is a string not a comment **,<EOF>

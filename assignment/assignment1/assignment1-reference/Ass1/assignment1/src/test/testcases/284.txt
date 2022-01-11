@@ -1,0 +1,8 @@
+
+        ** No parameter **
+        Function: foo
+        Parameter:
+        Body:
+            Return 1;
+        EndBody.
+        

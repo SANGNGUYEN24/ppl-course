@@ -1,0 +1,9 @@
+
+        Var: a, b, c;
+        Function: foo
+        Parameter: x, y
+        Body:
+            a[1 + a - c * d == e + h ] = ((foo(a + b \ a) - 0xAED) - a[13]);
+            b[foo(1 - c =/= e) - ((h || e) * b && c)] = b[a[foo(1 + 2 - a && d) - b =/= e + ! h - (-a + c - 13 + (-13))]];
+        EndBody.
+        

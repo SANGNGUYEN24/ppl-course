@@ -1,0 +1,11 @@
+
+        Function: decimalToBinary
+        Parameter: decimal_number
+        Body:
+            If (decimal_number == 0) Then
+                Return 0;
+            Else
+                Return decimal_number % 2 + 10 * decimalToBinary(decimal_number \ 2);
+            EndIf.
+        EndBody.
+        

@@ -1,0 +1,1 @@
+ "Let\'s see some common mistake: " int b = {{},{2,{"ABC","h"}},True} ** Element is not the same type in array ** If(a=b)thenReturnTrue ** Misunderstand string and keyword ** bool a = true ** Wrong letter t **

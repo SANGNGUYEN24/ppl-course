@@ -1,0 +1,12 @@
+
+        Function: increase
+        Parameter: x
+        Body:
+            x = x + 1;
+        EndBody.
+        Function: decrease
+        Parameter: y
+        Body:
+            y = y - 1;
+        EndBody.
+        

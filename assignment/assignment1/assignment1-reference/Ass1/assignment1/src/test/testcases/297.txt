@@ -1,0 +1,14 @@
+
+        Var: a;
+        Function: foo
+        Body:
+            a = c;
+            c = d;
+            e[a != b] = e;
+            Break;
+            For (a = b; c < d; i++) {
+                Return a;
+            }
+            Return;
+        EndBody.
+        

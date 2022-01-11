@@ -1,0 +1,9 @@
+
+        Var: a = 10;
+        Function: main
+        Parameter: arr[a]
+        Body:
+            Var: arr;
+            Return arr;
+        EndBody.
+        

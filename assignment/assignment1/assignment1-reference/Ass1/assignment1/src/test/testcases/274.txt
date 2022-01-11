@@ -1,0 +1,20 @@
+
+        Function: foo_a
+        Body:
+        EndBody.
+        Function: foo_b
+        Body:
+        EndBody.
+        Function: foo_c
+        Body:
+        EndBody.
+        Function: foo_d
+        Body:
+        EndBody.
+        Function: foo_e
+        Body:
+        EndBody.
+        Function: foo_f
+        Body:
+        EndBody.
+        

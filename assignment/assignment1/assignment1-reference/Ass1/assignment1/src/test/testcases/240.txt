@@ -1,0 +1,8 @@
+
+        Function: no_then_if_stmt
+        Body:
+            If (a == 10)
+                b = b + 9;
+            EndIf.
+        EndBody.
+        

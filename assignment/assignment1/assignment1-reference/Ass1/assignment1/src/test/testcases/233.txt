@@ -1,0 +1,5 @@
+
+        Var: x,t;
+        x = foo(1);
+        Return a;
+        

@@ -1,0 +1,7 @@
+
+        Function: test_array
+        Body:
+            a[x[{{},"abc",2}]] = 2;
+            b[1.2] = {1,{12,{}}};
+        EndBody.
+        

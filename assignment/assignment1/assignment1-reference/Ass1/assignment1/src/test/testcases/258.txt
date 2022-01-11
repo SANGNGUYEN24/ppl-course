@@ -1,0 +1,7 @@
+
+        Function: multybreak
+        Parameter: x
+        Body:
+            Break; Break; Break; Break; Break;
+        EndBody.
+        

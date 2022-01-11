@@ -1,0 +1,22 @@
+
+        Function: sum
+        Parameter: x, y
+        Body:
+            Return x + y;
+        EndBody.
+        Function: sub
+        Parameter: x, y
+        Body:
+            Return x - y;
+        EndBody.
+        Function: mul
+        Parameter: x, y
+        Body:
+            Return x * y;
+        EndBody.
+        Function: div
+        Parameter: x, y
+        Body:
+            Return x \. y;
+        EndBody.
+        

@@ -1,0 +1,9 @@
+
+        Var: i = 0;
+        For (x = i, i < 10, i + 1) Do
+            if (i == 5) Then
+                x = 0;
+                Continue;
+            EndIf.
+        EndFor.
+        

@@ -1,0 +1,17 @@
+
+        Function: nested_for_stmt
+        Parameter: i, j, foo
+        Body:
+            Var: y = 1;
+            For (x = i, x != j, x * x) Do
+                For (y = 0, y <. True, !False) Do
+                    For (z = y, a[True], z[False]) Do
+                        ** Nested For loop **
+                            i = i + 1;
+                            Return 12;
+                        ** The End **
+                    EndFor.
+                EndFor.
+            EndFor.
+        EndBody.
+        

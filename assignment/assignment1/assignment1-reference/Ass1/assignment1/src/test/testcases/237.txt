@@ -1,0 +1,17 @@
+
+        Var: x = True;
+        Function: elseif_else_if_statement
+        Body:
+            If (x == False) Then
+                x = x + 1;
+                x[foo(x)] = 0xAF;
+                Return x;
+            ElseIf (x == 12) Then
+                x = x * foo(12);
+                Return y;
+            Else
+                x = 1 + 2 + 3 + 4  + 5;
+            EndIf.
+            Return;
+        EndBody.
+        

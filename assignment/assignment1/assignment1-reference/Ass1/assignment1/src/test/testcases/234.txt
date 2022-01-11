@@ -1,0 +1,9 @@
+
+        Function: assignment
+        Parameter: x, t[15]
+        Body:
+            Var: b;
+            x = b;
+            t[incr(12) * 3.12] = 0o12;
+        EndBody.
+        

@@ -1,0 +1,6 @@
+
+        Function: var_test
+        Body:
+            Var: foo = {1,{"a", 2, True}, False}, a[12];
+        EndBody.
+        

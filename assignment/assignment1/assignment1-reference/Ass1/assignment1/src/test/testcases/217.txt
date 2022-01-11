@@ -1,0 +1,4 @@
+
+        Var: a, b, c = "Check", d = {1,2,3};
+        Var: e = {}, f[13] = True;
+        

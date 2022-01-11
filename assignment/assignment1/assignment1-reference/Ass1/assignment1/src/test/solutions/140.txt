@@ -1,0 +1,1 @@
+this,is,a,string,:,I said '"It is a string, right'",.,this,is,not,:,this,is,not,a,string,<EOF>

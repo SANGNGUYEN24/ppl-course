@@ -1,0 +1,7 @@
+
+        Function array
+        Parameter z
+        Body
+            Return 2;
+        EndBody.
+        

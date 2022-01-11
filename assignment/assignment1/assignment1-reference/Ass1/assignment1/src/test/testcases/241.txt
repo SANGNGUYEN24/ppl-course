@@ -1,0 +1,10 @@
+
+        Function: test_for_stmt
+        Parameter: x, y
+        Body:
+            For (x = foo(1 + 2), x >. -2.12e-13, x + 1) Do
+                y = {2,{},"a"} + a["bc"];
+                Return y;
+            EndFor.
+        EndBody.
+        

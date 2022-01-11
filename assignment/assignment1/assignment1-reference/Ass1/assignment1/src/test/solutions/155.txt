@@ -1,0 +1,1 @@
+Space, tab inside array: ,{,1,},<EOF>

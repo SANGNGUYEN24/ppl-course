@@ -1,0 +1,8 @@
+
+        Function: for
+        Body:
+            For (a[12] = 3, a > 12, a \ 12) Do
+                Return 12;
+            EndFor.
+        EndBody.
+        

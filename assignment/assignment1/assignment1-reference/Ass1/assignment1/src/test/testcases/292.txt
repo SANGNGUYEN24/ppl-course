@@ -1,0 +1,10 @@
+
+        Var: a, b, c = 0;
+        ** No Function **
+        a = 2;
+        While (a < 1) Do
+            a = a + 1;
+        EndWhile.
+        b = 2;
+        Return c;
+        

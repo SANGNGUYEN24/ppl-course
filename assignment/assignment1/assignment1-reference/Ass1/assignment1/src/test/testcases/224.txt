@@ -1,0 +1,11 @@
+
+        Function: test
+        Parameter: y
+        Body:
+            a = 2;
+            Return a < b;
+            foo(2,3);
+            a[arr[2] + arr[4]] = 15;
+            bool = a && c || d && e;
+        EndBody.
+        

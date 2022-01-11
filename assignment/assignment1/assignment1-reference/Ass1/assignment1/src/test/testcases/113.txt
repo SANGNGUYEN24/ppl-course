@@ -1,0 +1,1 @@
+For(a=0;a<0x2AF;a++)Returna=0o101

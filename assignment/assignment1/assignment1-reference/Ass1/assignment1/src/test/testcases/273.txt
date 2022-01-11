@@ -1,0 +1,7 @@
+
+        Function: nhan_test
+        Parameter: x,y
+        Body:
+            a[someFunc(22) + 33] = a[22*14 + anotherFunc() + a[2]] * 5;
+        EndBody.
+        

@@ -1,0 +1,16 @@
+
+        Var: foo;
+        Function: nested_while
+        Parameter: a
+        Body:
+        While (a[foo] == a[(a[12] + foo(12)) * 13]) Do
+        While (foo(12) + 1) Do
+        While (a[12] \. foo()) Do
+        While (False == True) Do
+        Return a;
+        Continue;
+        EndWhile.
+        EndWhile.
+        EndWhile.
+        EndBody.
+        

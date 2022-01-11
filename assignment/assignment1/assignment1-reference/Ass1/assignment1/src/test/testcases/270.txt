@@ -1,0 +1,6 @@
+
+        Function: functioncall_in_array
+        Body:
+            Return a[Foo(a[x * 12])];
+        EndBody.
+        

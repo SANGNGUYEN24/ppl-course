@@ -1,0 +1,19 @@
+
+        Function: max
+        Parameter: a, b
+        Body:
+            If (a >= b) Then
+                Return a;
+            EndIf.
+            Return b;
+        EndBody.
+
+        Function: findMax
+        Parameter: arr_ptr, length
+        Body:
+            If (length == 1) Then
+                Return arr_ptr[0];
+            EndIf.
+            Return max(arr[length - 1], findMax(arr, length - 1));
+        EndBody.
+        

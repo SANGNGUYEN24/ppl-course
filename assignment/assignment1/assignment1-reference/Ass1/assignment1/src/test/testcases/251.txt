@@ -1,0 +1,10 @@
+
+        Do
+            a[12] = foo();
+            Break;
+            If (b[a] == 1) Then
+                Return 1;
+            EndIf.
+        While a[foo(x(12))] >= 3
+        EndDo.
+        

@@ -1,0 +1,9 @@
+
+        Var: x = 0, y = 1;
+        Function: foo
+        Parameter: x, y
+        Body:
+            Return x + y;
+        EndBody.
+        Return x - y;
+        

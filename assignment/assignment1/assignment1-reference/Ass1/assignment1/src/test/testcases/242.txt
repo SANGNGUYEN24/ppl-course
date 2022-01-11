@@ -1,0 +1,16 @@
+
+        Function: test_for_stmt
+        Body:
+            Var: i = 0, j = 10, foo;
+            For (i = 0, i < j, i + 1)
+                foo(i);
+                If (i == j - 1) Then
+                    foo(0);
+                EndIf.
+                If (i == -1) Then
+                    Break;
+                EndIf.
+            EndFor.
+            Return for(i,j,foo);
+        EndBody.
+        

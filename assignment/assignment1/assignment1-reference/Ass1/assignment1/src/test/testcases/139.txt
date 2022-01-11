@@ -1,0 +1,1 @@
+escape in string: "bold horizontalTab	 cr\r formFeed"  

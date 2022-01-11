@@ -1,0 +1,13 @@
+
+        Function: foo
+        Parameter: x,y
+        Body:
+            While True Do
+                a[foo(foo(foo({1,2,{}, 13})))] = True;
+                If (a[foo(foo(12))] + foo(1)) Then
+                    Break;
+                EndIf.
+                Continue;
+            EndWhile.
+        EndBody.
+        

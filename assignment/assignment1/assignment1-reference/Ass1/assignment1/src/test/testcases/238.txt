@@ -1,0 +1,18 @@
+
+        Function: loop_if_statement
+        Body:
+            If (x == False) Then
+                x = x + 1;
+                If (x > 1) Then
+                    x = x * x;
+                    If (x > 100) Then
+                        x = x * x * x;
+                        If (x < 1000) Then
+                            x =y;
+                        EndIf.
+                    EndIf.
+                EndIf.
+            EndIf.
+            Return;
+        EndBody.
+        

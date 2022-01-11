@@ -1,0 +1,9 @@
+
+        Function: test
+        Parameter: num_of_student
+        Body:
+            num_of_student = foo({1,2,{},{"a","b"}});
+            num_of_student = num_of_student + num_of_student;
+            Return num_of_student;
+        EndBody.
+        

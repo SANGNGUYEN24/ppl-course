@@ -1,0 +1,7 @@
+
+        Function: var_test
+        Body:
+            Var: x[foo(12)] = {1,2,"a",True};
+            Return x;
+        EndBody.
+        

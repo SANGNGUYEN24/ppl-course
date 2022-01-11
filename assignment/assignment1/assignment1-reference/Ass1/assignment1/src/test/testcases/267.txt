@@ -1,0 +1,6 @@
+
+        Function: nested_functioncall
+        Body:
+            foo(foo() + foo({1,2,3}) * foo(foo(foo(foo() + 2))));
+        EndBody.
+        

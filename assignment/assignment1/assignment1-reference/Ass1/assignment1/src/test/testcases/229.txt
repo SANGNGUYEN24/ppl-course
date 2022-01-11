@@ -1,0 +1,16 @@
+
+        Var: a = {2,{},"a"};
+        Function:   for
+        Parameter: x,t
+        Body:
+            x = t + {1,{},"c"};
+            For (x = 1, x > 2, x + 1) Do
+                If (x == 1) Then
+                    Continue;
+                EndIf.
+            EndFor.
+            If (x > 3) Then
+                Break;
+            EndIf.
+        EndBody.
+        

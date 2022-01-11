@@ -1,0 +1,11 @@
+
+        Function: test_while
+        Body:
+            While (x <. 12.) Do
+                For (x = 1., x >. 0., x + 1e10) Do
+                    x = (x + 1) * 2 - a[foo(15)];
+                    Return x;
+                EndFor.
+            EndWhile.
+        EndBody.
+        

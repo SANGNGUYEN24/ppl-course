@@ -1,0 +1,1 @@
+ "Array of different type: " {1,True,"abc",2.03e12}
