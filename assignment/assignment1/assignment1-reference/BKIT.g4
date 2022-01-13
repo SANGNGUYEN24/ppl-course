@@ -104,7 +104,7 @@ FLOAT : DIGIT+ DOT DIGIT* ([eE][+-]? DIGIT+)?
          | DIGIT+ DOT? DIGIT* [eE][+-]? DIGIT+
          ;
 BOOL : 'True' | 'False' ;
-
+                            
 fragment CHAR : ~( '\n' | '\'' | '\\' | '"' ) | ESCAPE | '\'' '"';
 
 

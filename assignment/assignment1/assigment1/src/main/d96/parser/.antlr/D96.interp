@@ -2,14 +2,14 @@ token literal names:
 null
 null
 null
+null
+null
 'Break'
 'Continue'
 'If'
 'Elseif'
 'Else'
 'Foreach'
-'True'
-'False'
 'Array'
 'In'
 'Int'
@@ -42,34 +42,36 @@ null
 null
 null
 null
+null
+null
 
 token symbolic names:
 null
 WHITE_SPACE
 COMMENT
-BREAK
-CONTINUE
-IF
-ELSE_IF
-ELSE
-FOR_EACH
-TRUE
-FALSE
-ARRAY
-IN
-INT
-FLOAT
-BOOLEAN
-STRING
-RETURN
-NULL
-CLASS
-VAL
-VAR
-CONSTRUCTOR
-DESTRUCTOR
-NEW
-BY
+IDENTIFER
+DOLAR_IDENTIFIER
+K_BREAK
+K_CONTINUE
+K_IF
+K_ELSE_IF
+K_ELSE
+K_FOR_EACH
+K_ARRAY
+K_IN
+K_INT
+K_FLOAT
+K_BOOLEAN
+K_STRING
+K_RETURN
+K_NULL
+K_CLASS
+K_VAL
+K_VAR
+K_CONSTRUCTOR
+K_DESTRUCTOR
+K_NEW
+K_BY
 LEFT_PAREN
 RIGHT_PAREN
 LEFT_SQUARE_BRACKET
@@ -80,17 +82,21 @@ SEMICOLON
 LEFT_CURLY_BRACKET
 RIGHT_CURLY_BRACKET
 ESCAPE
-INTEGER
-OCTAL_LITERALNESS
-HEXA_LITERALNESS
-BINARY_LITERALNESS
-FLOAT_LITERALNESS
-BOOLEAN_LITERALNESS
-STRING_LITERALNESS
+SIGN
+LITERAL_INTEGER
+LITERAL_OCTAL
+LITERAL_HEXA
+LITERAL_BINARY
+LITERAL_FLOAT
+LITERAL_BOOLEAN
+LITERAL_STRING
+INDEXED_ARRAY
 
 rule names:
-init
+literalness
+identifer
+indexedArray
 
 
 atn:
-[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 44, 7, 4, 2, 9, 2, 3, 2, 3, 2, 3, 2, 2, 2, 3, 2, 2, 2, 2, 5, 2, 4, 3, 2, 2, 2, 4, 5, 7, 44, 2, 2, 5, 3, 3, 2, 2, 2, 2]
+[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 46, 25, 4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 3, 2, 7, 2, 10, 10, 2, 12, 2, 14, 2, 13, 11, 2, 3, 2, 7, 2, 16, 10, 2, 12, 2, 14, 2, 19, 11, 2, 3, 3, 3, 3, 3, 4, 3, 4, 3, 4, 2, 2, 5, 2, 4, 6, 2, 4, 3, 2, 39, 45, 3, 2, 5, 6, 2, 23, 2, 11, 3, 2, 2, 2, 4, 20, 3, 2, 2, 2, 6, 22, 3, 2, 2, 2, 8, 10, 7, 38, 2, 2, 9, 8, 3, 2, 2, 2, 10, 13, 3, 2, 2, 2, 11, 9, 3, 2, 2, 2, 11, 12, 3, 2, 2, 2, 12, 17, 3, 2, 2, 2, 13, 11, 3, 2, 2, 2, 14, 16, 9, 2, 2, 2, 15, 14, 3, 2, 2, 2, 16, 19, 3, 2, 2, 2, 17, 15, 3, 2, 2, 2, 17, 18, 3, 2, 2, 2, 18, 3, 3, 2, 2, 2, 19, 17, 3, 2, 2, 2, 20, 21, 9, 3, 2, 2, 21, 5, 3, 2, 2, 2, 22, 23, 7, 46, 2, 2, 23, 7, 3, 2, 2, 2, 4, 11, 17]

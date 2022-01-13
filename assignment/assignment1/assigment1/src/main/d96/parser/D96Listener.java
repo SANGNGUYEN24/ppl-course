@@ -7,13 +7,23 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface D96Listener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link D96Parser#init}.
+	 * Enter a parse tree produced by {@link D96Parser#testType}.
 	 * @param ctx the parse tree
 	 */
-	void enterInit(D96Parser.InitContext ctx);
+	void enterTestType(D96Parser.TestTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link D96Parser#init}.
+	 * Exit a parse tree produced by {@link D96Parser#testType}.
 	 * @param ctx the parse tree
 	 */
-	void exitInit(D96Parser.InitContext ctx);
+	void exitTestType(D96Parser.TestTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link D96Parser#testInteger}.
+	 * @param ctx the parse tree
+	 */
+	void enterTestInteger(D96Parser.TestIntegerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link D96Parser#testInteger}.
+	 * @param ctx the parse tree
+	 */
+	void exitTestInteger(D96Parser.TestIntegerContext ctx);
 }

@@ -2,6 +2,9 @@ token literal names:
 null
 null
 null
+null
+null
+null
 'Break'
 'Continue'
 'If'
@@ -45,6 +48,9 @@ null
 
 token symbolic names:
 null
+ERROR_CHAR
+UNCLOSE_STRING
+ILLEGAL_ESCAPE
 WHITE_SPACE
 COMMENT
 BREAK
@@ -90,8 +96,7 @@ STRING_LITERALNESS
 
 rule names:
 testType
-testInteger
 
 
 atn:
-[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 44, 11, 4, 2, 9, 2, 4, 3, 9, 3, 3, 2, 3, 2, 3, 3, 3, 3, 3, 3, 2, 2, 4, 2, 4, 2, 3, 3, 2, 38, 44, 2, 8, 2, 6, 3, 2, 2, 2, 4, 8, 3, 2, 2, 2, 6, 7, 9, 2, 2, 2, 7, 3, 3, 2, 2, 2, 8, 9, 7, 38, 2, 2, 9, 5, 3, 2, 2, 2, 2]
+[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 47, 7, 4, 2, 9, 2, 3, 2, 3, 2, 3, 2, 2, 2, 3, 2, 2, 3, 3, 2, 41, 47, 2, 5, 2, 4, 3, 2, 2, 2, 4, 5, 9, 2, 2, 2, 5, 3, 3, 2, 2, 2, 2]

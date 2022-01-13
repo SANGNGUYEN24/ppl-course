@@ -15,13 +15,25 @@ public class D96BaseListener implements D96Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInit(D96Parser.InitContext ctx) { }
+	@Override public void enterTestType(D96Parser.TestTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInit(D96Parser.InitContext ctx) { }
+	@Override public void exitTestType(D96Parser.TestTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTestInteger(D96Parser.TestIntegerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTestInteger(D96Parser.TestIntegerContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

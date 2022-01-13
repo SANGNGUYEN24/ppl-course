@@ -1,16 +1,16 @@
 grammar D96;
 
-// @lexer::header {
-// from lexererr import *
-// }
+  @lexer::header {
+  from lexererr import *
+  }
 
-// options {
-// 	language = Python3;
-// }
+  options {
+  	language = Python3;
+  }
 
-// ERROR_CHAR: .{raise ErrorToken (self.text)};
-// UNCLOSE_STRING: .;
-// ILLEGAL_ESCAPE: .;
+//  ERROR_CHAR: .{raise ErrorToken (self.text)};
+//  UNCLOSE_STRING: .;
+//  ILLEGAL_ESCAPE: .;
 
 //-----
 // program: mptype 'main' LEFT_PAREN RIGHT_PAREN LEFT_CURLY_BRACKET body? RIGHT_CURLY_BRACKET EOF;
@@ -35,7 +35,23 @@ grammar D96;
 // parser rules start with lowercase letters, lexer rules with uppercase
 // TEST: DECIMAL_DIGIT+;
 
-init: STRING_LITERALNESS;
+literalness:    
+					SIGN*
+					(LITERAL_INTEGER
+                    |LITERAL_FLOAT
+                    |LITERAL_OCTAL
+                    |LITERAL_HEXA
+                    |LITERAL_BINARY
+                    |LITERAL_BOOLEAN
+                    |LITERAL_STRING
+                    |LITERAL_BOOLEAN)*
+                    ;
+
+identifer:			IDENTIFER 
+					|DOLAR_IDENTIFIER
+					;
+indexedArray:		INDEXED_ARRAY;
+					
 //-------
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
@@ -46,32 +62,36 @@ WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
 
 
 // 3.2 Program comment
-COMMENT: 	'##' .*? '##' -> skip; 	// ## This is a comment ##
+COMMENT: 			'##' .*? '##' -> skip; 	// ## This is a comment ##
 // TODO: 3.3 Identifier, Dolar identifer
+IDENTIFER			:([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*
+					;
+DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
 // 3.4 Keywords
-BREAK: 		'Break'; 
-CONTINUE: 	'Continue';
-IF: 		'If'; 
-ELSE_IF: 	'Elseif'; 
-ELSE: 		'Else';
-FOR_EACH: 	'Foreach'; 
-TRUE: 		'True'; 
-FALSE: 		'False';
-ARRAY:		'Array';
-IN: 		'In';
-INT: 		'Int';
-FLOAT: 		'Float';
-BOOLEAN: 	'Boolean';
-STRING:		'String';
-RETURN:		'Return';
-NULL: 		'Null';
-CLASS: 		'Class';
-VAL: 		'Val';
-VAR: 		'Var';
-CONSTRUCTOR:'Constructor';
-DESTRUCTOR:	'Destructor';
-NEW:		'New';
-BY: 		'By';
+K_BREAK: 			'Break'; 
+K_CONTINUE: 		'Continue';
+K_IF: 				'If'; 
+K_ELSE_IF: 			'Elseif'; 
+K_ELSE: 			'Else';
+K_FOR_EACH: 		'Foreach';
+// TODO xem lại True False
+//TRUE: 		'True';
+//FALSE: 		'False';
+K_ARRAY:			'Array';
+K_IN: 				'In';
+K_INT: 				'Int';
+K_FLOAT: 			'Float';
+K_BOOLEAN: 			'Boolean';
+K_STRING:			'String';
+K_RETURN:			'Return';
+K_NULL: 			'Null';
+K_CLASS: 			'Class';
+K_VAL: 				'Val';
+K_VAR: 				'Var';
+K_CONSTRUCTOR:		'Constructor';
+K_DESTRUCTOR:		'Destructor';
+K_NEW:				'New';
+K_BY: 				'By';
 
 // TODO: 3.5 Operators
 // 3.6 Seperators
@@ -100,33 +120,65 @@ ESCAPE:				 	'\'"'
 fragment OCTAL_NOTATION: 	'0';
 fragment HEXA_NOTATION: 	'0x' | '0X';
 fragment BINARY_NOTATION: 	'0b' | '0B';
-fragment OCTAL_DIGIT: 		[0-9a-fA-F]; 		// base 16
-fragment HEXA_DIGIT: 		[0-7]; 				// base 8
-fragment BINARY_DIGIT: 		[0-1]; 				// base 2
+fragment HEXA_DIGIT: 		[0-9a-fA-F]; 		// base 16
+fragment OCTAL_DIGIT: 		[0-7]; 				// base 8
+fragment BINARY_DIGIT: 		[01]; 				// base 2
 
 fragment DECIMAL_DIGIT:		[0-9];
-fragment EXPONENT: 			[eE][-+]? DECIMAL_DIGIT+;
-// Integer - decimal literal
-INTEGER: 				[-+]?('0' | [1-9](DECIMAL_DIGIT | '_')*) ;	// 0, 123, 12_123
-						// {self.text = self.text.replace("_", "")};
+fragment EXPONENT: 			[eE][-+]? LITERAL_INTEGER+;
 
-OCTAL_LITERALNESS:		OCTAL_NOTATION OCTAL_DIGIT;
+// 1. Integer
+SIGN: 				[-+];
+LITERAL_INTEGER:	DECIMAL_DIGIT | [1-9](DECIMAL_DIGIT | '_')*
+                        {self.text = self.text.replace("_", "")};
 
-HEXA_LITERALNESS: 		HEXA_NOTATION HEXA_DIGIT;
+LITERAL_OCTAL:		OCTAL_NOTATION OCTAL_DIGIT+;
 
-BINARY_LITERALNESS: 	BINARY_NOTATION BINARY_DIGIT;
+LITERAL_HEXA: 		HEXA_NOTATION HEXA_DIGIT+;
 
-FLOAT_LITERALNESS
-						:INTEGER+ DOT DECIMAL_DIGIT* EXPONENT?		// 10.20 or 10. or 10.2e10 or 10.e2
-						|INTEGER+ EXPONENT?							// 10 or 10e10 
-						|DOT DECIMAL_DIGIT+ EXPONENT?				// .10 or .10e10 NOT .e10
-						;
+LITERAL_BINARY: 	BINARY_NOTATION BINARY_DIGIT+;
+// 2. Float
+LITERAL_FLOAT       :LITERAL_INTEGER+ DOT LITERAL_INTEGER* EXPONENT?		// 10.20 or 10. or 10.2e10 or 10.e2
+					|[1-9]+ EXPONENT?							// 10 or 10e10 NOT 08 09
+					DOT LITERAL_INTEGER+ EXPONENT?				// .10 or .10e10 NOT .e10
+					;
+// 3. Boolean
+LITERAL_BOOLEAN:	'True' | 'False';
+// 4. String
+LITERAL_STRING: 	DOUBLE_QUOTE 
+					(ESCAPE |~('"'| '\\'))*?
+					;
+// 5. Indexed array
+// TODO Array(1,) or Array(1)
+INDEXED_ARRAY:  	K_ARRAY
+						LEFT_PAREN(
+							(LITERAL_INTEGER		// Only 1 element
+							|((LITERAL_INTEGER',')+ LITERAL_INTEGER))
+							|
+							((LITERAL_OCTAL		// Only 1 element
+							|((LITERAL_OCTAL',')+ LITERAL_OCTAL)))
+							|
+							((LITERAL_HEXA		// Only 1 element
+							|((LITERAL_HEXA',')+ LITERAL_HEXA)))
+						)
+						RIGHT_PAREN
+					;
+// TODO Research about how to read tokens
 
-BOOLEAN_LITERALNESS:	TRUE | FALSE;
 
-STRING_LITERALNESS: 	DOUBLE_QUOTE 
-						(ESCAPE |~["])*? 
-						DOUBLE_QUOTE;
+
+
+
+
+
+
+
+
+						
+
+
+
+
 
 
 

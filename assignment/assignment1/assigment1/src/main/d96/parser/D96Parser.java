@@ -24,10 +24,10 @@ public class D96Parser extends Parser {
 		RIGHT_CURLY_BRACKET=34, ESCAPE=35, INTEGER=36, OCTAL_LITERALNESS=37, HEXA_LITERALNESS=38, 
 		BINARY_LITERALNESS=39, FLOAT_LITERALNESS=40, BOOLEAN_LITERALNESS=41, STRING_LITERALNESS=42;
 	public static final int
-		RULE_init = 0;
+		RULE_testType = 0, RULE_testInteger = 1;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"init"
+			"testType", "testInteger"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -104,30 +104,82 @@ public class D96Parser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	public static class InitContext extends ParserRuleContext {
+	public static class TestTypeContext extends ParserRuleContext {
+		public TerminalNode INTEGER() { return getToken(D96Parser.INTEGER, 0); }
+		public TerminalNode FLOAT_LITERALNESS() { return getToken(D96Parser.FLOAT_LITERALNESS, 0); }
+		public TerminalNode OCTAL_LITERALNESS() { return getToken(D96Parser.OCTAL_LITERALNESS, 0); }
+		public TerminalNode HEXA_LITERALNESS() { return getToken(D96Parser.HEXA_LITERALNESS, 0); }
+		public TerminalNode BINARY_LITERALNESS() { return getToken(D96Parser.BINARY_LITERALNESS, 0); }
+		public TerminalNode BOOLEAN_LITERALNESS() { return getToken(D96Parser.BOOLEAN_LITERALNESS, 0); }
 		public TerminalNode STRING_LITERALNESS() { return getToken(D96Parser.STRING_LITERALNESS, 0); }
-		public InitContext(ParserRuleContext parent, int invokingState) {
+		public TestTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_init; }
+		@Override public int getRuleIndex() { return RULE_testType; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof D96Listener ) ((D96Listener)listener).enterInit(this);
+			if ( listener instanceof D96Listener ) ((D96Listener)listener).enterTestType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof D96Listener ) ((D96Listener)listener).exitInit(this);
+			if ( listener instanceof D96Listener ) ((D96Listener)listener).exitTestType(this);
 		}
 	}
 
-	public final InitContext init() throws RecognitionException {
-		InitContext _localctx = new InitContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_init);
+	public final TestTypeContext testType() throws RecognitionException {
+		TestTypeContext _localctx = new TestTypeContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_testType);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(2);
-			match(STRING_LITERALNESS);
+			setState(4);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INTEGER) | (1L << OCTAL_LITERALNESS) | (1L << HEXA_LITERALNESS) | (1L << BINARY_LITERALNESS) | (1L << FLOAT_LITERALNESS) | (1L << BOOLEAN_LITERALNESS) | (1L << STRING_LITERALNESS))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class TestIntegerContext extends ParserRuleContext {
+		public TerminalNode INTEGER() { return getToken(D96Parser.INTEGER, 0); }
+		public TestIntegerContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_testInteger; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof D96Listener ) ((D96Listener)listener).enterTestInteger(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof D96Listener ) ((D96Listener)listener).exitTestInteger(this);
+		}
+	}
+
+	public final TestIntegerContext testInteger() throws RecognitionException {
+		TestIntegerContext _localctx = new TestIntegerContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_testInteger);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(6);
+			match(INTEGER);
 			}
 		}
 		catch (RecognitionException re) {
@@ -142,8 +194,9 @@ public class D96Parser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3,\7\4\2\t\2\3\2\3"+
-		"\2\3\2\2\2\3\2\2\2\2\5\2\4\3\2\2\2\4\5\7,\2\2\5\3\3\2\2\2\2";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3,\13\4\2\t\2\4\3\t"+
+		"\3\3\2\3\2\3\3\3\3\3\3\2\2\4\2\4\2\3\3\2&,\2\b\2\6\3\2\2\2\4\b\3\2\2\2"+
+		"\6\7\t\2\2\2\7\3\3\2\2\2\b\t\7&\2\2\t\5\3\2\2\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -14,12 +14,10 @@ program:  EOF;
 WS: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
 
 //=======================3.Lexical Structure=======================
-// TODO: 3.1 Character set
 
 
 // 3.2 Program comment
 COMMENT: 	'##' .*? '##' -> skip; 	// ## This is a comment ##
-// TODO: 3.3 Identifier, Dolar identifer
 // 3.4 Keywords
 BREAK: 		'Break'; 
 CONTINUE: 	'Continue';
@@ -45,7 +43,6 @@ DESTRUCTOR:	'Destructor';
 NEW:		'New';
 BY: 		'By';
 
-// TODO: 3.5 Operators
 // 3.6 Seperators
 LEFT_PAREN:				'(';
 RIGHT_PAREN:			')';
