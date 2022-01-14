@@ -9,28 +9,18 @@ else:
 
 class D96Visitor(ParseTreeVisitor):
 
-    # Visit a parse tree produced by D96Parser#program.
-    def visitProgram(self, ctx:D96Parser.ProgramContext):
+    # Visit a parse tree produced by D96Parser#literalness.
+    def visitLiteralness(self, ctx:D96Parser.LiteralnessContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#mptype.
-    def visitMptype(self, ctx:D96Parser.MptypeContext):
+    # Visit a parse tree produced by D96Parser#identifer.
+    def visitIdentifer(self, ctx:D96Parser.IdentiferContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#body.
-    def visitBody(self, ctx:D96Parser.BodyContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#exp.
-    def visitExp(self, ctx:D96Parser.ExpContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#funcall.
-    def visitFuncall(self, ctx:D96Parser.FuncallContext):
+    # Visit a parse tree produced by D96Parser#indexedArray.
+    def visitIndexedArray(self, ctx:D96Parser.IndexedArrayContext):
         return self.visitChildren(ctx)
 
 

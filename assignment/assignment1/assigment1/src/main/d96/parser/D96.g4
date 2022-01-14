@@ -35,40 +35,59 @@ grammar D96;
 // parser rules start with lowercase letters, lexer rules with uppercase
 // TEST: DECIMAL_DIGIT+;
 
-literalness:    
+//==================== Parser rules start ====================
+literalness:
 					SIGN*
 					(LITERAL_INTEGER
-                    |LITERAL_FLOAT
                     |LITERAL_OCTAL
                     |LITERAL_HEXA
                     |LITERAL_BINARY
+                    |LITERAL_FLOAT
                     |LITERAL_BOOLEAN
-                    |LITERAL_STRING
-                    |LITERAL_BOOLEAN)*
+                    |LITERAL_STRING)*
                     ;
 
 identifer:			IDENTIFER 
 					|DOLAR_IDENTIFIER
 					;
-indexedArray:		INDEXED_ARRAY;
+
+// 5. Indexed array
+// TODO Array(1,) or Array(1) how about Array()
+indexedArray:  		K_ARRAY
+						LEFT_PAREN(
+							(LITERAL_INTEGER		// Only 1 element
+							|((LITERAL_INTEGER',')+ LITERAL_INTEGER))
+							|
+							((LITERAL_OCTAL		
+							|((LITERAL_OCTAL',')+ LITERAL_OCTAL)))
+							|
+							((LITERAL_HEXA		
+							|((LITERAL_HEXA',')+ LITERAL_HEXA)))
+							|
+							((LITERAL_BINARY		
+							|((LITERAL_BINARY',')+ LITERAL_BINARY)))
+							|
+							((LITERAL_FLOAT		
+							|((LITERAL_FLOAT',')+ LITERAL_FLOAT)))
+							|
+							((LITERAL_BOOLEAN		
+							|((LITERAL_BOOLEAN',')+ LITERAL_BOOLEAN)))
+							|
+							((LITERAL_STRING	
+							|((LITERAL_STRING',')+ LITERAL_STRING)))
+						)
+						RIGHT_PAREN
+					;
 					
-//-------
-
-WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
+//==================== Parser rules end ====================
 
 
-//=======================3.Lexical Structure=======================
+//==================== 3. Lexical rules start ====================
 // TODO: 3.1 Character set
-
-
 // 3.2 Program comment
 COMMENT: 			'##' .*? '##' -> skip; 	// ## This is a comment ##
-// TODO: 3.3 Identifier, Dolar identifer
-IDENTIFER			:([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*
-					;
-DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
-// 3.4 Keywords
-K_BREAK: 			'Break'; 
+// 3.4 Keywords, define the keywords on top
+K_BREAK: 			'Break';
 K_CONTINUE: 		'Continue';
 K_IF: 				'If'; 
 K_ELSE_IF: 			'Elseif'; 
@@ -147,23 +166,23 @@ LITERAL_BOOLEAN:	'True' | 'False';
 // 4. String
 LITERAL_STRING: 	DOUBLE_QUOTE 
 					(ESCAPE |~('"'| '\\'))*?
+					DOUBLE_QUOTE
 					;
-// 5. Indexed array
-// TODO Array(1,) or Array(1)
-INDEXED_ARRAY:  	K_ARRAY
-						LEFT_PAREN(
-							(LITERAL_INTEGER		// Only 1 element
-							|((LITERAL_INTEGER',')+ LITERAL_INTEGER))
-							|
-							((LITERAL_OCTAL		// Only 1 element
-							|((LITERAL_OCTAL',')+ LITERAL_OCTAL)))
-							|
-							((LITERAL_HEXA		// Only 1 element
-							|((LITERAL_HEXA',')+ LITERAL_HEXA)))
-						)
-						RIGHT_PAREN
-					;
-// TODO Research about how to read tokens
+
+// TODO: 3.3 Identifier, Dolar identifer
+IDENTIFER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
+DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
+
+
+
+
+
+
+
+
+WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
+//==================== 3. Lexical rules end ====================
+
 
 
 
