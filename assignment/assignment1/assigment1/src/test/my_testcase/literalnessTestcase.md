@@ -40,7 +40,6 @@ init:   INTEGER_LITERALNESS
     +or-10.20e-10
 
     +or-10.e10    
-    +or-10.
 
     +or-.0    
     +or-.10   
@@ -73,6 +72,7 @@ init:   INTEGER_LITERALNESS
     '.'     
     e10 
     .e10
+    20.
 
 
 

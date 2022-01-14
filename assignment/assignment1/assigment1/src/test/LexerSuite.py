@@ -12,6 +12,6 @@ class LexerSuite(unittest.TestCase):
     #     self.assertTrue(TestLexer.test("aAsVN3","aAsVN,3,<EOF>",103))
     def test_integer(self):
         """test integers"""
-        # self.assertTrue(TestLexer.test("123a123","123,a,123,<EOF>",104))
-        self.assertTrue(TestLexer.test("1.0e", "1.0e,<EOF>", 101))
+        self.assertTrue(TestLexer.test("123a123","123,a123,<EOF>",104))
+        # self.assertTrue(TestLexer.test("1.0e", "1.0e,<EOF>", 101))
 
