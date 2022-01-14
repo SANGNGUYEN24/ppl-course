@@ -23,16 +23,12 @@ init:   INTEGER_LITERALNESS
     -100_000_000    
     +200_000
 
-
-- 3 tokens
-
-
-    -0834
-
 **Fail**
 
     _1223   
     08 09 -> OCTAL
+
+
 
 ## FLOAT
 **Success** 

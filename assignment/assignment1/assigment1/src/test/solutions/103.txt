@@ -1,1 +1,2 @@
-Error Token a
+58:1.0e10
+<EOF>
