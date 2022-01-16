@@ -202,7 +202,7 @@ LITERAL_STRING: 	DOUBLE_QUOTE
 					DOUBLE_QUOTE
 					;
 
-// TODO: 3.3 Identifier, Dolar identifer
+// 3.3 Identifier, Dolar identifer
 IDENTIFER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
 DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
 
@@ -210,8 +210,25 @@ DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
 
 //==================== 4. Type and Value start ====================
 
-// 4.1 Primitive type implemented in Operators
+// 4.1 Primitive type
+operatorBoolean:	OP_LOGICAL_NOT 		| OP_LOGICAL_AND 	| OP_LOGICAL_OR 
+					| OP_IS_EQUAL_TO 	| OP_NOT_EQUAL_TO
+					;
+operatorInteger: 	OP_IS_EQUAL_TO 		| OP_NOT_EQUAL_TO 	| OP_MODULO 		| OP_ADDTION
+					| OP_SUBTRACTION 	| OP_MULTIPLICATION | OP_DIVISION 		| OP_LESS_THAN
+					| OP_LESS_THAN_EQUAL| OP_GREATER_THAN 	| OP_GREATER_THAN_EQUAL	 
+					;
+operatorFloat: 		OP_ADDTION 			| OP_SUBTRACTION 	| OP_MULTIPLICATION | OP_DIVISION 
+					| OP_LESS_THAN 		| OP_LESS_THAN_EQUAL| OP_GREATER_THAN 	
+					| OP_GREATER_THAN_EQUAL
+					;
+operatorString: 	OP_TWO_SAME_STRING 	| OP_STRING_CONCATENATION
+					;
+
+primitiveType: 		K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
+
 // TODO 4.2 Array type
+
 
 
 
