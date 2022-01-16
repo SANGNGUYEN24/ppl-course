@@ -29,8 +29,8 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#test.
-    def visitTest(self, ctx:D96Parser.TestContext):
+    # Visit a parse tree produced by D96Parser#allTest.
+    def visitAllTest(self, ctx:D96Parser.AllTestContext):
         return self.visitChildren(ctx)
 
 

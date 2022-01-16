@@ -12,35 +12,35 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3:")
-        buf.write("Y\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n")
+        buf.write("W\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n")
         buf.write("\2\f\2\16\2\21\13\2\3\2\7\2\24\n\2\f\2\16\2\27\13\2\3")
         buf.write("\3\3\3\3\4\3\4\3\4\3\4\3\4\7\4 \n\4\f\4\16\4#\13\4\5\4")
         buf.write("%\n\4\3\4\3\4\3\4\7\4*\n\4\f\4\16\4-\13\4\3\4\3\4\3\4")
         buf.write("\7\4\62\n\4\f\4\16\4\65\13\4\3\4\3\4\3\4\7\4:\n\4\f\4")
-        buf.write("\16\4=\13\4\5\4?\n\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\6")
-        buf.write("\5I\n\5\r\5\16\5J\3\5\3\5\5\5O\n\5\3\5\3\5\3\6\3\6\3\6")
-        buf.write("\3\6\5\6W\n\6\3\6\2\2\7\2\4\6\b\n\2\4\3\2\64\67\3\289")
-        buf.write("\2b\2\17\3\2\2\2\4\30\3\2\2\2\6\32\3\2\2\2\bB\3\2\2\2")
-        buf.write("\nV\3\2\2\2\f\16\7\63\2\2\r\f\3\2\2\2\16\21\3\2\2\2\17")
-        buf.write("\r\3\2\2\2\17\20\3\2\2\2\20\25\3\2\2\2\21\17\3\2\2\2\22")
-        buf.write("\24\t\2\2\2\23\22\3\2\2\2\24\27\3\2\2\2\25\23\3\2\2\2")
-        buf.write("\25\26\3\2\2\2\26\3\3\2\2\2\27\25\3\2\2\2\30\31\t\3\2")
-        buf.write("\2\31\5\3\2\2\2\32\33\7\n\2\2\33>\7)\2\2\34!\7\64\2\2")
-        buf.write("\35\36\7.\2\2\36 \7\64\2\2\37\35\3\2\2\2 #\3\2\2\2!\37")
-        buf.write("\3\2\2\2!\"\3\2\2\2\"%\3\2\2\2#!\3\2\2\2$\34\3\2\2\2$")
-        buf.write("%\3\2\2\2%?\3\2\2\2&+\7\65\2\2\'(\7.\2\2(*\7\65\2\2)\'")
-        buf.write("\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,?\3\2\2\2-+\3\2")
-        buf.write("\2\2.\63\7\66\2\2/\60\7.\2\2\60\62\7\66\2\2\61/\3\2\2")
-        buf.write("\2\62\65\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64?\3\2\2")
-        buf.write("\2\65\63\3\2\2\2\66;\7\67\2\2\678\7.\2\28:\7\67\2\29\67")
-        buf.write("\3\2\2\2:=\3\2\2\2;9\3\2\2\2;<\3\2\2\2<?\3\2\2\2=;\3\2")
-        buf.write("\2\2>$\3\2\2\2>&\3\2\2\2>.\3\2\2\2>\66\3\2\2\2?@\3\2\2")
-        buf.write("\2@A\7*\2\2A\7\3\2\2\2BC\7\n\2\2CN\7)\2\2DO\5\6\4\2EF")
-        buf.write("\5\6\4\2FG\7.\2\2GI\3\2\2\2HE\3\2\2\2IJ\3\2\2\2JH\3\2")
-        buf.write("\2\2JK\3\2\2\2KL\3\2\2\2LM\5\6\4\2MO\3\2\2\2ND\3\2\2\2")
-        buf.write("NH\3\2\2\2OP\3\2\2\2PQ\7*\2\2Q\t\3\2\2\2RW\5\2\2\2SW\5")
-        buf.write("\4\3\2TW\5\6\4\2UW\5\b\5\2VR\3\2\2\2VS\3\2\2\2VT\3\2\2")
-        buf.write("\2VU\3\2\2\2W\13\3\2\2\2\r\17\25!$+\63;>JNV")
+        buf.write("\16\4=\13\4\5\4?\n\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\7\5H")
+        buf.write("\n\5\f\5\16\5K\13\5\5\5M\n\5\3\5\3\5\3\6\3\6\3\6\3\6\5")
+        buf.write("\6U\n\6\3\6\2\2\7\2\4\6\b\n\2\4\3\2\64\67\3\289\2`\2\17")
+        buf.write("\3\2\2\2\4\30\3\2\2\2\6\32\3\2\2\2\bB\3\2\2\2\nT\3\2\2")
+        buf.write("\2\f\16\7\63\2\2\r\f\3\2\2\2\16\21\3\2\2\2\17\r\3\2\2")
+        buf.write("\2\17\20\3\2\2\2\20\25\3\2\2\2\21\17\3\2\2\2\22\24\t\2")
+        buf.write("\2\2\23\22\3\2\2\2\24\27\3\2\2\2\25\23\3\2\2\2\25\26\3")
+        buf.write("\2\2\2\26\3\3\2\2\2\27\25\3\2\2\2\30\31\t\3\2\2\31\5\3")
+        buf.write("\2\2\2\32\33\7\n\2\2\33>\7)\2\2\34!\7\64\2\2\35\36\7.")
+        buf.write("\2\2\36 \7\64\2\2\37\35\3\2\2\2 #\3\2\2\2!\37\3\2\2\2")
+        buf.write("!\"\3\2\2\2\"%\3\2\2\2#!\3\2\2\2$\34\3\2\2\2$%\3\2\2\2")
+        buf.write("%?\3\2\2\2&+\7\65\2\2\'(\7.\2\2(*\7\65\2\2)\'\3\2\2\2")
+        buf.write("*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,?\3\2\2\2-+\3\2\2\2.\63")
+        buf.write("\7\66\2\2/\60\7.\2\2\60\62\7\66\2\2\61/\3\2\2\2\62\65")
+        buf.write("\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64?\3\2\2\2\65\63")
+        buf.write("\3\2\2\2\66;\7\67\2\2\678\7.\2\28:\7\67\2\29\67\3\2\2")
+        buf.write("\2:=\3\2\2\2;9\3\2\2\2;<\3\2\2\2<?\3\2\2\2=;\3\2\2\2>")
+        buf.write("$\3\2\2\2>&\3\2\2\2>.\3\2\2\2>\66\3\2\2\2?@\3\2\2\2@A")
+        buf.write("\7*\2\2A\7\3\2\2\2BC\7\n\2\2CL\7)\2\2DI\5\6\4\2EF\7.\2")
+        buf.write("\2FH\5\6\4\2GE\3\2\2\2HK\3\2\2\2IG\3\2\2\2IJ\3\2\2\2J")
+        buf.write("M\3\2\2\2KI\3\2\2\2LD\3\2\2\2LM\3\2\2\2MN\3\2\2\2NO\7")
+        buf.write("*\2\2O\t\3\2\2\2PU\5\2\2\2QU\5\4\3\2RU\5\6\4\2SU\5\b\5")
+        buf.write("\2TP\3\2\2\2TQ\3\2\2\2TR\3\2\2\2TS\3\2\2\2U\13\3\2\2\2")
+        buf.write("\r\17\25!$+\63;>ILT")
         return buf.getvalue()
 
 
@@ -467,43 +467,35 @@ class D96Parser ( Parser ):
 
         localctx = D96Parser.MultiDimentionalArrayContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_multiDimentionalArray)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 64
             self.match(D96Parser.K_ARRAY)
             self.state = 65
             self.match(D96Parser.LEFT_PAREN)
-            self.state = 76
+
+            self.state = 74
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
-            if la_ == 1:
+            _la = self._input.LA(1)
+            if _la==D96Parser.K_ARRAY:
                 self.state = 66
                 self.indexedArray()
-                pass
-
-            elif la_ == 2:
-                self.state = 70 
+                self.state = 71
                 self._errHandler.sync(self)
-                _alt = 1
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt == 1:
-                        self.state = 67
-                        self.indexedArray()
-                        self.state = 68
-                        self.match(D96Parser.COMMA)
-
-                    else:
-                        raise NoViableAltException(self)
-                    self.state = 72 
+                _la = self._input.LA(1)
+                while _la==D96Parser.COMMA:
+                    self.state = 67
+                    self.match(D96Parser.COMMA)
+                    self.state = 68
+                    self.indexedArray()
+                    self.state = 73
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,8,self._ctx)
-
-                self.state = 74
-                self.indexedArray()
-                pass
+                    _la = self._input.LA(1)
 
 
-            self.state = 78
+
+            self.state = 76
             self.match(D96Parser.RIGHT_PAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -547,30 +539,30 @@ class D96Parser ( Parser ):
         localctx = D96Parser.AllTestContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_allTest)
         try:
-            self.state = 84
+            self.state = 82
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 80
+                self.state = 78
                 self.literal()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 81
+                self.state = 79
                 self.identifer()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 82
+                self.state = 80
                 self.indexedArray()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 83
+                self.state = 81
                 self.multiDimentionalArray()
                 pass
 

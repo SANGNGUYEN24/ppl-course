@@ -7,10 +7,21 @@ from lexererr import *
 options {
 language = Python3;
 }
-
-//  ERROR_CHAR: .{raise ErrorToken (self.text)};
-//  UNCLOSE_STRING: .;
-//  ILLEGAL_ESCAPE: .;
+// @lexer::members {
+// def emit(self):
+//     tk = self.type
+//     result = super().emit()
+//     if tk == self.ERROR_TOKEN:
+//         raise ErrorToken(result.text)
+//     elif tk == self.UNCLOSE_STRING:       
+//         raise UncloseString(result.text)
+//     elif tk == self.ILLEGAL_ESCAPE:
+//         raise IllegalEscape(result.text)
+//     elif tk == self.UNTERMINATED_COMMENT:
+//         raise UnterminatedComment()
+//     else:
+//         return result;
+// }
 
 //-----
 // program: mptype 'main' LEFT_PAREN RIGHT_PAREN LEFT_CURLY_BRACKET body? RIGHT_CURLY_BRACKET EOF;
@@ -50,18 +61,17 @@ identifer:			IDENTIFER
 // 5. Indexed array
 indexedArray:  		K_ARRAY
 						LEFT_PAREN(
-							(LITERAL_INTEGER (','LITERAL_INTEGER)*)?
-							|(LITERAL_FLOAT (','LITERAL_FLOAT)*)
-							|(LITERAL_BOOLEAN (','LITERAL_BOOLEAN)*)
-							|(LITERAL_STRING (','LITERAL_STRING)*)						
+							(LITERAL_INTEGER (COMMA LITERAL_INTEGER)*)?
+							|(LITERAL_FLOAT (COMMA LITERAL_FLOAT)*)
+							|(LITERAL_BOOLEAN (COMMA LITERAL_BOOLEAN)*)
+							|(LITERAL_STRING (COMMA LITERAL_STRING)*)						
 						)
 						RIGHT_PAREN
-					;
+					;	// Array() Array(1) Array(1,2,3)
 
 multiDimentionalArray: 	K_ARRAY
                             LEFT_PAREN(
-                            indexedArray
-                            |(indexedArray',')+indexedArray
+                            (indexedArray (COMMA indexedArray)*)?
                             )
                             RIGHT_PAREN
 					    ;

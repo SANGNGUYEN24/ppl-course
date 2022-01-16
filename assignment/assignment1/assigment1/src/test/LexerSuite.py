@@ -1,17 +1,41 @@
 import unittest
 from TestUtils import TestLexer
 
+
 class LexerSuite(unittest.TestCase):
-      
-    # def test_lowercase_identifier(self):
-    #     """test identifiers"""
-    #     self.assertTrue(TestLexer.test("abc","abc,<EOF>",101))
-    # def test_lower_upper_id(self):
-    #     self.assertTrue(TestLexer.test("aCBbdc","aCBbdc,<EOF>",102))
-    # def test_mixed_id(self):
-    #     self.assertTrue(TestLexer.test("aAsVN3","aAsVN,3,<EOF>",103))
-    def test_integer(self):
-        """test integers"""
-        self.assertTrue(TestLexer.test("123a123","123,a123,<EOF>",104))
-        # self.assertTrue(TestLexer.test("1.0e", "1.0e,<EOF>", 101))
+
+    #==================== Test literal ====================
+    def testLiteralInteger1(self):
+        # Decimal
+        self.assertTrue(TestLexer.test("123456", "123456,<EOF>", 101))
+
+    def testLiteralInteger2(self):
+        # Negative decimal
+        self.assertTrue(TestLexer.test("-123456", "-,123456,<EOF>", 102))
+
+    def testLiteralInteger3(self):
+        # Positive decimal
+        self.assertTrue(TestLexer.test("+123456", "+,123456,<EOF>", 103))
+
+    def testLiteralInteger4(self):
+        # -+ decimal
+        self.assertTrue(TestLexer.test("-+200401", "-,+,200401,<EOF>", 104))
+    
+    def testLiteralInteger5(self):
+        # Underscore 
+        self.assertTrue(TestLexer.test("123_000_000", "123000000,<EOF>", 105))
+
+    def testLiteralInteger6(self):
+        self.assertTrue(TestLexer.test("123__000", "123,__000,<EOF>", 106))
+
+    def testLiteralInteger7(self):
+        self.assertTrue(TestLexer.test("_234__000", "_234__000,<EOF>", 106))
+
+
+
+
+
+
+
+
 
