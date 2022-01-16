@@ -225,9 +225,14 @@ operatorFloat: 		OP_ADDTION 			| OP_SUBTRACTION 	| OP_MULTIPLICATION | OP_DIVISI
 operatorString: 	OP_TWO_SAME_STRING 	| OP_STRING_CONCATENATION
 					;
 
-primitiveType: 		K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
+primitiveType: 		K_BOOLEAN | K_INT | K_FLOAT | K_STRING | K_ARRAY;
 
-// TODO 4.2 Array type
+// 4.2 Array type
+arrayType: 			K_ARRAY
+						LEFT_SQUARE_BRACKET
+						primitiveType COMMA LITERAL_INTEGER
+						RIGHT_SQUARE_BRACKET
+					;
 
 
 
