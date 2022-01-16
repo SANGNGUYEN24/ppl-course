@@ -9,8 +9,28 @@ else:
 
 class D96Visitor(ParseTreeVisitor):
 
-    # Visit a parse tree produced by D96Parser#testType.
-    def visitTestType(self, ctx:D96Parser.TestTypeContext):
+    # Visit a parse tree produced by D96Parser#literal.
+    def visitLiteral(self, ctx:D96Parser.LiteralContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#identifer.
+    def visitIdentifer(self, ctx:D96Parser.IdentiferContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#indexedArray.
+    def visitIndexedArray(self, ctx:D96Parser.IndexedArrayContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#multiDimentionalArray.
+    def visitMultiDimentionalArray(self, ctx:D96Parser.MultiDimentionalArrayContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#allTest.
+    def visitAllTest(self, ctx:D96Parser.AllTestContext):
         return self.visitChildren(ctx)
 
 

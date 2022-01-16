@@ -36,8 +36,7 @@ language = Python3;
 // TEST: DECIMAL_DIGIT+;
 
 //==================== Parser rules start ====================
-literal:
-					SIGN*
+literal:			SIGN*
 					(LITERAL_INTEGER
                     |LITERAL_FLOAT
                     |LITERAL_BOOLEAN
@@ -49,20 +48,12 @@ identifer:			IDENTIFER
 					;
 
 // 5. Indexed array
-// TODO Array(1,) or Array(1) how about Array()
 indexedArray:  		K_ARRAY
 						LEFT_PAREN(
-							(LITERAL_INTEGER		// Only 1 element
-							|((LITERAL_INTEGER',')+ LITERAL_INTEGER))
-							|
-							(LITERAL_FLOAT		
-							|((LITERAL_FLOAT',')+ LITERAL_FLOAT))
-							|
-							(LITERAL_BOOLEAN		
-							|((LITERAL_BOOLEAN',')+ LITERAL_BOOLEAN))
-							|
-							(LITERAL_STRING	
-							|((LITERAL_STRING',')+ LITERAL_STRING))
+							(LITERAL_INTEGER (','LITERAL_INTEGER)*)?
+							|(LITERAL_FLOAT (','LITERAL_FLOAT)*)
+							|(LITERAL_BOOLEAN (','LITERAL_BOOLEAN)*)
+							|(LITERAL_STRING (','LITERAL_STRING)*)						
 						)
 						RIGHT_PAREN
 					;
@@ -75,7 +66,7 @@ multiDimentionalArray: 	K_ARRAY
                             RIGHT_PAREN
 					    ;
 
-// all: literal | identifer | indexedArray | multiDimentionalArray;
+allTest: literal | identifer | indexedArray | multiDimentionalArray;
 					
 //==================== Parser rules end ====================
 
@@ -110,7 +101,33 @@ K_DESTRUCTOR:		'Destructor';
 K_NEW:				'New';
 K_BY: 				'By';
 
-// TODO: 3.5 Operators
+// 3.5 Operators
+// Boolean type
+OP_LOGICAL_NOT:				'!';
+OP_LOGICAL_OR:				'||';
+OP_LOGICAL_AND:				'&&';
+
+// Boolean + Integer
+OP_IS_EQUAL_TO:				'==';
+OP_NOT_EQUAL_TO:			'!=';
+
+// Integer
+OP_MODULO:					'%';
+
+// Integer + Float
+OP_ADDTION:					'+';
+OP_SUBTRACTION:				'-';
+OP_MULTIPLICATION:			'*';
+OP_DIVISION:				'/';
+OP_LESS_THAN:				'<';
+OP_LESS_THAN_EQUAL:			'<=';
+OP_GREATER_THAN:			'>';
+OP_GREATER_THAN_EQUAL:		'>=';
+
+// String
+OP_STRING_CONCATENATION:	'+.';
+OP_TWO_SAME_STRING:			'==.';
+
 // 3.6 Seperators
 LEFT_PAREN:				'(';
 RIGHT_PAREN:			')';
@@ -146,9 +163,6 @@ fragment DECIMAL_DIGIT:		[0-9];
 fragment EXPONENT: 			[eE][-+]? DECIMAL+;
 
 // 1. Integer
-// TODO About the underscores (_), they only appear BETWEEN DIGITS, 
-// which means they cannot appear at the beginning or at the end of literals or be duplicated.
-
 fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]'_'?(DECIMAL_DIGIT+'_')*DECIMAL_DIGIT+
 					;
 
@@ -165,10 +179,9 @@ LITERAL_INTEGER:	(DECIMAL | OCTAL | HEXA | BINARY)
                     {self.text = self.text.replace("_", "")}
 					;
 // 2. Float
-// TODO xem lại
-LITERAL_FLOAT       :(DECIMAL DOT DECIMAL EXPONENT?		
+LITERAL_FLOAT       :(DECIMAL DOT DECIMAL? EXPONENT?		
 					|DECIMAL EXPONENT						
-					|DOT DECIMAL EXPONENT)				
+					|DOT DECIMAL? EXPONENT)				
 					{self.text = self.text.replace("_", "")}
 					;
 // 3. Boolean
@@ -183,12 +196,23 @@ LITERAL_STRING: 	DOUBLE_QUOTE
 IDENTIFER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
 DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
 
+//==================== 3. Lexical rules end ====================
 
-test: LITERAL_FLOAT;
+//==================== 4. Type and Value start ====================
+
+// 4.1 Primitive type implemented in Operators
+// TODO 4.2 Array type
+
+
+
+
+//==================== 4. Type and Value end ====================
+
+
+
 
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
-//==================== 3. Lexical rules end ====================
 
 
 

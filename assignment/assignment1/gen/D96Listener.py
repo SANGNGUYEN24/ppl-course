@@ -8,12 +8,48 @@ else:
 # This class defines a complete listener for a parse tree produced by D96Parser.
 class D96Listener(ParseTreeListener):
 
-    # Enter a parse tree produced by D96Parser#testType.
-    def enterTestType(self, ctx:D96Parser.TestTypeContext):
+    # Enter a parse tree produced by D96Parser#literal.
+    def enterLiteral(self, ctx:D96Parser.LiteralContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#testType.
-    def exitTestType(self, ctx:D96Parser.TestTypeContext):
+    # Exit a parse tree produced by D96Parser#literal.
+    def exitLiteral(self, ctx:D96Parser.LiteralContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#identifer.
+    def enterIdentifer(self, ctx:D96Parser.IdentiferContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#identifer.
+    def exitIdentifer(self, ctx:D96Parser.IdentiferContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#indexedArray.
+    def enterIndexedArray(self, ctx:D96Parser.IndexedArrayContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#indexedArray.
+    def exitIndexedArray(self, ctx:D96Parser.IndexedArrayContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#multiDimentionalArray.
+    def enterMultiDimentionalArray(self, ctx:D96Parser.MultiDimentionalArrayContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#multiDimentionalArray.
+    def exitMultiDimentionalArray(self, ctx:D96Parser.MultiDimentionalArrayContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#allTest.
+    def enterAllTest(self, ctx:D96Parser.AllTestContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#allTest.
+    def exitAllTest(self, ctx:D96Parser.AllTestContext):
         pass
 
 

@@ -1,4 +1,4 @@
-# Generated from d:\Study2\HCMUT\Semester 212\PPL\code\assignment\assignment1\assignment1-reference\Ass1\assignment1\src\main\bkit\parser\BKIT.g4 by ANTLR 4.8
+# Generated from d:\Study2\HCMUT\semester212\PPL\code\assignment\assignment1\assignment1-reference\Ass1\assignment1\src\main\bkit\parser\BKIT.g4 by ANTLR 4.8
 from antlr4 import *
 from io import StringIO
 from typing.io import TextIO
