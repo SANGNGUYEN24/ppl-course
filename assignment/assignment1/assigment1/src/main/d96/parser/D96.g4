@@ -47,11 +47,11 @@ language = Python3;
 // TEST: DECIMAL_DIGIT+;
 
 //==================== Parser rules start ====================
-literal:			SIGN*
+literal:			(OP_ADDTION | OP_SUBTRACTION)*
 					(LITERAL_INTEGER
                     |LITERAL_FLOAT
                     |LITERAL_BOOLEAN
-                    |LITERAL_STRING)*
+                    |LITERAL_STRING)+
                     ;
 
 identifer:			IDENTIFER 
@@ -112,6 +112,7 @@ K_NEW:				'New';
 K_BY: 				'By';
 
 // 3.5 Operators
+OP_ASSIGN: 					'=';
 // Boolean type
 OP_LOGICAL_NOT:				'!';
 OP_LOGICAL_OR:				'||';
@@ -145,6 +146,7 @@ LEFT_SQUARE_BRACKET:	'[';
 RIGHT_SQUARE_BRACKET:	']';
 DOT:					'.';
 COMMA:					',';
+COLON : 				':' ;
 SEMICOLON:				';';
 LEFT_CURLY_BRACKET:		'{';
 RIGHT_CURLY_BRACKET:	'}';
@@ -160,7 +162,6 @@ ESCAPE:				 	'\'"'
 						|'\\t'		// \t horizontal tab
 						|'\\\\';	// \\ backslash
 									// \' single quote
-SIGN: 					[-+];
 // 3.7 Literals
 fragment OCTAL_NOTATION: 	'0';
 fragment HEXA_NOTATION: 	'0x' | '0X';
@@ -228,17 +229,51 @@ operatorString: 	OP_TWO_SAME_STRING 	| OP_STRING_CONCATENATION
 primitiveType: 		K_BOOLEAN | K_INT | K_FLOAT | K_STRING | K_ARRAY;
 
 // 4.2 Array type
+// An array type declaration is in the form of: Array[<element_type>, <size>].
 arrayType: 			K_ARRAY
 						LEFT_SQUARE_BRACKET
-						primitiveType COMMA LITERAL_INTEGER
+							primitiveType COMMA LITERAL_INTEGER
 						RIGHT_SQUARE_BRACKET
-					;
+					; 
 
-
-
-
-
+// TODO 4.3 Class type
 //==================== 4. Type and Value end ====================
+
+//==================== 5. Expression start ====================
+// 2.2 Attribute declaration
+attributeDeclaration: 	(K_VAL | K_VAR) identiferList COLON primitiveType OP_ASSIGN expressionList
+						; //Val My1stCons, My2ndCons: Int = 1 + 5, 2;
+
+identiferList: 		IDENTIFER (COMMA IDENTIFER)*
+					| DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)*
+					; // My1stCons, My2ndCons
+
+// 2.1 Class declaration
+classDeclaration: 	K_CLASS	
+						IDENTIFER
+							(COLON IDENTIFER)?
+								LEFT_CURLY_BRACKET
+									blockStatement?
+								RIGHT_CURLY_BRACKET
+					;
+// 2.3 Method declaration
+methodDeclaration: 	identifer listOfParameter blockStatement
+					; // BUG review
+constructor:		K_CONSTRUCTOR listOfParameter blockStatement
+					; // BUG review
+destructor:			K_DESTRUCTOR listOfParameter blockStatement
+					;// BUG review
+// TODO listOfParameter
+listOfParameter:;
+// TODO blockStatement
+blockStatement:;
+// TODO expressionList
+expressionList:;
+
+			
+
+
+//==================== 5. Expression end ====================
 
 
 
