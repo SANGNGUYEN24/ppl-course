@@ -259,9 +259,13 @@ classDeclaration: 	K_CLASS
 // 2.3 Method declaration
 methodDeclaration: 	identifer listOfParameter blockStatement
 					; // BUG review
-constructor:		K_CONSTRUCTOR listOfParameter blockStatement
+constructor:		K_CONSTRUCTOR 
+						LEFT_PAREN 
+							listOfParameter 
+						RIGHT_PAREN 
+						blockStatement
 					; // BUG review
-destructor:			K_DESTRUCTOR listOfParameter blockStatement
+destructor:			K_DESTRUCTOR (LEFT_PAREN RIGHT_PAREN) blockStatement
 					;// BUG review
 // TODO listOfParameter
 listOfParameter:;
