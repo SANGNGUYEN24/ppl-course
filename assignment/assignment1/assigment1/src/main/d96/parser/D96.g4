@@ -90,7 +90,7 @@ RIGHT_SQUARE_BRACKET:	']';
 DOT:					'.';
 COMMA:					',';
 COLON : 				':' ;
-SEMICOLON:				';';
+SEMI_COLON:				';';
 LEFT_CURLY_BRACKET:		'{';
 RIGHT_CURLY_BRACKET:	'}';
 // Quote
@@ -129,75 +129,76 @@ fragment HEXA: 		HEXA_NOTATION (HEXA_DIGIT+'_')*HEXA_DIGIT+
 fragment BINARY: 	BINARY_NOTATION (BINARY_DIGIT+'_')*BINARY_DIGIT+
 					;
 
-LITERAL_INTEGER:	(DECIMAL | OCTAL | HEXA | BINARY)
+INTEGER_LITERAL:	(DECIMAL | OCTAL | HEXA | BINARY)
                     {self.text = self.text.replace("_", "")}
 					;
 // 2. Float
-LITERAL_FLOAT       :(DECIMAL DOT DECIMAL? EXPONENT?		
+FLOAT_LITERAL       :(DECIMAL DOT DECIMAL? EXPONENT?		
 					|DECIMAL EXPONENT						
 					|DOT DECIMAL? EXPONENT)				
 					{self.text = self.text.replace("_", "")}
 					;
 // 3. Boolean
-LITERAL_BOOLEAN:	'True' | 'False';
+BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
-LITERAL_STRING: 	DOUBLE_QUOTE 
+STRING_LITERAL: 	DOUBLE_QUOTE 
 					(ESCAPE |~('"'| '\\'))*?
 					DOUBLE_QUOTE
 					;
 // 5. Indexed array
-indexedArray:  		K_ARRAY
+indexed_array:  		K_ARRAY
 						LEFT_PAREN(
-							(LITERAL_INTEGER (COMMA LITERAL_INTEGER)*)?
-							|(LITERAL_FLOAT (COMMA LITERAL_FLOAT)*)
-							|(LITERAL_BOOLEAN (COMMA LITERAL_BOOLEAN)*)
-							|(LITERAL_STRING (COMMA LITERAL_STRING)*)						
+							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)?
+							|(FLOAT_LITERAL (COMMA FLOAT_LITERAL)*)
+							|(BOOLEAN_LITERAL (COMMA BOOLEAN_LITERAL)*)
+							|(STRING_LITERAL (COMMA STRING_LITERAL)*)						
 						)
 						RIGHT_PAREN
 					;	// Array() Array(1) Array(1,2,3)
 // 6. Multi-dimensional array
-multiDimentionalArray: 	K_ARRAY
+multi_dimentional_array: 	K_ARRAY
                             LEFT_PAREN(
-                            (indexedArray (COMMA indexedArray)*)?
+                            (indexed_array (COMMA indexed_array)*)?
                             )
                             RIGHT_PAREN
 					    ;
 
 
 // 3.3 Identifier, Dolar identifer
-IDENTIFER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
+IDENTIFIER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
 DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
 
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================
 
-// 4.1 Primitive type
-operatorBoolean:	OP_LOGICAL_NOT 		| OP_LOGICAL_AND 	| OP_LOGICAL_OR 
+// Primitive type
+operator_boolean:	OP_LOGICAL_NOT 		| OP_LOGICAL_AND 	| OP_LOGICAL_OR 
 					| OP_IS_EQUAL_TO 	| OP_NOT_EQUAL_TO
 					;
-operatorInteger: 	OP_IS_EQUAL_TO 		| OP_NOT_EQUAL_TO 	| OP_MODULO 		| OP_ADDTION
+operator_integer: 	OP_IS_EQUAL_TO 		| OP_NOT_EQUAL_TO 	| OP_MODULO 		| OP_ADDTION
 					| OP_SUBTRACTION 	| OP_MULTIPLICATION | OP_DIVISION 		| OP_LESS_THAN
 					| OP_LESS_THAN_EQUAL| OP_GREATER_THAN 	| OP_GREATER_THAN_EQUAL	 
 					;
-operatorFloat: 		OP_ADDTION 			| OP_SUBTRACTION 	| OP_MULTIPLICATION | OP_DIVISION 
+operator_float: 		OP_ADDTION 			| OP_SUBTRACTION 	| OP_MULTIPLICATION | OP_DIVISION 
 					| OP_LESS_THAN 		| OP_LESS_THAN_EQUAL| OP_GREATER_THAN 	
 					| OP_GREATER_THAN_EQUAL
 					;
-operatorString: 	OP_TWO_SAME_STRING 	| OP_STRING_CONCATENATION
+operator_string: 	OP_TWO_SAME_STRING 	| OP_STRING_CONCATENATION
 					;
 
-primitiveType: 		K_BOOLEAN | K_INT | K_FLOAT | K_STRING | K_ARRAY;
+primitive_type: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING | K_ARRAY;
 
-// 4.2 Array type
+// Array type
 // An array type declaration is in the form of: Array[<element_type>, <size>].
-arrayType: 			K_ARRAY
+array_type: 		K_ARRAY
 						LEFT_SQUARE_BRACKET
-							primitiveType COMMA LITERAL_INTEGER
+							primitive_type COMMA INTEGER_LITERAL
 						RIGHT_SQUARE_BRACKET
 					; 
 
-// TODO 4.3 Class type
+class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
+					;// New X()
 //==================== Type and Value end ====================
 
 //==================== Program struture start ====================
@@ -210,79 +211,108 @@ many_class: 		class_declaration+
 					| program_class_declaration
 					;
 //-----------------------------------------------------------------
-class_declaration:	K_CLASS identifer super_class_group?
+// BUG How about dolar identifer in class name
+class_declaration:	K_CLASS IDENTIFIER super_class_group?
 					LEFT_CURLY_BRACKET class_body? RIGHT_CURLY_BRACKET
 					;// Class declaration
 class_body:			class_body_unit*
 					;
 class_body_unit:	attribute_declaration | method_declaration | statement
 					;
-super_class_group: 	COLON identifer;
+// BUG Program class has super class???
+super_class_group: 	COLON IDENTIFIER;
 //-----------------------------------------------------------------
 program_class_declaration:
 					K_CLASS 'Program' LEFT_CURLY_BRACKET program_class_body RIGHT_CURLY_BRACKET
 					;// Special class which is the entry of the program
 program_class_body:	main_method_declaration class_body 
 					| class_body main_method_declaration
-;
+					;
 //-----------------------------------------------------------------
 main_method_declaration:
 					K_MAIN LEFT_PAREN RIGHT_PAREN
 					LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
 					;// main(){...}
 
-method_declaration:	identifer LEFT_PAREN RIGHT_PAREN
+method_declaration:	IDENTIFIER LEFT_PAREN parameter_list? RIGHT_PAREN
                     LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
+					| constructor
+					| destructor
 					;// getSomeThing(){...}
-
-attribute_declaration:	'attribute';
-statement: 				'statement';
-
-method_body:			'method body'
+constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN 
+					LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
 					;
-identifer:			IDENTIFER | DOLAR_IDENTIFIER
+destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN 
+					LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
 					;
+parameter_list: 	parameter | parameter parameter_list_tail
+					;
+parameter_list_tail:
+					(SEMI_COLON parameter parameter_list_tail)*
+					;//; a, b, c: Int
+parameter:    		identifier_list COLON primitive_type
+					;//a, b, c: String
+method_body:		'method body';
+//----------------------------------------------------------------
+// BUG how to know how many identifier in the identifier list
+// BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
+attribute_declaration: 	
+					(K_VAL | K_VAR) 
+					identifier_list COLON (array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
+					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
+identifier_list: 	IDENTIFIER | IDENTIFIER identifier_list_tail
+					| DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)*
+					;// My1stCons, My2ndCons
+identifier_list_tail: (COMMA IDENTIFIER)*;
+
+statement: 			'statement';
 //==================== Program struture end ====================
 
 
 //==================== Expression start ====================
+expression_list:	expression | expression expression_list_tail
+					;// 1+2, 1+2, 2*5
 
-// 2.2 Attribute declaration
-// attributeDeclaration: 	(K_VAL | K_VAR) identiferList COLON primitiveType OP_ASSIGN expressionList
-// 						; //Val My1stCons, My2ndCons: Int = 1 + 5, 2;
+expression_list_tail:	
+					(COMMA expression expression_list_tail)*
+					;// , 1+2, 1+2, 2*5
 
-// identiferList: 		IDENTIFER (COMMA IDENTIFER)*
-// 					| DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)*
-// 					; // My1stCons, My2ndCons
+return_statement:   K_RETURN expression
+					;
+expression:			'expr'
+					;
 
-// // 2.1 Class declaration
-// classDeclaration: 	K_CLASS	
-// 						IDENTIFER
-// 							(COLON IDENTIFER)?
-// 								LEFT_CURLY_BRACKET
-// 									blockStatement?
-// 								RIGHT_CURLY_BRACKET
-// 					;
-// // 2.3 Method declaration
-// methodDeclaration: 	identifer listOfParameter blockStatement
-// 					; // BUG review
-// constructor:		K_CONSTRUCTOR 
-// 						LEFT_PAREN 
-// 							listOfParameter 
-// 						RIGHT_PAREN 
-// 						blockStatement
-// 					; // BUG review
-// destructor:			K_DESTRUCTOR (LEFT_PAREN RIGHT_PAREN) blockStatement
-// 					;// BUG review
-// // TODO listOfParameter
-// listOfParameter:;
-// // TODO blockStatement
-// blockStatement:;
-// // TODO expressionList
-// expressionList:;
+operation: unary_operation | binary_operation;
+unary_operation: 
+;
+binary_operation: 	int_operation | float_operation
+;
 
-			
+// Arithmetic operations
+int_operation:		int_operation (OP_ADDTION | OP_SUBTRACTION) int_operand // Left
+					| int_operation (OP_MULTIPLICATION | OP_DIVISION | OP_MODULO) int_operand // Left
+					| int_operand
+					;
 
+float_operation:	float_operation (OP_ADDTION | OP_SUBTRACTION) float_operand // Left
+					| float_operation (OP_MULTIPLICATION | OP_DIVISION) float_operand // Left
+					| float_operand
+					;
+int_operand: 		INTEGER_LITERAL
+					| int_float_operand	
+					;
+float_operand: 		FLOAT_LITERAL
+					|int_float_operand
+					;
+
+int_float_operand: 	function_call
+					;// Common operand for both int and float operations
+function_call:;
+// Boolean operations
+boolean_operation:	OP_LOGICAL_NOT boolean_operand
+
+;
+boolean_operand:	BOOLEAN_LITERAL;
 
 //==================== 5. Expression end ====================
 
