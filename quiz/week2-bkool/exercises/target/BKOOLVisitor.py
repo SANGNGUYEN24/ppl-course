@@ -79,5 +79,45 @@ class BKOOLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by BKOOLParser#assignment_statement.
+    def visitAssignment_statement(self, ctx:BKOOLParser.Assignment_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#call.
+    def visitCall(self, ctx:BKOOLParser.CallContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#expression_list.
+    def visitExpression_list(self, ctx:BKOOLParser.Expression_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#expression_list_tail.
+    def visitExpression_list_tail(self, ctx:BKOOLParser.Expression_list_tailContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#return_statement.
+    def visitReturn_statement(self, ctx:BKOOLParser.Return_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#expression.
+    def visitExpression(self, ctx:BKOOLParser.ExpressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#operand.
+    def visitOperand(self, ctx:BKOOLParser.OperandContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by BKOOLParser#sub_expression.
+    def visitSub_expression(self, ctx:BKOOLParser.Sub_expressionContext):
+        return self.visitChildren(ctx)
+
+
 
 del BKOOLParser

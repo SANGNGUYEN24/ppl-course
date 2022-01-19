@@ -241,38 +241,38 @@ arrayType: 			K_ARRAY
 
 //==================== 5. Expression start ====================
 // 2.2 Attribute declaration
-attributeDeclaration: 	(K_VAL | K_VAR) identiferList COLON primitiveType OP_ASSIGN expressionList
-						; //Val My1stCons, My2ndCons: Int = 1 + 5, 2;
+// attributeDeclaration: 	(K_VAL | K_VAR) identiferList COLON primitiveType OP_ASSIGN expressionList
+// 						; //Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 
-identiferList: 		IDENTIFER (COMMA IDENTIFER)*
-					| DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)*
-					; // My1stCons, My2ndCons
+// identiferList: 		IDENTIFER (COMMA IDENTIFER)*
+// 					| DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)*
+// 					; // My1stCons, My2ndCons
 
-// 2.1 Class declaration
-classDeclaration: 	K_CLASS	
-						IDENTIFER
-							(COLON IDENTIFER)?
-								LEFT_CURLY_BRACKET
-									blockStatement?
-								RIGHT_CURLY_BRACKET
-					;
-// 2.3 Method declaration
-methodDeclaration: 	identifer listOfParameter blockStatement
-					; // BUG review
-constructor:		K_CONSTRUCTOR 
-						LEFT_PAREN 
-							listOfParameter 
-						RIGHT_PAREN 
-						blockStatement
-					; // BUG review
-destructor:			K_DESTRUCTOR (LEFT_PAREN RIGHT_PAREN) blockStatement
-					;// BUG review
-// TODO listOfParameter
-listOfParameter:;
-// TODO blockStatement
-blockStatement:;
-// TODO expressionList
-expressionList:;
+// // 2.1 Class declaration
+// classDeclaration: 	K_CLASS	
+// 						IDENTIFER
+// 							(COLON IDENTIFER)?
+// 								LEFT_CURLY_BRACKET
+// 									blockStatement?
+// 								RIGHT_CURLY_BRACKET
+// 					;
+// // 2.3 Method declaration
+// methodDeclaration: 	identifer listOfParameter blockStatement
+// 					; // BUG review
+// constructor:		K_CONSTRUCTOR 
+// 						LEFT_PAREN 
+// 							listOfParameter 
+// 						RIGHT_PAREN 
+// 						blockStatement
+// 					; // BUG review
+// destructor:			K_DESTRUCTOR (LEFT_PAREN RIGHT_PAREN) blockStatement
+// 					;// BUG review
+// // TODO listOfParameter
+// listOfParameter:;
+// // TODO blockStatement
+// blockStatement:;
+// // TODO expressionList
+// expressionList:;
 
 			
 

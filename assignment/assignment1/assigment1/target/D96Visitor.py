@@ -34,5 +34,35 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by D96Parser#operatorBoolean.
+    def visitOperatorBoolean(self, ctx:D96Parser.OperatorBooleanContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#operatorInteger.
+    def visitOperatorInteger(self, ctx:D96Parser.OperatorIntegerContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#operatorFloat.
+    def visitOperatorFloat(self, ctx:D96Parser.OperatorFloatContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#operatorString.
+    def visitOperatorString(self, ctx:D96Parser.OperatorStringContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#primitiveType.
+    def visitPrimitiveType(self, ctx:D96Parser.PrimitiveTypeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#arrayType.
+    def visitArrayType(self, ctx:D96Parser.ArrayTypeContext):
+        return self.visitChildren(ctx)
+
+
 
 del D96Parser
