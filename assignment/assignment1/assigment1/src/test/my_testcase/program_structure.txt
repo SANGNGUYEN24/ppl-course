@@ -1,0 +1,11 @@
+Class Program{
+    main(){
+        method body
+    }
+}
+Class A{
+    a(){
+       method body
+    }
+}
+Class B : A{}

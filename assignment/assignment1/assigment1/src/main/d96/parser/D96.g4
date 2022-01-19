@@ -23,65 +23,7 @@ language = Python3;
 //         return result;
 // }
 
-//-----
-// program: mptype 'main' LEFT_PAREN RIGHT_PAREN LEFT_CURLY_BRACKET body? RIGHT_CURLY_BRACKET EOF;
-
-// mptype: 		INTTYPE | VOIDTYPE;
-
-// body: 			funcall SEMICOLON;
-
-// exp: 			funcall;
-
-// funcall: 		LEFT_PAREN exp? RIGHT_PAREN;
-
-// INTTYPE: 		'int';
-
-// VOIDTYPE: 		'void';
-
-// -----
-/** A rule called init that matches comma-separated values between {...}. */
-// init : LEFT_CURLY_BRACKET value (COMMA value)* RIGHT_CURLY_BRACKET ;
-/** A value can be either a nested array/struct or a simple integer (INT) */
-// value : init | TEST;
-// parser rules start with lowercase letters, lexer rules with uppercase
-// TEST: DECIMAL_DIGIT+;
-
-//==================== Parser rules start ====================
-literal:			(OP_ADDTION | OP_SUBTRACTION)*
-					(LITERAL_INTEGER
-                    |LITERAL_FLOAT
-                    |LITERAL_BOOLEAN
-                    |LITERAL_STRING)+
-                    ;
-
-identifer:			IDENTIFER 
-					|DOLAR_IDENTIFIER
-					;
-
-// 5. Indexed array
-indexedArray:  		K_ARRAY
-						LEFT_PAREN(
-							(LITERAL_INTEGER (COMMA LITERAL_INTEGER)*)?
-							|(LITERAL_FLOAT (COMMA LITERAL_FLOAT)*)
-							|(LITERAL_BOOLEAN (COMMA LITERAL_BOOLEAN)*)
-							|(LITERAL_STRING (COMMA LITERAL_STRING)*)						
-						)
-						RIGHT_PAREN
-					;	// Array() Array(1) Array(1,2,3)
-
-multiDimentionalArray: 	K_ARRAY
-                            LEFT_PAREN(
-                            (indexedArray (COMMA indexedArray)*)?
-                            )
-                            RIGHT_PAREN
-					    ;
-
-allTest: literal | identifer | indexedArray | multiDimentionalArray;
-					
-//==================== Parser rules end ====================
-
-
-//==================== 3. Lexical rules start ====================
+//==================== Lexical rules start ====================
 // TODO: 3.1 Character set
 // 3.2 Program comment
 COMMENT: 			'##' .*? '##' -> skip; 	// ## This is a comment ##
@@ -110,6 +52,7 @@ K_CONSTRUCTOR:		'Constructor';
 K_DESTRUCTOR:		'Destructor';
 K_NEW:				'New';
 K_BY: 				'By';
+K_MAIN:				'main';
 
 // 3.5 Operators
 OP_ASSIGN: 					'=';
@@ -202,6 +145,24 @@ LITERAL_STRING: 	DOUBLE_QUOTE
 					(ESCAPE |~('"'| '\\'))*?
 					DOUBLE_QUOTE
 					;
+// 5. Indexed array
+indexedArray:  		K_ARRAY
+						LEFT_PAREN(
+							(LITERAL_INTEGER (COMMA LITERAL_INTEGER)*)?
+							|(LITERAL_FLOAT (COMMA LITERAL_FLOAT)*)
+							|(LITERAL_BOOLEAN (COMMA LITERAL_BOOLEAN)*)
+							|(LITERAL_STRING (COMMA LITERAL_STRING)*)						
+						)
+						RIGHT_PAREN
+					;	// Array() Array(1) Array(1,2,3)
+// 6. Multi-dimensional array
+multiDimentionalArray: 	K_ARRAY
+                            LEFT_PAREN(
+                            (indexedArray (COMMA indexedArray)*)?
+                            )
+                            RIGHT_PAREN
+					    ;
+
 
 // 3.3 Identifier, Dolar identifer
 IDENTIFER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
@@ -237,9 +198,55 @@ arrayType: 			K_ARRAY
 					; 
 
 // TODO 4.3 Class type
-//==================== 4. Type and Value end ====================
+//==================== Type and Value end ====================
 
-//==================== 5. Expression start ====================
+//==================== Program struture start ====================
+
+program:  			many_class EOF;
+					
+many_class: 		class_declaration+
+					| class_declaration* program_class_declaration 
+					| program_class_declaration class_declaration*
+					| program_class_declaration
+					;
+//-----------------------------------------------------------------
+class_declaration:	K_CLASS identifer super_class_group?
+					LEFT_CURLY_BRACKET class_body? RIGHT_CURLY_BRACKET
+					;// Class declaration
+class_body:			class_body_unit*
+					;
+class_body_unit:	attribute_declaration | method_declaration | statement
+					;
+super_class_group: 	COLON identifer;
+//-----------------------------------------------------------------
+program_class_declaration:
+					K_CLASS 'Program' LEFT_CURLY_BRACKET program_class_body RIGHT_CURLY_BRACKET
+					;// Special class which is the entry of the program
+program_class_body:	main_method_declaration class_body 
+					| class_body main_method_declaration
+;
+//-----------------------------------------------------------------
+main_method_declaration:
+					K_MAIN LEFT_PAREN RIGHT_PAREN
+					LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
+					;// main(){...}
+
+method_declaration:	identifer LEFT_PAREN RIGHT_PAREN
+                    LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
+					;// getSomeThing(){...}
+
+attribute_declaration:	'attribute';
+statement: 				'statement';
+
+method_body:			'method body'
+					;
+identifer:			IDENTIFER | DOLAR_IDENTIFIER
+					;
+//==================== Program struture end ====================
+
+
+//==================== Expression start ====================
+
 // 2.2 Attribute declaration
 // attributeDeclaration: 	(K_VAL | K_VAR) identiferList COLON primitiveType OP_ASSIGN expressionList
 // 						; //Val My1stCons, My2ndCons: Int = 1 + 5, 2;
@@ -278,9 +285,6 @@ arrayType: 			K_ARRAY
 
 
 //==================== 5. Expression end ====================
-
-
-
 
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
