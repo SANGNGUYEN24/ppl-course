@@ -299,34 +299,7 @@ expression:			'expr'
 
 //----------------------------------------------------------------
 // TODO Nghien cuu them phan expression va operator precedence
-operation: unary_operation | binary_operation;
-unary_operation: 
-;
-binary_operation: 	int_operation | int_float_operation
-;
 
-// Arithmetic operations
-int_operation:		int_operation (OP_ADDTION | OP_SUBTRACTION) int_operand // Left
-					| int_operation (OP_MULTIPLICATION | OP_DIVISION | OP_MODULO) int_operand // Left
-					| int_operand
-					;
-
-int_float_operation: int_float_operation (OP_ADDTION | OP_SUBTRACTION) (int_float_operand | int_operation) // Left
-					| int_float_operation (OP_MULTIPLICATION | OP_DIVISION) (int_float_operand | int_operation) // Left
-					| int_float_operand
-					; 
-int_operand: 		INTEGER_LITERAL
-					| function_call
-					;
-
-int_float_operand: 	INTEGER_LITERAL
-					| FLOAT_LITERAL
-					| function_call
-					;// Common operand for both int and float operations
-function_call:		'function call';
-// Boolean operations
-boolean_operation:	OP_LOGICAL_NOT boolean_operand;
-boolean_operand:	BOOLEAN_LITERAL;
 //-----------------------------------------------------------
 // Index operator
 // TODO xem lai expression có thể là 1+2 gì do ko vd: 1+2[1] hay là phải là identifier
@@ -354,6 +327,20 @@ instace_method_invocation:
 object_creation:	K_NEW IDENTIFIER 
 					LEFT_PAREN expression_list RIGHT_PAREN
 					;
+
+expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
+					| expr '[' expr ']' // array index like a[i], a[i][j]
+					| '-' expr // unary minus
+					| '!' expr // boolean not
+					| expr '*' expr
+					| expr ('+'|'-') expr
+					| expr '==' expr // equality comparison (lowest priority op)
+					| IDENTIFIER // variable reference
+					| INTEGER_LITERAL
+					| '(' expr ')'
+					;
+exprList: 			expr (',' expr)* 
+					; // arg list
 					
 //==================== Expression end ====================
 
@@ -382,7 +369,6 @@ else_if_part:		(K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement) els
 else_part:			(K_ELSE block_statement)?
 					;
 					
-
 // For in statement
 for_in_statement:	K_FOR_EACH
 					LEFT_PAREN loop_part RIGHT_PAREN
@@ -410,23 +396,13 @@ block_statement:	LEFT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
 statement: 			'statement';
 
-
-
-
-
-
-
-
-
-
-
-
-
 //==================== Statement end ====================
 
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
-
+// UNCLOSE_STRING:'';
+// ILLEGAL_ESCAPE:;
+ERROR_TOKEN : . {raise ErrorToken(self.text)};
 
 
 
