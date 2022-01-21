@@ -164,8 +164,8 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#return.
-    def visitReturn(self, ctx:D96Parser.ReturnContext):
+    # Visit a parse tree produced by D96Parser#return_statement.
+    def visitReturn_statement(self, ctx:D96Parser.Return_statementContext):
         return self.visitChildren(ctx)
 
 
@@ -194,18 +194,13 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#float_operation.
-    def visitFloat_operation(self, ctx:D96Parser.Float_operationContext):
+    # Visit a parse tree produced by D96Parser#int_float_operation.
+    def visitInt_float_operation(self, ctx:D96Parser.Int_float_operationContext):
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by D96Parser#int_operand.
     def visitInt_operand(self, ctx:D96Parser.Int_operandContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#float_operand.
-    def visitFloat_operand(self, ctx:D96Parser.Float_operandContext):
         return self.visitChildren(ctx)
 
 

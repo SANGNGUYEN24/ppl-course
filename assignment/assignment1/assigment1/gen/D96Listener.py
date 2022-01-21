@@ -287,12 +287,12 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#return.
-    def enterReturn(self, ctx:D96Parser.ReturnContext):
+    # Enter a parse tree produced by D96Parser#return_statement.
+    def enterReturn_statement(self, ctx:D96Parser.Return_statementContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#return.
-    def exitReturn(self, ctx:D96Parser.ReturnContext):
+    # Exit a parse tree produced by D96Parser#return_statement.
+    def exitReturn_statement(self, ctx:D96Parser.Return_statementContext):
         pass
 
 
@@ -341,12 +341,12 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#float_operation.
-    def enterFloat_operation(self, ctx:D96Parser.Float_operationContext):
+    # Enter a parse tree produced by D96Parser#int_float_operation.
+    def enterInt_float_operation(self, ctx:D96Parser.Int_float_operationContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#float_operation.
-    def exitFloat_operation(self, ctx:D96Parser.Float_operationContext):
+    # Exit a parse tree produced by D96Parser#int_float_operation.
+    def exitInt_float_operation(self, ctx:D96Parser.Int_float_operationContext):
         pass
 
 
@@ -356,15 +356,6 @@ class D96Listener(ParseTreeListener):
 
     # Exit a parse tree produced by D96Parser#int_operand.
     def exitInt_operand(self, ctx:D96Parser.Int_operandContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#float_operand.
-    def enterFloat_operand(self, ctx:D96Parser.Float_operandContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#float_operand.
-    def exitFloat_operand(self, ctx:D96Parser.Float_operandContext):
         pass
 
 

@@ -53,6 +53,7 @@ K_DESTRUCTOR:		'Destructor';
 K_NEW:				'New';
 K_BY: 				'By';
 K_MAIN:				'main';
+K_SELF:				'self';
 
 // 3.5 Operators
 OP_ASSIGN: 					'=';
@@ -88,8 +89,10 @@ RIGHT_PAREN:			')';
 LEFT_SQUARE_BRACKET:	'[';
 RIGHT_SQUARE_BRACKET:	']';
 DOT:					'.';
+DOUBLE_DOT:				'..';
 COMMA:					',';
 COLON : 				':' ;
+DOUBLE_COLON:			'::';
 SEMI_COLON:				';';
 LEFT_CURLY_BRACKET:		'{';
 RIGHT_CURLY_BRACKET:	'}';
@@ -117,19 +120,26 @@ fragment DECIMAL_DIGIT:		[0-9];
 fragment EXPONENT: 			[eE][-+]? DECIMAL+;
 
 // 1. Integer
-fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]'_'?(DECIMAL_DIGIT+'_')*DECIMAL_DIGIT+
+fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]'_'?(DECIMAL_DIGIT+'_'?)*DECIMAL_DIGIT
 					;
-
-fragment OCTAL:		OCTAL_NOTATION (OCTAL_DIGIT+'_')*OCTAL_DIGIT+
+fragment OCTAL:		OCTAL_NOTATION ( 
+					'0' | ([1-7](OCTAL_DIGIT+'_'?)*OCTAL_DIGIT)
+					)
 					;// '0'([0-7]+'_')*[0-7]+
 
-fragment HEXA: 		HEXA_NOTATION (HEXA_DIGIT+'_')*HEXA_DIGIT+
+fragment HEXA: 		HEXA_NOTATION(
+					'0'
+					| ([1-9a-fA-F](HEXA_DIGIT+'_'?)*HEXA_DIGIT)
+					)
 					;
 
-fragment BINARY: 	BINARY_NOTATION (BINARY_DIGIT+'_')*BINARY_DIGIT+
+fragment BINARY: 	BINARY_NOTATION(
+					'0'
+					| ('1'(BINARY_DIGIT+'_'?)*BINARY_DIGIT)
+					)
 					;
 
-INTEGER_LITERAL:	(DECIMAL | OCTAL | HEXA | BINARY)
+INTEGER_LITERAL:	DECIMAL | OCTAL | HEXA | BINARY
                     {self.text = self.text.replace("_", "")}
 					;
 // 2. Float
@@ -145,6 +155,7 @@ STRING_LITERAL: 	DOUBLE_QUOTE
 					(ESCAPE |~('"'| '\\'))*?
 					DOUBLE_QUOTE
 					;
+literal:            (INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL)+;
 // 5. Indexed array
 indexed_array:  		K_ARRAY
 						LEFT_PAREN(
@@ -213,7 +224,7 @@ many_class: 		class_declaration+
 //-----------------------------------------------------------------
 // BUG How about dolar identifer in class name
 class_declaration:	K_CLASS IDENTIFIER super_class_group?
-					LEFT_CURLY_BRACKET class_body? RIGHT_CURLY_BRACKET
+					LEFT_CURLY_BRACKET class_body RIGHT_CURLY_BRACKET
 					;// Class declaration
 class_body:			class_body_unit*
 					;
@@ -254,18 +265,24 @@ parameter:    		identifier_list COLON primitive_type
 					;//a, b, c: String
 method_body:		'method body';
 //----------------------------------------------------------------
-// BUG how to know how many identifier in the identifier list
+// BUG Xem lai co khai bao duoc 1 list dolar identifier ko?
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
 attribute_declaration: 	
 					(K_VAL | K_VAR) 
-					identifier_list COLON (array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
+					(identifier_list ) 
+					COLON 
+					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 identifier_list: 	IDENTIFIER | IDENTIFIER identifier_list_tail
-					| DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)*
 					;// My1stCons, My2ndCons
-identifier_list_tail: (COMMA IDENTIFIER)*;
-
-statement: 			'statement';
+dolar_identifier_list: 	
+					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER dolar_identifier_list_tail
+					;// $My1stCons, $My2ndCons
+identifier_list_tail: (COMMA IDENTIFIER)*
+					;
+dolar_identifier_list_tail: 
+					(COMMA DOLAR_IDENTIFIER)*
+					;
 //==================== Program struture end ====================
 
 
@@ -276,16 +293,15 @@ expression_list:	expression | expression expression_list_tail
 expression_list_tail:	
 					(COMMA expression expression_list_tail)*
 					;// , 1+2, 1+2, 2*5
-
-return_statement:   K_RETURN expression
-					;
 expression:			'expr'
 					;
 
+//----------------------------------------------------------------
+// TODO Nghien cuu them phan expression va operator precedence
 operation: unary_operation | binary_operation;
 unary_operation: 
 ;
-binary_operation: 	int_operation | float_operation
+binary_operation: 	int_operation | int_float_operation
 ;
 
 // Arithmetic operations
@@ -294,27 +310,111 @@ int_operation:		int_operation (OP_ADDTION | OP_SUBTRACTION) int_operand // Left
 					| int_operand
 					;
 
-float_operation:	float_operation (OP_ADDTION | OP_SUBTRACTION) float_operand // Left
-					| float_operation (OP_MULTIPLICATION | OP_DIVISION) float_operand // Left
-					| float_operand
-					;
+int_float_operation: int_float_operation (OP_ADDTION | OP_SUBTRACTION) (int_float_operand | int_operation) // Left
+					| int_float_operation (OP_MULTIPLICATION | OP_DIVISION) (int_float_operand | int_operation) // Left
+					| int_float_operand
+					; 
 int_operand: 		INTEGER_LITERAL
-					| int_float_operand	
-					;
-float_operand: 		FLOAT_LITERAL
-					|int_float_operand
+					| function_call
 					;
 
-int_float_operand: 	function_call
+int_float_operand: 	INTEGER_LITERAL
+					| FLOAT_LITERAL
+					| function_call
 					;// Common operand for both int and float operations
-function_call:;
+function_call:		'function call';
 // Boolean operations
-boolean_operation:	OP_LOGICAL_NOT boolean_operand
-
-;
+boolean_operation:	OP_LOGICAL_NOT boolean_operand;
 boolean_operand:	BOOLEAN_LITERAL;
+//-----------------------------------------------------------
+// Index operator
+element_expression:	expression index_operator
+					;
+index_operator:		LEFT_SQUARE_BRACKET expression RIGHT_CURLY_BRACKET index_operator*
+					;
+// Member access
+instance_attribute_access:
+					IDENTIFIER DOT IDENTIFIER
+					;// getClassObject.object
+					// TODO review lai dieu kien
+					// <expression> is an expression that returns an object of a class and 
+					// <identifier> is an attribute of the class.	
+static_attribute_access:
+					IDENTIFIER DOUBLE_COLON IDENTIFIER
+					;// the first <identifier> is a class name, and 
+					// the second <identifier> is a static attribute of the class.
+instace_method_invocation:
+					IDENTIFIER DOUBLE_COLON IDENTIFIER 
+					LEFT_PAREN expression_list RIGHT_PAREN 
+					;// the first <identifier> is a class name and 
+					// <identifier> is a static method name of the class. 
+// Object creation
+object_creation:	K_NEW IDENTIFIER 
+					LEFT_PAREN expression_list RIGHT_PAREN
+					;
+					
+//==================== Expression end ====================
 
-//==================== 5. Expression end ====================
+//==================== Statement start ====================
+// Variable and Constant Declaration Statement
+val_statement: 		K_VAR identifier_list SEMI_COLON
+					;
+var_statement: 		K_VAL identifier_list SEMI_COLON
+					;
+// Assign statement
+// If statement
+if_statement:		if_part
+					else_if_part
+					else_part
+					;
+if_part:			K_IF LEFT_PAREN expression RIGHT_PAREN block_statement		
+					;
+else_if_part:		(K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement) else_if_part*
+					;
+else_part:			(K_ELSE block_statement)?
+					;
+					
+
+// For in statement
+for_in_statement:	K_FOR_EACH
+					LEFT_PAREN loop_part RIGHT_PAREN
+					block_statement
+					;
+loop_part:			IDENTIFIER K_IN INTEGER_LITERAL DOUBLE_DOT INTEGER_LITERAL
+					(K_BY INTEGER_LITERAL)?
+					;// i In 1 .. 100 [By 2]?
+// Break statement
+break_statement:	K_BREAK SEMI_COLON
+					;// Break;
+// Continue statement
+continue_statement:	K_CONTINUE SEMI_COLON
+					;// Continue;
+// Return statements 
+return_statement:   K_RETURN expression SEMI_COLON
+					;
+// Method invocation statement
+method_invocation_statement: 
+					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN RIGHT_PAREN SEMI_COLON
+					;// Shape::$getNumOfShape();
+block_statement:	LEFT_CURLY_BRACKET
+
+					RIGHT_CURLY_BRACKET
+					;//The <block statement> includes zero or many statements
+statement: 			'statement';
+
+
+
+
+
+
+
+
+
+
+
+
+
+//==================== Statement end ====================
 
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines

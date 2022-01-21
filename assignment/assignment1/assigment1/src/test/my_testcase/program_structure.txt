@@ -1,3 +1,4 @@
+// Class testcases
 Class A{
     Constructor(a, b, c, d, e: String; c, d, e: Int){
         method body
@@ -16,6 +17,35 @@ Class A{
 
     Destructor(){method body}
 }
+
 Class B : A{
 
 }
+
+// If statement
+If (expr) block statement
+Elseif (expr) block statement
+Elseif (expr) block statement
+Elseif (expr) block statement
+Else block statement
+
+// For each statement
+Foreach (i In 1 .. 100 By 2) {
+    block statement
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
