@@ -22,6 +22,10 @@ Class B : A{
 
 }
 
+// Variable and constant statement
+Val $abc, $a;
+Var a, b, c;
+Var a, b, c;
 // If statement
 If (expr) block statement
 Elseif (expr) block statement
@@ -31,8 +35,10 @@ Else block statement
 
 // For each statement
 Foreach (i In 1 .. 100 By 2) {
-    block statement
+    statement
 }
+// Assign statement
+a[i] = expr;
 
 
 

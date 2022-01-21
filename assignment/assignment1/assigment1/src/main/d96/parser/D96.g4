@@ -178,7 +178,8 @@ multi_dimentional_array: 	K_ARRAY
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
 DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
-
+identifier: 		IDENTIFIER | DOLAR_IDENTIFIER
+					;
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================
@@ -269,7 +270,7 @@ method_body:		'method body';
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
 attribute_declaration: 	
 					(K_VAL | K_VAR) 
-					(identifier_list ) 
+					(identifier_list | dolar_identifier_list) 
 					COLON 
 					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
@@ -328,10 +329,11 @@ boolean_operation:	OP_LOGICAL_NOT boolean_operand;
 boolean_operand:	BOOLEAN_LITERAL;
 //-----------------------------------------------------------
 // Index operator
+// TODO xem lai expression có thể là 1+2 gì do ko vd: 1+2[1] hay là phải là identifier
 element_expression:	expression index_operator
 					;
-index_operator:		LEFT_SQUARE_BRACKET expression RIGHT_CURLY_BRACKET index_operator*
-					;
+index_operator:		LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET index_operator*
+					;// a[1] or b[1][2] or A[1+2]
 // Member access
 instance_attribute_access:
 					IDENTIFIER DOT IDENTIFIER
@@ -357,11 +359,17 @@ object_creation:	K_NEW IDENTIFIER
 
 //==================== Statement start ====================
 // Variable and Constant Declaration Statement
-val_statement: 		K_VAR identifier_list SEMI_COLON
-					;
-var_statement: 		K_VAL identifier_list SEMI_COLON
-					;
+// TODO check xem co dung dolar identifier ko?
+var_val_statement:	(K_VAL | K_VAR) 
+					identifier_list 
+					COLON 
+					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
+					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
+					// However, the static property of attribute cannot be applied to them 
+					// so its name should not follow the dollar identifier rule.
 // Assign statement
+assign_statement: 	(identifier | element_expression) OP_ASSIGN expression
+					;
 // If statement
 if_statement:		if_part
 					else_if_part
@@ -397,7 +405,7 @@ method_invocation_statement:
 					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN RIGHT_PAREN SEMI_COLON
 					;// Shape::$getNumOfShape();
 block_statement:	LEFT_CURLY_BRACKET
-
+					statement?
 					RIGHT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
 statement: 			'statement';
