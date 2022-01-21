@@ -185,20 +185,6 @@ identifier: 		IDENTIFIER | DOLAR_IDENTIFIER
 //==================== 4. Type and Value start ====================
 
 // Primitive type
-operator_boolean:	OP_LOGICAL_NOT 		| OP_LOGICAL_AND 	| OP_LOGICAL_OR 
-					| OP_IS_EQUAL_TO 	| OP_NOT_EQUAL_TO
-					;
-operator_integer: 	OP_IS_EQUAL_TO 		| OP_NOT_EQUAL_TO 	| OP_MODULO 		| OP_ADDTION
-					| OP_SUBTRACTION 	| OP_MULTIPLICATION | OP_DIVISION 		| OP_LESS_THAN
-					| OP_LESS_THAN_EQUAL| OP_GREATER_THAN 	| OP_GREATER_THAN_EQUAL	 
-					;
-operator_float: 		OP_ADDTION 			| OP_SUBTRACTION 	| OP_MULTIPLICATION | OP_DIVISION 
-					| OP_LESS_THAN 		| OP_LESS_THAN_EQUAL| OP_GREATER_THAN 	
-					| OP_GREATER_THAN_EQUAL
-					;
-operator_string: 	OP_TWO_SAME_STRING 	| OP_STRING_CONCATENATION
-					;
-
 primitive_type: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING | K_ARRAY;
 
 // Array type
@@ -327,7 +313,7 @@ instace_method_invocation:
 object_creation:	K_NEW IDENTIFIER 
 					LEFT_PAREN expression_list RIGHT_PAREN
 					;
-
+//-----------------------------------------------------------------
 expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
 					| expr '[' expr ']' // array index like a[i], a[i][j]
 					| '-' expr // unary minus
@@ -341,7 +327,57 @@ expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
 					;
 exprList: 			expr (',' expr)* 
 					; // arg list
-					
+
+expression_test:    int_float_expr
+					| int_expr
+					;
+int_float_expr:
+					IDENTIFIER LEFT_PAREN int_float_expr_list? RIGHT_PAREN
+					| OP_SUBTRACTION int_float_expr
+					| int_expr OP_MODULO int_operand
+					| int_float_expr (OP_MULTIPLICATION | OP_DIVISION) int_float_expr
+					| int_float_expr (OP_ADDTION | OP_SUBTRACTION) int_float_expr
+					| IDENTIFIER
+					| INTEGER_LITERAL
+					| FLOAT_LITERAL
+					| LEFT_PAREN int_float_expr RIGHT_PAREN
+					;// +-*/ for both int and float
+int_float_expr_list:
+					int_float_expr (COMMA int_float_expr)*
+					;
+int_operand:		| IDENTIFIER
+					| INTEGER_LITERAL
+					| LEFT_PAREN int_expr RIGHT_PAREN
+					;
+
+int_expr:			IDENTIFIER LEFT_PAREN int_expr_list? RIGHT_PAREN
+					| OP_SUBTRACTION int_expr
+					// | int_expr (OP_MULTIPLICATION | OP_DIVISION | OP_MODULO) int_expr
+					// | int_expr (OP_ADDTION | OP_SUBTRACTION) int_expr
+					| IDENTIFIER
+					| INTEGER_LITERAL
+					| LEFT_PAREN int_expr RIGHT_PAREN
+					;// Addtional modulo % for only integer
+int_expr_list:
+					int_expr (COMMA int_expr)*
+					;
+
+//-----------------------------------------------------------------------
+// expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
+// 					| expr '[' expr ']' // array index like a[i], a[i][j]
+// 					| '-' expr // unary minus
+// 					| '!' expr // boolean not
+// 					| expr '*' expr
+// 					| expr ('+'|'-') expr
+// 					| expr '==' expr // equality comparison (lowest priority op)
+// 					| IDENTIFIER // variable reference
+// 					| INTEGER_LITERAL
+// 					| '(' expr ')'
+// 					;
+// exprList: 			expr (',' expr)* 
+// 					; // arg list
+
+
 //==================== Expression end ====================
 
 //==================== Statement start ====================
