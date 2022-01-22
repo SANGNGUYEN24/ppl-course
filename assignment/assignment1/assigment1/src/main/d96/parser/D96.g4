@@ -323,46 +323,7 @@ exprList: 			expr (',' expr)*
 					; // arg list
 
 
-expression:			<assoc=right> OP_LOGICAL_NOT expression
-					| expression OP_IS_EQUAL_TO expression
-					| mul_add_expr
-					| modulo_expr
-					;
-
-mul_add_expr:		IDENTIFIER LEFT_PAREN mul_add_expr_list? RIGHT_PAREN
-					| OP_SUBTRACTION mul_add_expr
-					| mul_add_expr (OP_MULTIPLICATION | OP_DIVISION) mul_add_expr
-					| modulo_expr_list
-					| mul_add_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_expr
-					| IDENTIFIER
-					| INTEGER_LITERAL
-					| FLOAT_LITERAL
-					| LEFT_PAREN mul_add_expr RIGHT_PAREN
-					;// +-*/ for both int and float
-mul_add_expr_list:
-					mul_add_expr (COMMA mul_add_expr)*
-					;
-// % for only Integer
-modulo_expr:		modulo_expr OP_MODULO modulo_expr
-					| INTEGER_LITERAL
-					| LEFT_PAREN modulo_expr RIGHT_PAREN
-					;// TODO dieu kien dong mo ngoac trong modulo vd 2%3%(6%7)
-modulo_expr_list: 	modulo_expr (OP_MODULO modulo_expr)*
-					;
-//-----------------------------------------------------------------------
-// expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
-// 					| expr '[' expr ']' // array index like a[i], a[i][j]
-// 					| '-' expr // unary minus
-// 					| '!' expr // boolean not
-// 					| expr '*' expr
-// 					| expr ('+'|'-') expr
-// 					| expr '==' expr // equality comparison (lowest priority op)
-// 					| IDENTIFIER // variable reference
-// 					| INTEGER_LITERAL
-// 					| '(' expr ')'
-// 					;
-// exprList: 			expr (',' expr)* 
-// 					; // arg list
+expression:			;
 
 
 //==================== Expression end ====================

@@ -1,11 +1,8 @@
 // Class testcases
 Class A{
     Constructor(a, b, c, d, e: String; c, d, e: Int){
-        method body
+        If(2+4 == 1){}
     }
-
-    
-
     ## This is a comment ##
     Var array: Array[Float, 10];
     Var array2: Array[Array, 3];
@@ -13,16 +10,12 @@ Class A{
     Var $abcd: String = expr;
     Var abcd, abc: Float;
 
-    a(hi, hello, nikhao: Int){
-       method body
-    }
+    a(hi, hello, nikhao: Int){}
 
-    Destructor(){method body}
+    Destructor(){}
 }
 
-Class B : A{
-
-}
+Class B : A{}
 
 // Variable and constant statement
 Val $abc, $a;
