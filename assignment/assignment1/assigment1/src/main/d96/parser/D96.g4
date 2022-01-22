@@ -23,6 +23,228 @@ language = Python3;
 //         return result;
 // }
 
+
+//==================== Program struture start ====================
+
+program:  			many_class EOF;
+					
+many_class: 		class_declaration+
+					| class_declaration* program_class_declaration 
+					| program_class_declaration class_declaration*
+					| program_class_declaration
+					;
+//-----------------------------------------------------------------
+// BUG How about dolar identifer in class name
+class_declaration:	K_CLASS IDENTIFIER super_class_group?
+					LEFT_CURLY_BRACKET class_body RIGHT_CURLY_BRACKET
+					;// Class declaration
+class_body:			class_body_unit*
+					;
+class_body_unit:	attribute_declaration | method_declaration | statement
+					;
+// BUG Program class has super class???
+super_class_group: 	COLON IDENTIFIER;
+//-----------------------------------------------------------------
+program_class_declaration:
+					K_CLASS 'Program' LEFT_CURLY_BRACKET program_class_body RIGHT_CURLY_BRACKET
+					;// Special class which is the entry of the program
+program_class_body:	main_method_declaration class_body 
+					| class_body main_method_declaration
+					;
+//-----------------------------------------------------------------
+main_method_declaration:
+					K_MAIN LEFT_PAREN RIGHT_PAREN block_statement
+					;// main(){...}
+
+method_declaration:	IDENTIFIER LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
+					| constructor
+					| destructor
+					;// getSomeThing(){...}
+constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statement
+					;
+destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
+					;
+parameter_list: 	parameter | parameter parameter_list_tail
+					;
+parameter_list_tail:
+					(SEMI_COLON parameter parameter_list_tail)*
+					;//; a, b, c: Int
+parameter:    		identifier_list COLON primitive_type
+					;//a, b, c: String
+//----------------------------------------------------------------
+// BUG Xem lai co khai bao duoc 1 list dolar identifier ko?
+// BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
+attribute_declaration: 	
+					(K_VAL | K_VAR) 
+					(identifier_list | dolar_identifier_list) 
+					COLON 
+					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
+					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
+identifier_list: 	IDENTIFIER | IDENTIFIER identifier_list_tail
+					;// My1stCons, My2ndCons
+dolar_identifier_list: 	
+					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER dolar_identifier_list_tail
+					;// $My1stCons, $My2ndCons
+identifier_list_tail: (COMMA IDENTIFIER)*
+					;
+dolar_identifier_list_tail: 
+					(COMMA DOLAR_IDENTIFIER)*
+					;
+//==================== Program struture end ====================
+
+
+//==================== Expression start ====================
+expression_list:	expression | expression expression_list_tail
+					;// 1+2, 1+2, 2*5
+
+expression_list_tail:	
+					(COMMA expression expression_list_tail)*
+					;// , 1+2, 1+2, 2*5
+//----------------------------------------------------------------
+// Index operator
+element_expression:	expression index_operator
+					;
+index_operator:		LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET index_operator*
+					;// a[1] or b[1][2] or A[1+2]
+//-----------------------------------------------------------------
+// All expression
+relational_operator:
+					OP_IS_EQUAL_TO
+					| OP_NOT_EQUAL_TO
+					| OP_LESS_THAN
+					| OP_LESS_THAN_EQUAL
+					| OP_GREATER_THAN
+					| OP_GREATER_THAN_EQUAL
+					;
+
+expression:			expression (OP_STRING_CONCATENATION | OP_TWO_SAME_STRING) relational_expr
+					| relational_expr
+					;
+
+relational_expr:	relational_expr relational_operator and_or_expr | and_or_expr
+					;
+and_or_expr:		and_or_expr (OP_LOGICAL_AND | OP_LOGICAL_OR) add_sub_expr
+					| add_sub_expr
+					;
+add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
+					| mul_add_mol_expr
+					;
+mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr 
+					| not_expr
+					;
+not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
+					;
+sign_expr:			(OP_SUBTRACTION) sign_expr | index_operator_expr 
+					;
+
+index_operator_expr:
+					index_operator_expr index_operator | instance_attribute_access
+					;
+// Member access
+instance_attribute_access:
+					instance_attribute_access DOT IDENTIFIER | instace_method_invocation
+					;// getClassObject.object
+					// TODO review lai dieu kien co DOLAR_IDENTIFIER ko?
+					// <expression> is an expression that returns an object of a class and 
+					// <identifier> is an attribute of the class.	
+instace_method_invocation:
+					instace_method_invocation DOUBLE_COLON IDENTIFIER 
+					LEFT_PAREN expression_list? RIGHT_PAREN 
+					| atom_expr
+					;// the first <identifier> is a class name and 
+					// <identifier> is a static method name of the class. 
+static_method_invocation:
+					IDENTIFIER DOUBLE_COLON 
+					LEFT_PAREN expression_list? RIGHT_PAREN
+					;
+static_attribute_access:
+					IDENTIFIER DOUBLE_COLON IDENTIFIER
+					;// the first <identifier> is a class name, and 
+					// the second <identifier> is a static attribute of the class.
+// Object creation
+object_creation:	K_NEW IDENTIFIER 
+					LEFT_PAREN expression_list? RIGHT_PAREN
+					;
+
+atom_expr:			literal	
+					| IDENTIFIER
+					| LEFT_PAREN expression RIGHT_PAREN
+					| function_call
+					| static_method_invocation
+					| static_attribute_access
+					;
+function_call:		IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN
+					;
+//------------------------------------------------------------------------
+//==================== Expression end ====================
+
+//==================== Statement start ====================
+// Variable and Constant Declaration Statement
+// TODO check xem co dung dolar identifier ko?
+var_val_statement:	(K_VAL | K_VAR) 
+					identifier_list 
+					COLON 
+					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
+					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
+					// However, the static property of attribute cannot be applied to them 
+					// so its name should not follow the dollar identifier rule.
+// Assign statement
+assign_statement: 	(identifier | element_expression) OP_ASSIGN expression
+					;
+// If statement
+// ---------------------------------------------------------------------------
+if_statement:		if_part
+					else_if_part
+					else_part
+					;
+if_part:			K_IF LEFT_PAREN expression RIGHT_PAREN block_statement		
+					;
+else_if_part:		(K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement) else_if_part*
+					;
+else_part:			(K_ELSE block_statement)?
+					;
+//-----------------------------------------------------------------------------		
+// For in statement
+//-----------------------------------------------------------------------------
+for_in_statement:	K_FOR_EACH
+					LEFT_PAREN loop_part RIGHT_PAREN
+					block_statement
+					;
+loop_part:			IDENTIFIER K_IN INTEGER_LITERAL DOUBLE_DOT INTEGER_LITERAL
+					(K_BY INTEGER_LITERAL)?
+					;// i In 1 .. 100 [By 2]?
+//-----------------------------------------------------------------------------
+// Break statement
+break_statement:	K_BREAK SEMI_COLON
+					;// Break;
+// Continue statement
+continue_statement:	K_CONTINUE SEMI_COLON
+					;// Continue;
+// Return statements 
+return_statement:   K_RETURN expression SEMI_COLON
+					;
+// Method invocation statement
+method_invocation_statement: 
+					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN RIGHT_PAREN SEMI_COLON
+					;// Shape::$getNumOfShape();
+block_statement:	LEFT_CURLY_BRACKET
+					statement?
+					RIGHT_CURLY_BRACKET
+					;//The <block statement> includes zero or many statements
+
+statement: 			var_val_statement
+					| assign_statement
+					| if_statement
+					| for_in_statement
+					| break_statement
+					| continue_statement
+					| return_statement
+					| method_invocation_statement
+					| block_statement
+					;
+
+//==================== Statement end ====================
+
 //==================== Lexical rules start ====================
 // TODO: 3.1 Character set
 // 3.2 Program comment
@@ -198,237 +420,6 @@ array_type: 		K_ARRAY
 class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 					;// New X()
 //==================== Type and Value end ====================
-
-//==================== Program struture start ====================
-
-program:  			many_class EOF;
-					
-many_class: 		class_declaration+
-					| class_declaration* program_class_declaration 
-					| program_class_declaration class_declaration*
-					| program_class_declaration
-					;
-//-----------------------------------------------------------------
-// BUG How about dolar identifer in class name
-class_declaration:	K_CLASS IDENTIFIER super_class_group?
-					LEFT_CURLY_BRACKET class_body RIGHT_CURLY_BRACKET
-					;// Class declaration
-class_body:			class_body_unit*
-					;
-class_body_unit:	attribute_declaration | method_declaration | statement
-					;
-// BUG Program class has super class???
-super_class_group: 	COLON IDENTIFIER;
-//-----------------------------------------------------------------
-program_class_declaration:
-					K_CLASS 'Program' LEFT_CURLY_BRACKET program_class_body RIGHT_CURLY_BRACKET
-					;// Special class which is the entry of the program
-program_class_body:	main_method_declaration class_body 
-					| class_body main_method_declaration
-					;
-//-----------------------------------------------------------------
-main_method_declaration:
-					K_MAIN LEFT_PAREN RIGHT_PAREN block_statement
-					;// main(){...}
-
-method_declaration:	IDENTIFIER LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
-					| constructor
-					| destructor
-					;// getSomeThing(){...}
-constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statement
-					;
-destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
-					;
-parameter_list: 	parameter | parameter parameter_list_tail
-					;
-parameter_list_tail:
-					(SEMI_COLON parameter parameter_list_tail)*
-					;//; a, b, c: Int
-parameter:    		identifier_list COLON primitive_type
-					;//a, b, c: String
-//----------------------------------------------------------------
-// BUG Xem lai co khai bao duoc 1 list dolar identifier ko?
-// BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
-attribute_declaration: 	
-					(K_VAL | K_VAR) 
-					(identifier_list | dolar_identifier_list) 
-					COLON 
-					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
-					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
-identifier_list: 	IDENTIFIER | IDENTIFIER identifier_list_tail
-					;// My1stCons, My2ndCons
-dolar_identifier_list: 	
-					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER dolar_identifier_list_tail
-					;// $My1stCons, $My2ndCons
-identifier_list_tail: (COMMA IDENTIFIER)*
-					;
-dolar_identifier_list_tail: 
-					(COMMA DOLAR_IDENTIFIER)*
-					;
-//==================== Program struture end ====================
-
-
-//==================== Expression start ====================
-expression_list:	expression | expression expression_list_tail
-					;// 1+2, 1+2, 2*5
-
-expression_list_tail:	
-					(COMMA expression expression_list_tail)*
-					;// , 1+2, 1+2, 2*5
-// expressions:			'expr'
-// 					;
-//----------------------------------------------------------------
-// TODO Nghien cuu them phan expression va operator precedence
-
-//-----------------------------------------------------------
-// Index operator
-// TODO xem lai expression có thể là 1+2 gì do ko vd: 1+2[1] hay là phải là identifier
-element_expression:	expression index_operator
-					;
-index_operator:		LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET index_operator*
-					;// a[1] or b[1][2] or A[1+2]
-// Member access
-instance_attribute_access:
-					IDENTIFIER DOT IDENTIFIER
-					;// getClassObject.object
-					// TODO review lai dieu kien
-					// <expression> is an expression that returns an object of a class and 
-					// <identifier> is an attribute of the class.	
-static_attribute_access:
-					IDENTIFIER DOUBLE_COLON IDENTIFIER
-					;// the first <identifier> is a class name, and 
-					// the second <identifier> is a static attribute of the class.
-instace_method_invocation:
-					IDENTIFIER DOUBLE_COLON IDENTIFIER 
-					LEFT_PAREN expression_list RIGHT_PAREN 
-					;// the first <identifier> is a class name and 
-					// <identifier> is a static method name of the class. 
-// Object creation
-object_creation:	K_NEW IDENTIFIER 
-					LEFT_PAREN expression_list RIGHT_PAREN
-					;
-//-----------------------------------------------------------------
-expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
-					| expr '[' expr ']' // array index like a[i], a[i][j]
-					| '-' expr // unary minus
-					| '!' expr // boolean not
-					| expr '*' expr
-					| expr ('+'|'-') expr
-					| expr '==' expr // equality comparison (lowest priority op)
-					| IDENTIFIER // variable reference
-					| INTEGER_LITERAL
-					| '(' expr ')'
-					;
-exprList: 			expr (',' expr)* 
-					; // arg list
-
-relational_operator:
-					OP_IS_EQUAL_TO
-					| OP_NOT_EQUAL_TO
-					| OP_LESS_THAN
-					| OP_LESS_THAN_EQUAL
-					| OP_GREATER_THAN
-					| OP_GREATER_THAN_EQUAL
-					;
-
-expression:			expression relational_operator expression | and_or_expr
-					;
-and_or_expr:		and_or_expr (OP_LOGICAL_AND | OP_LOGICAL_OR) add_sub_expr
-					| add_sub_expr
-					;
-add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
-					| mul_add_mol_expr
-					;
-mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr 
-					| not_expr
-					;
-not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
-					;
-sign_expr:			(OP_SUBTRACTION) sign_expr | index_operator_expr 
-					;
-
-index_operator_expr:
-					index_operator_expr index_operator | atom_expr
-					;
-
-atom_expr:			literal	
-					| IDENTIFIER
-					| LEFT_PAREN expression RIGHT_PAREN
-					| function_call
-					;
-function_call:		IDENTIFIER LEFT_PAREN expression_list RIGHT_PAREN
-					;
-
-
-
-//==================== Expression end ====================
-
-//==================== Statement start ====================
-// Variable and Constant Declaration Statement
-// TODO check xem co dung dolar identifier ko?
-var_val_statement:	(K_VAL | K_VAR) 
-					identifier_list 
-					COLON 
-					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
-					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
-					// However, the static property of attribute cannot be applied to them 
-					// so its name should not follow the dollar identifier rule.
-// Assign statement
-assign_statement: 	(identifier | element_expression) OP_ASSIGN expression
-					;
-// If statement
-// ---------------------------------------------------------------------------
-if_statement:		if_part
-					else_if_part
-					else_part
-					;
-if_part:			K_IF LEFT_PAREN expression RIGHT_PAREN block_statement		
-					;
-else_if_part:		(K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement) else_if_part*
-					;
-else_part:			(K_ELSE block_statement)?
-					;
-//-----------------------------------------------------------------------------		
-// For in statement
-//-----------------------------------------------------------------------------
-for_in_statement:	K_FOR_EACH
-					LEFT_PAREN loop_part RIGHT_PAREN
-					block_statement
-					;
-loop_part:			IDENTIFIER K_IN INTEGER_LITERAL DOUBLE_DOT INTEGER_LITERAL
-					(K_BY INTEGER_LITERAL)?
-					;// i In 1 .. 100 [By 2]?
-//-----------------------------------------------------------------------------
-// Break statement
-break_statement:	K_BREAK SEMI_COLON
-					;// Break;
-// Continue statement
-continue_statement:	K_CONTINUE SEMI_COLON
-					;// Continue;
-// Return statements 
-return_statement:   K_RETURN expression SEMI_COLON
-					;
-// Method invocation statement
-method_invocation_statement: 
-					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN RIGHT_PAREN SEMI_COLON
-					;// Shape::$getNumOfShape();
-block_statement:	LEFT_CURLY_BRACKET
-					statement?
-					RIGHT_CURLY_BRACKET
-					;//The <block statement> includes zero or many statements
-
-statement: 			var_val_statement
-					| assign_statement
-					| if_statement
-					| for_in_statement
-					| break_statement
-					| continue_statement
-					| return_statement
-					| method_invocation_statement
-					| block_statement
-					;
-
-//==================== Statement end ====================
 
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
