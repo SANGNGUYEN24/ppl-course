@@ -4,6 +4,8 @@ Class A{
         method body
     }
 
+    
+
     ## This is a comment ##
     Var array: Array[Float, 10];
     Var array2: Array[Array, 3];

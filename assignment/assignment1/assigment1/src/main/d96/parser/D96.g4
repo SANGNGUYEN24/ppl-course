@@ -228,20 +228,16 @@ program_class_body:	main_method_declaration class_body
 					;
 //-----------------------------------------------------------------
 main_method_declaration:
-					K_MAIN LEFT_PAREN RIGHT_PAREN
-					LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
+					K_MAIN LEFT_PAREN RIGHT_PAREN block_statement
 					;// main(){...}
 
-method_declaration:	IDENTIFIER LEFT_PAREN parameter_list? RIGHT_PAREN
-                    LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
+method_declaration:	IDENTIFIER LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
 					| constructor
 					| destructor
 					;// getSomeThing(){...}
-constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN 
-					LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
+constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statement
 					;
-destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN 
-					LEFT_CURLY_BRACKET method_body RIGHT_CURLY_BRACKET
+destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
 					;
 parameter_list: 	parameter | parameter parameter_list_tail
 					;
@@ -250,7 +246,6 @@ parameter_list_tail:
 					;//; a, b, c: Int
 parameter:    		identifier_list COLON primitive_type
 					;//a, b, c: String
-method_body:		'method body';
 //----------------------------------------------------------------
 // BUG Xem lai co khai bao duoc 1 list dolar identifier ko?
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
@@ -280,9 +275,8 @@ expression_list:	expression | expression expression_list_tail
 expression_list_tail:	
 					(COMMA expression expression_list_tail)*
 					;// , 1+2, 1+2, 2*5
-expression:			'expr'
-					;
-
+// expressions:			'expr'
+// 					;
 //----------------------------------------------------------------
 // TODO Nghien cuu them phan expression va operator precedence
 
@@ -329,9 +323,11 @@ exprList: 			expr (',' expr)*
 					; // arg list
 
 
-expressions:		'expr'	
+expression:			<assoc=right> OP_LOGICAL_NOT expression
+					| expression OP_IS_EQUAL_TO expression
+					| mul_add_expr
+					| modulo_expr
 					;
-
 
 mul_add_expr:		IDENTIFIER LEFT_PAREN mul_add_expr_list? RIGHT_PAREN
 					| OP_SUBTRACTION mul_add_expr
@@ -353,11 +349,6 @@ modulo_expr:		modulo_expr OP_MODULO modulo_expr
 					;// TODO dieu kien dong mo ngoac trong modulo vd 2%3%(6%7)
 modulo_expr_list: 	modulo_expr (OP_MODULO modulo_expr)*
 					;
-
-// Boolean operator
-logical_expr: 		OP_LOGICAL_NOT 						// Prefix
-					;
-
 //-----------------------------------------------------------------------
 // expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
 // 					| expr '[' expr ']' // array index like a[i], a[i][j]
@@ -390,6 +381,7 @@ var_val_statement:	(K_VAL | K_VAR)
 assign_statement: 	(identifier | element_expression) OP_ASSIGN expression
 					;
 // If statement
+// ---------------------------------------------------------------------------
 if_statement:		if_part
 					else_if_part
 					else_part
@@ -400,8 +392,9 @@ else_if_part:		(K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement) els
 					;
 else_part:			(K_ELSE block_statement)?
 					;
-					
+//-----------------------------------------------------------------------------		
 // For in statement
+//-----------------------------------------------------------------------------
 for_in_statement:	K_FOR_EACH
 					LEFT_PAREN loop_part RIGHT_PAREN
 					block_statement
@@ -409,6 +402,7 @@ for_in_statement:	K_FOR_EACH
 loop_part:			IDENTIFIER K_IN INTEGER_LITERAL DOUBLE_DOT INTEGER_LITERAL
 					(K_BY INTEGER_LITERAL)?
 					;// i In 1 .. 100 [By 2]?
+//-----------------------------------------------------------------------------
 // Break statement
 break_statement:	K_BREAK SEMI_COLON
 					;// Break;
@@ -426,7 +420,17 @@ block_statement:	LEFT_CURLY_BRACKET
 					statement?
 					RIGHT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
-statement: 			'statement';
+
+statement: 			var_val_statement
+					| assign_statement
+					| if_statement
+					| for_in_statement
+					| break_statement
+					| continue_statement
+					| return_statement
+					| method_invocation_statement
+					| block_statement
+					;
 
 //==================== Statement end ====================
 
