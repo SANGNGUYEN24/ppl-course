@@ -155,7 +155,7 @@ STRING_LITERAL: 	DOUBLE_QUOTE
 					(ESCAPE |~('"'| '\\'))*?
 					DOUBLE_QUOTE
 					;
-literal:            (INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL)+;
+literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL | indexed_array | multi_dimentional_array;
 // 5. Indexed array
 indexed_array:  		K_ARRAY
 						LEFT_PAREN(
@@ -322,8 +322,43 @@ expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
 exprList: 			expr (',' expr)* 
 					; // arg list
 
+relational_operator:
+					OP_IS_EQUAL_TO
+					| OP_NOT_EQUAL_TO
+					| OP_LESS_THAN
+					| OP_LESS_THAN_EQUAL
+					| OP_GREATER_THAN
+					| OP_GREATER_THAN_EQUAL
+					;
 
-expression:			;
+expression:			expression relational_operator expression | and_or_expr
+					;
+and_or_expr:		and_or_expr (OP_LOGICAL_AND | OP_LOGICAL_OR) add_sub_expr
+					| add_sub_expr
+					;
+add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
+					| mul_add_mol_expr
+					;
+mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr 
+					| not_expr
+					;
+not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
+					;
+sign_expr:			(OP_SUBTRACTION) sign_expr | index_operator_expr 
+					;
+
+index_operator_expr:
+					index_operator_expr index_operator | atom_expr
+					;
+
+atom_expr:			literal	
+					| IDENTIFIER
+					| LEFT_PAREN expression RIGHT_PAREN
+					| function_call
+					;
+function_call:		IDENTIFIER LEFT_PAREN expression_list RIGHT_PAREN
+					;
+
 
 
 //==================== Expression end ====================
