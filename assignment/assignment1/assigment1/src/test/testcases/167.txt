@@ -1,0 +1,5 @@
+ 
+            Class foo {
+                Var a : Int = New A(a[1][2] % 20 ==. "Floating" ++. New x(1, 2, 3, foo()));
+            }
+        

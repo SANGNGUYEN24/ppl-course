@@ -1,0 +1,8 @@
+ 
+            Class program {
+                Var x : Int = 10;
+                get(ac,d,f: Int, b: Float) {
+                    Var _12, a : Float = 12, 10.0;
+                }
+            }
+        

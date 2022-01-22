@@ -1,0 +1,6 @@
+ 
+            Class program {
+                Var x,y : Int = 10;
+                Val $x, yz = 10;
+            }
+        
