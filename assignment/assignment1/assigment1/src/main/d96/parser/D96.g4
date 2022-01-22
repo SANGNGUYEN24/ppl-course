@@ -27,7 +27,7 @@ language = Python3;
 //==================== Program struture start ====================
 
 program:  			many_class EOF;
-					
+	
 many_class: 		class_declaration+
 					| class_declaration* program_class_declaration 
 					| program_class_declaration class_declaration*
@@ -40,7 +40,7 @@ class_declaration:	K_CLASS IDENTIFIER super_class_group?
 					;// Class declaration
 class_body:			class_body_unit*
 					;
-class_body_unit:	attribute_declaration | method_declaration | statement
+class_body_unit:	attribute_declaration | method_declaration
 					;
 // BUG Program class has super class???
 super_class_group: 	COLON IDENTIFIER;
@@ -166,7 +166,7 @@ object_creation:	K_NEW IDENTIFIER
 					LEFT_PAREN expression_list? RIGHT_PAREN
 					;
 
-atom_expr:			literal	
+atom_expr:			literal
 					| IDENTIFIER
 					| LEFT_PAREN expression RIGHT_PAREN
 					| function_call
@@ -189,19 +189,19 @@ var_val_statement:	(K_VAL | K_VAR)
 					// However, the static property of attribute cannot be applied to them 
 					// so its name should not follow the dollar identifier rule.
 // Assign statement
-assign_statement: 	(identifier | element_expression) OP_ASSIGN expression
+assign_statement: 	(identifier | element_expression) OP_ASSIGN expression SEMI_COLON
 					;
 // If statement
 // ---------------------------------------------------------------------------
 if_statement:		if_part
-					else_if_part
-					else_part
+					else_if_part*
+					else_part?
 					;
 if_part:			K_IF LEFT_PAREN expression RIGHT_PAREN block_statement		
 					;
-else_if_part:		(K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement) else_if_part*
+else_if_part:		K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement
 					;
-else_part:			(K_ELSE block_statement)?
+else_part:			K_ELSE block_statement
 					;
 //-----------------------------------------------------------------------------		
 // For in statement
@@ -228,7 +228,7 @@ method_invocation_statement:
 					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN RIGHT_PAREN SEMI_COLON
 					;// Shape::$getNumOfShape();
 block_statement:	LEFT_CURLY_BRACKET
-					statement?
+					statement*
 					RIGHT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
 
@@ -240,7 +240,6 @@ statement: 			var_val_statement
 					| continue_statement
 					| return_statement
 					| method_invocation_statement
-					| block_statement
 					;
 
 //==================== Statement end ====================
@@ -328,8 +327,8 @@ ESCAPE:				 	'\'"'
 						|'\\r'		// \r carriage return
 						|'\\n'		// \n newline
 						|'\\t'		// \t horizontal tab
+						|'\\\''		// \' single quote
 						|'\\\\';	// \\ backslash
-									// \' single quote
 // 3.7 Literals
 fragment OCTAL_NOTATION: 	'0';
 fragment HEXA_NOTATION: 	'0x' | '0X';
@@ -374,7 +373,7 @@ FLOAT_LITERAL       :(DECIMAL DOT DECIMAL? EXPONENT?
 BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
 STRING_LITERAL: 	DOUBLE_QUOTE 
-					(ESCAPE |~('"'| '\\'))*?
+					(ESCAPE |~('"'| '\\' | '\''))*?
 					DOUBLE_QUOTE
 					;
 literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL | indexed_array | multi_dimentional_array;
@@ -395,7 +394,6 @@ multi_dimentional_array: 	K_ARRAY
                             )
                             RIGHT_PAREN
 					    ;
-
 
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
@@ -423,7 +421,10 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
-// UNCLOSE_STRING:'';
+// UNCLOSE_STRING:		((DOUBLE_QUOTE (ESCAPE |~('"'| '\\'))*?)
+// 					| ((ESCAPE |~('"'| '\\'))*? DOUBLE_QUOTE))
+// 					{raise  UncloseString(self.text)}
+// 					;
 // ILLEGAL_ESCAPE:;
 ERROR_TOKEN : . {raise ErrorToken(self.text)};
 
