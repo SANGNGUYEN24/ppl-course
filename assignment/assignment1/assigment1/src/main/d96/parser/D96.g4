@@ -328,38 +328,34 @@ expr: 				IDENTIFIER '(' exprList? ')' // func call like f(), f(x), f(1,2)
 exprList: 			expr (',' expr)* 
 					; // arg list
 
-expression_test:    int_float_expr
-					| int_expr
+
+expressions:		'expr'	
 					;
-int_float_expr:
-					IDENTIFIER LEFT_PAREN int_float_expr_list? RIGHT_PAREN
-					| OP_SUBTRACTION int_float_expr
-					| int_expr OP_MODULO int_operand
-					| int_float_expr (OP_MULTIPLICATION | OP_DIVISION) int_float_expr
-					| int_float_expr (OP_ADDTION | OP_SUBTRACTION) int_float_expr
+
+
+mul_add_expr:		IDENTIFIER LEFT_PAREN mul_add_expr_list? RIGHT_PAREN
+					| OP_SUBTRACTION mul_add_expr
+					| mul_add_expr (OP_MULTIPLICATION | OP_DIVISION) mul_add_expr
+					| modulo_expr_list
+					| mul_add_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_expr
 					| IDENTIFIER
 					| INTEGER_LITERAL
 					| FLOAT_LITERAL
-					| LEFT_PAREN int_float_expr RIGHT_PAREN
+					| LEFT_PAREN mul_add_expr RIGHT_PAREN
 					;// +-*/ for both int and float
-int_float_expr_list:
-					int_float_expr (COMMA int_float_expr)*
+mul_add_expr_list:
+					mul_add_expr (COMMA mul_add_expr)*
 					;
-int_operand:		| IDENTIFIER
+// % for only Integer
+modulo_expr:		modulo_expr OP_MODULO modulo_expr
 					| INTEGER_LITERAL
-					| LEFT_PAREN int_expr RIGHT_PAREN
+					| LEFT_PAREN modulo_expr RIGHT_PAREN
+					;// TODO dieu kien dong mo ngoac trong modulo vd 2%3%(6%7)
+modulo_expr_list: 	modulo_expr (OP_MODULO modulo_expr)*
 					;
 
-int_expr:			IDENTIFIER LEFT_PAREN int_expr_list? RIGHT_PAREN
-					| OP_SUBTRACTION int_expr
-					// | int_expr (OP_MULTIPLICATION | OP_DIVISION | OP_MODULO) int_expr
-					// | int_expr (OP_ADDTION | OP_SUBTRACTION) int_expr
-					| IDENTIFIER
-					| INTEGER_LITERAL
-					| LEFT_PAREN int_expr RIGHT_PAREN
-					;// Addtional modulo % for only integer
-int_expr_list:
-					int_expr (COMMA int_expr)*
+// Boolean operator
+logical_expr: 		OP_LOGICAL_NOT 						// Prefix
 					;
 
 //-----------------------------------------------------------------------
