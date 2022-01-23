@@ -1,1 +1,2 @@
-uSxn1U,+.,40,x7010900X70X0,-,5,Error Token "
+Unclosed String:  
+            uSxn1U +.40x7010900X70X0-5"

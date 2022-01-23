@@ -1,1 +1,2 @@
-SY,Error Token "
+Unclosed String:  
+           SY##"

@@ -28,17 +28,15 @@ language = Python3;
 
 program:  			many_class EOF;
 	
-many_class: 		class_declaration+
-					| class_declaration* program_class_declaration 
+// TODO 1 chuong trình co the trong khong?
+many_class: 		class_declaration* program_class_declaration
 					| program_class_declaration class_declaration*
-					| program_class_declaration
 					;
 //-----------------------------------------------------------------
 // BUG How about dolar identifer in class name
-class_declaration:	K_CLASS IDENTIFIER super_class_group?
-					LEFT_CURLY_BRACKET class_body RIGHT_CURLY_BRACKET
+class_declaration:	K_CLASS IDENTIFIER super_class_group? class_body
 					;// Class declaration
-class_body:			class_body_unit*
+class_body:			LEFT_CURLY_BRACKET class_body_unit* RIGHT_CURLY_BRACKET
 					;
 class_body_unit:	attribute_declaration | method_declaration
 					;
@@ -46,32 +44,14 @@ class_body_unit:	attribute_declaration | method_declaration
 super_class_group: 	COLON IDENTIFIER;
 //-----------------------------------------------------------------
 program_class_declaration:
-					K_CLASS 'Program' LEFT_CURLY_BRACKET program_class_body RIGHT_CURLY_BRACKET
+					K_CLASS 'Program' program_class_body 
 					;// Special class which is the entry of the program
-program_class_body:	main_method_declaration class_body 
-					| class_body main_method_declaration
+program_class_body:	LEFT_CURLY_BRACKET 
+					(main_method_declaration class_body 
+					| class_body main_method_declaration)
+					RIGHT_CURLY_BRACKET
 					;
 //-----------------------------------------------------------------
-main_method_declaration:
-					K_MAIN LEFT_PAREN RIGHT_PAREN block_statement
-					;// main(){...}
-
-method_declaration:	IDENTIFIER LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
-					| constructor
-					| destructor
-					;// getSomeThing(){...}
-constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statement
-					;
-destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
-					;
-parameter_list: 	parameter | parameter parameter_list_tail
-					;
-parameter_list_tail:
-					(SEMI_COLON parameter parameter_list_tail)*
-					;//; a, b, c: Int
-parameter:    		identifier_list COLON primitive_type
-					;//a, b, c: String
-//----------------------------------------------------------------
 // BUG Xem lai co khai bao duoc 1 list dolar identifier ko?
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
 attribute_declaration: 	
@@ -80,16 +60,33 @@ attribute_declaration:
 					COLON 
 					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
-identifier_list: 	IDENTIFIER | IDENTIFIER identifier_list_tail
+identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)*
 					;// My1stCons, My2ndCons
 dolar_identifier_list: 	
-					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER dolar_identifier_list_tail
+					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)*
 					;// $My1stCons, $My2ndCons
-identifier_list_tail: (COMMA IDENTIFIER)*
+//----------------------------------------------------------------
+main_method_declaration:
+					K_MAIN LEFT_PAREN RIGHT_PAREN block_statement
+					;// main(){...}
+
+method_declaration:	identifier parameter_list block_statement
+					| constructor
+					| destructor
+					;// getSomeThing(){...}
+constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statement
 					;
-dolar_identifier_list_tail: 
-					(COMMA DOLAR_IDENTIFIER)*
+destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
 					;
+parameter_list: 	LEFT_PAREN 
+					(parameter | parameter parameter_list_tail)? 
+					RIGHT_PAREN
+					;
+parameter_list_tail:(SEMI_COLON parameter)*
+					;//; a, b, c: Int
+parameter:    		identifier_list COLON primitive_type
+					;//a, b, c: String
+
 //==================== Program struture end ====================
 
 
@@ -364,7 +361,8 @@ INTEGER_LITERAL:	DECIMAL | OCTAL | HEXA | BINARY
                     {self.text = self.text.replace("_", "")}
 					;
 // 2. Float
-FLOAT_LITERAL       :(DECIMAL DOT DECIMAL? EXPONENT?		
+// TODO check lai dieu kien Float
+FLOAT_LITERAL:		(DECIMAL DOT DECIMAL? EXPONENT?		
 					|DECIMAL EXPONENT						
 					|DOT DECIMAL? EXPONENT)				
 					{self.text = self.text.replace("_", "")}
@@ -421,10 +419,10 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
-// UNCLOSE_STRING:		((DOUBLE_QUOTE (ESCAPE |~('"'| '\\'))*?)
-// 					| ((ESCAPE |~('"'| '\\'))*? DOUBLE_QUOTE))
-// 					{raise  UncloseString(self.text)}
-// 					;
+UNCLOSE_STRING:		((DOUBLE_QUOTE (ESCAPE |~('"'| '\\' | '\''))*?)
+					| ((ESCAPE |~('"'| '\\'| '\''))*? DOUBLE_QUOTE))
+					{raise  UncloseString(self.text)}
+					;
 // ILLEGAL_ESCAPE:;
 ERROR_TOKEN : . {raise ErrorToken(self.text)};
 

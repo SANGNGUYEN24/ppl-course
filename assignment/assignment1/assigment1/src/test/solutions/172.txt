@@ -1,1 +1,2 @@
-K,e7,a,FGO,Error Token "
+Unclosed String:  
+           K e7##==.7"

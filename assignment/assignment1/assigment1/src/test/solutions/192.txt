@@ -1,1 +1,2 @@
-7,exV," ",$CxG,<EOF>
+Unclosed String:  
+           7exV"
