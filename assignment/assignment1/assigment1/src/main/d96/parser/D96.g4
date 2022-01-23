@@ -56,7 +56,7 @@ main_method_declaration:
 					K_MAIN LEFT_PAREN RIGHT_PAREN block_statement
 					;// main(){...}
 
-method_declaration:	IDENTIFIER LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
+method_declaration:	identifier LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
 					| constructor
 					| destructor
 					;// getSomeThing(){...}
@@ -64,10 +64,7 @@ constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statem
 					;
 destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
 					;
-parameter_list: 	parameter | parameter parameter_list_tail
-					;
-parameter_list_tail:
-					(SEMI_COLON parameter parameter_list_tail)*
+parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
 parameter:    		identifier_list COLON primitive_type
 					;//a, b, c: String
@@ -80,16 +77,11 @@ attribute_declaration:
 					COLON 
 					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
-identifier_list: 	IDENTIFIER | IDENTIFIER identifier_list_tail
+identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
 					;// My1stCons, My2ndCons
 dolar_identifier_list: 	
-					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER dolar_identifier_list_tail
+					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)+
 					;// $My1stCons, $My2ndCons
-identifier_list_tail: (COMMA IDENTIFIER)*
-					;
-dolar_identifier_list_tail: 
-					(COMMA DOLAR_IDENTIFIER)*
-					;
 //==================== Program struture end ====================
 
 
