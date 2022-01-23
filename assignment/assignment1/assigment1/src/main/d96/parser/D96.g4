@@ -86,12 +86,8 @@ dolar_identifier_list:
 
 
 //==================== Expression start ====================
-expression_list:	expression | expression expression_list_tail
+expression_list:	expression | expression (COMMA expression)*
 					;// 1+2, 1+2, 2*5
-
-expression_list_tail:	
-					(COMMA expression expression_list_tail)*
-					;// , 1+2, 1+2, 2*5
 //----------------------------------------------------------------
 // Index operator
 element_expression:	expression index_operator
@@ -325,42 +321,45 @@ ESCAPE:				 	'\'"'
 fragment OCTAL_NOTATION: 	'0';
 fragment HEXA_NOTATION: 	'0x' | '0X';
 fragment BINARY_NOTATION: 	'0b' | '0B';
-fragment HEXA_DIGIT: 		[0-9a-fA-F]; 		// base 16
+fragment HEXA_DIGIT: 		[0-9A-F]; 		// base 16
 fragment OCTAL_DIGIT: 		[0-7]; 				// base 8
 fragment BINARY_DIGIT: 		[01]; 				// base 2
 
 fragment DECIMAL_DIGIT:		[0-9];
-fragment EXPONENT: 			[eE][-+]? DECIMAL+;
+
 
 // 1. Integer
-fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]'_'?(DECIMAL_DIGIT+'_'?)*DECIMAL_DIGIT
+fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]DECIMAL_DIGIT*('_'DECIMAL_DIGIT+)*
 					;
 fragment OCTAL:		OCTAL_NOTATION ( 
-					'0' | ([1-7](OCTAL_DIGIT+'_'?)*OCTAL_DIGIT)
+					'0' | [1-7]OCTAL_DIGIT*('_'OCTAL_DIGIT+)*
 					)
 					;// '0'([0-7]+'_')*[0-7]+
 
 fragment HEXA: 		HEXA_NOTATION(
 					'0'
-					| ([1-9a-fA-F](HEXA_DIGIT+'_'?)*HEXA_DIGIT)
+					| [1-9A-F]HEXA_DIGIT*('_' HEXA_DIGIT+)*
 					)
 					;
 
 fragment BINARY: 	BINARY_NOTATION(
 					'0'
-					| ('1'(BINARY_DIGIT+'_'?)*BINARY_DIGIT)
+					| '1'BINARY_DIGIT*('_'BINARY_DIGIT+)*
 					)
 					;
 
 INTEGER_LITERAL:	DECIMAL | OCTAL | HEXA | BINARY
                     {self.text = self.text.replace("_", "")}
 					;
+// For Float
+fragment EXPONENT: 			[eE][-+]? DECIMAL+;
 // 2. Float
 FLOAT_LITERAL       :(DECIMAL DOT DECIMAL? EXPONENT?		
 					|DECIMAL EXPONENT						
 					|DOT DECIMAL? EXPONENT)				
 					{self.text = self.text.replace("_", "")}
 					;
+
 // 3. Boolean
 BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
