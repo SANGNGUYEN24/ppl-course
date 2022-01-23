@@ -348,15 +348,18 @@ fragment BINARY: 	BINARY_NOTATION(
 					)
 					;
 
-INTEGER_LITERAL:	DECIMAL | OCTAL | HEXA | BINARY
+INTEGER_LITERAL:	(DECIMAL | OCTAL | HEXA | BINARY)
                     {self.text = self.text.replace("_", "")}
 					;
 // For Float
-fragment EXPONENT: 			[eE][-+]? DECIMAL+;
+fragment INTEGER_PART:	DECIMAL;
+fragment DECIMAL_PART:	DOT DECIMAL_DIGIT*;
+fragment EXPONENT: 		[eE][-+]? DECIMAL_DIGIT+;
+
 // 2. Float
-FLOAT_LITERAL       :(DECIMAL DOT DECIMAL? EXPONENT?		
-					|DECIMAL EXPONENT						
-					|DOT DECIMAL? EXPONENT)				
+FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?	
+					| INTEGER_PART EXPONENT
+					| DECIMAL_PART EXPONENT)
 					{self.text = self.text.replace("_", "")}
 					;
 
