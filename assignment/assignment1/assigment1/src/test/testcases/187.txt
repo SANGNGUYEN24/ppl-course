@@ -1,3 +1,1 @@
- 
-            g__2_CF4a O6HSm3GemCZdrxFLt##"##"S
-        
+1 + 2 * 3 ** 4 ** * 5

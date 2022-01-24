@@ -1,1 +1,1 @@
-SY,Illegal Escape In String: \16u_##_BT_ZRDr_Wevo_acTI##
+0xABCDEF,G,<EOF>

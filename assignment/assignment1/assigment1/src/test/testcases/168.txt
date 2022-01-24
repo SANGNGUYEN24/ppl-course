@@ -1,5 +1,1 @@
- 
-            Class foo {
-                Var a : Int = Self.x() + $a.$10 % _12::_abc2 * _84.a12 - 09 + 0xBN;
-            }
-        
+123##123##

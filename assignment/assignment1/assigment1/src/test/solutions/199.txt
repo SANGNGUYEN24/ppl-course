@@ -1,1 +1,2 @@
-Error Token "
+"abc
+bc",<EOF>

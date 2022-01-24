@@ -1,1 +1,1 @@
- "x \b\n new day year _ _ 123 \x " 
+Var a:Array[Int,5];

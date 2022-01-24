@@ -1,9 +1,1 @@
- 
-            Class foo {
-                get() {
-                             ## New year ##
-                             <block statement>
-                         If(1 <= 2 && 3 > 4 || 6 < 7 && !True || 1 != 4)
-                     }
-            }
-        
+abc"avc \m abv "abc

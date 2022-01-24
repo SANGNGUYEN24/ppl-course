@@ -1,1 +1,1 @@
-ForEachfWYnd_,<EOF>
+Illegal Escape In String: 1.0 +. 0.1 1.2 =/= 1.2 5.5 \. 1.1" 

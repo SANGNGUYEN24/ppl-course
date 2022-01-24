@@ -1,1 +1,1 @@
-97,Ekh,"62",W9_,"##. *##\n9+",0xe8,500,"X XT b i_tQ0900x0",==,C_lXbdi0,"##\t##awOt_6##",Error Token #
+"abc\'def gh",<EOF>

@@ -1,1 +1,1 @@
-0XABCDE12F0,00,.01e-3,__1,Error Token #
+<EOF>

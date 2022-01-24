@@ -7,23 +7,6 @@ from lexererr import *
 options {
 language = Python3;
 }
-// @lexer::members {
-// def emit(self):
-//     tk = self.type
-//     result = super().emit()
-//     if tk == self.ERROR_TOKEN:
-//         raise ErrorToken(result.text)
-//     elif tk == self.UNCLOSE_STRING:       
-//         raise UncloseString(result.text)
-//     elif tk == self.ILLEGAL_ESCAPE:
-//         raise IllegalEscape(result.text)
-//     elif tk == self.UNTERMINATED_COMMENT:
-//         raise UnterminatedComment()
-//     else:
-//         return result;
-// }
-
-
 //==================== Program struture start ====================
 
 program:  			many_class EOF;
@@ -52,7 +35,7 @@ program_class_body:	main_method_declaration class_body
 					;
 //-----------------------------------------------------------------
 main_method_declaration:
-					K_MAIN LEFT_PAREN RIGHT_PAREN block_statement
+					'main' LEFT_PAREN RIGHT_PAREN block_statement
 					;// main(){...}
 
 method_declaration:	identifier LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
@@ -119,9 +102,9 @@ add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
 mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr 
 					| not_expr
 					;
-not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
+not_expr:			<assoc=right> OP_LOGICAL_NOT not_expr | sign_expr
 					;
-sign_expr:			(OP_SUBTRACTION) sign_expr | index_operator_expr 
+sign_expr:			<assoc=right> (OP_SUBTRACTION) sign_expr | index_operator_expr
 					;
 
 index_operator_expr:
@@ -259,8 +242,7 @@ K_CONSTRUCTOR:		'Constructor';
 K_DESTRUCTOR:		'Destructor';
 K_NEW:				'New';
 K_BY: 				'By';
-K_MAIN:				'main';
-K_SELF:				'self';
+K_SELF:				'Self';
 
 // 3.5 Operators
 OP_ASSIGN: 					'=';
@@ -307,13 +289,7 @@ RIGHT_CURLY_BRACKET:	'}';
 fragment SINGLE_QUOTE:	'\'';
 fragment DOUBLE_QUOTE:	'"';
 // Escape
-fragment ESCAPE:		|'\\b'		// \b backspace
-						|'\\f'		// \f form feed
-						|'\\r'		// \r carriage return
-						|'\\n'		// \n newline
-						|'\\t'		// \t horizontal tab
-						|'\\\''		// \' single quote
-						|'\\\\';	// \\ backslash
+fragment ESCAPE: 		'\\' [bfrnt'\\];
 // 3.7 Literals
 fragment OCTAL_NOTATION: 	'0';
 fragment HEXA_NOTATION: 	'0x' | '0X';
@@ -362,8 +338,11 @@ FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 
 // 3. Boolean
 BOOLEAN_LITERAL:	'True' | 'False';
+
+fragment CHAR: 		ESCAPE | ~["\\] | '\'"'
+					;
 // 4. String
-STRING_LITERAL		: DOUBLE_QUOTE ('\\' [bfrnt'\\]| '\'"' | ~["\\])* DOUBLE_QUOTE;
+STRING_LITERAL		: DOUBLE_QUOTE CHAR* DOUBLE_QUOTE;
 
 literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL
                     | indexed_array | multi_dimentional_array;
@@ -385,11 +364,18 @@ multi_dimentional_array: 	K_ARRAY
                             RIGHT_PAREN
 					    ;
 
+// TODO check so expr bang so bien
+// var_dcl : VAL_VAR id_list CL data_type // not assigned
+//         | VAL_VAR ID var_dcl_list expr; // assigned
+
+// var_dcl_list : CL data_type ASSIGN_OP
+//              | CM ID var_dcl_list expr CM;
+
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
 DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
-identifier: 		IDENTIFIER | DOLAR_IDENTIFIER
-					;
+// TODO Why main is not a ID?
+identifier: 		IDENTIFIER | DOLAR_IDENTIFIER | 'main';
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================
@@ -411,17 +397,8 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 
 
 // TODO Xem lai may cai nay
-// UNCLOSE_STRING:  	DOUBLE_QUOTE CHAR* ([\b\t\n\f\r'\\] | EOF)
-                    // {
-                    //     y = str(self.text)
-                    //     	end_with = ['\b', '\t', '\n', '\f', '\r', "'", '\\']
-                    //     if y[-1] in end_with:
-                    //     	raise UncloseString(self.text[1:-1])
-					// 	else:
-                    //         raise UncloseString(self.text[1:])
-                    // }
-					// ;	
-// ILLEGAL_ESCAPE: 	DOUBLE_QUOTE CHAR* '\\' ~[btnfr"'\\] {raise IllegalEscape(self.text[1:])};
+ILLEGAL_ESCAPE:     DOUBLE_QUOTE CHAR* '\\' ~[bfrnt'\\]* {raise IllegalEscape(self.text[1:])};
+UNCLOSE_STRING:     DOUBLE_QUOTE (~'"' | '\'"')* (EOF | '\n') {raise UncloseString(self.text[1:])};
 ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
 
 
