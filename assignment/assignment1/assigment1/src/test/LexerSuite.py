@@ -151,3 +151,216 @@ class LexerSuite(unittest.TestCase):
     def test_keyword_10(self):
         self.assertTrue(TestLexer.test(
             "!-=[<!_33>]SelfIf,./!==", "!,-,=,[,<,!,_33,>,],SelfIf,,,.,/,!=,=,<EOF>", 140))
+
+    # Comments
+
+    def test_comment_1(self):
+        self.assertTrue(TestLexer.test("### Hello there ##", "<EOF>", 151))
+
+    # def test_comment_2(self):
+    #     self.assertTrue(TestLexer.test("## !_203 Hello ## ####", "<EOF>", 152))
+
+    # def test_comment_3(self):
+    #     self.assertTrue(TestLexer.test("## Hello there ## ##", "<EOF>", 153))
+
+    # def test_comment_4(self):
+    #     self.assertTrue(TestLexer.test(
+    #         "## Hello there 12232 ## 3232 ##", "3232,<EOF>", 154))
+
+    # def test_comment_5(self):
+    #     self.assertTrue(TestLexer.test("####", "<EOF>", 155))
+
+    # def test_comment_6(self):
+    #     self.assertTrue(TestLexer.test("##", "<EOF>", 156))
+
+    def test_comment_7(self):
+        self.assertTrue(TestLexer.test("## Hello ##", "<EOF>", 157))
+
+    def test_comment_8(self):
+        self.assertTrue(TestLexer.test(
+            "## !!!=23242_here ###", "Error Token #", 158))
+
+    # Mixed
+    def test_mixed_1(self):
+      self.assertTrue(TestLexer.test(
+          "## Hello there ## $_9 abc , 1_20e0-123", "$_9,abc,,,120e0,-,123,<EOF>", 159))
+
+    def test_mixed_2(self):
+        self.assertTrue(TestLexer.test(
+            "0XA_BC_D_E_1_2_F_0 00.01e-3 __1 ##", "0XABCDE12F0,00,.01e-3,__1,<EOF>", 160))
+
+    def test_mixed_3(self):
+        inp = """ 
+            Class program {
+                Var x : Int = 10;
+                get(ac,d,f: Int, b: Float) {
+                    Var _12, a : Float = 12, 10.0;
+                }
+            }
+        """
+        exp = "Class,program,{,Var,x,:,Int,=,10,;,get,(,ac,,,d,,,f,:,Int,,,b,:,Float,),{,Var,_12,,,a,:,Float,=,12,,,10.0,;,},},<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 161))
+
+    def test_mixed_4(self):
+        inp = """ 
+            Class program {
+                Var x,y : Int = 10;
+                Val $x, yz = 10;
+            }
+        """
+        exp = "Class,program,{,Var,x,,,y,:,Int,=,10,;,Val,$x,,,yz,=,10,;,},<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 162))
+
+    def test_mixed_5(self):
+        inp = """ 
+            Class program {
+                get() {
+                    If(1 == 1) {
+                        ForEach(x In 1 .. 100)
+                    }
+                Var a : X =  New X();
+                Val i : Float = 1.23_3e-1;
+            }
+            }
+        """
+        exp = "Class,program,{,get,(,),{,If,(,1,==,1,),{,ForEach,(,x,In,1,..,100,),},Var,a,:,X,=,New,X,(,),;,Val,i,:,Float,=,1.233e-1,;,},},<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 163))
+
+    def test_mixed_6(self):
+        inp = """ 
+            Class program {
+                get() {
+                Var a : X =  New X();
+                Val i : Float = 1.233e-1;
+            }
+            Class foo {
+                Var $a, b, c : Int = 1, 2, ;
+                get() {
+                    If(1 == 1) {
+                        ForEach(x In 1 .. 100)
+                    }
+                    ELseif(2 - 1 = 1) {
+
+                    }
+                    Else {
+                        Var a : X =  New X();
+                        Val i : Float = 1.23_3e-1;
+                    }
+                }
+            }
+        """
+        exp = "Class,program,{,get,(,),{,Var,a,:,X,=,New,X,(,),;,Val,i,:,Float,=,1.233e-1,;,},Class,foo,{,Var,$a,,,b,,,c,:,Int,=,1,,,2,,,;,get,(,),{,If,(,1,==,1,),{,ForEach,(,x,In,1,..,100,),},ELseif,(,2,-,1,=,1,),{,},Else,{,Var,a,:,X,=,New,X,(,),;,Val,i,:,Float,=,1.233e-1,;,},},},<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 164))
+
+    def test_mixed_7(self):
+        inp = """ 
+            Class foo {
+                Var $a, b, c : Int = 1, 2, ;
+                Var $x,y : Int = 1, 2 ;
+                Val c, d : Int = 1, 2,3 ;
+            }
+        """
+        exp = "Class,foo,{,Var,$a,,,b,,,c,:,Int,=,1,,,2,,,;,Var,$x,,,y,:,Int,=,1,,,2,;,Val,c,,,d,:,Int,=,1,,,2,,,3,;,},<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 165))
+
+    def test_mixed_8(self):
+        inp = """ 
+            Class foo {
+                get() {
+                             ## New year ##
+                             <block statement>
+                         If(1 <= 2 && 3 > 4 || 6 < 7 && !True || 1 != 4)
+                     }
+            }
+        """
+        exp = "Class,foo,{,get,(,),{,<,block,statement,>,If,(,1,<=,2,&&,3,>,4,||,6,<,7,&&,!,True,||,1,!=,4,),},},<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 166))
+
+    #TODO Dieu kien String
+    # def test_mixed_9(self):
+    #     inp = """ 
+    #         Class foo {
+    #             Var a : Int = New A(a[1][2] % 20 ==. "Floating" ++. New x(1, 2, 3, foo()));
+    #         }
+    #     """
+    #     exp = "Class,foo,{,Var,a,:,Int,=,New,A,(,a,[,1,],[,2,],%,20,==.,Floating,+,+.,New,x,(,1,,,2,,,3,,,foo,(,),),),;,},<EOF>"
+    #     self.assertTrue(TestLexer.test(inp, exp, 167))
+
+    def test_mixed_10(self):
+        inp = """ 
+            Class foo {
+                Var a : Int = Self.x() + $a.$10 % _12::_abc2 * _84.a12 - 09 + 0xBN;
+            }
+        """
+        exp = "Class,foo,{,Var,a,:,Int,=,Self,.,x,(,),+,$a,.,$10,%,_12,::,_abc2,*,_84,.,a12,-,0,9,+,0xB,N,;,},<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 168))
+
+    # Random
+    # def test_random_1(self):
+    #     inp = """ 
+    #         _Ix__EANDoCsd6hBO _zvnSUb4tgkfj02"## == 6"uP6 p3u##i_GfOKsx_rEE */##Fzj"l"##bN9KB3tRM1p_kWtZMjK Ae YFImeKCzTB3M7drVKLzVXrh_9=##"\k930B.6 9##4l"6"=="$sn_ _9/=="-10X8 _0b7036"_QD__
+    #     """
+    #     exp = "_Ix__EANDoCsd6hBO,_zvnSUb4tgkfj02,## == 6,uP6,p3u,Fzj,l,Illegal Escape In String: \k"
+    #     self.assertTrue(TestLexer.test(inp, exp, 169))
+
+    def test_random_2(self):
+        inp = """ 
+            uYiUuCz_Q xU_####QrvhIYE
+        """
+        exp = "uYiUuCz_Q,xU_,QrvhIYE,<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 170))
+
+    # def test_random_3(self):
+    #     inp = """ 
+    #        "69060+e_dl_fYz##"xq==.$
+    #     """
+    #     exp = "69060+e_dl_fYz##,xq,==.,Error Token $"
+    #     self.assertTrue(TestLexer.test(inp, exp, 171))
+
+    def test_random_4(self):
+        inp = """ 
+           K e7##==.7"2Q##a FGO"2H%50B6_        """
+        exp = "K,e7,a,FGO,Unclosed String: 2H%50B6_        "
+        self.assertTrue(TestLexer.test(inp, exp, 172))
+
+    def test_random_5(self):
+        inp = """ 
+           XjQ e####BU ####KCpJ_EGP_1+==
+        """
+        exp = "XjQ,e,BU,KCpJ_EGP_1,+,==,<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 173))
+
+    def test_random_6(self):
+        inp = """ 
+           20o__e*53 0x0x0b9EE081++
+        """
+        exp = "20,o__e,*,53,0x0,x0b9EE081,+,+,<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 174))
+
+    def test_random_7(self):
+        inp = """ 
+           ei8Fat p Z81qnWy 9IH_6e
+        """
+        exp = "ei8Fat,p,Z81qnWy,9,IH_6e,<EOF>"
+        self.assertTrue(TestLexer.test(inp, exp, 175))
+
+    # def test_random_8(self):
+    #     inp = """ 
+    #        8a_a_G_P9%120b.E30XyK_ggp_J1-/2.7+##v##.+197##-0==W__3tw
+    #     """
+    #     exp = """8,a_a_G_P9,%,120,b,.E30,XyK_ggp_J1,-,/,2.7,+,.,+,197,<EOF>"""
+    #     self.assertTrue(TestLexer.test(inp, exp, 176))
+
+    # def test_random_9(self):
+    #     inp = """ 
+    #        /-===."\\tKa9d_cIfe"83d_ybDHicn5ivaUKAPJDvpKJ i+.uF0H1Gb H
+    #     """
+    #     exp = """/,-,==,=,.,\\tKa9d_cIfe,83,d_ybDHicn5ivaUKAPJDvpKJ,i,+.,uF0H1Gb,H,<EOF>"""
+    #     self.assertTrue(TestLexer.test(inp, exp, 177))
+
+    # def test_random_10(self):
+    #     inp = """ 
+    #        SY##"## "\\16u_##_BT_ZRDr_Wevo_acTI##\\b1eYFl_D0Q7mtLJ##==.pT
+    #     """
+    #     exp = """SY,Illegal Escape In String: \\1"""
+    #     self.assertTrue(TestLexer.test(inp, exp, 178))

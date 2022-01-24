@@ -69,11 +69,11 @@ parameter:    		identifier_list COLON primitive_type
 					;//a, b, c: String
 //----------------------------------------------------------------
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
-attribute_declaration: 	
+attribute_declaration:
 					(K_VAL | K_VAR) 
 					(identifier_list | dolar_identifier_list) 
 					COLON 
-					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
+					(array_type | primitive_type | identifier) (OP_ASSIGN expression_list)? SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
 					;// My1stCons, My2ndCons
@@ -136,7 +136,7 @@ instance_attribute_access:
 instace_method_invocation:
 					instace_method_invocation DOUBLE_COLON IDENTIFIER 
 					LEFT_PAREN expression_list? RIGHT_PAREN 
-					| atom_expr
+					| object_creation
 					;// the first <identifier> is a class name and 
 					// <identifier> is a static method name of the class. 
 static_method_invocation:
@@ -150,6 +150,7 @@ static_attribute_access:
 // Object creation
 object_creation:	K_NEW IDENTIFIER 
 					LEFT_PAREN expression_list? RIGHT_PAREN
+					| atom_expr
 					;
 
 atom_expr:			literal
