@@ -1,1 +1,1 @@
-Illegal Escape In String: He asked me:'"Where is John?'"" 
+1.2e3,90E3,12E+12400,<EOF>

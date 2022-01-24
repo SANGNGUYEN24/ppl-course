@@ -77,3 +77,36 @@ class LexerSuite(unittest.TestCase):
     def test_integer_10(self):
         self.assertTrue(TestLexer.test(
             "0_120 0x123_12ACD0 0B012 0.10", "0,_120,0x12312ACD0,0B0,12,0.10,<EOF>", 120))
+
+     # Floating
+    def test_floating_1(self):
+        self.assertTrue(TestLexer.test("1.234 1. .e3 1.0e-2 10.e-2",
+                        "1.234,1.,.e3,1.0e-2,10.e-2,<EOF>", 121))
+
+    def test_floating_2(self):
+        self.assertTrue(TestLexer.test("1.2e3 90E3 12E+12400",
+                        "1.2e3,90E3,12E+12400,<EOF>", 122))
+
+    def test_floating_3(self):
+        self.assertTrue(TestLexer.test("7E-10", "7E-10,<EOF>", 123))
+
+    def test_floating_4(self):
+        self.assertTrue(TestLexer.test("1_234.567", "1234.567,<EOF>", 124))
+
+    def test_floating_5(self):
+        self.assertTrue(TestLexer.test("1_2.5e-34", "12.5e-34,<EOF>", 125))
+
+    def test_floating_6(self):
+        self.assertTrue(TestLexer.test("1_2.34", "12.34,<EOF>", 126))
+
+    def test_floating_7(self):
+        self.assertTrue(TestLexer.test("1_2.01e-11", "12.01e-11,<EOF>", 127))
+
+    def test_floating_8(self):
+        self.assertTrue(TestLexer.test("1.E0_235", "1.E0,_235,<EOF>", 128))
+
+    def test_floating_9(self):
+        self.assertTrue(TestLexer.test("0.01", "0.01,<EOF>", 129))
+
+    def test_floating_10(self):
+        self.assertTrue(TestLexer.test(".01E+11", ".01E+11,<EOF>", 130))
