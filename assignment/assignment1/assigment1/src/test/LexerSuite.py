@@ -110,3 +110,44 @@ class LexerSuite(unittest.TestCase):
 
     def test_floating_10(self):
         self.assertTrue(TestLexer.test(".01E+11", ".01E+11,<EOF>", 130))
+
+    # Keywords, separators, operators
+    def test_keyword_1(self):
+        self.assertTrue(TestLexer.test("Int Break ForEach 1 + 2 Destructor",
+                        "Int,Break,ForEach,1,+,2,Destructor,<EOF>", 131))
+
+    def test_keyword_2(self):
+        self.assertTrue(TestLexer.test(
+            "+. ==. . ## # 1 ##", "+.,==.,.,<EOF>", 132))
+
+    def test_keyword_3(self):
+        self.assertTrue(TestLexer.test(",;::x++/SelfBooleanInArray",
+                        ",,;,::,x,+,+,/,SelfBooleanInArray,<EOF>", 133))
+
+    def test_keyword_4(self):
+        self.assertTrue(TestLexer.test("0xContinue 0xBreak 0xFalse 0xString Val Var New",
+                        "0xC,ontinue,0xB,reak,0xF,alse,0,xString,Val,Var,New,<EOF>", 134))
+
+    def test_keyword_5(self):
+        self.assertTrue(TestLexer.test(
+            "({/By Array In If}[.].&&!::+.||)", "(,{,/,By,Array,In,If,},[,.,],.,&&,!,::,+.,||,),<EOF>", 135))
+
+    def test_keyword_6(self):
+        self.assertTrue(TestLexer.test("==,-.(<<=>>=,)",
+                        "==,,,-,.,(,<,<=,>,>=,,,),<EOF>", 136))
+
+    def test_keyword_7(self):
+        self.assertTrue(TestLexer.test("=!####The end of file<>!+=*#",
+                        "=,!,The,end,of,file,<,>,!,+,=,*,Error Token #", 137))
+
+    def test_keyword_8(self):
+        self.assertTrue(TestLexer.test("..::In+Break-Array%Constructor",
+                        "..,::,In,+,Break,-,Array,%,Constructor,<EOF>", 138))
+
+    def test_keyword_9(self):
+        self.assertTrue(TestLexer.test("ELSEIFIF-If,ElseIf+.==.Else##new##Return(.,)",
+                        "ELSEIFIF,-,If,,,ElseIf,+.,==.,Else,Return,(,.,,,),<EOF>", 139))
+
+    def test_keyword_10(self):
+        self.assertTrue(TestLexer.test(
+            "!-=[<!_33>]SelfIf,./!==", "!,-,=,[,<,!,_33,>,],SelfIf,,,.,/,!=,=,<EOF>", 140))
