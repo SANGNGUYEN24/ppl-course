@@ -69,6 +69,7 @@ parameter:    		identifier_list COLON primitive_type
 					;//a, b, c: String
 //----------------------------------------------------------------
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
+// TODO Xem lai co viec them identifier vao sau COLON
 attribute_declaration:
 					(K_VAL | K_VAR) 
 					(identifier_list | dolar_identifier_list) 
@@ -168,6 +169,7 @@ function_call:		IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN
 //==================== Statement start ====================
 // Variable and Constant Declaration Statement
 // TODO check xem co dung dolar identifier ko?
+// TODO Xem lai co viec them identifier vao sau COLON
 var_val_statement:	(K_VAL | K_VAR) 
 					identifier_list 
 					COLON 
@@ -305,8 +307,7 @@ RIGHT_CURLY_BRACKET:	'}';
 fragment SINGLE_QUOTE:	'\'';
 fragment DOUBLE_QUOTE:	'"';
 // Escape
-ESCAPE:				 	'\'"' 
-						|'\\b'		// \b backspace
+fragment ESCAPE:		|'\\b'		// \b backspace
 						|'\\f'		// \f form feed
 						|'\\r'		// \r carriage return
 						|'\\n'		// \n newline
@@ -363,14 +364,39 @@ FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
 // TODO Review dieu kien String
-fragment CHAR:		(ESCAPE |~('"'| '\\' | '\''))
-					;
-STRING_LITERAL: 	DOUBLE_QUOTE 
-					CHAR*
-					DOUBLE_QUOTE
-					;
-// TODO Remove Unclose string and illegal escape
-literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL | UNCLOSE_STRING | ILLEGAL_ESCAPE | WHITE_SPACE
+// fragment CHAR:	    ~('"'| '\\' | '\'')
+// 					;
+// STRING_LITERAL: 	DOUBLE_QUOTE
+//                    (CHAR)*
+//                    DOUBLE_QUOTE
+// 					;
+
+//UNCLOSE_STRING      : DOUBLE_QUOTE .*
+//					;
+//STRING_LITERAL		: UNCLOSE_STRING DOUBLE_QUOTE
+//					;
+//StringLiteral
+//  : UnterminatedStringLiteral '"'
+//  ;
+//
+//UnterminatedStringLiteral
+//  : '"' (ESCAPE | ~["'\\])*
+//  ;
+
+STRING_LITERAL: '"' CHAR*? '"' {
+						y = str(self.text)
+						self.text = y[1:-1]
+				};
+
+fragment CHAR:		     ESCAPE
+                        | '\'' '"'
+                        | ~('\n' | '\'' | '"' | '\\')
+                        ;
+
+//string_literal:     StringLiteral
+//                    ;
+
+literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL
                     | indexed_array | multi_dimentional_array;
 // 5. Indexed array
 indexed_array:  		K_ARRAY
@@ -381,7 +407,7 @@ indexed_array:  		K_ARRAY
 							|(STRING_LITERAL (COMMA STRING_LITERAL)*)						
 						)
 						RIGHT_PAREN
-					;	// Array() Array(1) Array(1,2,3)
+						;	// Array() Array(1) Array(1,2,3)
 // 6. Multi-dimensional array
 multi_dimentional_array: 	K_ARRAY
                             LEFT_PAREN(
@@ -416,8 +442,17 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 
 
 // TODO Xem lai may cai nay
-UNCLOSE_STRING:	    DOUBLE_QUOTE CHAR* {raise  UncloseString(self.text[1:])};
-ILLEGAL_ESCAPE: 	DOUBLE_QUOTE ('\\' ~[btnfr"'\\] | ~'\\')* {raise IllegalEscape(self.text[1:])};
+// UNCLOSE_STRING:  	DOUBLE_QUOTE CHAR* ([\b\t\n\f\r'\\] | EOF)
+                    // {
+                    //     y = str(self.text)
+                    //     	end_with = ['\b', '\t', '\n', '\f', '\r', "'", '\\']
+                    //     if y[-1] in end_with:
+                    //     	raise UncloseString(self.text[1:-1])
+					// 	else:
+                    //         raise UncloseString(self.text[1:])
+                    // }
+					// ;	
+// ILLEGAL_ESCAPE: 	DOUBLE_QUOTE CHAR* '\\' ~[btnfr"'\\] {raise IllegalEscape(self.text[1:])};
 ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
 
 

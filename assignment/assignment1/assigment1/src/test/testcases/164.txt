@@ -2,7 +2,7 @@
             Class program {
                 get() {
                 Var a : X =  New X();
-                Val i : Float = 1.23_3e-1;
+                Val i : Float = 1.233e-1;
             }
             Class foo {
                 Var $a, b, c : Int = 1, 2, ;

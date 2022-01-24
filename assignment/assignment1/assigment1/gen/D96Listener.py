@@ -8,87 +8,6 @@ else:
 # This class defines a complete listener for a parse tree produced by D96Parser.
 class D96Listener(ParseTreeListener):
 
-    # Enter a parse tree produced by D96Parser#indexed_array.
-    def enterIndexed_array(self, ctx:D96Parser.Indexed_arrayContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#indexed_array.
-    def exitIndexed_array(self, ctx:D96Parser.Indexed_arrayContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#multi_dimentional_array.
-    def enterMulti_dimentional_array(self, ctx:D96Parser.Multi_dimentional_arrayContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#multi_dimentional_array.
-    def exitMulti_dimentional_array(self, ctx:D96Parser.Multi_dimentional_arrayContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#operator_boolean.
-    def enterOperator_boolean(self, ctx:D96Parser.Operator_booleanContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#operator_boolean.
-    def exitOperator_boolean(self, ctx:D96Parser.Operator_booleanContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#operator_integer.
-    def enterOperator_integer(self, ctx:D96Parser.Operator_integerContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#operator_integer.
-    def exitOperator_integer(self, ctx:D96Parser.Operator_integerContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#operator_float.
-    def enterOperator_float(self, ctx:D96Parser.Operator_floatContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#operator_float.
-    def exitOperator_float(self, ctx:D96Parser.Operator_floatContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#operator_string.
-    def enterOperator_string(self, ctx:D96Parser.Operator_stringContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#operator_string.
-    def exitOperator_string(self, ctx:D96Parser.Operator_stringContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#primitive_type.
-    def enterPrimitive_type(self, ctx:D96Parser.Primitive_typeContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#primitive_type.
-    def exitPrimitive_type(self, ctx:D96Parser.Primitive_typeContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#array_type.
-    def enterArray_type(self, ctx:D96Parser.Array_typeContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#array_type.
-    def exitArray_type(self, ctx:D96Parser.Array_typeContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#class_type.
-    def enterClass_type(self, ctx:D96Parser.Class_typeContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#class_type.
-    def exitClass_type(self, ctx:D96Parser.Class_typeContext):
-        pass
-
-
     # Enter a parse tree produced by D96Parser#program.
     def enterProgram(self, ctx:D96Parser.ProgramContext):
         pass
@@ -206,30 +125,12 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#parameter_list_tail.
-    def enterParameter_list_tail(self, ctx:D96Parser.Parameter_list_tailContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#parameter_list_tail.
-    def exitParameter_list_tail(self, ctx:D96Parser.Parameter_list_tailContext):
-        pass
-
-
     # Enter a parse tree produced by D96Parser#parameter.
     def enterParameter(self, ctx:D96Parser.ParameterContext):
         pass
 
     # Exit a parse tree produced by D96Parser#parameter.
     def exitParameter(self, ctx:D96Parser.ParameterContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#method_body.
-    def enterMethod_body(self, ctx:D96Parser.Method_bodyContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#method_body.
-    def exitMethod_body(self, ctx:D96Parser.Method_bodyContext):
         pass
 
 
@@ -251,21 +152,12 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#identifier_list_tail.
-    def enterIdentifier_list_tail(self, ctx:D96Parser.Identifier_list_tailContext):
+    # Enter a parse tree produced by D96Parser#dolar_identifier_list.
+    def enterDolar_identifier_list(self, ctx:D96Parser.Dolar_identifier_listContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#identifier_list_tail.
-    def exitIdentifier_list_tail(self, ctx:D96Parser.Identifier_list_tailContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#statement.
-    def enterStatement(self, ctx:D96Parser.StatementContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#statement.
-    def exitStatement(self, ctx:D96Parser.StatementContext):
+    # Exit a parse tree produced by D96Parser#dolar_identifier_list.
+    def exitDolar_identifier_list(self, ctx:D96Parser.Dolar_identifier_listContext):
         pass
 
 
@@ -278,21 +170,30 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#expression_list_tail.
-    def enterExpression_list_tail(self, ctx:D96Parser.Expression_list_tailContext):
+    # Enter a parse tree produced by D96Parser#element_expression.
+    def enterElement_expression(self, ctx:D96Parser.Element_expressionContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#expression_list_tail.
-    def exitExpression_list_tail(self, ctx:D96Parser.Expression_list_tailContext):
+    # Exit a parse tree produced by D96Parser#element_expression.
+    def exitElement_expression(self, ctx:D96Parser.Element_expressionContext):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#return_statement.
-    def enterReturn_statement(self, ctx:D96Parser.Return_statementContext):
+    # Enter a parse tree produced by D96Parser#index_operator.
+    def enterIndex_operator(self, ctx:D96Parser.Index_operatorContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#return_statement.
-    def exitReturn_statement(self, ctx:D96Parser.Return_statementContext):
+    # Exit a parse tree produced by D96Parser#index_operator.
+    def exitIndex_operator(self, ctx:D96Parser.Index_operatorContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#relational_operator.
+    def enterRelational_operator(self, ctx:D96Parser.Relational_operatorContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#relational_operator.
+    def exitRelational_operator(self, ctx:D96Parser.Relational_operatorContext):
         pass
 
 
@@ -305,66 +206,120 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#operation.
-    def enterOperation(self, ctx:D96Parser.OperationContext):
+    # Enter a parse tree produced by D96Parser#relational_expr.
+    def enterRelational_expr(self, ctx:D96Parser.Relational_exprContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#operation.
-    def exitOperation(self, ctx:D96Parser.OperationContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#unary_operation.
-    def enterUnary_operation(self, ctx:D96Parser.Unary_operationContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#unary_operation.
-    def exitUnary_operation(self, ctx:D96Parser.Unary_operationContext):
+    # Exit a parse tree produced by D96Parser#relational_expr.
+    def exitRelational_expr(self, ctx:D96Parser.Relational_exprContext):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#binary_operation.
-    def enterBinary_operation(self, ctx:D96Parser.Binary_operationContext):
+    # Enter a parse tree produced by D96Parser#and_or_expr.
+    def enterAnd_or_expr(self, ctx:D96Parser.And_or_exprContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#binary_operation.
-    def exitBinary_operation(self, ctx:D96Parser.Binary_operationContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#int_operation.
-    def enterInt_operation(self, ctx:D96Parser.Int_operationContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#int_operation.
-    def exitInt_operation(self, ctx:D96Parser.Int_operationContext):
+    # Exit a parse tree produced by D96Parser#and_or_expr.
+    def exitAnd_or_expr(self, ctx:D96Parser.And_or_exprContext):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#int_float_operation.
-    def enterInt_float_operation(self, ctx:D96Parser.Int_float_operationContext):
+    # Enter a parse tree produced by D96Parser#add_sub_expr.
+    def enterAdd_sub_expr(self, ctx:D96Parser.Add_sub_exprContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#int_float_operation.
-    def exitInt_float_operation(self, ctx:D96Parser.Int_float_operationContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#int_operand.
-    def enterInt_operand(self, ctx:D96Parser.Int_operandContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#int_operand.
-    def exitInt_operand(self, ctx:D96Parser.Int_operandContext):
+    # Exit a parse tree produced by D96Parser#add_sub_expr.
+    def exitAdd_sub_expr(self, ctx:D96Parser.Add_sub_exprContext):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#int_float_operand.
-    def enterInt_float_operand(self, ctx:D96Parser.Int_float_operandContext):
+    # Enter a parse tree produced by D96Parser#mul_add_mol_expr.
+    def enterMul_add_mol_expr(self, ctx:D96Parser.Mul_add_mol_exprContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#int_float_operand.
-    def exitInt_float_operand(self, ctx:D96Parser.Int_float_operandContext):
+    # Exit a parse tree produced by D96Parser#mul_add_mol_expr.
+    def exitMul_add_mol_expr(self, ctx:D96Parser.Mul_add_mol_exprContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#not_expr.
+    def enterNot_expr(self, ctx:D96Parser.Not_exprContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#not_expr.
+    def exitNot_expr(self, ctx:D96Parser.Not_exprContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#sign_expr.
+    def enterSign_expr(self, ctx:D96Parser.Sign_exprContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#sign_expr.
+    def exitSign_expr(self, ctx:D96Parser.Sign_exprContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#index_operator_expr.
+    def enterIndex_operator_expr(self, ctx:D96Parser.Index_operator_exprContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#index_operator_expr.
+    def exitIndex_operator_expr(self, ctx:D96Parser.Index_operator_exprContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#instance_attribute_access.
+    def enterInstance_attribute_access(self, ctx:D96Parser.Instance_attribute_accessContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#instance_attribute_access.
+    def exitInstance_attribute_access(self, ctx:D96Parser.Instance_attribute_accessContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#instace_method_invocation.
+    def enterInstace_method_invocation(self, ctx:D96Parser.Instace_method_invocationContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#instace_method_invocation.
+    def exitInstace_method_invocation(self, ctx:D96Parser.Instace_method_invocationContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#static_method_invocation.
+    def enterStatic_method_invocation(self, ctx:D96Parser.Static_method_invocationContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#static_method_invocation.
+    def exitStatic_method_invocation(self, ctx:D96Parser.Static_method_invocationContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#static_attribute_access.
+    def enterStatic_attribute_access(self, ctx:D96Parser.Static_attribute_accessContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#static_attribute_access.
+    def exitStatic_attribute_access(self, ctx:D96Parser.Static_attribute_accessContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#object_creation.
+    def enterObject_creation(self, ctx:D96Parser.Object_creationContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#object_creation.
+    def exitObject_creation(self, ctx:D96Parser.Object_creationContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#atom_expr.
+    def enterAtom_expr(self, ctx:D96Parser.Atom_exprContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#atom_expr.
+    def exitAtom_expr(self, ctx:D96Parser.Atom_exprContext):
         pass
 
 
@@ -377,21 +332,192 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#boolean_operation.
-    def enterBoolean_operation(self, ctx:D96Parser.Boolean_operationContext):
+    # Enter a parse tree produced by D96Parser#var_val_statement.
+    def enterVar_val_statement(self, ctx:D96Parser.Var_val_statementContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#boolean_operation.
-    def exitBoolean_operation(self, ctx:D96Parser.Boolean_operationContext):
+    # Exit a parse tree produced by D96Parser#var_val_statement.
+    def exitVar_val_statement(self, ctx:D96Parser.Var_val_statementContext):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#boolean_operand.
-    def enterBoolean_operand(self, ctx:D96Parser.Boolean_operandContext):
+    # Enter a parse tree produced by D96Parser#assign_statement.
+    def enterAssign_statement(self, ctx:D96Parser.Assign_statementContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#boolean_operand.
-    def exitBoolean_operand(self, ctx:D96Parser.Boolean_operandContext):
+    # Exit a parse tree produced by D96Parser#assign_statement.
+    def exitAssign_statement(self, ctx:D96Parser.Assign_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#if_statement.
+    def enterIf_statement(self, ctx:D96Parser.If_statementContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#if_statement.
+    def exitIf_statement(self, ctx:D96Parser.If_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#if_part.
+    def enterIf_part(self, ctx:D96Parser.If_partContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#if_part.
+    def exitIf_part(self, ctx:D96Parser.If_partContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#else_if_part.
+    def enterElse_if_part(self, ctx:D96Parser.Else_if_partContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#else_if_part.
+    def exitElse_if_part(self, ctx:D96Parser.Else_if_partContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#else_part.
+    def enterElse_part(self, ctx:D96Parser.Else_partContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#else_part.
+    def exitElse_part(self, ctx:D96Parser.Else_partContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#for_in_statement.
+    def enterFor_in_statement(self, ctx:D96Parser.For_in_statementContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#for_in_statement.
+    def exitFor_in_statement(self, ctx:D96Parser.For_in_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#loop_part.
+    def enterLoop_part(self, ctx:D96Parser.Loop_partContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#loop_part.
+    def exitLoop_part(self, ctx:D96Parser.Loop_partContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#break_statement.
+    def enterBreak_statement(self, ctx:D96Parser.Break_statementContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#break_statement.
+    def exitBreak_statement(self, ctx:D96Parser.Break_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#continue_statement.
+    def enterContinue_statement(self, ctx:D96Parser.Continue_statementContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#continue_statement.
+    def exitContinue_statement(self, ctx:D96Parser.Continue_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#return_statement.
+    def enterReturn_statement(self, ctx:D96Parser.Return_statementContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#return_statement.
+    def exitReturn_statement(self, ctx:D96Parser.Return_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#method_invocation_statement.
+    def enterMethod_invocation_statement(self, ctx:D96Parser.Method_invocation_statementContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#method_invocation_statement.
+    def exitMethod_invocation_statement(self, ctx:D96Parser.Method_invocation_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#block_statement.
+    def enterBlock_statement(self, ctx:D96Parser.Block_statementContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#block_statement.
+    def exitBlock_statement(self, ctx:D96Parser.Block_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#statement.
+    def enterStatement(self, ctx:D96Parser.StatementContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#statement.
+    def exitStatement(self, ctx:D96Parser.StatementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#literal.
+    def enterLiteral(self, ctx:D96Parser.LiteralContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#literal.
+    def exitLiteral(self, ctx:D96Parser.LiteralContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#indexed_array.
+    def enterIndexed_array(self, ctx:D96Parser.Indexed_arrayContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#indexed_array.
+    def exitIndexed_array(self, ctx:D96Parser.Indexed_arrayContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#multi_dimentional_array.
+    def enterMulti_dimentional_array(self, ctx:D96Parser.Multi_dimentional_arrayContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#multi_dimentional_array.
+    def exitMulti_dimentional_array(self, ctx:D96Parser.Multi_dimentional_arrayContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#identifier.
+    def enterIdentifier(self, ctx:D96Parser.IdentifierContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#identifier.
+    def exitIdentifier(self, ctx:D96Parser.IdentifierContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#primitive_type.
+    def enterPrimitive_type(self, ctx:D96Parser.Primitive_typeContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#primitive_type.
+    def exitPrimitive_type(self, ctx:D96Parser.Primitive_typeContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#array_type.
+    def enterArray_type(self, ctx:D96Parser.Array_typeContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#array_type.
+    def exitArray_type(self, ctx:D96Parser.Array_typeContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#class_type.
+    def enterClass_type(self, ctx:D96Parser.Class_typeContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#class_type.
+    def exitClass_type(self, ctx:D96Parser.Class_typeContext):
         pass
 
 
