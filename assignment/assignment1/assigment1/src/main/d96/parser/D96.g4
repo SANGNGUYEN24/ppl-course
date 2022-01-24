@@ -34,7 +34,6 @@ many_class: 		class_declaration+
 					| program_class_declaration
 					;
 //-----------------------------------------------------------------
-// BUG How about dolar identifer in class name
 class_declaration:	K_CLASS IDENTIFIER super_class_group?
 					LEFT_CURLY_BRACKET class_body RIGHT_CURLY_BRACKET
 					;// Class declaration
@@ -69,7 +68,6 @@ parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
 parameter:    		identifier_list COLON primitive_type
 					;//a, b, c: String
 //----------------------------------------------------------------
-// BUG Xem lai co khai bao duoc 1 list dolar identifier ko?
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
 attribute_declaration: 	
 					(K_VAL | K_VAR) 
@@ -233,7 +231,7 @@ statement: 			var_val_statement
 //==================== Statement end ====================
 
 //==================== Lexical rules start ====================
-// TODO: 3.1 Character set
+WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
 // 3.2 Program comment
 COMMENT: 			'##' .*? '##' -> skip; 	// ## This is a comment ##
 // 3.4 Keywords, define the keywords on top
@@ -243,9 +241,6 @@ K_IF: 				'If';
 K_ELSE_IF: 			'Elseif'; 
 K_ELSE: 			'Else';
 K_FOR_EACH: 		'Foreach';
-// TODO xem lại True False
-//TRUE: 		'True';
-//FALSE: 		'False';
 K_ARRAY:			'Array';
 K_IN: 				'In';
 K_INT: 				'Int';
@@ -366,11 +361,16 @@ FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 // 3. Boolean
 BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
+// TODO Review dieu kien String
+fragment CHAR:		(ESCAPE |~('"'| '\\' | '\''))
+					;
 STRING_LITERAL: 	DOUBLE_QUOTE 
-					(ESCAPE |~('"'| '\\' | '\''))*?
+					CHAR*
 					DOUBLE_QUOTE
 					;
-literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL | indexed_array | multi_dimentional_array;
+// TODO Remove Unclose string and illegal escape
+literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL | UNCLOSE_STRING | ILLEGAL_ESCAPE | WHITE_SPACE
+                    | indexed_array | multi_dimentional_array;
 // 5. Indexed array
 indexed_array:  		K_ARRAY
 						LEFT_PAREN(
@@ -414,13 +414,10 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 //==================== Type and Value end ====================
 
 
-WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
-// UNCLOSE_STRING:		((DOUBLE_QUOTE (ESCAPE |~('"'| '\\'))*?)
-// 					| ((ESCAPE |~('"'| '\\'))*? DOUBLE_QUOTE))
-// 					{raise  UncloseString(self.text)}
-// 					;
-// ILLEGAL_ESCAPE:;
-ERROR_TOKEN : . {raise ErrorToken(self.text)};
+// TODO Xem lai may cai nay
+UNCLOSE_STRING:	    DOUBLE_QUOTE CHAR* {raise  UncloseString(self.text[1:])};
+ILLEGAL_ESCAPE: 	DOUBLE_QUOTE ('\\' ~[btnfr"'\\] | ~'\\')* {raise IllegalEscape(self.text[1:])};
+ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
 
 
 
