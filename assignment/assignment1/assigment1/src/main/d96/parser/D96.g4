@@ -363,38 +363,7 @@ FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 // 3. Boolean
 BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
-// TODO Review dieu kien String
-// fragment CHAR:	    ~('"'| '\\' | '\'')
-// 					;
-// STRING_LITERAL: 	DOUBLE_QUOTE
-//                    (CHAR)*
-//                    DOUBLE_QUOTE
-// 					;
-
-//UNCLOSE_STRING      : DOUBLE_QUOTE .*
-//					;
-//STRING_LITERAL		: UNCLOSE_STRING DOUBLE_QUOTE
-//					;
-//StringLiteral
-//  : UnterminatedStringLiteral '"'
-//  ;
-//
-//UnterminatedStringLiteral
-//  : '"' (ESCAPE | ~["'\\])*
-//  ;
-
-STRING_LITERAL: '"' CHAR*? '"' {
-						y = str(self.text)
-						self.text = y[1:-1]
-				};
-
-fragment CHAR:		     ESCAPE
-                        | '\'' '"'
-                        | ~('\n' | '\'' | '"' | '\\')
-                        ;
-
-//string_literal:     StringLiteral
-//                    ;
+STRING_LITERAL		: DOUBLE_QUOTE ('\\' [bfrnt'\\]| '\'"' | ~["\\])* DOUBLE_QUOTE;
 
 literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL
                     | indexed_array | multi_dimentional_array;
