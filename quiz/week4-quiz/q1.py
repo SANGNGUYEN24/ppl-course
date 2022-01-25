@@ -19,7 +19,7 @@ class Exp:
 
 
 class BinExp:
-    def __init__(self, operator: str, left, right):
+    def __init__(self, left, operator: str, right):
         self.operator = operator
         self.left = left.eval()
         self.right = right.eval()
@@ -35,7 +35,7 @@ class BinExp:
             return self.left / self.right
 
 
-class UnExp:
+class UnExp(Exp):
     def __init__(self, operator: str, operand):
         self.operator = operator
         self.operand = operand.eval()

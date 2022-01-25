@@ -12,10 +12,8 @@ language = Python3;
 program:  			class_declaration+ EOF;
 	//-----------------------------------------------------------------
 class_declaration:	K_CLASS IDENTIFIER super_class_group?
-					LEFT_CURLY_BRACKET class_body RIGHT_CURLY_BRACKET
+					LEFT_CURLY_BRACKET class_body_unit* RIGHT_CURLY_BRACKET
 					;// Class declaration
-class_body:			class_body_unit*
-					;
 class_body_unit:	attribute_declaration | method_declaration
 					;
 // BUG Program class has super class???
@@ -121,7 +119,7 @@ object_creation:	K_NEW IDENTIFIER
 					;
 
 atom_expr:			literal
-					| IDENTIFIER
+					| identifier
 					| LEFT_PAREN expression RIGHT_PAREN
 					| function_call
 					| static_method_invocation
@@ -224,7 +222,7 @@ K_CONSTRUCTOR:		'Constructor';
 K_DESTRUCTOR:		'Destructor';
 K_NEW:				'New';
 K_BY: 				'By';
-K_SELF:				'Self';
+//K_SELF:				'Self';
 
 // 3.5 Operators
 OP_ASSIGN: 					'=';
@@ -319,7 +317,7 @@ FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 // 3. Boolean
 BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
-STRING_LITERAL		: DOUBLE_QUOTE STR_CHAR* DOUBLE_QUOTE;
+STRING_LITERAL		: DOUBLE_QUOTE STR_CHAR* DOUBLE_QUOTE { self.text = self.text[1:-1] };
 
 literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL
                     | indexed_array | multi_dimentional_array;
@@ -349,10 +347,9 @@ multi_dimentional_array: 	K_ARRAY
 //              | CM ID var_dcl_list expr CM;
 
 // 3.3 Identifier, Dolar identifer
-IDENTIFIER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
-DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
-// TODO Why main is not a ID?
-identifier: 		IDENTIFIER | DOLAR_IDENTIFIER | 'main';
+IDENTIFIER:			[_a-zA-Z][_a-zA-Z0-9]*;
+DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
+identifier: 		IDENTIFIER | DOLAR_IDENTIFIER;
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================
@@ -378,7 +375,7 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 //ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
 WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs, newlines
 
-UNCLOSE_STRING: '"' STR_CHAR*
+UNCLOSE_STRING: DOUBLE_QUOTE STR_CHAR*
                 {
                     y = str(self.text)
                     possible = ['\n', '\r']
@@ -388,7 +385,7 @@ UNCLOSE_STRING: '"' STR_CHAR*
                         raise UncloseString(y[1:])
                 }
                 ;
-ILLEGAL_ESCAPE: '"' STR_CHAR* ESC_ILLEGAL
+ILLEGAL_ESCAPE: DOUBLE_QUOTE STR_CHAR* ESC_ILLEGAL
                 {
                     y = str(self.text)
                     raise IllegalEscape(y[1:])
