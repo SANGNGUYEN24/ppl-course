@@ -8,15 +8,9 @@ options {
 language = Python3;
 }
 //==================== Program struture start ====================
-
-program:  			many_class EOF;
-	
-many_class: 		class_declaration+
-					| class_declaration* program_class_declaration 
-					| program_class_declaration class_declaration*
-					| program_class_declaration
-					;
-//-----------------------------------------------------------------
+// TODO main trong Program la entry vay mot ct co bat buoc co Program class ko, va Program co bat buoc co main ko
+program:  			class_declaration+ EOF;
+	//-----------------------------------------------------------------
 class_declaration:	K_CLASS IDENTIFIER super_class_group?
 					LEFT_CURLY_BRACKET class_body RIGHT_CURLY_BRACKET
 					;// Class declaration
@@ -27,17 +21,6 @@ class_body_unit:	attribute_declaration | method_declaration
 // BUG Program class has super class???
 super_class_group: 	COLON IDENTIFIER;
 //-----------------------------------------------------------------
-program_class_declaration:
-					K_CLASS 'Program' LEFT_CURLY_BRACKET program_class_body RIGHT_CURLY_BRACKET
-					;// Special class which is the entry of the program
-program_class_body:	main_method_declaration class_body 
-					| class_body main_method_declaration
-					;
-//-----------------------------------------------------------------
-main_method_declaration:
-					'main' LEFT_PAREN RIGHT_PAREN block_statement
-					;// main(){...}
-
 method_declaration:	identifier LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
 					| constructor
 					| destructor
@@ -217,7 +200,6 @@ statement: 			var_val_statement
 //==================== Statement end ====================
 
 //==================== Lexical rules start ====================
-WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
 // 3.2 Program comment
 COMMENT: 			'##' .*? '##' -> skip; 	// ## This is a comment ##
 // 3.4 Keywords, define the keywords on top
@@ -288,8 +270,6 @@ RIGHT_CURLY_BRACKET:	'}';
 // Quote
 fragment SINGLE_QUOTE:	'\'';
 fragment DOUBLE_QUOTE:	'"';
-// Escape
-fragment ESCAPE: 		'\\' [bfrnt'\\];
 // 3.7 Literals
 fragment OCTAL_NOTATION: 	'0';
 fragment HEXA_NOTATION: 	'0x' | '0X';
@@ -338,11 +318,8 @@ FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 
 // 3. Boolean
 BOOLEAN_LITERAL:	'True' | 'False';
-
-fragment CHAR: 		ESCAPE | ~["\\] | '\'"'
-					;
 // 4. String
-STRING_LITERAL		: DOUBLE_QUOTE CHAR* DOUBLE_QUOTE;
+STRING_LITERAL		: DOUBLE_QUOTE STR_CHAR* DOUBLE_QUOTE;
 
 literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL
                     | indexed_array | multi_dimentional_array;
@@ -395,11 +372,39 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 					;// New X()
 //==================== Type and Value end ====================
 
-
 // TODO Xem lai may cai nay
-ILLEGAL_ESCAPE:     DOUBLE_QUOTE CHAR* '\\' ~[bfrnt'\\]* {raise IllegalEscape(self.text[1:])};
-UNCLOSE_STRING:     DOUBLE_QUOTE (~'"' | '\'"')* (EOF | '\n') {raise UncloseString(self.text[1:])};
-ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
+//ILLEGAL_ESCAPE:     DOUBLE_QUOTE CHAR* '\\' ~[bfrnt'\\]* {raise IllegalEscape(self.text[1:])};
+//UNCLOSE_STRING:     DOUBLE_QUOTE (~'"' | '\'"')* (EOF | '\n') {raise UncloseString(self.text[1:])};
+//ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
+WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs, newlines
+
+UNCLOSE_STRING: '"' STR_CHAR*
+                {
+                    y = str(self.text)
+                    possible = ['\n', '\r']
+                    if y[-1] in possible:
+                        raise UncloseString(y[1:-1])
+                    else:
+                        raise UncloseString(y[1:])
+                }
+                ;
+ILLEGAL_ESCAPE: '"' STR_CHAR* ESC_ILLEGAL
+                {
+                    y = str(self.text)
+                    raise IllegalEscape(y[1:])
+                }
+                ;
+fragment STR_CHAR: ~[\n\r"\\] | ESC_ACCEPT ;
+
+fragment ESC_ACCEPT: '\\' ['btnfr"\\] ;
+
+fragment ESC_ILLEGAL: '\\' ~['btnfr"\\] ;
+
+ERROR_CHAR:     .
+                {
+                    raise ErrorToken(self.text)
+                }
+                ;
 
 
 
