@@ -87,30 +87,37 @@ not_expr:			<assoc=right> OP_LOGICAL_NOT not_expr | sign_expr
 					;
 sign_expr:			<assoc=right> (OP_SUBTRACTION) sign_expr | index_operator_expr
 					;
-
+//index_operator_expr:
+//					member_access index_operator
+//					;
+//member_access:      member_access DOUBLE_DOT identifier
+//                    | member_access DOT identifier
+//	                | member_access DOT identifier LP expression_list RP
+//	                | object_creation
+//                    ;
 index_operator_expr:
 					index_operator_expr index_operator | instance_attribute_access
 					;
 // Member access
 instance_attribute_access:
-					instance_attribute_access DOT IDENTIFIER | instace_method_invocation
+					instance_attribute_access DOT identifier | instace_method_invocation
 					;// getClassObject.object
 					// TODO review lai dieu kien co DOLAR_IDENTIFIER ko?
-					// <expression> is an expression that returns an object of a class and 
-					// <identifier> is an attribute of the class.	
+					// <expression> is an expression that returns an object of a class and
+					// <identifier> is an attribute of the class.
 instace_method_invocation:
-					instace_method_invocation DOUBLE_COLON IDENTIFIER 
-					LEFT_PAREN expression_list? RIGHT_PAREN 
+					instace_method_invocation DOT identifier
+					LEFT_PAREN expression_list? RIGHT_PAREN
 					| object_creation
-					;// the first <identifier> is a class name and 
-					// <identifier> is a static method name of the class. 
+					;// the first <identifier> is a class name and
+					// <identifier> is a static method name of the class.
 static_method_invocation:
-					IDENTIFIER DOUBLE_COLON 
+					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
 					LEFT_PAREN expression_list? RIGHT_PAREN
 					;
 static_attribute_access:
-					IDENTIFIER DOUBLE_COLON IDENTIFIER
-					;// the first <identifier> is a class name, and 
+					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
+					;// the first <identifier> is a class name, and
 					// the second <identifier> is a static attribute of the class.
 // Object creation
 object_creation:	K_NEW IDENTIFIER 
@@ -122,8 +129,8 @@ atom_expr:			literal
 					| identifier
 					| LEFT_PAREN expression RIGHT_PAREN
 					| function_call
-					| static_method_invocation
 					| static_attribute_access
+					| static_method_invocation
 					;
 function_call:		IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN
 					;
@@ -137,12 +144,12 @@ function_call:		IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN
 var_val_statement:	(K_VAL | K_VAR) 
 					identifier_list 
 					COLON 
-					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
+					(array_type | primitive_type) (OP_ASSIGN expression_list)?
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 					// However, the static property of attribute cannot be applied to them 
 					// so its name should not follow the dollar identifier rule.
 // Assign statement
-assign_statement: 	(identifier | element_expression) OP_ASSIGN expression SEMI_COLON
+assign_statement: 	(identifier | element_expression) OP_ASSIGN expression
 					;
 // If statement
 // ---------------------------------------------------------------------------
@@ -168,20 +175,21 @@ loop_part:			IDENTIFIER K_IN INTEGER_LITERAL DOUBLE_DOT INTEGER_LITERAL
 					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
 // Break statement
-break_statement:	K_BREAK SEMI_COLON
+break_statement:	K_BREAK
 					;// Break;
 // Continue statement
-continue_statement:	K_CONTINUE SEMI_COLON
+continue_statement:	K_CONTINUE
 					;// Continue;
 // Return statements 
-return_statement:   K_RETURN expression SEMI_COLON
+return_statement:   K_RETURN expression
 					;
 // Method invocation statement
-method_invocation_statement: 
-					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN RIGHT_PAREN SEMI_COLON
+method_invocation_statement:
+                    instace_method_invocation
+                    | static_method_invocation
 					;// Shape::$getNumOfShape();
 block_statement:	LEFT_CURLY_BRACKET
-					statement*
+					(statement SEMI_COLON)*
 					RIGHT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
 
