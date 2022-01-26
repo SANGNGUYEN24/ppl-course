@@ -38,15 +38,17 @@ type:               primitive_type | array_type | identifier
 // TODO Xem lai co viec them identifier vao sau COLON
 attribute_declaration:
 					(K_VAL | K_VAR)
-					(identifier_list | dolar_identifier_list) 
-					COLON
-					type OP_ASSIGN expression_list SEMI_COLON
+					mixed_identifier_list
+					COLON type OP_ASSIGN expression_list SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
 					;// My1stCons, My2ndCons
 dolar_identifier_list: 	
 					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)+
 					;// $My1stCons, $My2ndCons
+mixed_identifier_list:
+                    (IDENTIFIER | DOLAR_IDENTIFIER) (COMMA (IDENTIFIER | DOLAR_IDENTIFIER))*
+                    ;
 //==================== Program struture end ====================
 
 
