@@ -1,3 +1,4 @@
+// Nguyen Dình Sang - 1952955
 grammar D96;
 
 @lexer::header {
@@ -8,9 +9,9 @@ options {
 language = Python3;
 }
 //==================== Program struture start ====================
-// TODO main trong Program la entry vay mot ct co bat buoc co Program class ko, va Program co bat buoc co main ko
+// TODO Bring Program class again
 program:  			class_declaration+ EOF;
-	//-----------------------------------------------------------------
+//-----------------------------------------------------------------
 class_declaration:	K_CLASS IDENTIFIER super_class_group?
 					LEFT_CURLY_BRACKET class_body_unit* RIGHT_CURLY_BRACKET
 					;// Class declaration
@@ -31,7 +32,7 @@ parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
 parameter:    		identifier_list COLON type_name
 					;//a, b, c: String
-type_name:          primitive_type | array_type | identifier
+type_name:          primitive_type | identifier
                     ;
 //----------------------------------------------------------------
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
@@ -332,7 +333,8 @@ indexed_array:  		K_ARRAY
 							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)?
 							|(FLOAT_LITERAL (COMMA FLOAT_LITERAL)*)
 							|(BOOLEAN_LITERAL (COMMA BOOLEAN_LITERAL)*)
-							|(STRING_LITERAL (COMMA STRING_LITERAL)*)						
+							|(STRING_LITERAL (COMMA STRING_LITERAL)*)
+							|((indexed_array) (COMMA indexed_array)*)
 						)
 						RIGHT_PAREN
 						;	// Array() Array(1) Array(1,2,3)
@@ -396,7 +398,7 @@ ILLEGAL_ESCAPE: DOUBLE_QUOTE STR_CHAR* ESC_ILLEGAL
                     raise IllegalEscape(y[1:])
                 }
                 ;
-fragment STR_CHAR: ~[\n\r"\\] | ESC_ACCEPT ;
+fragment STR_CHAR: ~['\b\t\n\f\r"\\] | ESC_ACCEPT | '\'' DOUBLE_QUOTE;
 
 fragment ESC_ACCEPT: '\\' ['btnfr"\\] ;
 

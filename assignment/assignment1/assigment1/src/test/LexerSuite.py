@@ -125,7 +125,36 @@ class LexerSuite(unittest.TestCase):
         i = "True False"
         e = "True,False,<EOF>"
         self.assertTrue(TestLexer.test(i,e,22))
-
+    #23
+    def test_string_simple(self):
+        i = """ "Hi, What is your name?" """
+        e = """Hi, What is your name?,<EOF>"""
+        self.assertTrue(TestLexer.test(i,e,23))
+    #24
+    def test_string_with_escape(self):
+        i = """ "Lorem \\b Ipsum \\t is \\n simply \\f dummy \\r text \\\ of \\' the printing and typesetting industry." """
+        e = """Lorem \\b Ipsum \\t is \\n simply \\f dummy \\r text \\\ of \\' the printing and typesetting industry.,<EOF>"""
+        self.assertTrue(TestLexer.test(i,e,24))
+    #25
+    def test_string_with_escape_in_python(self):
+        i = """ "Lorem \t Ipsum \\t is \\n simply \\f dummy \\r text \\\ of the printing and typesetting industry." """
+        e = """Unclosed String: Lorem """
+        self.assertTrue(TestLexer.test(i,e,25))
+    #26
+    def test_string_with_escape_single_quote(self):
+        i = """ "Lorem ' Ipsum is simply dummy text of the printing and typesetting industry." """
+        e = "Unclosed String: Lorem "
+        self.assertTrue(TestLexer.test(i,e,26))
+    #27
+    def test_string_with_double_quote(self):
+        i = """ "Lorem '" Ipsum is simply dummy text of the printing and typesetting industry." """
+        e = """Lorem '" Ipsum is simply dummy text of the printing and typesetting industry.,<EOF>"""
+        self.assertTrue(TestLexer.test(i,e,27))
+    #28
+    def test_string_unclosed(self):
+        i = """ "Lorem Ipsum is simply dummy text of the printing and typesetting industry."""
+        e = """Unclosed String: Lorem Ipsum is simply dummy text of the printing and typesetting industry."""
+        self.assertTrue(TestLexer.test(i,e,28))
 
 
 
