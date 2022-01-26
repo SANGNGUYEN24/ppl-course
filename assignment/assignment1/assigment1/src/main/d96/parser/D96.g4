@@ -29,16 +29,18 @@ destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement
 					;
 parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
-parameter:    		identifier_list COLON primitive_type
+parameter:    		identifier_list COLON type
 					;//a, b, c: String
+type:               primitive_type | array_type | identifier
+                    ;
 //----------------------------------------------------------------
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
 // TODO Xem lai co viec them identifier vao sau COLON
 attribute_declaration:
-					(K_VAL | K_VAR) 
+					(K_VAL | K_VAR)
 					(identifier_list | dolar_identifier_list) 
-					COLON 
-					(array_type | primitive_type | identifier) (OP_ASSIGN expression_list)? SEMI_COLON
+					COLON
+					type OP_ASSIGN expression_list SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
 					;// My1stCons, My2ndCons

@@ -14,18 +14,8 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#many_class.
-    def visitMany_class(self, ctx:D96Parser.Many_classContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by D96Parser#class_declaration.
     def visitClass_declaration(self, ctx:D96Parser.Class_declarationContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#class_body.
-    def visitClass_body(self, ctx:D96Parser.Class_bodyContext):
         return self.visitChildren(ctx)
 
 
@@ -36,21 +26,6 @@ class D96Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by D96Parser#super_class_group.
     def visitSuper_class_group(self, ctx:D96Parser.Super_class_groupContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#program_class_declaration.
-    def visitProgram_class_declaration(self, ctx:D96Parser.Program_class_declarationContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#program_class_body.
-    def visitProgram_class_body(self, ctx:D96Parser.Program_class_bodyContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#main_method_declaration.
-    def visitMain_method_declaration(self, ctx:D96Parser.Main_method_declarationContext):
         return self.visitChildren(ctx)
 
 
