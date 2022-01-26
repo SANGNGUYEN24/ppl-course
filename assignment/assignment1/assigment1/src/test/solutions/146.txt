@@ -1,1 +1,0 @@
-Var,a,:,Array,[,Int,,,5,],;,<EOF>

@@ -29,9 +29,9 @@ destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement
 					;
 parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
-parameter:    		identifier_list COLON type
+parameter:    		identifier_list COLON type_name
 					;//a, b, c: String
-type:               primitive_type | array_type | identifier
+type_name:          primitive_type | array_type | identifier
                     ;
 //----------------------------------------------------------------
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
@@ -39,7 +39,7 @@ type:               primitive_type | array_type | identifier
 attribute_declaration:
 					(K_VAL | K_VAR)
 					mixed_identifier_list
-					COLON type OP_ASSIGN expression_list SEMI_COLON
+					COLON type_name OP_ASSIGN expression_list SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
 					;// My1stCons, My2ndCons
@@ -47,13 +47,14 @@ dolar_identifier_list:
 					DOLAR_IDENTIFIER | DOLAR_IDENTIFIER (COMMA DOLAR_IDENTIFIER)+
 					;// $My1stCons, $My2ndCons
 mixed_identifier_list:
-                    (IDENTIFIER | DOLAR_IDENTIFIER) (COMMA (IDENTIFIER | DOLAR_IDENTIFIER))*
+                    (IDENTIFIER | DOLAR_IDENTIFIER)
+                    | (IDENTIFIER | DOLAR_IDENTIFIER)(COMMA (IDENTIFIER | DOLAR_IDENTIFIER))+
                     ;
 //==================== Program struture end ====================
 
 
 //==================== Expression start ====================
-expression_list:	expression | expression (COMMA expression)*
+expression_list:	expression | expression (COMMA expression)+
 					;// 1+2, 1+2, 2*5
 //----------------------------------------------------------------
 // Index operator
@@ -91,14 +92,6 @@ not_expr:			<assoc=right> OP_LOGICAL_NOT not_expr | sign_expr
 					;
 sign_expr:			<assoc=right> (OP_SUBTRACTION) sign_expr | index_operator_expr
 					;
-//index_operator_expr:
-//					member_access index_operator
-//					;
-//member_access:      member_access DOUBLE_DOT identifier
-//                    | member_access DOT identifier
-//	                | member_access DOT identifier LP expression_list RP
-//	                | object_creation
-//                    ;
 index_operator_expr:
 					index_operator_expr index_operator | instance_attribute_access
 					;
@@ -278,7 +271,7 @@ SEMI_COLON:				';';
 LEFT_CURLY_BRACKET:		'{';
 RIGHT_CURLY_BRACKET:	'}';
 // Quote
-fragment SINGLE_QUOTE:	'\'';
+//fragment SINGLE_QUOTE:	'\'';
 fragment DOUBLE_QUOTE:	'"';
 // 3.7 Literals
 fragment OCTAL_NOTATION: 	'0';
