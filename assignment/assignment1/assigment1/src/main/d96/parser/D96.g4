@@ -74,15 +74,16 @@ relational_operator:
 					| OP_GREATER_THAN_EQUAL
 					;
 
-expression:			expression (OP_STRING_CONCATENATION | OP_TWO_SAME_STRING) relational_expr
+expression:			relational_expr (OP_STRING_CONCATENATION | OP_TWO_SAME_STRING) relational_expr
 					| relational_expr
-					;
+					;// +. ==
 
-relational_expr:	relational_expr relational_operator and_or_expr | and_or_expr
-					;
+relational_expr:	and_or_expr relational_operator and_or_expr
+                    | and_or_expr
+					;// == != < > <= >=
 and_or_expr:		and_or_expr (OP_LOGICAL_AND | OP_LOGICAL_OR) add_sub_expr
 					| add_sub_expr
-					;
+					;// && ||
 add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
 					| mul_add_mol_expr
 					;

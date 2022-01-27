@@ -289,3 +289,136 @@ class LexerSuite(unittest.TestCase):
         i = "!(2+3) && (val1 == val2) || val3 != val4 "
         e = "!,(,2,+,3,),&&,(,val1,==,val2,),||,val3,!=,val4,<EOF>"
         self.assertTrue(TestLexer.test(i,e,54))
+    #55
+    def test_int_with_operator(self):
+        i = "a = 1 * 2 + 3 / 4; a >= 2; a > 4; a <= 5; a <6 "
+        e = "a,=,1,*,2,+,3,/,4,;,a,>=,2,;,a,>,4,;,a,<=,5,;,a,<,6,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,55))
+    #56
+    def test_string_with_operator(self):
+        i = """ "Sang" +. "is"+. "handsome" ==. "Sang is handsome" """
+        e = "Sang,+.,is,+.,handsome,==.,Sang is handsome,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,56))
+    #57
+    def test_array_type_int(self):
+        i = "Var a: Array[Int, 5]"
+        e = "Var,a,:,Array,[,Int,,,5,],<EOF>"
+        self.assertTrue(TestLexer.test(i,e,57))
+    #58
+    def test_array_type_float(self):
+        i = "Var a: Array[Float, 5]"
+        e = "Var,a,:,Array,[,Float,,,5,],<EOF>"
+        self.assertTrue(TestLexer.test(i,e,58))
+    #59
+    def test_array_type_boolean(self):
+        i = "Var a: Array[Boolean, 6_18_2_7_6]"
+        e = "Var,a,:,Array,[,Boolean,,,618276,],<EOF>"
+        self.assertTrue(TestLexer.test(i,e,59))
+    #60
+    def test_array_type_array(self):
+        i = "Var a: Array[Array, 12_23]"
+        e = "Var,a,:,Array,[,Array,,,1223,],<EOF>"
+        self.assertTrue(TestLexer.test(i,e,60))
+    #61
+    def test_array_type_string(self):
+        i = "Val a, b, c: Array[String, 98_211]"
+        e = "Val,a,,,b,,,c,:,Array,[,String,,,98211,],<EOF>"
+        self.assertTrue(TestLexer.test(i,e,61))
+    #62
+    def test_array_element(self):
+        i = "a[Point.x][Point.y] a[1+2][123_898][getZ()]"
+        e = "a,[,Point,.,x,],[,Point,.,y,],a,[,1,+,2,],[,123898,],[,getZ,(,),],<EOF>"
+        self.assertTrue(TestLexer.test(i,e,62))
+    #63
+    def test_class_type(self):
+        i = "Var a: A = New A()"
+        e = "Var,a,:,A,=,New,A,(,),<EOF>"
+        self.assertTrue(TestLexer.test(i,e,63))
+    #64
+    def test_class_type_2(self):
+        i = """Var x: X = New X(1 + 3_72, 3*Shape::$a, "Hello")"""
+        e = "Var,x,:,X,=,New,X,(,1,+,372,,,3,*,Shape,::,$a,,,Hello,),<EOF>"
+        self.assertTrue(TestLexer.test(i,e,64))
+    #65
+    def test_class_type_3(self):
+        i = "Var $a, $a2, a3, a4, $a5: X = New X()"
+        e = "Var,$a,,,$a2,,,a3,,,a4,,,$a5,:,X,=,New,X,(,),<EOF>"
+        self.assertTrue(TestLexer.test(i,e,65))
+    #66
+    def test_expression_alrithmetic_operator(self):
+        i = "1_000 + 2_000 - _3x * 4_000 / 5 + 2 % 5 "
+        e = "1000,+,2000,-,_3x,*,4000,/,5,+,2,%,5,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,66))
+    #67
+    def test_expression_boolean_operator(self):
+        i = "20 // \ && || "
+        e = "20,/,/,Error Token \\"
+        self.assertTrue(TestLexer.test(i,e,67))
+    #68
+    def test_expression_string_operator(self):
+        i = """ "I want 10" +. "In this assignment """
+        e = """I want 10,+.,Unclosed String: In this assignment """
+        self.assertTrue(TestLexer.test(i,e,68))
+    #69
+    def test_expression_string_operator_2(self):
+        i = """ "I want 10" ==. "In this assignment" """
+        e = """I want 10,==.,In this assignment,<EOF>"""
+        self.assertTrue(TestLexer.test(i,e,69))
+    #70
+    def test_expression_relational_operator(self):
+        i = " 1 == 2 != 3 < 4 > 5 <= 6 >= 7"
+        e = "1,==,2,!=,3,<,4,>,5,<=,6,>=,7,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,70))
+    #71
+    def test_expression_index_operator(self):
+        i = "Val a = getShape()[1][2-3]"
+        e = "Val,a,=,getShape,(,),[,1,],[,2,-,3,],<EOF>"
+        self.assertTrue(TestLexer.test(i,e,71))
+    #72
+    def test_expression_member_access(self):
+        i = "getAClass().value \\"
+        e = "getAClass,(,),.,value,Error Token \\"
+        self.assertTrue(TestLexer.test(i,e,72))
+    #73
+    def test_expression_static_attribute_access(self):
+        i = "Car::$speed"
+        e = "Car,::,$speed,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,73))
+    #74
+    def test_expression_instance_method_invocation(self):
+        i = "TenScoreObject.calculateScore(10,9,8)"
+        e = "TenScoreObject,.,calculateScore,(,10,,,9,,,8,),<EOF>"
+        self.assertTrue(TestLexer.test(i,e,74))
+    #75
+    def test_expression_static_method_invocation(self):
+        i = "Shape::$draw(radius, 10_000)"
+        e = "Shape,::,$draw,(,radius,,,10000,),<EOF>"
+        self.assertTrue(TestLexer.test(i,e,75))
+    #76
+    def test_expression_self(self):
+        i = "Return Self.x + Self.y + 20_000"
+        e = "Return,Self,.,x,+,Self,.,y,+,20000,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,76))
+    #77
+    def test_assignment_statement(self):
+        i = "a = 500_000;"
+        e = "a,=,500000,;,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,77))
+    #78
+    def test_if_statement(self):
+        i = """
+            If (a[1 + OOP.getX()] == False){
+                If (a + 2 = b){
+                    Return True;
+                }
+                Elseif( a == b){
+                    Return False;
+                }
+            }Else{
+                print("Hong be oi, em khong follow anh ma em doi xin in4 cua anh");
+            }
+            
+            """
+        e = "If,(,a,[,1,+,OOP,.,getX,(,),],==,False,),{,If,(,a,+,2,=,b,),{,Return,True,;,},Elseif,(,a,==,b,),{,Return,False,;,},},Else,{,print,(,Hong be oi, em khong follow anh ma em doi xin in4 cua anh,),;,},<EOF>"
+        self.assertTrue(TestLexer.test(i,e,78))
+

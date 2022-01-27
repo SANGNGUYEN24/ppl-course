@@ -1,1 +1,1 @@
-Array,(,1,,,2,,,10.e10,),<EOF>
+Sang,+.,is,+.,handsome,==.,Sang is handsome,<EOF>

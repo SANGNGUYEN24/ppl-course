@@ -1,0 +1,13 @@
+
+            If (a[1 + OOP.getX()] == False){
+                If (a + 2 = b){
+                    Return True;
+                }
+                Elseif( a == b){
+                    Return False;
+                }
+            }Else{
+                print("Hong be oi, em khong follow anh ma em doi xin in4 cua anh");
+            }
+            
+            

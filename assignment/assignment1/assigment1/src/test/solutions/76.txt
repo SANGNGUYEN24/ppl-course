@@ -1,0 +1,1 @@
+Return,Self,.,x,+,Self,.,y,+,20000,<EOF>
