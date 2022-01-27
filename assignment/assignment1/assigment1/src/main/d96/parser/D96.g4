@@ -1,4 +1,4 @@
-// Nguyen Dình Sang - 1952955
+// Nguyen Dinh Sang - 1952955
 grammar D96;
 
 @lexer::header {
@@ -90,9 +90,9 @@ add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
 mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr 
 					| not_expr
 					;
-not_expr:			<assoc=right> OP_LOGICAL_NOT not_expr | sign_expr
+not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
 					;
-sign_expr:			<assoc=right> (OP_SUBTRACTION) sign_expr | index_operator_expr
+sign_expr:			(OP_SUBTRACTION) sign_expr | index_operator_expr
 					;
 index_operator_expr:
 					index_operator_expr index_operator | instance_attribute_access
@@ -143,12 +143,12 @@ function_call:		IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN
 var_val_statement:	(K_VAL | K_VAR) 
 					identifier_list 
 					COLON 
-					(array_type | primitive_type) (OP_ASSIGN expression_list)?
+					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 					// However, the static property of attribute cannot be applied to them 
 					// so its name should not follow the dollar identifier rule.
 // Assign statement
-assign_statement: 	(identifier | element_expression) OP_ASSIGN expression
+assign_statement: 	(identifier | element_expression) OP_ASSIGN expression SEMI_COLON
 					;
 // If statement
 // ---------------------------------------------------------------------------
@@ -174,21 +174,21 @@ loop_part:			IDENTIFIER K_IN INTEGER_LITERAL DOUBLE_DOT INTEGER_LITERAL
 					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
 // Break statement
-break_statement:	K_BREAK
+break_statement:	K_BREAK SEMI_COLON
 					;// Break;
 // Continue statement
-continue_statement:	K_CONTINUE
+continue_statement:	K_CONTINUE SEMI_COLON
 					;// Continue;
 // Return statements 
-return_statement:   K_RETURN expression
+return_statement:   K_RETURN expression SEMI_COLON
 					;
 // Method invocation statement
 method_invocation_statement:
-                    instace_method_invocation
-                    | static_method_invocation
+                    (instace_method_invocation
+                    | static_method_invocation) SEMI_COLON
 					;// Shape::$getNumOfShape();
 block_statement:	LEFT_CURLY_BRACKET
-					(statement SEMI_COLON)*
+					statement*
 					RIGHT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
 
@@ -384,10 +384,10 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 //ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
 WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs, newlines
 
-UNCLOSE_STRING: DOUBLE_QUOTE STR_CHAR*
+UNCLOSE_STRING: DOUBLE_QUOTE STR_CHAR* (['\b\t\n\f\r"\\] | EOF)
                 {
                     y = str(self.text)
-                    possible = ['\n', '\r']
+                    possible = ['b','\t','\n','\f','\r',"'",'\\']
                     if y[-1] in possible:
                         raise UncloseString(y[1:-1])
                     else:

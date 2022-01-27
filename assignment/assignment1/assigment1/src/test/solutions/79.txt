@@ -1,0 +1,1 @@
+Foreach,(,i,In,1000,..,100000,By,(,a,*,b,),),{,Out,.,printInt,(,i,),;,},Foreach,(,x,In,5,..,2,),{,Out,.,printInt,(,arr,[,x,],),;,},<EOF>

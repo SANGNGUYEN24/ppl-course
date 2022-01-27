@@ -1,0 +1,6 @@
+
+            Class Eva{
+                Val a, b, __b: Boolean = True, False, !True;
+                Var aa, be, $ce, de: Float = 978.063e129, 8_7_6_2.029e99, 98_1.23e-10
+            }
+            

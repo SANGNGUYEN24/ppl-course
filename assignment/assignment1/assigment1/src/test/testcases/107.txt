@@ -1,0 +1,7 @@
+
+            Class Eva{
+                getSpeed(a, b, c: Int; d, e: String){
+                    print("speed is: " +.  "20km/h");
+                }
+            }
+            

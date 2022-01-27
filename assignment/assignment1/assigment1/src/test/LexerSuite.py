@@ -17,15 +17,15 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test(i, e, 2))
     # 3
     def test_program_comment_with_tab_enter(self):
-        i = """## This    a   comment     
+        i = """## This    a   comment
             with    tab     and     enter
-             
+
              ##"""
         e = "<EOF>"
         self.assertTrue(TestLexer.test(i, e, 3))
     # 4
     def test_program_comment_with_tab_enter_all_acsii_char(self):
-        i = """## This    a   comment     
+        i = """## This    a   comment
             with    tab     and     enter
             ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
              ##"""
@@ -417,8 +417,156 @@ class LexerSuite(unittest.TestCase):
             }Else{
                 print("Hong be oi, em khong follow anh ma em doi xin in4 cua anh");
             }
-            
+
             """
         e = "If,(,a,[,1,+,OOP,.,getX,(,),],==,False,),{,If,(,a,+,2,=,b,),{,Return,True,;,},Elseif,(,a,==,b,),{,Return,False,;,},},Else,{,print,(,Hong be oi, em khong follow anh ma em doi xin in4 cua anh,),;,},<EOF>"
         self.assertTrue(TestLexer.test(i,e,78))
+    #79
+    def test_for_in_statement(self):
+        i = """
+                Foreach (i In 1_000 .. 100_000 By (a*b)) {
+                    Out.printInt(i);
+                }
+                Foreach (x In 5 .. 2) {
+                    Out.printInt(arr[x]);
+                }
+
+        """
+        e = "Foreach,(,i,In,1000,..,100000,By,(,a,*,b,),),{,Out,.,printInt,(,i,),;,},Foreach,(,x,In,5,..,2,),{,Out,.,printInt,(,arr,[,x,],),;,},<EOF>"
+        self.assertTrue(TestLexer.test(i,e,79))
+    #80
+    def test_break_statement(self):
+        i = "Break;"
+        e = "Break,;,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,80))
+    #81
+    def test_string_random_with_newline(self):
+        i = """
+            "My string
+
+            Hello"
+        """
+        e = "Unclosed String: My string"
+        self.assertTrue(TestLexer.test(i,e,81))
+    #82
+    def test_continue_statement(self):
+        i = "Continue;"
+        e = "Continue,;,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,82))
+    #83
+    def test_return_statement(self):
+        i = "Return x.getX(10000)"
+        e = "Return,x,.,getX,(,10000,),<EOF>"
+        self.assertTrue(TestLexer.test(i,e,83))
+    #84
+    def test_method_invocation_statement(self):
+        i = "Shape::$getNumOfShape(count);"
+        e = "Shape,::,$getNumOfShape,(,count,),;,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,84))
+    #85
+    def test_random(self):
+        i = """
+            Class S{
+                Val a: Int = 1_111_111;
+                print("Every moment is a opportunity");
+            }
+        """
+        e = "Class,S,{,Val,a,:,Int,=,1111111,;,print,(,Every moment is a opportunity,),;,},<EOF>"
+        self.assertTrue(TestLexer.test(i,e,85))
+    #86
+    def test_random_1(self):
+        i = "00000hkajhf9827364ljsbdb'p]W0JLJDHF283079PHNDVHALKD;AF"
+        e = "00,00,0,hkajhf9827364ljsbdb,Error Token '"
+        self.assertTrue(TestLexer.test(i,e,86))
+    #87
+    def test_random_2(self):
+        i = "         abc\\sj\\ksdh"
+        e = "abc,Error Token \\"
+        self.assertTrue(TestLexer.test(i,e,87))
+    #88
+    def test_random_3(self):
+        i = """ .//. "sang"  """
+        e = ".,/,/,.,sang,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,88))
+    #89
+    def test_random_4(self):
+        i = "000x0000123484567 10.e29hs-o28+jf"
+        e = "00,0x0,00,01234,84567,10.e29,hs,-,o28,+,jf,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,89))
+    #90
+    def test_random_5(self):
+        i = "_a.doo := (a>b)<=c;"
+        e = "_a,.,doo,:,=,(,a,>,b,),<=,c,;,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,90))
+    #91
+    def test_random_6(self):
+        i = "23456789098trewertyuklkjhgfxcvbnm0987654567890xcg987u"
+        e = "23456789098,trewertyuklkjhgfxcvbnm0987654567890xcg987u,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,91))
+    #92
+    def test_random_comment(self):
+        i = """
+        ## Line 1
+
+            Line 2 \\n \\
+        """
+        e = "Error Token #"
+        self.assertTrue(TestLexer.test(i,e,92))
+    #93
+    def test_random_comment_1(self):
+        i = """
+                ## Line 1
+
+                    Line 2 \\n \\
+                ##
+                """
+        e = "<EOF>"
+        self.assertTrue(TestLexer.test(i,e,93))
+    #94
+    def test_random_7(self):
+        i = "00000000xxxxx001111000110bbbc0001111"
+        e = "00,00,00,00,xxxxx001111000110bbbc0001111,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,94))
+    #95
+    def test_random_8(self):
+        i = "123.4E+5677238 12123.4e+5678 123.4123E-5678 12233.4e-561378"
+        e = "123.4E+5677238,12123.4e+5678,123.4123E-5678,12233.4e-561378,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,95))
+    #96
+    def test_random_9(self):
+        i = """
+        Val a, $b, $c: Int = 1 + 2, 1+3, 23-9;
+        ## This will be skipped ##
+
+        """
+        e = "Val,a,,,$b,,,$c,:,Int,=,1,+,2,,,1,+,3,,,23,-,9,;,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,96))
+    #97
+    def test_random_10(self):
+        i = """
+            Val a, $b, $c: Int = 1 + 2, 1+3, 23-9;
+            ## This will be skipped ##
+            Hello(a[i+7]);
+            ## This also ##
+
+        """
+        e = "Val,a,,,$b,,,$c,:,Int,=,1,+,2,,,1,+,3,,,23,-,9,;,Hello,(,a,[,i,+,7,],),;,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,97))
+    #98
+    def test_random_11(self):
+        i = "0x0x00x0x0x0x00x0x0x0b0b0b0z0x0x0x0______0090901101100022230"
+        e = "0x0,x00x0x0x0x00x0x0x0b0b0b0z0x0x0x0______0090901101100022230,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,98))
+    #99
+    def test_random_12(self):
+        i = ""
+        e = "<EOF>"
+        self.assertTrue(TestLexer.test(i,e,99))
+    #100
+    def test_final(self):
+        i = "All parameters/variables declared in the body block have the method scope"
+        e = "All,parameters,/,variables,declared,in,the,body,block,have,the,method,scope,<EOF>"
+        self.assertTrue(TestLexer.test(i,e,100))
+
+
 
