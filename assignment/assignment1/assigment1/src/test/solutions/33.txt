@@ -1,0 +1,1 @@
+Lorem       Ipsum is simply        dummy text of the printing \b \t \n \f \r \' \\ and typesetting industry.,<EOF>

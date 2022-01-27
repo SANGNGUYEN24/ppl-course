@@ -330,11 +330,12 @@ literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_L
 // 5. Indexed array
 indexed_array:  		K_ARRAY
 						LEFT_PAREN(
-							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)?
+							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)
 							|(FLOAT_LITERAL (COMMA FLOAT_LITERAL)*)
 							|(BOOLEAN_LITERAL (COMMA BOOLEAN_LITERAL)*)
 							|(STRING_LITERAL (COMMA STRING_LITERAL)*)
 							|((indexed_array) (COMMA indexed_array)*)
+							|
 						)
 						RIGHT_PAREN
 						;	// Array() Array(1) Array(1,2,3)
