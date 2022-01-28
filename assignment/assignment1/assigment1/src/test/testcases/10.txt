@@ -1,1 +1,27 @@
-$sldcjne.ihad
+
+				Class TestUtils : TestCase {
+					Var x: ClassIT = 123*125/24*0b1%335-aabc;
+					Test1() {
+						x::$a = "She said that '"Int World '"";
+						Var def: Int = "123456";
+						Val abc: Array[Array[Int, 0b1],0x1] = Array();
+						If (True) {
+							Continue;
+							a = b * c + d.foo().f;
+						} Elseif (False) {
+							Var a, b, d: Int = 1,2,3;
+							Break;
+							If (1/2*3-4) {
+								Out.prinln("I'm you but private");
+							} Else {
+								vari*3/4*5[a] = 19/83*New A(bcd)[b];
+								a = "This is string contain \t";
+							}
+						}
+					}
+					Test2() {
+						Foraech(x In 1 .. 2){}
+					}
+				}
+				Class Program {}
+			

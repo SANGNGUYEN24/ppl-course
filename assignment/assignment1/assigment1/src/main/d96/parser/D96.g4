@@ -95,29 +95,19 @@ not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
 sign_expr:			(OP_SUBTRACTION) sign_expr | index_operator_expr
 					;
 index_operator_expr:
-					index_operator_expr index_operator | instance_attribute_access
+					index_operator_expr index_operator | instance_access
 					;
 // Member access
-instance_attribute_access:
-					instance_attribute_access DOT identifier | instace_method_invocation
-					;// getClassObject.object
-					// TODO review lai dieu kien co DOLAR_IDENTIFIER ko?
-					// <expression> is an expression that returns an object of a class and
-					// <identifier> is an attribute of the class.
-instace_method_invocation:
-					instace_method_invocation DOT identifier
-					LEFT_PAREN expression_list? RIGHT_PAREN
-					| object_creation
-					;// the first <identifier> is a class name and
-					// <identifier> is a static method name of the class.
-static_method_invocation:
-					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
-					LEFT_PAREN expression_list? RIGHT_PAREN
+instance_access:
+					instance_access DOT identifier
+					(LEFT_PAREN expression_list? RIGHT_PAREN)?
+					| static_access
 					;
-static_attribute_access:
+static_access:
 					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
-					;// the first <identifier> is a class name, and
-					// the second <identifier> is a static attribute of the class.
+					(LEFT_PAREN expression_list? RIGHT_PAREN)?
+					| object_creation
+					;
 // Object creation
 object_creation:	K_NEW IDENTIFIER 
 					LEFT_PAREN expression_list? RIGHT_PAREN
@@ -127,11 +117,6 @@ object_creation:	K_NEW IDENTIFIER
 atom_expr:			literal
 					| identifier
 					| LEFT_PAREN expression RIGHT_PAREN
-					| function_call
-					| static_attribute_access
-					| static_method_invocation
-					;
-function_call:		IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN
 					;
 //------------------------------------------------------------------------
 //==================== Expression end ====================
@@ -201,7 +186,6 @@ statement: 			var_val_statement
 					| return_statement
 					| method_invocation_statement
 					;
-
 //==================== Statement end ====================
 
 //==================== Lexical rules start ====================
@@ -412,6 +396,12 @@ ERROR_CHAR:         .
                     }
                     ;
 
+// TODO check lai loai bo so 0 trong Array[Int, 00123] test case 125 -> khai bao them 1 token khac tu 1 tro di
+// TODO check lai so bien 2 ben
+// TODO Khong goi duoc mot function rieng le o tescase 107
+// TODO Testcase 128 van doc art nhung ( thi sai
+// TODO Trong statement co block statement
+// TODO Chu Null trong de
 
 
 

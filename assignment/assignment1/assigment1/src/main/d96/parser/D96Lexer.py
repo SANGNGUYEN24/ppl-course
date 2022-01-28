@@ -448,28 +448,28 @@ class D96Lexer(Lexer):
     def UNCLOSE_STRING_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 3:
 
-                                y = str(self.text)
-                                possible = ['b','\t','\n','\f','\r',"'",'\\']
-                                if y[-1] in possible:
-                                    raise UncloseString(y[1:-1])
-                                else:
-                                    raise UncloseString(y[1:])
-                            
+                                    y = str(self.text)
+                                    possible = ['b','\t','\n','\f','\r',"'",'\\']
+                                    if y[-1] in possible:
+                                        raise UncloseString(y[1:-1])
+                                    else:
+                                        raise UncloseString(y[1:])
+                                
      
 
     def ILLEGAL_ESCAPE_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 4:
 
-                                y = str(self.text)
-                                raise IllegalEscape(y[1:])
-                            
+                                    y = str(self.text)
+                                    raise IllegalEscape(y[1:])
+                                
      
 
     def ERROR_CHAR_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 5:
 
-                                raise ErrorToken(self.text)
-                            
+                                    raise ErrorToken(self.text)
+                                
      
 
 

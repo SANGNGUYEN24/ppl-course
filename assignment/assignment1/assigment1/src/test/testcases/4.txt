@@ -1,4 +1,11 @@
-## This    a   comment
-            with    tab     and     enter
-            ' !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
-             ##
+
+				Class TestUtils : TestCase {
+					Var x: ClassIT = 123*125/24*0b1%335-aabc;
+					Test1() {
+						x::$a = "She said that '"Hello World '"";
+						Var def: Int = "123456";
+						Val abc: Array[Array[Int, 0b1],0] = Array();
+					}
+				}
+				Class Program {}
+			
