@@ -1,5 +1,1 @@
-Class Rectangle: Shape {
-        getArea() {
-        Return self.length * self.width;
-    }
-}
+Class _:R3A{Val $9,_:Boolean ;Constructor (G,h_,_,_,_,H,f:Array [Array [Boolean ,0B100101],0B100101];_,_V:Boolean ){} }Class H:_132_5{}Class Ki{Constructor (__,QV,_,_,FJ:String ){}Constructor (_,L59:_4_;BI,_,p,t:Array [Array [Array [Array [Array [Array [Int ,0X16],25],0B11],8],0X16],02_6_521_1]){} }

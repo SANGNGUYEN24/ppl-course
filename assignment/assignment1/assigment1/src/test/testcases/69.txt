@@ -1,1 +1,1 @@
- "I want 10" ==. "In this assignment" 
+Class _4:_9T{Destructor (){Continue ;}Constructor (_g:Boolean ;M,_1_7:Array [Array [String ,0X11],0101];_197:_){} }

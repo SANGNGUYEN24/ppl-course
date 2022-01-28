@@ -1,0 +1,1 @@
+Class H{}Class T{Var $s_:Array [Array [Array [Array [Float ,05],0B1_01111110_0],0b1],20];Constructor (s:String ){} }Class _{Destructor (){}_4(){Break ;}Destructor (){}Var _j,$_2:Array [Array [Array [Array [Array [Int ,0b111010],0x6],6_7],01],0B101000];}

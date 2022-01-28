@@ -1,0 +1,1 @@
+Class _2{Destructor (){}Constructor (){}Var P,_,$e_5:Boolean ;Var C34R:Array [String ,6_1];Constructor (k,_,_:Boolean ){} }Class r:k{}

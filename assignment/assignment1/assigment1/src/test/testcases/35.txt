@@ -1,1 +1,1 @@
- "Lorem Ipsum is simply dummy text of the \b \f \r \n \t ' \\ printing and typesetting industry.
+Class _I_{Var $_,__8:Array [Array [Float ,0103],07];Constructor (_:C;_h:Array [Array [Array [Float ,0B1000011],4],0X50];__z_,_K:C){} }Class _2d{}

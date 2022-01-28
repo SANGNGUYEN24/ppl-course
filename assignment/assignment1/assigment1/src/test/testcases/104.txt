@@ -4,5 +4,5 @@
                 Val speed: Float = 0;
                 Val $model, tireNum: Int;
             }
-            
+
         

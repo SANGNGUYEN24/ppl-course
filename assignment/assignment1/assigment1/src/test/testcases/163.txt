@@ -1,1 +1,5 @@
-S::$getID()
+
+    Class Human {
+        sum(a,b:Int; c,d:Float){}
+    }
+    

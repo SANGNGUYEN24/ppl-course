@@ -1,9 +1,1 @@
-
-    Class Shape {
-        foo(){
-            Foreach (i In (1+2) .. (100*2-3) By (16-14)) {
-                Out.printInt(i);
-            }
-        } 
-    }
-    
+Class _0:I{$_(_:_;LG:Array [Array [Array [Array [Float ,0X33],0X33],03],4];zD,h:Boolean ){Return ;}Constructor (_,x_:_U7_js_){} }Class U_:g{Var $dV1,$2__:String ;Var yjO:___5;}Class _:R{Destructor (){} }Class _:_{}Class _:Y{}Class _4:g{}Class __{}Class V_7_:k_71{}

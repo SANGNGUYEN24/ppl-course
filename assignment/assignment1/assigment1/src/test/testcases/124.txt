@@ -10,15 +10,15 @@
                     }
 
                     Foreach(i In 1*2-10/1_111 .. 100_100/a.getX() By 1 + 2){
-                        X.print("Hello");
+                        X.X.print("Hello");
                     }
-                }                
+                }
             }
 
             Class Adam : Human{
                 Val name: String = "Eva pro";
                 run(){
-                    print("Adam: " + Eva::$fun("nikhao", 10));
+                    X.print("Adam: " + Eva::$fun("nikhao", 10));
                 }
             }
             

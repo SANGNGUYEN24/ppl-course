@@ -1,0 +1,1 @@
+Class Y:a{Val $_,$8:Int ;Var $2:Array [Float ,0B1001010];}Class fZr{Var _:Array [Array [Array [Array [Array [Array [Boolean ,034_57_6146],034_5_4],0x61],0X4],0b1_1010_00_11],87_9_580_0];}

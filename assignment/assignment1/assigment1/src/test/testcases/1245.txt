@@ -1,0 +1,1 @@
+Class k:__o{Var f:Array [Array [Array [Array [String ,07],0b1001011],4_4],42];Var $4:_;Var $C,$s,$_7:Array [Array [Array [Int ,0x44],0B1_111],22];Val $1:_;}

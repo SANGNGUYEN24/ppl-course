@@ -1,5 +1,1 @@
-
-        Val a, $b, $c: Int = 1 + 2, 1+3, 23-9;
-        ## This will be skipped ##
-
-        
+Class _1:_{$8(){Break ;Val _1:_;} }Class V_1{Constructor (_g0_,__2__,_1M:Int ;Y:d_;m,E3,__T:_;O:Float ;_,_:Array [Int ,74];wk:Boolean ;_78,u6__:Boolean ;_6,_:Float ){} }Class _6:_6rCSJ{}

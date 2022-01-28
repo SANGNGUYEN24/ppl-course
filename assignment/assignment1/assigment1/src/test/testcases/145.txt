@@ -1,1 +1,8 @@
-## #a ##
+
+            Class Adam : Human {
+                Var a: Int = 12.e23;
+                jskhldfd() {
+                    e = Self.x + Self.y;
+                }
+            }
+            

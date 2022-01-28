@@ -10,8 +10,8 @@
                     }
 
                     Foreach(i In 1*2-10/1_111 .. 100_100/a.getX() By 1 + 2){
-                        X.print("Hello");
+                        X.X.print("Hello");
                     }
-                }                
+                }
             }
             

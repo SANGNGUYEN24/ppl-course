@@ -1,0 +1,1 @@
+Class Q:__{Constructor (__0:Array [Int ,040];r:_MGd9){} }Class w:m{Constructor (_,G:Array [Int ,06]){Break ;} }Class q_:_T{}

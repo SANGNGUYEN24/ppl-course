@@ -1,7 +1,1 @@
-
-    Class Shape {
-        foo(){
-            Foreach (i In a[1] .. foo() By _123()) {}
-        } 
-    }
-    
+Class h:_9{$2(R9,q:Array [Array [String ,98],0x45];I,_32,_,_887__,_,q428:Array [Array [Array [Array [Array [Boolean ,98],0x6_5],0x45],0b1100011],0B1]){} }

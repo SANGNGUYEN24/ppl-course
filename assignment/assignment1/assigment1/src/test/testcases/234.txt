@@ -1,9 +1,1 @@
-
-    Class Shape {
-        foo(){
-            a::$b=2;
-            a::$e();
-            a::$c()::$d=2;
-        } 
-    }
-    
+Class __8P{}Class __4{}Class F:df{Constructor (_,_:Array [Array [Array [Array [Float ,75],3],055],05_0]){Continue ;} }

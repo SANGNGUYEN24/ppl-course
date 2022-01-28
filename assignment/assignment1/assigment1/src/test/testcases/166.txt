@@ -1,1 +1,7 @@
-True || True
+
+    Class Human {
+        function(){
+            function2(1+1,"a"+."b","a"==."b");
+        }
+    }
+    

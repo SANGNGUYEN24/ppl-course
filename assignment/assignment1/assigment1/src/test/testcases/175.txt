@@ -1,1 +1,7 @@
-lsh = a[1];
+
+    Class Human {
+        function(){
+            a=b.c.d.e;
+        }
+    }
+    

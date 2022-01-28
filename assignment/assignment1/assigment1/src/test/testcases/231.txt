@@ -1,7 +1,1 @@
-
-    Class Shape {
-        foo(){
-            a = "a"==."b"==."b";
-        } 
-    }
-    
+Class _4c:G{Val M:Array [Array [String ,05_7],0X1];Constructor (_,n,_,K:g;_d:Boolean ;VDN:R_5S_){}Val WZ:String ;}

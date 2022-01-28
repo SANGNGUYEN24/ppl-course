@@ -1,1 +1,1 @@
-Array("a","b","c")
+Class X{Constructor (){Var g,_zQn1_w,h:_;Continue ;Break ;Continue ;Var l,__7,_,x:Array [Boolean ,040];Continue ;}Constructor (){}Val _,A_:Array [Array [Int ,0b1_1_0],0B1001001];}Class _7x:u{}

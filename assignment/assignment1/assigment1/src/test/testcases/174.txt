@@ -1,1 +1,7 @@
-(1+2)-(2-3)
+
+    Class Human {
+        function(){
+            a.b();
+        }
+    }
+    

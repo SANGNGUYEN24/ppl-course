@@ -1,1 +1,7 @@
-"a" +. "bc"
+
+    Class Human {
+        function(){
+            Var a: Boolean = !!True;
+        }
+    }
+    

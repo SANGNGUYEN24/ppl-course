@@ -1,1 +1,1 @@
- "Lorem ' Ipsum is simply dummy text of the printing and typesetting industry." 
+Class l:W8__{Var $g:Boolean ;}Class a:LI{Var p__,_X:Float ;Constructor (_48Y1:String ;A:Float ;_,_,Z_:Int ;_,Pwa6_g_A2:Array [Array [Array [String ,0115],0B1011],0115]){} }

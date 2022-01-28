@@ -1,1 +1,24 @@
-\abc
+
+            Class A{
+                Constructor(a, b, c, d, e: String; c, d, e: Int){
+                   If(1+2 == 3){
+                    If(!False){}
+                    Elseif(3==7){
+
+                    }
+                   }Else{
+                    a = 12;
+                   }
+                }
+                ## This is a comment ##
+                Var array: Array[Float, 10];
+                Var array2: Array[Array[Int, 3], 3];
+                Val _a, b_, d12: Int = expr, expr, expr;
+                Var $abcd: String = expr;
+                Var abcd, abc: Float;
+
+                a(hi, hello, nikhao: Int){}
+
+                Destructor(){}
+            }
+            

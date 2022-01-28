@@ -1,1 +1,1 @@
-Var a: Array[Int, 5]
+Class _6:_g{$F(A,_:String ;x:Array [Boolean ,61];_:Array [Array [Array [Array [Array [Array [Float ,02_2],3_5],3_7],4],61],20];_:l){} }

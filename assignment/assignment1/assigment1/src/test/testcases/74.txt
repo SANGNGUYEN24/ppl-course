@@ -1,1 +1,1 @@
-TenScoreObject.calculateScore(10,9,8)
+Class _:_{_(_26:Int ;rG,_3,S,v5,_D,C4,_,d,_b3,_,_,j,w,x:e){} }Class V:_1VBq{Val _,$4_,e:Array [Int ,7];Val $1O2:_;}

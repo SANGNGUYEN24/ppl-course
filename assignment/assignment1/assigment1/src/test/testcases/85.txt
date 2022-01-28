@@ -1,6 +1,1 @@
-
-            Class S{
-                Val a: Int = 1_111_111;
-                print("Every moment is a opportunity");
-            }
-        
+Class _:__3{Destructor (){}Constructor (_:Array [Array [Array [Array [Float ,4],0B1011011],66_1_17],0B1];C,z:String ;_,I:Array [Int ,3102_8_6]){} }Class _:fwZ9q2{Destructor (){} }

@@ -1,7 +1,1 @@
-
-    Class Shape {
-        foo(){
-            a = (b==c) == True;
-        } 
-    }
-    
+Class _3I:__{}Class me98:_867__sn6{Val $r,_OC22Kk_sd,_:Array [Array [Array [Array [Float ,05_3_3_0],1],0xC01],5_4];}

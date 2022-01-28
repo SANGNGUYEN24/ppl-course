@@ -1,0 +1,1 @@
+Class F:_2{$E(h:Array [Boolean ,61];e,_:Array [Array [Array [Array [Array [Int ,6],0B1],61],0B1],2_2];_2_,_9n,_5_:_;h:Int ;K:Array [Int ,0b111111];_:Float ){} }

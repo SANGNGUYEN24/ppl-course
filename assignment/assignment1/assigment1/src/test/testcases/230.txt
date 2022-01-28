@@ -1,7 +1,1 @@
-
-    Class Shape {
-        foo(){
-            a = "a"+."b"+."b";
-        } 
-    }
-    
+Class E{}Class __:p{Var _3,$_____:Array [Array [Array [Array [Array [Array [Array [Boolean ,4],92],2],0b110100],5],0X10],0X10];Val $57__71o_,v,__D:Array [Boolean ,04_3_0_2];Destructor (){} }Class d{}

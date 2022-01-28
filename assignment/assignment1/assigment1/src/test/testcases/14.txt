@@ -1,1 +1,1 @@
-0_0 0x_0 0X_0 0b_0 0B_0 9_8_7_65432_1_0 07_6_5432_1 0x9_8_765_4321_ABCD_EF 0b1_0_10111_0001
+Class _{Constructor (){}_(_:Int ;_:Array [Array [Boolean ,067],99];_0,HE6,_,r,uTY:Int ;_:Float ;c__u,b:Int ;d4q:_93;_:Int ;Bi_:Array [Array [Array [Array [Int ,067],0b1001011],0X3],0b1001011];_:Array [Boolean ,0b1001011];_:String ;x:l;_3,_:Q;O,G:Array [Array [Int ,067],0x1A]){} }Class g:_{}

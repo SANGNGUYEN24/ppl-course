@@ -7,10 +7,10 @@
                         }
                         Elseif(1 + 1 == 2){
                             Return Self.x * Self.y;
-                        }                        
+                        }
                     }
                     Else{
-                        print(Bruh);
+                        X.print(Bruh);
                     }
                 }
             }

@@ -1,1 +1,16 @@
-\\
+
+            Class __Center {
+                method() {
+                    If (1 == 2) {
+                        Return asd;
+                    }
+                    Elseif (2 == 3) {
+                        Break;
+                        Continue;
+                    }
+                    Else {
+                        Return 233;
+                    }
+                }
+            }
+            

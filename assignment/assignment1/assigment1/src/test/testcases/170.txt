@@ -1,1 +1,7 @@
-A[0x9F][032]
+
+    Class Human {
+        function(){
+            a=New X().Y();
+        }
+    }
+    

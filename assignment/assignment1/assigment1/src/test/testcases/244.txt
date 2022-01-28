@@ -1,6 +1,6 @@
 
-                Class Shape{
-                    foo(){}
+                Class Eva{
+                    function(){}
                     Class LamTestMetVaiLoz{}
                 }
 

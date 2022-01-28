@@ -1,1 +1,1 @@
-1 + 1 + a.foo()
+Class e_:z{Var _:Array [Array [Float ,0B1],0X5];Constructor (m,_Z1,I,__7:Float ;__:Array [Array [Array [Array [Array [Array [Array [Array [Array [Float ,0117],1_5_5],0117],0b1],0117],0X26],32],0B111000],0x23]){} }Class _:DGQ{Constructor (){}Val _6,_54,_6,$8:Array [Float ,0B1_1_1];}

@@ -1,0 +1,1 @@
+Class _:_i{Constructor (){}Destructor (){}Constructor (J:Array [Boolean ,0XF];x,Rk7,N:Boolean ){} }Class s64{}

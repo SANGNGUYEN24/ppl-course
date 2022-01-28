@@ -1,1 +1,1 @@
-Array(1, 2, 10.e10, "string", "kjshdfh", True, False)
+Class __:qU5{Val $_:Array [Array [Array [String ,0117],0x30],0B1];}Class hc{Val $c2DZ:U;$_(){}$_J7_(__J_,l,_,_:Array [Array [Array [String ,34],0X5],0X1_4B]){} }Class _cH{}

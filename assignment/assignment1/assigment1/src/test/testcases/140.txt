@@ -1,1 +1,5 @@
-Cacl##123##
+
+            Class _____ {
+                Constructor(param: Int);
+            }
+            

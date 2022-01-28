@@ -2,7 +2,7 @@
             Class Eva : Human{
                 Val abc, $a_bc, ab_c : Boolean = True && False, !False, 1+3*10;
                 Var a: Float = 100e-100;
-                 Val bbb: Array[Int, 00123];
+                Val bbb: Array[Int, 00123];
                 Var _bbb: Array[Array[Int,3], 0123];
                 $fun(a, b: String){
                     a = "Sang handsome!";
@@ -12,15 +12,15 @@
                     }
 
                     Foreach(i In 1*2-10/1_111 .. 100_100/a.getX() By 1 + 2){
-                        X.print("Hello");
+                        X.X.print("Hello");
                     }
-                }                
+                }
             }
 
             Class Adam : Human{
                 Val name: String = "Eva pro";
                 run(){
-                    print("Adam: " + Eva::$fun("nikhao", 10));
+                    X.print("Adam: " + Eva::$fun("nikhao", 10));
                 }
             }
             

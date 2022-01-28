@@ -1,7 +1,1 @@
-
-    Class Shape {
-        foo(){
-            foo2(1+1,"a"+."b","a"==."b");
-        }
-    }
-    
+Class hZA2{Val $o8,$1_:Array [Array [Array [Float ,041],32],0X1_E];}Class __{P(){} }Class _{k(k,_:Array [Array [String ,041],041]){ {} }}

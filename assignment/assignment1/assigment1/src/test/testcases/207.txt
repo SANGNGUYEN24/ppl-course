@@ -1,11 +1,1 @@
-
-Class Shape2 {
-    $getNumOfShape() {
-        If (a == (1+1) ){
-            Var b,c:Boolean = True, False;
-        }
-        Foreach (i In 1 .. 100 By 2) {
-             Var a:Boolean = True;
-        }
-    }
-}
+Class __D{Val _,$_,_,_,_,$__p:Array [Array [Array [Array [Array [Array [Array [Boolean ,0X57],32],0x1E],0B1],017],32],0x1];}

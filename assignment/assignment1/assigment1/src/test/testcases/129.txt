@@ -3,7 +3,7 @@
                 $fun(){}
                 art()
                 {
-                    Var r, s: Int = 1000;
+                    Var r, s: Int = 1000,102;
                     r = 2.0 - 10.e+19;
                     Var a, b: Array[Int, 5];
                     s = r * r * Self.myPhi;

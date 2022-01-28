@@ -1,5 +1,1 @@
-Array (
-                Array("Volvo", "22", "18"),
-                Array("Saab", "5", "2"),
-                Array("Land Rover", "17", "15")
-            )
+Class N{Var P:Int ;Val i3__,$I,$h,z:_;}Class R3r_E9A{N(__u,T38:String ;_We7__8:Boolean ;b,_0,U_4_3_55,_7,_:_4;_9:Array [Array [Array [Boolean ,20],20],0b10];_:S){}Destructor (){} }Class _2_{}Class _{Var qHSE:u;}

@@ -1,1 +1,5 @@
-\r\n \t\b\f
+
+            Class Error3 {
+                ;
+            }
+            

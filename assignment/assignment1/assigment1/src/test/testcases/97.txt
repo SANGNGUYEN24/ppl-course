@@ -1,7 +1,1 @@
-
-            Val a, $b, $c: Int = 1 + 2, 1+3, 23-9;
-            ## This will be skipped ##
-            Hello(a[i+7]);
-            ## This also ##
-
-        
+Class X{}Class _7gLj:_{}Class __V:a_{Var $z:T6;Constructor (Vx:Boolean ;G__,_:R){}Constructor (){Continue ;{} }}

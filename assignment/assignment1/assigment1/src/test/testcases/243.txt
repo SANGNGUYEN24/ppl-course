@@ -1,6 +1,6 @@
 
-                Class Shape{
-                    foo(){
+                Class Eva{
+                    function(){
                         a=1;
                     }
                     Foreach (x In 1 .. 100 by 2){}

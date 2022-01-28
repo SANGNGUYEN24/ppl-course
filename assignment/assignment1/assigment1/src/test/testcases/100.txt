@@ -1,1 +1,1 @@
-All parameters/variables declared in the body block have the method scope
+Class _x:j{Val REo,$0:Array [Int ,28];Var __2,Vf__:Int ;hX2(__,_:d;__,_:Array [String ,0b1_0];_Q:V9;S:String ;_Hv5,_:Q_H;C:i;_,TA:Float ;_8,iy:p){} }Class nPj2k{$r(){}Constructor (){} }Class _:xV{lm(){} }Class _:uL{}

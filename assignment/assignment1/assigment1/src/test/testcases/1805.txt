@@ -1,0 +1,1 @@
+Class Q3{Val D,$_01:Array [Array [Array [Array [Array [Array [Array [String ,0x37],0XE],056],0X5_BE],93],93],0b1_0111_1];Val _:Array [String ,0b1];}

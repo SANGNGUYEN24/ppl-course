@@ -1,1 +1,1 @@
-Float,<EOF>
+successful

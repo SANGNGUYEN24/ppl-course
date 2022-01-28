@@ -1,0 +1,1 @@
+Class C{}Class G{Constructor (){Continue ;}Var $_:Array [Array [Float ,0X20],0b1];Constructor (){Break ;} }Class k{__(){Continue ;} }

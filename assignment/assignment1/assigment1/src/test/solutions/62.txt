@@ -1,1 +1,1 @@
-a,[,Point,.,x,],[,Point,.,y,],a,[,1,+,2,],[,123898,],[,getZ,(,),],<EOF>
+successful

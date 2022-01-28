@@ -1,0 +1,1 @@
+Class i{Var $_1,Z_9_:Array [Int ,60];Var $0_,Z,_:Array [Array [Array [Array [Array [Array [Array [Array [Array [Boolean ,0b11],0b1010010],60],0b1010010],0X3B],0b1],60],60],0X3B];}

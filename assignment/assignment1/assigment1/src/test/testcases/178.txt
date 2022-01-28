@@ -1,1 +1,7 @@
-123_
+
+    Class Human {
+        function(){
+            Foreach (i In a[1] .. function() By _123()) {}
+        }
+    }
+    

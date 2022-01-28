@@ -1,1 +1,1 @@
-Shape::$getNumOfShape(count);
+Class _f1g2_0:L{}Class __y:P{Val y,$0,$pV4,__P,$_g:T__;_(_8,MFjnT:_2){} }Class x2:__5_{Var O:Array [Array [String ,045],045];}Class _:v_{}

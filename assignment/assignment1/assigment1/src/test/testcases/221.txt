@@ -1,7 +1,1 @@
-
-    Class Shape {
-        foo(){
-            ;
-        } 
-    }
-    
+Class _:_t{Val O:N;Val _:Array [Array [Array [Array [Array [Array [Array [Array [Float ,0x18],23],23],0B1001],0b1],23],0b1],0b110011];}

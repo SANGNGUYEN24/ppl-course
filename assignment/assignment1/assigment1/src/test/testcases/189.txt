@@ -1,1 +1,7 @@
-Array(1,2##2##)
+
+    Class Eva {
+        function(){
+            a = "a"==."b"==."b";
+        }
+    }
+    

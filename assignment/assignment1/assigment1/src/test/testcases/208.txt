@@ -1,5 +1,1 @@
-
-    Class Shape {
-        sum(a,b:Int; c,d:Float){}
-    }
-    
+Class _:O2_B_{}Class _0{Constructor (_6:i7;_i_4,g,_A:_;_p,_8f,_,_,_,X:_){}Destructor (){}Constructor (){}_U(){ {} }z_068(uCu3,_:Array [Array [Int ,24],04]){ {} }Destructor (){} }

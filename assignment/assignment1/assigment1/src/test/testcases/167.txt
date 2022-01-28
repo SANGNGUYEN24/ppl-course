@@ -1,1 +1,20 @@
-(12)[2].1
+
+    Class Human {
+        Val $numOfHuman: Int = 0;
+        Val immutableAttribute: Int = 0;
+        Var length, width: Int;
+        $getNumOfHuman() {
+            Return $numOfHuman;
+        }
+    }
+    Class Rectangle: Human {
+        getArea() {
+            Return self.length * self.width;
+        }
+    }
+    Class Program {
+        main() {
+            Out.printInt(Human::$numOfHuman);
+        }
+    }
+    

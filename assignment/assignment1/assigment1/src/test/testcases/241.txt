@@ -1,6 +1,6 @@
 
-                Class Shape{
-                    foo(){
+                Class Eva{
+                    function(){
                         a = New X().Y();
                         Var a: Array[Int, 0];
                     }

@@ -1,9 +1,1 @@
-
-                Foreach (i In 1_000 .. 100_000 By (a*b)) {
-                    Out.printInt(i);
-                }
-                Foreach (x In 5 .. 2) {
-                    Out.printInt(arr[x]);
-                }
-
-        
+Class d{Var n2_0,$_4:Array [Array [Array [Array [Array [Array [Array [Array [Array [Array [Array [Array [Float ,0xD_03],0B1011101],0xD21_E_9_8],0X2],0x5D],0X15],0x4A2],0xE_0],6_4_5],0xE],0B1011101],0X15];Var _u:H;}

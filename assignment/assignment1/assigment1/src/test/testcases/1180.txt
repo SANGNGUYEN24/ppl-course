@@ -1,0 +1,1 @@
+Class k{Var rs7_:Int ;Val $K:Float ;Constructor (_,_:Array [Array [String ,0B1],0XF];_:Array [Boolean ,0xD];_,_,_20_1_,w:Array [Boolean ,025]){Break ;} }

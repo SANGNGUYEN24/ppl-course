@@ -1,0 +1,1 @@
+Class i{Var $r:Array [Array [Array [Array [Array [Array [Array [Array [Int ,056],056],056],0xB],0X7],0b101000],0b1_1],0xA];}

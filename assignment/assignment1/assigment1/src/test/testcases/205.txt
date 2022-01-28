@@ -1,6 +1,1 @@
-
-    Class Shape {
-        $getNumOfShape( {
-            Return self.length * self.width;
-        }
-    }
+Class __0:_{Destructor (){}Destructor (){} }Class _{}Class B{Constructor (){Continue ;Break ;}Constructor (){} }

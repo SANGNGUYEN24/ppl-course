@@ -1,7 +1,1 @@
-
-    Class Shape {
-        foo(){
-            Var a: Boolean = !!True;
-        }
-    }
-    
+Class U{Val $e_:N=-M1::$_5_7()%!-------gR::$_+.!_::$_()._460._().p.w8;}Class xj{Destructor (){ {} }Destructor (){}Val $_o:_y;}

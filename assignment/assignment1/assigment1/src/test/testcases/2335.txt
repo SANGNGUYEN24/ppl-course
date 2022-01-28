@@ -1,0 +1,1 @@
+Class _{Constructor (AL,H:N__M_;_,__A,sR,N,G,A:Int ){} }Class _g:_{}Class _L:_{Var Gkn:Array [String ,40_6_8];}

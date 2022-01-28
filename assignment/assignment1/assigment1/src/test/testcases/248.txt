@@ -1,6 +1,6 @@
 
-                Class Shape{
-                    foo(){
+                Class Eva{
+                    function(){
                         Var a: Array[Int, 0x0];
                     }
                 }

@@ -1,0 +1,1 @@
+Class G:_3Of{Constructor (){}$_V(){}Var $_,_:Array [Array [Array [Array [Int ,0XB6],0xC],043],0b1];}Class N:B{}

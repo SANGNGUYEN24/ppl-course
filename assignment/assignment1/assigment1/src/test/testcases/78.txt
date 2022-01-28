@@ -1,13 +1,1 @@
-
-            If (a[1 + OOP.getX()] == False){
-                If (a + 2 = b){
-                    Return True;
-                }
-                Elseif( a == b){
-                    Return False;
-                }
-            }Else{
-                print("Hong be oi, em khong follow anh ma em doi xin in4 cua anh");
-            }
-
-            
+Class qD:s22{Constructor (_5i_:E;n:String ;_,e_v_7,uI_:Float ;__,_:Jr;J09:Float ;_,_,_,J3,_g1:String ;_,mD,g_,__y__,Y__,a,_,KT6,_:Int ;_:Array [Boolean ,0B1011011]){} }

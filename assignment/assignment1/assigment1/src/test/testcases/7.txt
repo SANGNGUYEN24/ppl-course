@@ -1,1 +1,1 @@
-_GDeiame wGeevieae ___gtevicm $_GETDEVICNAM012345678 $_G_DE_N $GDeieNa
+Class _{}Class _1:_{Constructor (_1,_:Array [Float ,0115];_:Float ){}$_4_(_5:W){Return ;}Var V:Array [Boolean ,0B10];}

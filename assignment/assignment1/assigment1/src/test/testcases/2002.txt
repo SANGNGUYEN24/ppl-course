@@ -1,0 +1,1 @@
+Class _{Val v,$__0,__JR_:Array [Array [Array [Float ,01],67],01];Constructor (k:Array [Boolean ,01];_,cH,l,F,D:Array [Array [String ,0b1],3]){} }

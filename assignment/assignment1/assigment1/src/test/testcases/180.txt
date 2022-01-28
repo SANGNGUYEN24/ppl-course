@@ -1,1 +1,10 @@
-123___3
+
+    Class Eva {
+        function(){
+            a = !!!!!!!!!!!!True;
+            b = ------------5;
+            c=d.d.d.d.d.d.d.d.ljhsdf.o384.lks;
+            e=f[1][1][1][1+328];
+        }
+    }
+    

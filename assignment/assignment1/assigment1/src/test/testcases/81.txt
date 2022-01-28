@@ -1,5 +1,1 @@
-
-            "My string
-
-            Hello"
-        
+Class z:e{}Class Y_{Constructor (_,W:_;v:_J;n6,___8CN,_7Q_Gc_1r,__,__,_9_:Array [Array [Array [Array [Float ,0X36],0xB_1_CC],25],01];e:Boolean ;_:__;fz_,_v_:Boolean ;_:String ){} }

@@ -1,5 +1,5 @@
 
             Class Adam{
             getSpeed(a, b, c, $d: Int){}
-            }            
+            }
             

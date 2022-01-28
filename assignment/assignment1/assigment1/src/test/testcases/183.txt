@@ -1,1 +1,7 @@
-_12.2e-5_1
+
+    Class Eva {
+        function(){
+            a = b == c  == True;
+        }
+    }
+    

@@ -1,0 +1,1 @@
+Class n{Var _r,_:Array [Array [Int ,81],80];Val $G,$_19_:Array [Array [String ,0B1],01];}Class __:_n7{}Class bU2l0{Var $_h:Array [Int ,0143];}

@@ -1,1 +1,7 @@
-000123
+
+    Class Eva {
+        function(){
+        a=+1;
+        }
+    }
+    

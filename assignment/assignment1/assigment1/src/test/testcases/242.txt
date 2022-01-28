@@ -1,6 +1,6 @@
 
-                Class Shape{
-                    foo(){
+                Class Eva{
+                    function(){
                         b::$f=1;
                     }
                     a = 1;

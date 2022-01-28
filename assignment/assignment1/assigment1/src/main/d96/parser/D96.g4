@@ -119,6 +119,7 @@ object_creation:	K_NEW IDENTIFIER
 					;
 
 atom_expr:			literal
+                    | 'Null'
 					| IDENTIFIER
 					| LEFT_PAREN expression RIGHT_PAREN
 					;
@@ -341,12 +342,12 @@ literal:            INTEGER_LITERAL | INTEGER_LITERAL2 | FLOAT_LITERAL | BOOLEAN
 // 5. Indexed array
 indexed_array:  		K_ARRAY
 						LEFT_PAREN(
-							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)
+							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)?
+							|(INTEGER_LITERAL2 (COMMA INTEGER_LITERAL2)*)
 							|(FLOAT_LITERAL (COMMA FLOAT_LITERAL)*)
 							|(BOOLEAN_LITERAL (COMMA BOOLEAN_LITERAL)*)
 							|(STRING_LITERAL (COMMA STRING_LITERAL)*)
 							|((indexed_array) (COMMA indexed_array)*)
-							|
 						)
 						RIGHT_PAREN
 						;	// Array() Array(1) Array(1,2,3)
@@ -357,13 +358,6 @@ multi_dimentional_array: 	K_ARRAY
                             )
                             RIGHT_PAREN
 					    ;
-
-// var_dcl : (K_VAL | K_VAR) identifier_list COLON (primitive_type | array_type) // not assigned
-//         | (K_VAL | K_VAR) (IDENTIFIER | DOLAR_IDENTIFIER) var_dcl_list expression; // assigned
-//
-//var_dcl_list : COLON (primitive_type | array_type) OP_ASSIGN
-//              | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) var_dcl_list expression COMMA;
-
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			[_a-zA-Z][_a-zA-Z0-9]*;
 DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
@@ -382,11 +376,6 @@ array_type: 		K_ARRAY
 						RIGHT_SQUARE_BRACKET
 					;
 //==================== Type and Value end ====================
-
-// TODO Xem lai may cai nay
-//ILLEGAL_ESCAPE:     DOUBLE_QUOTE CHAR* '\\' ~[bfrnt'\\]* {raise IllegalEscape(self.text[1:])};
-//UNCLOSE_STRING:     DOUBLE_QUOTE (~'"' | '\'"')* (EOF | '\n') {raise UncloseString(self.text[1:])};
-//ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
 WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs, newlines
 
 UNCLOSE_STRING:     DOUBLE_QUOTE STR_CHAR* (['\b\t\n\f\r"\\] | EOF)

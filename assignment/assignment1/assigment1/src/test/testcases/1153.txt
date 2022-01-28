@@ -1,0 +1,1 @@
+Class _p{_(_,__Z:Boolean ;R:Boolean ;Is_:_s){Return ;}Var $__7:Boolean ;Val $J,_:Int ;Var $D,o8_0__C,_:Array [Array [Array [Array [Array [Array [Array [Int ,01],032],1],0X50],0x10],54],0b1];}

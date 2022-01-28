@@ -1,0 +1,1 @@
+Class R:O{Constructor (_l3_:Array [Array [Float ,0b1],0X19];V:Array [Boolean ,0b101111];f1c0:a7A;_G_Mh,s:Array [Int ,0xF]){} }
