@@ -1,1 +1,11 @@
-0b111
+
+            Class Eva{
+                fun(a, b: String){
+                    a = "Sang handsome!";
+                    If("Sang" ==. hand_some){ a = "Right";}
+                    Elseif((1 + 2 - 3 * 4) % 10 + Adam::$getApplePiece()){
+                        Return False;
+                    }
+                }                
+            }
+            

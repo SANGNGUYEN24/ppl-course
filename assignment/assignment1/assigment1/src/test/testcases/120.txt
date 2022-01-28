@@ -1,1 +1,15 @@
-True False
+
+            Class Eva{
+                fun(a, b: String){
+                    a = "Sang handsome!";
+                    If("Sang" ==. hand_some){ a = "Right";}
+                    Elseif((1 + 2 - 3 * 4) % 10 + Adam::$getApplePiece()){
+                        Return False;
+                    }
+                    
+                    Foreach(i In 1*2-10/1_111 .. 100_100/a.getX() By 1 + 2){
+                        X.print("Hello");
+                    }
+                }                
+            }
+            

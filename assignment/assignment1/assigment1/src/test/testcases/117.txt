@@ -1,1 +1,11 @@
-0123
+
+            Class Eva{
+                fun(a, b: String){
+                    a = "Sang handsome!";
+                    If("Sang" ==. hand_some){ a = "Right";}
+                    Elseif(){
+                        Return False;
+                    }
+                }                
+            }
+            

@@ -1,1 +1,14 @@
-0x1A
+
+            Class Eva{
+                Foreach(i In 1 .. 100_100 By 1 + 2){
+                    X.print("Hello");
+                }
+                fun(a, b: String){
+                    a = "Sang handsome!";
+                    If("Sang" ==. hand_some){ a = "Right";}
+                    Elseif((1 + 2 - 3 * 4) % 10 + Adam::$getApplePiece()){
+                        Return False;
+                    }
+                }                
+            }
+            

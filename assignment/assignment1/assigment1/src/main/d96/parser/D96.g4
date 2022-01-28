@@ -32,7 +32,7 @@ parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
 parameter:    		identifier_list COLON type_name
 					;//a, b, c: String
-type_name:          primitive_type | identifier
+type_name:          primitive_type | identifier | array_type
                     ;
 //----------------------------------------------------------------
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
@@ -40,7 +40,7 @@ type_name:          primitive_type | identifier
 attribute_declaration:
 					(K_VAL | K_VAR)
 					mixed_identifier_list
-					COLON type_name OP_ASSIGN expression_list SEMI_COLON
+					COLON type_name (OP_ASSIGN expression_list)? SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
 					;// My1stCons, My2ndCons
@@ -169,8 +169,8 @@ for_in_statement:	K_FOR_EACH
 					LEFT_PAREN loop_part RIGHT_PAREN
 					block_statement
 					;
-loop_part:			IDENTIFIER K_IN INTEGER_LITERAL DOUBLE_DOT INTEGER_LITERAL
-					(K_BY INTEGER_LITERAL)?
+loop_part:			IDENTIFIER K_IN expression DOUBLE_DOT expression
+					(K_BY expression)?
 					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
 // Break statement
@@ -180,7 +180,7 @@ break_statement:	K_BREAK SEMI_COLON
 continue_statement:	K_CONTINUE SEMI_COLON
 					;// Continue;
 // Return statements 
-return_statement:   K_RETURN expression SEMI_COLON
+return_statement:   K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
 method_invocation_statement:
@@ -364,13 +364,13 @@ identifier: 		IDENTIFIER | DOLAR_IDENTIFIER;
 //==================== 4. Type and Value start ====================
 
 // Primitive type
-primitive_type: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING | K_ARRAY;
+primitive_type: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
 
 // Array type
 // An array type declaration is in the form of: Array[<element_type>, <size>].
 array_type: 		K_ARRAY
 						LEFT_SQUARE_BRACKET
-							primitive_type COMMA INTEGER_LITERAL
+							(primitive_type | array_type) COMMA INTEGER_LITERAL
 						RIGHT_SQUARE_BRACKET
 					; 
 
@@ -384,33 +384,33 @@ class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
 //ERROR_TOKEN : 		. {raise ErrorToken(self.text)};
 WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs, newlines
 
-UNCLOSE_STRING: DOUBLE_QUOTE STR_CHAR* (['\b\t\n\f\r"\\] | EOF)
-                {
-                    y = str(self.text)
-                    possible = ['b','\t','\n','\f','\r',"'",'\\']
-                    if y[-1] in possible:
-                        raise UncloseString(y[1:-1])
-                    else:
-                        raise UncloseString(y[1:])
-                }
-                ;
-ILLEGAL_ESCAPE: DOUBLE_QUOTE STR_CHAR* ESC_ILLEGAL
-                {
-                    y = str(self.text)
-                    raise IllegalEscape(y[1:])
-                }
-                ;
+UNCLOSE_STRING:     DOUBLE_QUOTE STR_CHAR* (['\b\t\n\f\r"\\] | EOF)
+                    {
+                        y = str(self.text)
+                        possible = ['b','\t','\n','\f','\r',"'",'\\']
+                        if y[-1] in possible:
+                            raise UncloseString(y[1:-1])
+                        else:
+                            raise UncloseString(y[1:])
+                    }
+                    ;
+ILLEGAL_ESCAPE:     DOUBLE_QUOTE STR_CHAR* ESC_ILLEGAL
+                    {
+                        y = str(self.text)
+                        raise IllegalEscape(y[1:])
+                    }
+                    ;
 fragment STR_CHAR: ~['\b\t\n\f\r"\\] | ESC_ACCEPT | '\'' DOUBLE_QUOTE;
 
 fragment ESC_ACCEPT: '\\' ['btnfr"\\] ;
 
 fragment ESC_ILLEGAL: '\\' ~['btnfr"\\] ;
 
-ERROR_CHAR:     .
-                {
-                    raise ErrorToken(self.text)
-                }
-                ;
+ERROR_CHAR:         .
+                    {
+                        raise ErrorToken(self.text)
+                    }
+                    ;
 
 
 
