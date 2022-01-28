@@ -1,10 +1,4 @@
+## This    a   comment
+            with    tab     and     enter
 
-				Class TestUtils : TestCase {
-					Var x: ClassIT = 123*125/24*0b1%335-aabc;
-					Test1() {
-						x::$a = "She said that '"Hello World '"";
-						Var $def: Int = "123456";
-					}
-				}
-				Class Program {}
-			
+             ##

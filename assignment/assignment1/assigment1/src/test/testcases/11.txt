@@ -1,8 +1,1 @@
-
-				Class TestUtils : TestCase {
-					Test2() {
-						Foreach(a[0] In 1 .. 2){}
-					}
-				}
-				Class Program {}
-			
+Break Continue If Elseif Else Foreach True False Array In Int Float Boolean String Return Null Class Val Var Self Constructor Destructor New By

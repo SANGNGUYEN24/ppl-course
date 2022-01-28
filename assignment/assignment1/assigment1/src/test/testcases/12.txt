@@ -1,8 +1,1 @@
-
-				Class TestUtils : TestCase {
-					Test2() {
-						Foreach(a::$foo().b In abc .. def By "This is abc" +. "def"){}
-					}
-				}
-				Class Program {}
-			
++ - * / % ! && || == = != < <= > >= ==. +. . :: New ( ) [ ] . , ; : { }

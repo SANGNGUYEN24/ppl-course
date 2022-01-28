@@ -287,6 +287,24 @@ class D96Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by D96Parser#var_dcl_list.
+    def enterVar_dcl_list(self, ctx:D96Parser.Var_dcl_listContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#var_dcl_list.
+    def exitVar_dcl_list(self, ctx:D96Parser.Var_dcl_listContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#lhs.
+    def enterLhs(self, ctx:D96Parser.LhsContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#lhs.
+    def exitLhs(self, ctx:D96Parser.LhsContext):
+        pass
+
+
     # Enter a parse tree produced by D96Parser#assign_statement.
     def enterAssign_statement(self, ctx:D96Parser.Assign_statementContext):
         pass
@@ -464,15 +482,6 @@ class D96Listener(ParseTreeListener):
 
     # Exit a parse tree produced by D96Parser#array_type.
     def exitArray_type(self, ctx:D96Parser.Array_typeContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#class_type.
-    def enterClass_type(self, ctx:D96Parser.Class_typeContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#class_type.
-    def exitClass_type(self, ctx:D96Parser.Class_typeContext):
         pass
 
 

@@ -20,7 +20,8 @@ class_body_unit:	attribute_declaration | method_declaration
 // BUG Program class has super class???
 super_class_group: 	COLON IDENTIFIER;
 //-----------------------------------------------------------------
-method_declaration:	identifier LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
+method_declaration:	(IDENTIFIER | DOLAR_IDENTIFIER)
+                    LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
 					| constructor
 					| destructor
 					;// getSomeThing(){...}
@@ -30,18 +31,21 @@ destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement
 					;
 parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
-parameter:    		identifier_list COLON type_name
+parameter:    		identifier_list COLON d96_type
 					;//a, b, c: String
-type_name:          primitive_type | identifier | array_type
-                    ;
+d96_type:           primitive_type | IDENTIFIER | array_type
+                    ;// ID for class type
 //----------------------------------------------------------------
 // BUG xem lai neu khai bao Array thi phai assign voi Array ex: Var Array a: Array[Int, 2] = Array(1,2)
 // TODO Xem lai co viec them identifier vao sau COLON
 attribute_declaration:
-					(K_VAL | K_VAR)
-					mixed_identifier_list
-					COLON type_name (OP_ASSIGN expression_list)? SEMI_COLON
-					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
+                    (K_VAL | K_VAR) mixed_identifier_list COLON d96_type SEMI_COLON // not assigned
+                    | (K_VAL | K_VAR) (IDENTIFIER | DOLAR_IDENTIFIER) attribute_value_list expression SEMI_COLON// assigned
+                    ;
+attribute_value_list:
+                    COLON d96_type OP_ASSIGN
+                    | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) attribute_value_list expression COMMA
+                    ;
 identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
 					;// My1stCons, My2ndCons
 dolar_identifier_list: 	
@@ -99,7 +103,7 @@ index_operator_expr:
 					;
 // Member access
 instance_access:
-					instance_access DOT identifier
+					instance_access DOT IDENTIFIER
 					(LEFT_PAREN expression_list? RIGHT_PAREN)?
 					| static_access
 					;
@@ -115,7 +119,7 @@ object_creation:	K_NEW IDENTIFIER
 					;
 
 atom_expr:			literal
-					| identifier
+					| IDENTIFIER
 					| LEFT_PAREN expression RIGHT_PAREN
 					;
 //------------------------------------------------------------------------
@@ -124,17 +128,17 @@ atom_expr:			literal
 //==================== Statement start ====================
 // Variable and Constant Declaration Statement
 // TODO Xem lai co viec them identifier vao sau COLON
-var_val_statement:	(K_VAL | K_VAR) 
-					identifier_list 
-					COLON 
-					(array_type | primitive_type ) (OP_ASSIGN expression_list)? SEMI_COLON
-					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
-					// However, the static property of attribute cannot be applied to them 
-					// so its name should not follow the dollar identifier rule.
+var_val_statement:	(K_VAL | K_VAR) identifier_list COLON d96_type SEMI_COLON // not assigned
+                    | (K_VAL | K_VAR) IDENTIFIER var_val_value_list expression SEMI_COLON// assigned
+                    ;
+
+var_val_value_list :
+                    COLON d96_type OP_ASSIGN
+                    | COMMA IDENTIFIER var_val_value_list expression COMMA;
 // Assign statement
 lhs:                | member_access DOT IDENTIFIER
                     | member_access DOUBLE_COLON DOLAR_IDENTIFIER
-                    | identifier
+                    | IDENTIFIER
                     | element_expression
                     ;
 assign_statement: 	lhs OP_ASSIGN expression SEMI_COLON
@@ -354,17 +358,15 @@ multi_dimentional_array: 	K_ARRAY
                             RIGHT_PAREN
 					    ;
 
-// TODO check so expr bang so bien
-// var_dcl : VAL_VAR id_list CL data_type // not assigned
-//         | VAL_VAR ID var_dcl_list expr; // assigned
-
-// var_dcl_list : CL data_type ASSIGN_OP
-//              | CM ID var_dcl_list expr CM;
+// var_dcl : (K_VAL | K_VAR) identifier_list COLON (primitive_type | array_type) // not assigned
+//         | (K_VAL | K_VAR) (IDENTIFIER | DOLAR_IDENTIFIER) var_dcl_list expression; // assigned
+//
+//var_dcl_list : COLON (primitive_type | array_type) OP_ASSIGN
+//              | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) var_dcl_list expression COMMA;
 
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			[_a-zA-Z][_a-zA-Z0-9]*;
 DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
-identifier: 		IDENTIFIER | DOLAR_IDENTIFIER;
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================

@@ -1655,7 +1655,7 @@ class ParserSuite(unittest.TestCase):
 				}
 				Class Program {}
 			"""
-        expect = "Error on line 4 col 19: In"
+        expect = "Error on line 4 col 15: ["
         self.assertTrue(TestParser.test(input, expect, 11))
 
     def test_12(self):

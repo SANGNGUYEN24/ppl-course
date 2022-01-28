@@ -1,15 +1,1 @@
-
-				Class TestUtils : TestCase {
-					Test2() {
-						Foreach(a::$foo().b In abc .. def By "This is abc" +. "def"){
-							If (!True) {
-								a = (((!123) >= ((234 && (345 + 456)) || 567)) <= (678 != x::$a));
-							} Else {
-								x.a().f = abc * def / 010;
-								a = b % c * "Int def";
-							}
-						}
-					}
-				}
-				Class Program {}
-			
+0_0 0x_0 0X_0 0b_0 0B_0 9_8_7_65432_1_0 07_6_5432_1 0x9_8_765_4321_ABCD_EF 0b1_0_10111_0001

@@ -1,8 +1,1 @@
-
-				Class TestCase : TestParser {
-					Var x: ClassIT = 123*125/24*0b1%335-aabc;
-					Test1() {
-						x::$a = "She said that'"Int World'"";
-					}
-				}
-			
+## This a comment ##
