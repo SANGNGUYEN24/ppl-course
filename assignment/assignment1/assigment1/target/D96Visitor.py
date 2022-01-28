@@ -139,23 +139,13 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#instance_attribute_access.
-    def visitInstance_attribute_access(self, ctx:D96Parser.Instance_attribute_accessContext):
+    # Visit a parse tree produced by D96Parser#instance_access.
+    def visitInstance_access(self, ctx:D96Parser.Instance_accessContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#instace_method_invocation.
-    def visitInstace_method_invocation(self, ctx:D96Parser.Instace_method_invocationContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#static_method_invocation.
-    def visitStatic_method_invocation(self, ctx:D96Parser.Static_method_invocationContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#static_attribute_access.
-    def visitStatic_attribute_access(self, ctx:D96Parser.Static_attribute_accessContext):
+    # Visit a parse tree produced by D96Parser#static_access.
+    def visitStatic_access(self, ctx:D96Parser.Static_accessContext):
         return self.visitChildren(ctx)
 
 
@@ -169,13 +159,13 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#function_call.
-    def visitFunction_call(self, ctx:D96Parser.Function_callContext):
+    # Visit a parse tree produced by D96Parser#var_val_statement.
+    def visitVar_val_statement(self, ctx:D96Parser.Var_val_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#var_val_statement.
-    def visitVar_val_statement(self, ctx:D96Parser.Var_val_statementContext):
+    # Visit a parse tree produced by D96Parser#lhs.
+    def visitLhs(self, ctx:D96Parser.LhsContext):
         return self.visitChildren(ctx)
 
 
@@ -226,6 +216,11 @@ class D96Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by D96Parser#return_statement.
     def visitReturn_statement(self, ctx:D96Parser.Return_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#member_access.
+    def visitMember_access(self, ctx:D96Parser.Member_accessContext):
         return self.visitChildren(ctx)
 
 

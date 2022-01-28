@@ -164,6 +164,11 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by D96Parser#lhs.
+    def visitLhs(self, ctx:D96Parser.LhsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by D96Parser#assign_statement.
     def visitAssign_statement(self, ctx:D96Parser.Assign_statementContext):
         return self.visitChildren(ctx)

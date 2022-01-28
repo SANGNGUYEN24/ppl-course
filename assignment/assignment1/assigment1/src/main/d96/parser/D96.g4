@@ -366,10 +366,7 @@ array_type: 		K_ARRAY
 						LEFT_SQUARE_BRACKET
 							(primitive_type | array_type) COMMA INTEGER_LITERAL
 						RIGHT_SQUARE_BRACKET
-					; 
-
-class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
-					;// New X()
+					;
 //==================== Type and Value end ====================
 
 // TODO Xem lai may cai nay

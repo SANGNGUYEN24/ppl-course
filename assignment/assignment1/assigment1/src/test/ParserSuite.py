@@ -1610,7 +1610,7 @@ class ParserSuite(unittest.TestCase):
 				}
 				Class Program {}
 			"""
-        expect = "This is string contain 	"
+        expect = "This is string contain "
         self.assertTrue(TestParser.test(input, expect, 9))
 
     def test_10(self):
