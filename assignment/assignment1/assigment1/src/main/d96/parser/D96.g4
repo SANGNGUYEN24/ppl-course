@@ -132,8 +132,8 @@ var_val_statement:	(K_VAL | K_VAR)
 					// However, the static property of attribute cannot be applied to them 
 					// so its name should not follow the dollar identifier rule.
 // Assign statement
-lhs:                | member_access DOT IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
-                    | member_access DOUBLE_COLON DOLAR_IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
+lhs:                | member_access DOT IDENTIFIER
+                    | member_access DOUBLE_COLON DOLAR_IDENTIFIER
                     | identifier
                     | element_expression
                     ;
@@ -158,7 +158,7 @@ for_in_statement:	K_FOR_EACH
 					LEFT_PAREN loop_part RIGHT_PAREN
 					block_statement
 					;
-loop_part:			IDENTIFIER K_IN expression DOUBLE_DOT expression
+loop_part:			member_access K_IN expression DOUBLE_DOT expression
 					(K_BY expression)?
 					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
@@ -173,7 +173,7 @@ return_statement:   K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
 member_access:      member_access DOT IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
-                    | member_access DOUBLE_COLON IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
+                    | member_access DOUBLE_COLON DOLAR_IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
                     | object_creation
                     ;
 method_invocation_statement:
@@ -332,7 +332,7 @@ BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
 STRING_LITERAL		: DOUBLE_QUOTE STR_CHAR* DOUBLE_QUOTE { self.text = self.text[1:-1] };
 
-literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL
+literal:            INTEGER_LITERAL | INTEGER_LITERAL2 | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL
                     | indexed_array | multi_dimentional_array;
 // 5. Indexed array
 indexed_array:  		K_ARRAY

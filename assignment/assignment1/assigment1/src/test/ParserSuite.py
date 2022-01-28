@@ -1437,7 +1437,7 @@ class ParserSuite(unittest.TestCase):
 				Class TestCase : TestParser {
 					Var x: ClassIT = 123*125/24*0b1%335-aabc;
 					Test1() {
-						x::$a = "She said that\'"Int World\'"";
+						x::$a = "She said that'"Int World'"";
 					}
 				}
 			"""
@@ -1486,7 +1486,7 @@ class ParserSuite(unittest.TestCase):
 				}
 				Class Program {}
 			"""
-        expect = "Error on line 7 col 39: 0"
+        expect = "Error on line 7 col 37: 0"
         self.assertTrue(TestParser.test(input, expect, 4))
 
     def test_5(self):

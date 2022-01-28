@@ -132,8 +132,8 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test(i,e,23))
     #24
     def test_string_with_escape(self):
-        i = """ "Lorem \\b Ipsum \\t is \\n simply \\f dummy \\r text \\\ of \\' the printing and typesetting industry." """
-        e = """Lorem \\b Ipsum \\t is \\n simply \\f dummy \\r text \\\ of \\' the printing and typesetting industry.,<EOF>"""
+        i = """ "Lorem \\b Ipsum \\t is \\n simply \\f dummy \\r text \\\ of ' the printing and typesetting industry." """
+        e = """Lorem \\b Ipsum \\t is \\n simply \\f dummy \\r text \\\ of ' the printing and typesetting industry.,<EOF>"""
         self.assertTrue(TestLexer.test(i,e,24))
     #25
     def test_string_with_escape_in_python(self):
@@ -143,7 +143,7 @@ class LexerSuite(unittest.TestCase):
     #26
     def test_string_with_escape_single_quote(self):
         i = """ "Lorem ' Ipsum is simply dummy text of the printing and typesetting industry." """
-        e = "Unclosed String: Lorem "
+        e = "Lorem ' Ipsum is simply dummy text of the printing and typesetting industry.,<EOF>"
         self.assertTrue(TestLexer.test(i,e,26))
     #27
     def test_string_with_double_quote(self):
@@ -177,18 +177,18 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test(i,e,32))
     #33
     def test_string_with_tab_escape(self):
-        i = """ "Lorem       Ipsum is simply        dummy text of the printing \\b \\t \\n \\f \\r \\' \\\ and typesetting industry." """
-        e = """Lorem       Ipsum is simply        dummy text of the printing \\b \\t \\n \\f \\r \\' \\\ and typesetting industry.,<EOF>"""
+        i = """ "Lorem       Ipsum is simply        dummy text of the printing \\b \\t \\n \\f \\r ' \\\ and typesetting industry." """
+        e = """Lorem       Ipsum is simply        dummy text of the printing \\b \\t \\n \\f \\r ' \\\ and typesetting industry.,<EOF>"""
         self.assertTrue(TestLexer.test(i,e,33))
     #34
     def test_string_all_ascii_char(self):
-        i = """ "All ASCII characters here: !'"#$%&\\\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'" " """
-        e = """All ASCII characters here: !'"#$%&\\\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'" ,<EOF>"""
+        i = """ "All ASCII characters here: !'"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'" " """
+        e = """All ASCII characters here: !'"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'" ,<EOF>"""
         self.assertTrue(TestLexer.test(i,e,34))
     #35
     def test_string_unclosed_with_escape(self):
-        i = """ "Lorem Ipsum is simply dummy text of the \\b \\f \\r \\n \\t \\' \\\ printing and typesetting industry."""
-        e = """Unclosed String: Lorem Ipsum is simply dummy text of the \\b \\f \\r \\n \\t \\' \\\ printing and typesetting industry."""
+        i = """ "Lorem Ipsum is simply dummy text of the \\b \\f \\r \\n \\t ' \\\ printing and typesetting industry."""
+        e = """Unclosed String: Lorem Ipsum is simply dummy text of the \\b \\f \\r \\n \\t ' \\\ printing and typesetting industry."""
         self.assertTrue(TestLexer.test(i,e,35))
     #36
     def test_string_unclosed_with_illegal_escape(self):

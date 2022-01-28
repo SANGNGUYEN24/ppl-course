@@ -269,10 +269,5 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#class_type.
-    def visitClass_type(self, ctx:D96Parser.Class_typeContext):
-        return self.visitChildren(ctx)
-
-
 
 del D96Parser
