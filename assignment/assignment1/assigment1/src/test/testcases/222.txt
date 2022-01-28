@@ -1,0 +1,7 @@
+
+    Class Shape {
+        foo(){
+            Foreach (i In a[1] .. foo() By _123()) {}
+        } 
+    }
+    

@@ -168,15 +168,20 @@ continue_statement:	K_CONTINUE SEMI_COLON
 return_statement:   K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
+member_access:      member_access DOT IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
+                    | member_access DOUBLE_COLON IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
+                    | object_creation
+                    ;
 method_invocation_statement:
-                    (instace_method_invocation
-                    | static_method_invocation) SEMI_COLON
+                    member_access
+                    (DOT IDENTIFIER | DOUBLE_COLON DOLAR_IDENTIFIER)
+                    LEFT_PAREN expression_list? RIGHT_PAREN
+                    SEMI_COLON
 					;// Shape::$getNumOfShape();
 block_statement:	LEFT_CURLY_BRACKET
 					statement*
 					RIGHT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
-
 statement: 			var_val_statement
 					| assign_statement
 					| if_statement
@@ -185,6 +190,7 @@ statement: 			var_val_statement
 					| continue_statement
 					| return_statement
 					| method_invocation_statement
+					| block_statement
 					;
 //==================== Statement end ====================
 

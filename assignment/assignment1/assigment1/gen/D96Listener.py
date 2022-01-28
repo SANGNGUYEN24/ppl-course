@@ -1,4 +1,4 @@
-# Generated from D:/Study2/HCMUT/semester212/PPL/code/assignment/assignment1/assigment1/src/main/d96/parser\D96.g4 by ANTLR 4.9.2
+# Generated from C:/development-area/ppl/ppl-course/assignment/assignment1/assigment1/src/main/d96/parser\D96.g4 by ANTLR 4.9.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .D96Parser import D96Parser
@@ -17,30 +17,12 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#many_class.
-    def enterMany_class(self, ctx:D96Parser.Many_classContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#many_class.
-    def exitMany_class(self, ctx:D96Parser.Many_classContext):
-        pass
-
-
     # Enter a parse tree produced by D96Parser#class_declaration.
     def enterClass_declaration(self, ctx:D96Parser.Class_declarationContext):
         pass
 
     # Exit a parse tree produced by D96Parser#class_declaration.
     def exitClass_declaration(self, ctx:D96Parser.Class_declarationContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#class_body.
-    def enterClass_body(self, ctx:D96Parser.Class_bodyContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#class_body.
-    def exitClass_body(self, ctx:D96Parser.Class_bodyContext):
         pass
 
 
@@ -59,33 +41,6 @@ class D96Listener(ParseTreeListener):
 
     # Exit a parse tree produced by D96Parser#super_class_group.
     def exitSuper_class_group(self, ctx:D96Parser.Super_class_groupContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#program_class_declaration.
-    def enterProgram_class_declaration(self, ctx:D96Parser.Program_class_declarationContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#program_class_declaration.
-    def exitProgram_class_declaration(self, ctx:D96Parser.Program_class_declarationContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#program_class_body.
-    def enterProgram_class_body(self, ctx:D96Parser.Program_class_bodyContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#program_class_body.
-    def exitProgram_class_body(self, ctx:D96Parser.Program_class_bodyContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#main_method_declaration.
-    def enterMain_method_declaration(self, ctx:D96Parser.Main_method_declarationContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#main_method_declaration.
-    def exitMain_method_declaration(self, ctx:D96Parser.Main_method_declarationContext):
         pass
 
 
@@ -134,6 +89,15 @@ class D96Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by D96Parser#type_name.
+    def enterType_name(self, ctx:D96Parser.Type_nameContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#type_name.
+    def exitType_name(self, ctx:D96Parser.Type_nameContext):
+        pass
+
+
     # Enter a parse tree produced by D96Parser#attribute_declaration.
     def enterAttribute_declaration(self, ctx:D96Parser.Attribute_declarationContext):
         pass
@@ -158,6 +122,15 @@ class D96Listener(ParseTreeListener):
 
     # Exit a parse tree produced by D96Parser#dolar_identifier_list.
     def exitDolar_identifier_list(self, ctx:D96Parser.Dolar_identifier_listContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#mixed_identifier_list.
+    def enterMixed_identifier_list(self, ctx:D96Parser.Mixed_identifier_listContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#mixed_identifier_list.
+    def exitMixed_identifier_list(self, ctx:D96Parser.Mixed_identifier_listContext):
         pass
 
 
@@ -269,39 +242,21 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#instance_attribute_access.
-    def enterInstance_attribute_access(self, ctx:D96Parser.Instance_attribute_accessContext):
+    # Enter a parse tree produced by D96Parser#instance_access.
+    def enterInstance_access(self, ctx:D96Parser.Instance_accessContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#instance_attribute_access.
-    def exitInstance_attribute_access(self, ctx:D96Parser.Instance_attribute_accessContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#instace_method_invocation.
-    def enterInstace_method_invocation(self, ctx:D96Parser.Instace_method_invocationContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#instace_method_invocation.
-    def exitInstace_method_invocation(self, ctx:D96Parser.Instace_method_invocationContext):
+    # Exit a parse tree produced by D96Parser#instance_access.
+    def exitInstance_access(self, ctx:D96Parser.Instance_accessContext):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#static_method_invocation.
-    def enterStatic_method_invocation(self, ctx:D96Parser.Static_method_invocationContext):
+    # Enter a parse tree produced by D96Parser#static_access.
+    def enterStatic_access(self, ctx:D96Parser.Static_accessContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#static_method_invocation.
-    def exitStatic_method_invocation(self, ctx:D96Parser.Static_method_invocationContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#static_attribute_access.
-    def enterStatic_attribute_access(self, ctx:D96Parser.Static_attribute_accessContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#static_attribute_access.
-    def exitStatic_attribute_access(self, ctx:D96Parser.Static_attribute_accessContext):
+    # Exit a parse tree produced by D96Parser#static_access.
+    def exitStatic_access(self, ctx:D96Parser.Static_accessContext):
         pass
 
 
@@ -320,15 +275,6 @@ class D96Listener(ParseTreeListener):
 
     # Exit a parse tree produced by D96Parser#atom_expr.
     def exitAtom_expr(self, ctx:D96Parser.Atom_exprContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#function_call.
-    def enterFunction_call(self, ctx:D96Parser.Function_callContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#function_call.
-    def exitFunction_call(self, ctx:D96Parser.Function_callContext):
         pass
 
 
@@ -428,6 +374,15 @@ class D96Listener(ParseTreeListener):
 
     # Exit a parse tree produced by D96Parser#return_statement.
     def exitReturn_statement(self, ctx:D96Parser.Return_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by D96Parser#member_access.
+    def enterMember_access(self, ctx:D96Parser.Member_accessContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#member_access.
+    def exitMember_access(self, ctx:D96Parser.Member_accessContext):
         pass
 
 

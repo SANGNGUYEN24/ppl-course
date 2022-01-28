@@ -1,0 +1,7 @@
+
+    Class Shape {
+        foo(){
+            a = "a"+."b"+."b";
+        } 
+    }
+    
