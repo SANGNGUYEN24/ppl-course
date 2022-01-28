@@ -299,10 +299,22 @@ fragment BINARY: 	BINARY_NOTATION(
 					| '1'BINARY_DIGIT*('_'BINARY_DIGIT+)*
 					)
 					;
-
+// For Array
+fragment DECIMAL2: 	[1-9] (DECIMAL_DIGIT*('_'DECIMAL_DIGIT+)*)?
+					;
+fragment OCTAL2:	OCTAL_NOTATION [1-7]OCTAL_DIGIT*('_'OCTAL_DIGIT+)*
+                    ;
+fragment HEXA2: 	HEXA_NOTATION [1-9A-F]HEXA_DIGIT*('_' HEXA_DIGIT+)*
+					;
+fragment BINARY2: 	BINARY_NOTATION '1' BINARY_DIGIT*('_'BINARY_DIGIT+)*
+					;
+INTEGER_LITERAL2:	(DECIMAL2 | OCTAL2 | HEXA2 | BINARY2)
+                    {self.text = self.text.replace("_", "")}
+					;
 INTEGER_LITERAL:	(DECIMAL | OCTAL | HEXA | BINARY)
                     {self.text = self.text.replace("_", "")}
 					;
+
 // For Float
 fragment INTEGER_PART:	DECIMAL;
 fragment DECIMAL_PART:	DOT DECIMAL_DIGIT*;
@@ -364,7 +376,7 @@ primitive_type: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
 // An array type declaration is in the form of: Array[<element_type>, <size>].
 array_type: 		K_ARRAY
 						LEFT_SQUARE_BRACKET
-							(primitive_type | array_type) COMMA INTEGER_LITERAL
+							(primitive_type | array_type) COMMA INTEGER_LITERAL2
 						RIGHT_SQUARE_BRACKET
 					;
 //==================== Type and Value end ====================
