@@ -123,17 +123,21 @@ atom_expr:			literal
 
 //==================== Statement start ====================
 // Variable and Constant Declaration Statement
-// TODO check xem co dung dolar identifier ko?
 // TODO Xem lai co viec them identifier vao sau COLON
 var_val_statement:	(K_VAL | K_VAR) 
 					identifier_list 
 					COLON 
-					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
+					(array_type | primitive_type ) (OP_ASSIGN expression_list)? SEMI_COLON
 					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
 					// However, the static property of attribute cannot be applied to them 
 					// so its name should not follow the dollar identifier rule.
 // Assign statement
-assign_statement: 	(identifier | element_expression) OP_ASSIGN expression SEMI_COLON
+lhs:                | member_access DOT IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
+                    | member_access DOUBLE_COLON DOLAR_IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
+                    | identifier
+                    | element_expression
+                    ;
+assign_statement: 	lhs OP_ASSIGN expression SEMI_COLON
 					;
 // If statement
 // ---------------------------------------------------------------------------
@@ -390,11 +394,11 @@ ILLEGAL_ESCAPE:     DOUBLE_QUOTE STR_CHAR* ESC_ILLEGAL
                         raise IllegalEscape(y[1:])
                     }
                     ;
-fragment STR_CHAR: ~['\b\t\n\f\r"\\] | ESC_ACCEPT | '\'' DOUBLE_QUOTE;
+fragment STR_CHAR: ~[\b\t\n\f\r"\\] | ESC_ACCEPT | '\'' DOUBLE_QUOTE;
 
-fragment ESC_ACCEPT: '\\' ['btnfr"\\] ;
+fragment ESC_ACCEPT: '\\' [btnfr"\\] ;
 
-fragment ESC_ILLEGAL: '\\' ~['btnfr"\\] ;
+fragment ESC_ILLEGAL: '\\' ~[btnfr"\\] ;
 
 ERROR_CHAR:         .
                     {
