@@ -1,1 +1,1 @@
-Class C{}Class L{Var _P:Array [Array [Int ,0x5B],867];Constructor (D,_A9,t_,U6:Array [Array [Int ,0b10001],0x8_E]){Return ;} }
+a = 500_000;

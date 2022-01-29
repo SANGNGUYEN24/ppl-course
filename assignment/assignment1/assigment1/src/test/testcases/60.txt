@@ -1,1 +1,1 @@
-Class F{Constructor (xIp__,dG_:Array [Array [Array [Array [Boolean ,0X1],0x2],25],0x9D];e:Int ;A:Array [Array [String ,0107],0X4]){}Var $0_:String ;}
+Var a: Array[Array, 12_23]

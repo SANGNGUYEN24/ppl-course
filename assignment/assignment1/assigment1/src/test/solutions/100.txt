@@ -1,1 +1,1 @@
-successful
+All,parameters,/,variables,declared,in,the,body,block,have,the,method,scope,<EOF>

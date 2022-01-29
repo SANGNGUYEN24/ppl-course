@@ -1,7 +1,7 @@
 
-                Class Eva{
+                Class Eva : Human{
                     function(){}
-                    Class LamTestMetVaiLoz{}
+                    Class Nupakachi{}
                 }
 
             

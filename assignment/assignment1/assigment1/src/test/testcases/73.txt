@@ -1,1 +1,1 @@
-Class _{Destructor (){} }Class _:_{Destructor (){}Constructor (){} }Class o3k{}Class _:L__{}Class d1O:_9{}Class _:_{}Class S8{}
+Car::$speed

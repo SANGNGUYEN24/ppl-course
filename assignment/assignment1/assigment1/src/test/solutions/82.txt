@@ -1,1 +1,1 @@
-successful
+Continue,;,<EOF>

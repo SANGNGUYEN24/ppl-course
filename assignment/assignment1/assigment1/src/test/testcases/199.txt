@@ -1,5 +1,5 @@
 
-    Class Eva {
+    Class Eva : Human {
         function(){
         b=1+-1--1+-1-+-1;
         }

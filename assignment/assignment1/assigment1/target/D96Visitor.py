@@ -74,11 +74,6 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#dolar_identifier_list.
-    def visitDolar_identifier_list(self, ctx:D96Parser.Dolar_identifier_listContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by D96Parser#mixed_identifier_list.
     def visitMixed_identifier_list(self, ctx:D96Parser.Mixed_identifier_listContext):
         return self.visitChildren(ctx)
@@ -229,8 +224,13 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#member_access.
-    def visitMember_access(self, ctx:D96Parser.Member_accessContext):
+    # Visit a parse tree produced by D96Parser#member_access_instance.
+    def visitMember_access_instance(self, ctx:D96Parser.Member_access_instanceContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#member_access_static.
+    def visitMember_access_static(self, ctx:D96Parser.Member_access_staticContext):
         return self.visitChildren(ctx)
 
 

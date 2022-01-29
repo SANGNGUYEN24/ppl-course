@@ -1,1 +1,1 @@
-successful
+Int,<EOF>

@@ -1,1 +1,1 @@
-Class S_827{}Class _:R_5{__du(){}Destructor (){}Constructor (__,a:Float ;_n:_;i_79,Q:Int ){}Var x,_,$9__9y:Array [String ,0b1];}Class O_1:_3{}Class _o:i57__{Destructor (){}Constructor (_,_,__QP,_D:j_T4){ {} }$_(b_X_,t:Array [Boolean ,21250];A9a,_2,Y,Y_3,Z:Array [String ,0x7_1]){} }Class Y4:_{Destructor (){} }
+Var a: A = New A()

@@ -1,1 +1,1 @@
-Class _a:__{Constructor (Q,pQ_:__;K,u:Array [Boolean ,3];_4_,_V_9_:Array [Float ,04]){Continue ;Return ;} }Class y1_{}Class V06k1{Var V_i,$_,$_S:String ;}
+Val a = getShape()[1][2-3]

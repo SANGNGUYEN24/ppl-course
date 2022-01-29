@@ -1,1 +1,1 @@
-Class e{}Class _9N1t_:b{Constructor (_z0l,R,q:Float ;_:Float ;_X:t){}Destructor (){}Val $_d,E,__xu,_8g_:Float ;Destructor (){}Val OfG:Boolean ;Val N:Array [Array [Array [Array [Int ,0x81_B],1],074],0X4D];Constructor (_:y;_:_s){Var _0:Array [Float ,0b1];} }Class q_{}Class S{}Class _{Constructor (R4v_:String ;md:Array [Array [Float ,0b111101],75];v:Float ){Break ;} }Class _7{}Class j:_{}
+ "Lorem 	 Ipsum \t is \n simply \f dummy \r text \\ of the printing and typesetting industry." 

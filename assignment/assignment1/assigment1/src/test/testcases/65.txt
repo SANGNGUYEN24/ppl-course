@@ -1,1 +1,1 @@
-Class _{}Class y:__p{Destructor (){} }Class S{Var g:Array [Array [String ,0B101010],4];}Class _{$MP(n3:Array [Array [String ,0b110101],27]){}Val $_:j;Var $_P_59_17_,P0,$p_,_l,_,F,$4,fa41,J,$M54,$_:Array [String ,27];}Class _{Constructor (){} }Class K{}Class Xk:_{}
+Var $a, $a2, a3, a4, $a5: X = New X()

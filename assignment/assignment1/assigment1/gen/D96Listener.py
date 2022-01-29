@@ -89,12 +89,12 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#type_name.
-    def enterType_name(self, ctx:D96Parser.Type_nameContext):
+    # Enter a parse tree produced by D96Parser#d96_type.
+    def enterD96_type(self, ctx:D96Parser.D96_typeContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#type_name.
-    def exitType_name(self, ctx:D96Parser.Type_nameContext):
+    # Exit a parse tree produced by D96Parser#d96_type.
+    def exitD96_type(self, ctx:D96Parser.D96_typeContext):
         pass
 
 
@@ -107,21 +107,21 @@ class D96Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by D96Parser#attribute_value_list.
+    def enterAttribute_value_list(self, ctx:D96Parser.Attribute_value_listContext):
+        pass
+
+    # Exit a parse tree produced by D96Parser#attribute_value_list.
+    def exitAttribute_value_list(self, ctx:D96Parser.Attribute_value_listContext):
+        pass
+
+
     # Enter a parse tree produced by D96Parser#identifier_list.
     def enterIdentifier_list(self, ctx:D96Parser.Identifier_listContext):
         pass
 
     # Exit a parse tree produced by D96Parser#identifier_list.
     def exitIdentifier_list(self, ctx:D96Parser.Identifier_listContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#dolar_identifier_list.
-    def enterDolar_identifier_list(self, ctx:D96Parser.Dolar_identifier_listContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#dolar_identifier_list.
-    def exitDolar_identifier_list(self, ctx:D96Parser.Dolar_identifier_listContext):
         pass
 
 
@@ -287,12 +287,12 @@ class D96Listener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by D96Parser#var_dcl_list.
-    def enterVar_dcl_list(self, ctx:D96Parser.Var_dcl_listContext):
+    # Enter a parse tree produced by D96Parser#var_val_value_list.
+    def enterVar_val_value_list(self, ctx:D96Parser.Var_val_value_listContext):
         pass
 
-    # Exit a parse tree produced by D96Parser#var_dcl_list.
-    def exitVar_dcl_list(self, ctx:D96Parser.Var_dcl_listContext):
+    # Exit a parse tree produced by D96Parser#var_val_value_list.
+    def exitVar_val_value_list(self, ctx:D96Parser.Var_val_value_listContext):
         pass
 
 
@@ -455,15 +455,6 @@ class D96Listener(ParseTreeListener):
 
     # Exit a parse tree produced by D96Parser#multi_dimentional_array.
     def exitMulti_dimentional_array(self, ctx:D96Parser.Multi_dimentional_arrayContext):
-        pass
-
-
-    # Enter a parse tree produced by D96Parser#identifier.
-    def enterIdentifier(self, ctx:D96Parser.IdentifierContext):
-        pass
-
-    # Exit a parse tree produced by D96Parser#identifier.
-    def exitIdentifier(self, ctx:D96Parser.IdentifierContext):
         pass
 
 

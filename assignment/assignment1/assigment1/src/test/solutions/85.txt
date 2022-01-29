@@ -1,1 +1,1 @@
-successful
+Class,S,{,Val,a,:,Int,=,1111111,;,print,(,Every moment is a opportunity,),;,},<EOF>

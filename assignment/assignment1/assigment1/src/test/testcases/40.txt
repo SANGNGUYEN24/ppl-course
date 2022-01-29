@@ -1,1 +1,1 @@
-Class N:J_{$1(P1Va7_,_,t:Boolean ;_G6,p:Int ;__O:g_;_:Array [Array [Array [Int ,0xF],99],0b101100]){}Var _M:uu0_;}
+ "abc 	  " 

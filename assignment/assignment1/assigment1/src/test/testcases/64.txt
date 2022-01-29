@@ -1,1 +1,1 @@
-Class _:e{}Class _:__9{Var $_,e,__:Array [Array [String ,0x6_E_93],043];}Class _{Var y7:Int ;Var $f4Z_,$p:Array [Array [Array [Int ,073],04_23],0B1];}Class l__:qI{}Class _K:_{}
+Var x: X = New X(1 + 3_72, 3*Shape::$a, "Hello")

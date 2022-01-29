@@ -1,1 +1,1 @@
-Class _u:__{$B_(_,w,_:String ;_,c_C,b:Int ;_6__3,k0_:Array [Int ,64];__76,q,_9,I:Array [Int ,07];vL6,_54:Array [Array [Array [Float ,0XE],0XD41],0B11101];_:String ;__9:_b___;_C,_:Array [Float ,0X30D_BFDB]){}Val __,$_,_3_k:Int ;Var F:Array [Float ,41];}Class F:hp1Q{}
+(val1 +. val2 == val3 +. val4) && (v5 + v6 - v7 * v8 / v9 != a[Circle::b]) ## This is a complex expression## fun.foo()

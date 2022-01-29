@@ -1,1 +1,1 @@
-Class _:_{$q0w___(_:_;_DU6:Array [String ,0b11]){}Var $g:Array [Boolean ,062];}Class __8:_5ml{Constructor (){__::$_();Return ;_::$H_();} }Class t:_{Val $U_,$0:Int ;}Class __0{}Class D{}
+a[Point.x][Point.y] a[1+2][123_898][getZ()]

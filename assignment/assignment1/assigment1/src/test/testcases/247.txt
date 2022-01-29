@@ -1,5 +1,5 @@
 
-                Class Eva{
+                Class Eva : Human{
                     function(){
                         Var a: Array[Int, 0b0];
                     }

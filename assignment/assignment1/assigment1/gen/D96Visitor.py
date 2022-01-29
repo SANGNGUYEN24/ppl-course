@@ -54,8 +54,8 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#type_name.
-    def visitType_name(self, ctx:D96Parser.Type_nameContext):
+    # Visit a parse tree produced by D96Parser#d96_type.
+    def visitD96_type(self, ctx:D96Parser.D96_typeContext):
         return self.visitChildren(ctx)
 
 
@@ -64,13 +64,13 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#identifier_list.
-    def visitIdentifier_list(self, ctx:D96Parser.Identifier_listContext):
+    # Visit a parse tree produced by D96Parser#attribute_value_list.
+    def visitAttribute_value_list(self, ctx:D96Parser.Attribute_value_listContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#dolar_identifier_list.
-    def visitDolar_identifier_list(self, ctx:D96Parser.Dolar_identifier_listContext):
+    # Visit a parse tree produced by D96Parser#identifier_list.
+    def visitIdentifier_list(self, ctx:D96Parser.Identifier_listContext):
         return self.visitChildren(ctx)
 
 
@@ -164,8 +164,8 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#var_dcl_list.
-    def visitVar_dcl_list(self, ctx:D96Parser.Var_dcl_listContext):
+    # Visit a parse tree produced by D96Parser#var_val_value_list.
+    def visitVar_val_value_list(self, ctx:D96Parser.Var_val_value_listContext):
         return self.visitChildren(ctx)
 
 
@@ -256,11 +256,6 @@ class D96Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by D96Parser#multi_dimentional_array.
     def visitMulti_dimentional_array(self, ctx:D96Parser.Multi_dimentional_arrayContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#identifier.
-    def visitIdentifier(self, ctx:D96Parser.IdentifierContext):
         return self.visitChildren(ctx)
 
 

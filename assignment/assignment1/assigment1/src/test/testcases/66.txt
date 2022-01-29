@@ -1,1 +1,1 @@
-Class l{Constructor (_,_:T;v,D,B_:v95;B,_6y3,_,g:B;d:g;_,eNy:Int ;o,f:String ;K_x,_7,t,_:Array [String ,025_4_2_3]){}Constructor (Uc:_5){Continue ;}$__6Vm_(x_j,E,Z:Array [Array [Int ,04],57]){} }
+1_000 + 2_000 - _3x * 4_000 / 5 + 2 % 5 

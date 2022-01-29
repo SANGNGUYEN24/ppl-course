@@ -1,1 +1,1 @@
-Class _{j_1P(){} }Class _{$7_(){}Destructor (){}Destructor (){}Constructor (){} }Class X{Var $xY_q__,zMF:Float ;}Class aC{}Class G{Var __:Array [Float ,0XA];}
+ "Lorem '" Ipsum is simply dummy text of the printing and typesetting industry." 

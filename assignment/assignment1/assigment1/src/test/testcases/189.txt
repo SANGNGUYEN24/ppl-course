@@ -1,5 +1,5 @@
 
-    Class Eva {
+    Class Eva : Human {
         function(){
             a = "a"==."b"==."b";
         }

@@ -1,1 +1,1 @@
-successful
+Boolean,<EOF>

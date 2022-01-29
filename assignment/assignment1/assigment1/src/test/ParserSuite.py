@@ -1172,7 +1172,7 @@ Class Human2 {
     def test_class_random_231(self):
 
         i = """
-    Class Eva {
+    Class Eva : Human {
         function(){
             a = "a"==."b"==."b";
         }
@@ -1184,43 +1184,43 @@ Class Human2 {
     def test_class_random_232(self):
 
         i = """
-    Class Eva:a:Human{}
+    Class Eva : Human:a{}
     """
-        e = "Error on line 2 col 15: :"
+        e = "Error on line 2 col 21: :"
         self.assertTrue(TestParser.test(i, e, 190))
     #191
     def test_class_random_233(self):
 
         i = """
-    Class Eva {
+    Class Eva : Human {
         function(){
-            a::$b=2;
-            a::$e();
+            a::$b__7_78jh=2;
+            a::$e_____o76978();
             a::$c::$d=2;
         }
     }
     """
-        e = "successful"
+        e = "Error on line 6 col 17: ::"
         self.assertTrue(TestParser.test(i, e, 192))
     #193
     def test_class_random_234(self):
 
         i = """
-    Class Eva {
+    Class Eva : Human {
         function(){
-            a::$b=2;
-            a::$e();
+            a::$b__7_78jh=2;
+            a::$e_____o76978();
             a::$c()::$d=2;
         }
     }
     """
-        e = "successful"
+        e = "Error on line 6 col 19: ::"
         self.assertTrue(TestParser.test(i, e, 194))
     #195
     def test_class_random_235(self):
 
         i = """
-            Class Eva {
+            Class Eva : Human {
                 function(){
                 a+=1;
                 }
@@ -1232,7 +1232,7 @@ Class Human2 {
     def test_class_random_236(self):
 
         i = """
-    Class Eva {
+    Class Eva : Human {
         function(){
         a=+1;
         }
@@ -1243,7 +1243,7 @@ Class Human2 {
     #197
     def test_class_random_237(self):
         i = """
-            Class Eva {
+            Class Eva : Human {
                 function(){
                 a=-1+1;
                 b=1+-1;
@@ -1256,7 +1256,7 @@ Class Human2 {
     def test_class_random_238(self):
 
         i = """
-    Class Eva {
+    Class Eva : Human {
         function(){
             a=-1+1;
             b=1+-1--1+-1---1;
@@ -1269,7 +1269,7 @@ Class Human2 {
     def test_class_random_239(self):
 
         i = """
-    Class Eva {
+    Class Eva : Human {
         function(){
         b=1+-1--1+-1-+-1;
         }
@@ -1281,7 +1281,7 @@ Class Human2 {
     def test_class_random_240(self):
 
         i = """
-    Class Eva {
+    Class Eva : Human {
         function(){
         Var a :Int = $1-----5;
         }
@@ -1292,7 +1292,7 @@ Class Human2 {
 
     def test_class_random_241(self):
         i = """
-                Class Eva{
+                Class Eva : Human{
                     function(){
                         a = New X().Y();
                         Var a: Array[Int, 0];
@@ -1305,11 +1305,11 @@ Class Human2 {
 
     def test_class_random_242(self):
         i = """
-                Class Eva{
+                Class Eva : Human{
                     function(){
                         b::$f=1;
                     }
-                    a = 1;
+                    a = 19783642;
                 }
 
             """
@@ -1318,7 +1318,7 @@ Class Human2 {
 
     def test_class_random_243(self):
         i = """
-                Class Eva{
+                Class Eva : Human{
                     function(){
                         a=1;
                     }
@@ -1331,9 +1331,9 @@ Class Human2 {
 
     def test_class_random_244(self):
         i = """
-                Class Eva{
+                Class Eva : Human{
                     function(){}
-                    Class LamTestMetVaiLoz{}
+                    Class Nupakachi{}
                 }
 
             """
@@ -1342,9 +1342,9 @@ Class Human2 {
 
     def test_class_random_245(self):
         i = """
-                Class Eva{
+                Class Eva : Human{
                     function(){
-                        Class LamTestMetVaiLoz{}
+                        Class Nupakachi{}
                     }
                 }
 
@@ -1354,7 +1354,7 @@ Class Human2 {
 
     def test_class_random_246(self):
         i = """
-                Class Eva{
+                Class Eva : Human{
                     function(){
                         Var a: Array[Int, 01];
                         Var aaaa: Array[Int, 0x1];
@@ -1372,7 +1372,7 @@ Class Human2 {
 
     def test_class_random_247(self):
         i = """
-                Class Eva{
+                Class Eva : Human{
                     function(){
                         Var a: Array[Int, 0b0];
                     }
@@ -1384,7 +1384,7 @@ Class Human2 {
 
     def test_class_random_248(self):
         i = """
-                Class Eva{
+                Class Eva : Human{
                     function(){
                         Var a: Array[Int, 0x0];
                     }
@@ -1393,9 +1393,6 @@ Class Human2 {
             """
         output = """Error on line 4 col 42: 0x0"""
         self.assertTrue(TestParser.test(i, output, 248))
-
-
-
 
 
 

@@ -1,1 +1,1 @@
-Class __0:_J{O(__C,_:Array [Array [Array [Array [Array [Float ,4],0B1_1],01],02_3_5_7],0X8];e,v:Array [Float ,77]){}Val $l,V_:Boolean ;}
+Array(Array(1,2,3,4,5), Array(10.10, 10.e10, 23.e-263, -72364.e108))

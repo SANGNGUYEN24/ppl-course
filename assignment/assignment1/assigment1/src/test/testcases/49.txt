@@ -1,1 +1,1 @@
-Class _:x86w{Constructor (_R,o_,pz,q:Array [Int ,65];F3,D,_H8,S5:Array [Array [Array [Float ,0b100000],0xD],0123]){Break ;} }Class Q:l_zF{}Class P:A{}Class _{}Class _:k{}Class v{}Class f5{}
+Array(Array(Array(1,2,3)), Array(Array()))

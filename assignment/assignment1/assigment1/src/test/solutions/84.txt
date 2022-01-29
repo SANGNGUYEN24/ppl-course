@@ -1,1 +1,1 @@
-successful
+Shape,::,$getNumOfShape,(,count,),;,<EOF>

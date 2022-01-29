@@ -1,1 +1,1 @@
-Class _{}Class _4{}Class _:s{}Class _D_7{Val _P:Array [Array [Array [Array [Float ,5],6],0x1E],0x1E];}Class f__{Val _0:Array [Array [Array [Array [Int ,0b1010110],0x7],0b10],1];}
+978.063e129 8_7_6_2.029e99 98_1.23e-10 24.928e+0230

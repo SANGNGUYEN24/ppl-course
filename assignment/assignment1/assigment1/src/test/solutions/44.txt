@@ -1,1 +1,1 @@
-successful
+Array,(,True,,,False,,,False,,,True,),<EOF>

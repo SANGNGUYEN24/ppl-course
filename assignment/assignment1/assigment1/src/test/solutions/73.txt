@@ -1,1 +1,1 @@
-successful
+Car,::,$speed,<EOF>

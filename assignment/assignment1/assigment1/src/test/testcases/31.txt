@@ -1,1 +1,1 @@
-Class s:_3{$8(){}Destructor (){Continue ;} }Class _1E{Constructor (){} }Class U:_P5_{Var $4:_;Constructor (){} }
+ "Lorem \k Ipsum is simply dummy text of the printing and typesetting industry." 

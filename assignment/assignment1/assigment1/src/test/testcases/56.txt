@@ -1,1 +1,1 @@
-Class b1{Constructor (_o:Boolean ;i:Array [Boolean ,0X1]){Return ;Var RM,__6E0:Array [Array [Array [Array [Array [Boolean ,0x5],04_4],15],15],0B1_1];}Destructor (){_::$so_();}$_4X_(_:Boolean ;_5U8,S599:Boolean ){}Val $3,$_7:Float ;}
+ "Sang" +. "is"+. "handsome" ==. "Sang is handsome" 

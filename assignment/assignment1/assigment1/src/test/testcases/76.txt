@@ -1,1 +1,1 @@
-Class l2:N{Destructor (){}Var $_6B:h;d(O___,T,_,h_,__,_:_){}Val $2,_:Array [Array [Boolean ,022],0x4C];Var $3:String ;}
+Return Self.x + Self.y + 20_000

@@ -1,1 +1,6 @@
-Class _vShR:Z9{_DE(){Return ;} }Class _Yj:p{}Class Vo_{Destructor (){}$hV(){If (!!-False ){Return ;} }}Class _:_{}
+
+                ## Line 1
+
+                    Line 2 \n \
+                ##
+                
