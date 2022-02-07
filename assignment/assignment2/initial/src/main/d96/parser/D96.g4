@@ -26,7 +26,7 @@ method_declaration:	(IDENTIFIER | DOLAR_IDENTIFIER)
 					;// getSomeThing(){...}
 constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statement
 					;
-destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
+destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement
 					;
 parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
@@ -85,7 +85,7 @@ and_or_expr:		and_or_expr (OP_LOGICAL_AND | OP_LOGICAL_OR) add_sub_expr
 add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
 					| mul_add_mol_expr
 					;
-mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr 
+mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr
 					| not_expr
 					;
 not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
@@ -107,7 +107,7 @@ static_access:
 					| object_creation
 					;
 // Object creation
-object_creation:	K_NEW IDENTIFIER 
+object_creation:	K_NEW IDENTIFIER
 					LEFT_PAREN expression_list? RIGHT_PAREN
 					| atom_expr
 					;
@@ -143,13 +143,13 @@ if_statement:		if_part
 					else_if_part*
 					else_part?
 					;
-if_part:			K_IF LEFT_PAREN expression RIGHT_PAREN block_statement		
+if_part:			K_IF LEFT_PAREN expression RIGHT_PAREN block_statement
 					;
 else_if_part:		K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement
 					;
 else_part:			K_ELSE block_statement
 					;
-//-----------------------------------------------------------------------------		
+//-----------------------------------------------------------------------------
 // For in statement
 //-----------------------------------------------------------------------------
 for_in_statement:	K_FOR_EACH
@@ -166,7 +166,7 @@ break_statement:	K_BREAK SEMI_COLON
 // Continue statement
 continue_statement:	K_CONTINUE SEMI_COLON
 					;// Continue;
-// Return statements 
+// Return statements
 return_statement:   K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
@@ -206,8 +206,8 @@ COMMENT: 			'##' .*? '##' -> skip; 	// ## This is a comment ##
 // 3.4 Keywords, define the keywords on top
 K_BREAK: 			'Break';
 K_CONTINUE: 		'Continue';
-K_IF: 				'If'; 
-K_ELSE_IF: 			'Elseif'; 
+K_IF: 				'If';
+K_ELSE_IF: 			'Elseif';
 K_ELSE: 			'Else';
 K_FOR_EACH: 		'Foreach';
 K_ARRAY:			'Array';
@@ -280,7 +280,7 @@ fragment DECIMAL_DIGIT:		[0-9];
 // 1. Integer
 fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]DECIMAL_DIGIT*('_'DECIMAL_DIGIT+)*
 					;
-fragment OCTAL:		OCTAL_NOTATION ( 
+fragment OCTAL:		OCTAL_NOTATION (
 					'0' | [1-7]OCTAL_DIGIT*('_'OCTAL_DIGIT+)*
 					)
 					;
@@ -315,7 +315,7 @@ fragment DECIMAL_PART:	DOT DECIMAL_DIGIT*;
 fragment EXPONENT: 		[eE][-+]? DECIMAL_DIGIT+;
 
 // 2. Float
-FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?	
+FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 					| INTEGER_PART EXPONENT
 					| DECIMAL_PART EXPONENT)
 					{self.text = self.text.replace("_", "")}
