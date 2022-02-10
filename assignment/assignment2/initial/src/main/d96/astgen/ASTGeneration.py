@@ -6,6 +6,7 @@ from initial.src.main.d96.utils.AST import *
 from initial.target.D96Visitor import D96Visitor
 from initial.target.D96Parser import D96Parser
 
+
 class ASTGeneration(D96Visitor):
     def visitProgram(self, ctx: D96Parser.ProgramContext):
         return Program([FuncDecl(Id("main"),
