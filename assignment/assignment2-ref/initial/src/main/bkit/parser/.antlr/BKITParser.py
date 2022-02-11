@@ -3,10 +3,11 @@
 from antlr4 import *
 from io import StringIO
 import sys
+
 if sys.version_info[1] > 5:
-	from typing import TextIO
+    from typing import TextIO
 else:
-	from typing.io import TextIO
+    from typing.io import TextIO
 
 
 def serializedATN():
@@ -213,40 +214,39 @@ def serializedATN():
         return buf.getvalue()
 
 
-class BKITParser ( Parser ):
-
+class BKITParser(Parser):
     grammarFileName = "BKIT.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'Var'", "'Body'", "'Else'", "'EndFor'", 
-                     "'If'", "'EndDo'", "'Break'", "'ElseIf'", "'EndWhile'", 
-                     "'Parameter'", "'While'", "'Continue'", "'EndBody'", 
-                     "'For'", "'Return'", "'True'", "'Do'", "'EndIf'", "'Function'", 
-                     "'Then'", "'False'", "<INVALID>", "<INVALID>", "'='", 
-                     "'+'", "'+.'", "'-'", "'-.'", "'*'", "'*.'", "'\\'", 
-                     "'\\.'", "'%'", "'!'", "'&&'", "'||'", "'=='", "'!='", 
-                     "'<'", "'>'", "'<='", "'>='", "'=/='", "'<.'", "'>.'", 
-                     "'<=.'", "'>=.'", "'('", "')'", "'['", "']'", "':'", 
-                     "'.'", "','", "';'", "'{'", "'}'" ]
+    literalNames = ["<INVALID>", "'Var'", "'Body'", "'Else'", "'EndFor'",
+                    "'If'", "'EndDo'", "'Break'", "'ElseIf'", "'EndWhile'",
+                    "'Parameter'", "'While'", "'Continue'", "'EndBody'",
+                    "'For'", "'Return'", "'True'", "'Do'", "'EndIf'", "'Function'",
+                    "'Then'", "'False'", "<INVALID>", "<INVALID>", "'='",
+                    "'+'", "'+.'", "'-'", "'-.'", "'*'", "'*.'", "'\\'",
+                    "'\\.'", "'%'", "'!'", "'&&'", "'||'", "'=='", "'!='",
+                    "'<'", "'>'", "'<='", "'>='", "'=/='", "'<.'", "'>.'",
+                    "'<=.'", "'>=.'", "'('", "')'", "'['", "']'", "':'",
+                    "'.'", "','", "';'", "'{'", "'}'"]
 
-    symbolicNames = [ "<INVALID>", "VAR", "BODY", "ELSE", "ENDFOR", "IF", 
-                      "ENDDO", "BREAK", "ELSEIF", "ENDWHILE", "PARAMETER", 
-                      "WHILE", "CONTINUE", "ENDBODY", "FOR", "RETURN", "TRUE", 
-                      "DO", "ENDIF", "FUNCTION", "THEN", "FALSE", "WS", 
-                      "COMMENT", "ASSIGN", "ADD", "ADDFLOAT", "SUB", "SUBFLOAT", 
-                      "MUL", "MULFLOAT", "DIV", "DIVFLOAT", "MOD", "NOT", 
-                      "AND", "OR", "EQUAL", "NOTEQUAL", "LESS", "GREATER", 
-                      "LESSEQUAL", "GREATEREQUAL", "EQUALFLOAT", "LESSFLOAT", 
-                      "GREATERFLOAT", "LESSEQUALFLOAT", "GREATEREQUALFLOAT", 
-                      "LP", "RP", "LA", "RA", "COLON", "DOT", "COMMA", "SEMI", 
-                      "LB", "RB", "ID", "INTLIT", "FLOATLIT", "STRINGLIT", 
-                      "ILLEGAL_ESCAPE", "UNCLOSE_STRING", "UNTERMINATED_COMMENT", 
-                      "ERROR_CHAR" ]
+    symbolicNames = ["<INVALID>", "VAR", "BODY", "ELSE", "ENDFOR", "IF",
+                     "ENDDO", "BREAK", "ELSEIF", "ENDWHILE", "PARAMETER",
+                     "WHILE", "CONTINUE", "ENDBODY", "FOR", "RETURN", "TRUE",
+                     "DO", "ENDIF", "FUNCTION", "THEN", "FALSE", "WS",
+                     "COMMENT", "ASSIGN", "ADD", "ADDFLOAT", "SUB", "SUBFLOAT",
+                     "MUL", "MULFLOAT", "DIV", "DIVFLOAT", "MOD", "NOT",
+                     "AND", "OR", "EQUAL", "NOTEQUAL", "LESS", "GREATER",
+                     "LESSEQUAL", "GREATEREQUAL", "EQUALFLOAT", "LESSFLOAT",
+                     "GREATERFLOAT", "LESSEQUALFLOAT", "GREATEREQUALFLOAT",
+                     "LP", "RP", "LA", "RA", "COLON", "DOT", "COMMA", "SEMI",
+                     "LB", "RB", "ID", "INTLIT", "FLOATLIT", "STRINGLIT",
+                     "ILLEGAL_ESCAPE", "UNCLOSE_STRING", "UNTERMINATED_COMMENT",
+                     "ERROR_CHAR"]
 
     RULE_program = 0
     RULE_globdeclpart = 1
@@ -292,115 +292,107 @@ class BKITParser ( Parser ):
     RULE_callstmt = 41
     RULE_returnstmt = 42
 
-    ruleNames =  [ "program", "globdeclpart", "funcdeclspart", "vardecls", 
-                   "varlist", "tailvar", "variableinit", "literals", "arraydecls", 
-                   "arraylit", "arraylit_", "dimlist", "taildim", "dim", 
-                   "funcdecls", "parameterlist", "parameterlist_", "parameter", 
-                   "relop", "expr", "expr1", "expr2", "expr3", "expr4", 
-                   "expr5", "expr6", "expr7", "functioncall", "argumentslist", 
-                   "argumentslist_", "statement", "assignmentstmt", "ifstmt", 
-                   "if_statement", "elif_statement", "else_statement", "forstmt", 
-                   "whilestmt", "dowhilestmt", "breakstmt", "continuestmt", 
-                   "callstmt", "returnstmt" ]
+    ruleNames = ["program", "globdeclpart", "funcdeclspart", "vardecls",
+                 "varlist", "tailvar", "variableinit", "literals", "arraydecls",
+                 "arraylit", "arraylit_", "dimlist", "taildim", "dim",
+                 "funcdecls", "parameterlist", "parameterlist_", "parameter",
+                 "relop", "expr", "expr1", "expr2", "expr3", "expr4",
+                 "expr5", "expr6", "expr7", "functioncall", "argumentslist",
+                 "argumentslist_", "statement", "assignmentstmt", "ifstmt",
+                 "if_statement", "elif_statement", "else_statement", "forstmt",
+                 "whilestmt", "dowhilestmt", "breakstmt", "continuestmt",
+                 "callstmt", "returnstmt"]
 
     EOF = Token.EOF
-    VAR=1
-    BODY=2
-    ELSE=3
-    ENDFOR=4
-    IF=5
-    ENDDO=6
-    BREAK=7
-    ELSEIF=8
-    ENDWHILE=9
-    PARAMETER=10
-    WHILE=11
-    CONTINUE=12
-    ENDBODY=13
-    FOR=14
-    RETURN=15
-    TRUE=16
-    DO=17
-    ENDIF=18
-    FUNCTION=19
-    THEN=20
-    FALSE=21
-    WS=22
-    COMMENT=23
-    ASSIGN=24
-    ADD=25
-    ADDFLOAT=26
-    SUB=27
-    SUBFLOAT=28
-    MUL=29
-    MULFLOAT=30
-    DIV=31
-    DIVFLOAT=32
-    MOD=33
-    NOT=34
-    AND=35
-    OR=36
-    EQUAL=37
-    NOTEQUAL=38
-    LESS=39
-    GREATER=40
-    LESSEQUAL=41
-    GREATEREQUAL=42
-    EQUALFLOAT=43
-    LESSFLOAT=44
-    GREATERFLOAT=45
-    LESSEQUALFLOAT=46
-    GREATEREQUALFLOAT=47
-    LP=48
-    RP=49
-    LA=50
-    RA=51
-    COLON=52
-    DOT=53
-    COMMA=54
-    SEMI=55
-    LB=56
-    RB=57
-    ID=58
-    INTLIT=59
-    FLOATLIT=60
-    STRINGLIT=61
-    ILLEGAL_ESCAPE=62
-    UNCLOSE_STRING=63
-    UNTERMINATED_COMMENT=64
-    ERROR_CHAR=65
+    VAR = 1
+    BODY = 2
+    ELSE = 3
+    ENDFOR = 4
+    IF = 5
+    ENDDO = 6
+    BREAK = 7
+    ELSEIF = 8
+    ENDWHILE = 9
+    PARAMETER = 10
+    WHILE = 11
+    CONTINUE = 12
+    ENDBODY = 13
+    FOR = 14
+    RETURN = 15
+    TRUE = 16
+    DO = 17
+    ENDIF = 18
+    FUNCTION = 19
+    THEN = 20
+    FALSE = 21
+    WS = 22
+    COMMENT = 23
+    ASSIGN = 24
+    ADD = 25
+    ADDFLOAT = 26
+    SUB = 27
+    SUBFLOAT = 28
+    MUL = 29
+    MULFLOAT = 30
+    DIV = 31
+    DIVFLOAT = 32
+    MOD = 33
+    NOT = 34
+    AND = 35
+    OR = 36
+    EQUAL = 37
+    NOTEQUAL = 38
+    LESS = 39
+    GREATER = 40
+    LESSEQUAL = 41
+    GREATEREQUAL = 42
+    EQUALFLOAT = 43
+    LESSFLOAT = 44
+    GREATERFLOAT = 45
+    LESSEQUALFLOAT = 46
+    GREATEREQUALFLOAT = 47
+    LP = 48
+    RP = 49
+    LA = 50
+    RA = 51
+    COLON = 52
+    DOT = 53
+    COMMA = 54
+    SEMI = 55
+    LB = 56
+    RB = 57
+    ID = 58
+    INTLIT = 59
+    FLOATLIT = 60
+    STRINGLIT = 61
+    ILLEGAL_ESCAPE = 62
+    UNCLOSE_STRING = 63
+    UNTERMINATED_COMMENT = 64
+    ERROR_CHAR = 65
 
-    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
+    def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.8")
         self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
         self._predicates = None
 
-
-
-
     class ProgramContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def globdeclpart(self):
-            return self.getTypedRuleContext(BKITParser.GlobdeclpartContext,0)
-
+            return self.getTypedRuleContext(BKITParser.GlobdeclpartContext, 0)
 
         def funcdeclspart(self):
-            return self.getTypedRuleContext(BKITParser.FuncdeclspartContext,0)
-
+            return self.getTypedRuleContext(BKITParser.FuncdeclspartContext, 0)
 
         def EOF(self):
             return self.getToken(BKITParser.EOF, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_program
-
-
-
 
     def program(self):
 
@@ -422,26 +414,20 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class GlobdeclpartContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def vardecls(self):
-            return self.getTypedRuleContext(BKITParser.VardeclsContext,0)
-
+            return self.getTypedRuleContext(BKITParser.VardeclsContext, 0)
 
         def globdeclpart(self):
-            return self.getTypedRuleContext(BKITParser.GlobdeclpartContext,0)
-
+            return self.getTypedRuleContext(BKITParser.GlobdeclpartContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_globdeclpart
-
-
-
 
     def globdeclpart(self):
 
@@ -473,26 +459,20 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class FuncdeclspartContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def funcdecls(self):
-            return self.getTypedRuleContext(BKITParser.FuncdeclsContext,0)
-
+            return self.getTypedRuleContext(BKITParser.FuncdeclsContext, 0)
 
         def funcdeclspart(self):
-            return self.getTypedRuleContext(BKITParser.FuncdeclspartContext,0)
-
+            return self.getTypedRuleContext(BKITParser.FuncdeclspartContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_funcdeclspart
-
-
-
 
     def funcdeclspart(self):
 
@@ -524,10 +504,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class VardeclsContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -538,17 +517,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.COLON, 0)
 
         def varlist(self):
-            return self.getTypedRuleContext(BKITParser.VarlistContext,0)
-
+            return self.getTypedRuleContext(BKITParser.VarlistContext, 0)
 
         def SEMI(self):
             return self.getToken(BKITParser.SEMI, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_vardecls
-
-
-
 
     def vardecls(self):
 
@@ -572,26 +547,20 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class VarlistContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def variableinit(self):
-            return self.getTypedRuleContext(BKITParser.VariableinitContext,0)
-
+            return self.getTypedRuleContext(BKITParser.VariableinitContext, 0)
 
         def tailvar(self):
-            return self.getTypedRuleContext(BKITParser.TailvarContext,0)
-
+            return self.getTypedRuleContext(BKITParser.TailvarContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_varlist
-
-
-
 
     def varlist(self):
 
@@ -600,7 +569,7 @@ class BKITParser ( Parser ):
         try:
             self.state = 111
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 2, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 107
@@ -624,10 +593,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TailvarContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -635,18 +603,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.COMMA, 0)
 
         def variableinit(self):
-            return self.getTypedRuleContext(BKITParser.VariableinitContext,0)
-
+            return self.getTypedRuleContext(BKITParser.VariableinitContext, 0)
 
         def tailvar(self):
-            return self.getTypedRuleContext(BKITParser.TailvarContext,0)
-
+            return self.getTypedRuleContext(BKITParser.TailvarContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_tailvar
-
-
-
 
     def tailvar(self):
 
@@ -680,10 +643,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class VariableinitContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -694,18 +656,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.ASSIGN, 0)
 
         def literals(self):
-            return self.getTypedRuleContext(BKITParser.LiteralsContext,0)
-
+            return self.getTypedRuleContext(BKITParser.LiteralsContext, 0)
 
         def dimlist(self):
-            return self.getTypedRuleContext(BKITParser.DimlistContext,0)
-
+            return self.getTypedRuleContext(BKITParser.DimlistContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_variableinit
-
-
-
 
     def variableinit(self):
 
@@ -714,7 +671,7 @@ class BKITParser ( Parser ):
         try:
             self.state = 131
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 4, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 120
@@ -760,10 +717,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class LiteralsContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -783,14 +739,10 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.STRINGLIT, 0)
 
         def arraydecls(self):
-            return self.getTypedRuleContext(BKITParser.ArraydeclsContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ArraydeclsContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_literals
-
-
-
 
     def literals(self):
 
@@ -841,10 +793,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ArraydeclsContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -852,17 +803,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.LB, 0)
 
         def arraylit(self):
-            return self.getTypedRuleContext(BKITParser.ArraylitContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ArraylitContext, 0)
 
         def RB(self):
             return self.getToken(BKITParser.RB, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_arraydecls
-
-
-
 
     def arraydecls(self):
 
@@ -884,26 +831,20 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ArraylitContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def literals(self):
-            return self.getTypedRuleContext(BKITParser.LiteralsContext,0)
-
+            return self.getTypedRuleContext(BKITParser.LiteralsContext, 0)
 
         def arraylit_(self):
-            return self.getTypedRuleContext(BKITParser.Arraylit_Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Arraylit_Context, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_arraylit
-
-
-
 
     def arraylit(self):
 
@@ -913,7 +854,8 @@ class BKITParser ( Parser ):
             self.state = 149
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [BKITParser.TRUE, BKITParser.FALSE, BKITParser.LB, BKITParser.INTLIT, BKITParser.FLOATLIT, BKITParser.STRINGLIT]:
+            if token in [BKITParser.TRUE, BKITParser.FALSE, BKITParser.LB, BKITParser.INTLIT, BKITParser.FLOATLIT,
+                         BKITParser.STRINGLIT]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 145
                 self.literals()
@@ -935,10 +877,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class Arraylit_Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -946,18 +887,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.COMMA, 0)
 
         def literals(self):
-            return self.getTypedRuleContext(BKITParser.LiteralsContext,0)
-
+            return self.getTypedRuleContext(BKITParser.LiteralsContext, 0)
 
         def arraylit_(self):
-            return self.getTypedRuleContext(BKITParser.Arraylit_Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Arraylit_Context, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_arraylit_
-
-
-
 
     def arraylit_(self):
 
@@ -991,26 +927,20 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DimlistContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def dim(self):
-            return self.getTypedRuleContext(BKITParser.DimContext,0)
-
+            return self.getTypedRuleContext(BKITParser.DimContext, 0)
 
         def taildim(self):
-            return self.getTypedRuleContext(BKITParser.TaildimContext,0)
-
+            return self.getTypedRuleContext(BKITParser.TaildimContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_dimlist
-
-
-
 
     def dimlist(self):
 
@@ -1019,7 +949,7 @@ class BKITParser ( Parser ):
         try:
             self.state = 162
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 8, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 158
@@ -1043,26 +973,20 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TaildimContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def dim(self):
-            return self.getTypedRuleContext(BKITParser.DimContext,0)
-
+            return self.getTypedRuleContext(BKITParser.DimContext, 0)
 
         def taildim(self):
-            return self.getTypedRuleContext(BKITParser.TaildimContext,0)
-
+            return self.getTypedRuleContext(BKITParser.TaildimContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_taildim
-
-
-
 
     def taildim(self):
 
@@ -1094,10 +1018,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DimContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1112,9 +1035,6 @@ class BKITParser ( Parser ):
 
         def getRuleIndex(self):
             return BKITParser.RULE_dim
-
-
-
 
     def dim(self):
 
@@ -1136,17 +1056,16 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class FuncdeclsContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def FUNCTION(self):
             return self.getToken(BKITParser.FUNCTION, 0)
 
-        def COLON(self, i:int=None):
+        def COLON(self, i: int = None):
             if i is None:
                 return self.getTokens(BKITParser.COLON)
             else:
@@ -1164,35 +1083,30 @@ class BKITParser ( Parser ):
         def DOT(self):
             return self.getToken(BKITParser.DOT, 0)
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.StatementContext)
             else:
-                return self.getTypedRuleContext(BKITParser.StatementContext,i)
-
+                return self.getTypedRuleContext(BKITParser.StatementContext, i)
 
         def PARAMETER(self):
             return self.getToken(BKITParser.PARAMETER, 0)
 
         def parameterlist(self):
-            return self.getTypedRuleContext(BKITParser.ParameterlistContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ParameterlistContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_funcdecls
-
-
-
 
     def funcdecls(self):
 
         localctx = BKITParser.FuncdeclsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 28, self.RULE_funcdecls)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 204
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 12, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 174
@@ -1208,7 +1122,14 @@ class BKITParser ( Parser ):
                 self.state = 182
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (
+                        1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (
+                                1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (
+                                1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (
+                                1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (
+                                1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (
+                                1 << BKITParser.STRINGLIT))) != 0):
                     self.state = 179
                     self.statement()
                     self.state = 184
@@ -1242,7 +1163,14 @@ class BKITParser ( Parser ):
                 self.state = 198
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (
+                        1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (
+                                1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (
+                                1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (
+                                1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (
+                                1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (
+                                1 << BKITParser.STRINGLIT))) != 0):
                     self.state = 195
                     self.statement()
                     self.state = 200
@@ -1264,26 +1192,20 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ParameterlistContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def parameter(self):
-            return self.getTypedRuleContext(BKITParser.ParameterContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ParameterContext, 0)
 
         def parameterlist_(self):
-            return self.getTypedRuleContext(BKITParser.Parameterlist_Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Parameterlist_Context, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_parameterlist
-
-
-
 
     def parameterlist(self):
 
@@ -1292,7 +1214,7 @@ class BKITParser ( Parser ):
         try:
             self.state = 210
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 13, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 206
@@ -1316,10 +1238,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class Parameterlist_Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1327,18 +1248,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.COMMA, 0)
 
         def parameter(self):
-            return self.getTypedRuleContext(BKITParser.ParameterContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ParameterContext, 0)
 
         def parameterlist_(self):
-            return self.getTypedRuleContext(BKITParser.Parameterlist_Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Parameterlist_Context, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_parameterlist_
-
-
-
 
     def parameterlist_(self):
 
@@ -1372,10 +1288,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ParameterContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1383,14 +1298,10 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.ID, 0)
 
         def dimlist(self):
-            return self.getTypedRuleContext(BKITParser.DimlistContext,0)
-
+            return self.getTypedRuleContext(BKITParser.DimlistContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_parameter
-
-
-
 
     def parameter(self):
 
@@ -1399,7 +1310,7 @@ class BKITParser ( Parser ):
         try:
             self.state = 222
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 15, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 219
@@ -1423,10 +1334,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class RelopContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1466,19 +1376,21 @@ class BKITParser ( Parser ):
         def getRuleIndex(self):
             return BKITParser.RULE_relop
 
-
-
-
     def relop(self):
 
         localctx = BKITParser.RelopContext(self, self._ctx, self.state)
         self.enterRule(localctx, 36, self.RULE_relop)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 224
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.EQUAL) | (1 << BKITParser.NOTEQUAL) | (1 << BKITParser.LESS) | (1 << BKITParser.GREATER) | (1 << BKITParser.LESSEQUAL) | (1 << BKITParser.GREATEREQUAL) | (1 << BKITParser.EQUALFLOAT) | (1 << BKITParser.LESSFLOAT) | (1 << BKITParser.GREATERFLOAT) | (1 << BKITParser.LESSEQUALFLOAT) | (1 << BKITParser.GREATEREQUALFLOAT))) != 0)):
+            if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << BKITParser.EQUAL) | (1 << BKITParser.NOTEQUAL) | (1 << BKITParser.LESS) | (
+                    1 << BKITParser.GREATER) | (1 << BKITParser.LESSEQUAL) | (1 << BKITParser.GREATEREQUAL) | (
+                            1 << BKITParser.EQUALFLOAT) | (1 << BKITParser.LESSFLOAT) | (
+                            1 << BKITParser.GREATERFLOAT) | (1 << BKITParser.LESSEQUALFLOAT) | (
+                            1 << BKITParser.GREATEREQUALFLOAT))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1491,29 +1403,23 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExprContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def expr1(self, i:int=None):
+        def expr1(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.Expr1Context)
             else:
-                return self.getTypedRuleContext(BKITParser.Expr1Context,i)
-
+                return self.getTypedRuleContext(BKITParser.Expr1Context, i)
 
         def relop(self):
-            return self.getTypedRuleContext(BKITParser.RelopContext,0)
-
+            return self.getTypedRuleContext(BKITParser.RelopContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_expr
-
-
-
 
     def expr(self):
 
@@ -1522,7 +1428,7 @@ class BKITParser ( Parser ):
         try:
             self.state = 231
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,16,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 16, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 226
@@ -1548,20 +1454,17 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class Expr1Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr2(self):
-            return self.getTypedRuleContext(BKITParser.Expr2Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr2Context, 0)
 
         def expr1(self):
-            return self.getTypedRuleContext(BKITParser.Expr1Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr1Context, 0)
 
         def AND(self):
             return self.getToken(BKITParser.AND, 0)
@@ -1572,16 +1475,14 @@ class BKITParser ( Parser ):
         def getRuleIndex(self):
             return BKITParser.RULE_expr1
 
-
-
-    def expr1(self, _p:int=0):
+    def expr1(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = BKITParser.Expr1Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 40
         self.enterRecursionRule(localctx, 40, self.RULE_expr1, _p)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 234
@@ -1589,9 +1490,9 @@ class BKITParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 241
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,17,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 17, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
@@ -1603,16 +1504,16 @@ class BKITParser ( Parser ):
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 237
                     _la = self._input.LA(1)
-                    if not(_la==BKITParser.AND or _la==BKITParser.OR):
+                    if not (_la == BKITParser.AND or _la == BKITParser.OR):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 238
-                    self.expr2(0) 
+                    self.expr2(0)
                 self.state = 243
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,17,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 17, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1622,20 +1523,17 @@ class BKITParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-
     class Expr2Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr3(self):
-            return self.getTypedRuleContext(BKITParser.Expr3Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr3Context, 0)
 
         def expr2(self):
-            return self.getTypedRuleContext(BKITParser.Expr2Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr2Context, 0)
 
         def ADD(self):
             return self.getToken(BKITParser.ADD, 0)
@@ -1652,16 +1550,14 @@ class BKITParser ( Parser ):
         def getRuleIndex(self):
             return BKITParser.RULE_expr2
 
-
-
-    def expr2(self, _p:int=0):
+    def expr2(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = BKITParser.Expr2Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 42
         self.enterRecursionRule(localctx, 42, self.RULE_expr2, _p)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 245
@@ -1669,9 +1565,9 @@ class BKITParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 252
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 18, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
@@ -1683,16 +1579,18 @@ class BKITParser ( Parser ):
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 248
                     _la = self._input.LA(1)
-                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.ADD) | (1 << BKITParser.ADDFLOAT) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT))) != 0)):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                            (1 << BKITParser.ADD) | (1 << BKITParser.ADDFLOAT) | (1 << BKITParser.SUB) | (
+                            1 << BKITParser.SUBFLOAT))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 249
-                    self.expr3(0) 
+                    self.expr3(0)
                 self.state = 254
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 18, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1702,20 +1600,17 @@ class BKITParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-
     class Expr3Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr4(self):
-            return self.getTypedRuleContext(BKITParser.Expr4Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr4Context, 0)
 
         def expr3(self):
-            return self.getTypedRuleContext(BKITParser.Expr3Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr3Context, 0)
 
         def MUL(self):
             return self.getToken(BKITParser.MUL, 0)
@@ -1735,16 +1630,14 @@ class BKITParser ( Parser ):
         def getRuleIndex(self):
             return BKITParser.RULE_expr3
 
-
-
-    def expr3(self, _p:int=0):
+    def expr3(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = BKITParser.Expr3Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 44
         self.enterRecursionRule(localctx, 44, self.RULE_expr3, _p)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 256
@@ -1752,9 +1645,9 @@ class BKITParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 263
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,19,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 19, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
@@ -1766,16 +1659,18 @@ class BKITParser ( Parser ):
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 259
                     _la = self._input.LA(1)
-                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.MUL) | (1 << BKITParser.MULFLOAT) | (1 << BKITParser.DIV) | (1 << BKITParser.DIVFLOAT) | (1 << BKITParser.MOD))) != 0)):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                            (1 << BKITParser.MUL) | (1 << BKITParser.MULFLOAT) | (1 << BKITParser.DIV) | (
+                            1 << BKITParser.DIVFLOAT) | (1 << BKITParser.MOD))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 260
-                    self.expr4() 
+                    self.expr4()
                 self.state = 265
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,19,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 19, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1785,10 +1680,9 @@ class BKITParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-
     class Expr4Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1796,18 +1690,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.NOT, 0)
 
         def expr4(self):
-            return self.getTypedRuleContext(BKITParser.Expr4Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr4Context, 0)
 
         def expr5(self):
-            return self.getTypedRuleContext(BKITParser.Expr5Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr5Context, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_expr4
-
-
-
 
     def expr4(self):
 
@@ -1824,7 +1713,8 @@ class BKITParser ( Parser ):
                 self.state = 267
                 self.expr4()
                 pass
-            elif token in [BKITParser.TRUE, BKITParser.FALSE, BKITParser.SUB, BKITParser.SUBFLOAT, BKITParser.LP, BKITParser.LB, BKITParser.ID, BKITParser.INTLIT, BKITParser.FLOATLIT, BKITParser.STRINGLIT]:
+            elif token in [BKITParser.TRUE, BKITParser.FALSE, BKITParser.SUB, BKITParser.SUBFLOAT, BKITParser.LP,
+                           BKITParser.LB, BKITParser.ID, BKITParser.INTLIT, BKITParser.FLOATLIT, BKITParser.STRINGLIT]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 268
                 self.expr5()
@@ -1840,16 +1730,14 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class Expr5Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr5(self):
-            return self.getTypedRuleContext(BKITParser.Expr5Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr5Context, 0)
 
         def SUB(self):
             return self.getToken(BKITParser.SUB, 0)
@@ -1858,20 +1746,16 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.SUBFLOAT, 0)
 
         def expr6(self):
-            return self.getTypedRuleContext(BKITParser.Expr6Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr6Context, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_expr5
-
-
-
 
     def expr5(self):
 
         localctx = BKITParser.Expr5Context(self, self._ctx, self.state)
         self.enterRule(localctx, 48, self.RULE_expr5)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 274
             self._errHandler.sync(self)
@@ -1880,7 +1764,7 @@ class BKITParser ( Parser ):
                 self.enterOuterAlt(localctx, 1)
                 self.state = 271
                 _la = self._input.LA(1)
-                if not(_la==BKITParser.SUB or _la==BKITParser.SUBFLOAT):
+                if not (_la == BKITParser.SUB or _la == BKITParser.SUBFLOAT):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -1888,7 +1772,8 @@ class BKITParser ( Parser ):
                 self.state = 272
                 self.expr5()
                 pass
-            elif token in [BKITParser.TRUE, BKITParser.FALSE, BKITParser.LP, BKITParser.LB, BKITParser.ID, BKITParser.INTLIT, BKITParser.FLOATLIT, BKITParser.STRINGLIT]:
+            elif token in [BKITParser.TRUE, BKITParser.FALSE, BKITParser.LP, BKITParser.LB, BKITParser.ID,
+                           BKITParser.INTLIT, BKITParser.FLOATLIT, BKITParser.STRINGLIT]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 273
                 self.expr6(0)
@@ -1904,35 +1789,31 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class Expr6Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr7(self):
-            return self.getTypedRuleContext(BKITParser.Expr7Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Expr7Context, 0)
 
         def expr6(self):
-            return self.getTypedRuleContext(BKITParser.Expr6Context,0)
+            return self.getTypedRuleContext(BKITParser.Expr6Context, 0)
 
-
-        def LA(self, i:int=None):
+        def LA(self, i: int = None):
             if i is None:
                 return self.getTokens(BKITParser.LA)
             else:
                 return self.getToken(BKITParser.LA, i)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.ExprContext)
             else:
-                return self.getTypedRuleContext(BKITParser.ExprContext,i)
+                return self.getTypedRuleContext(BKITParser.ExprContext, i)
 
-
-        def RA(self, i:int=None):
+        def RA(self, i: int = None):
             if i is None:
                 return self.getTokens(BKITParser.RA)
             else:
@@ -1941,9 +1822,7 @@ class BKITParser ( Parser ):
         def getRuleIndex(self):
             return BKITParser.RULE_expr6
 
-
-
-    def expr6(self, _p:int=0):
+    def expr6(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
         localctx = BKITParser.Expr6Context(self, self._ctx, _parentState)
@@ -1957,9 +1836,9 @@ class BKITParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 290
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 23, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
@@ -1969,10 +1848,10 @@ class BKITParser ( Parser ):
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
-                    self.state = 284 
+                    self.state = 284
                     self._errHandler.sync(self)
                     _alt = 1
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                         if _alt == 1:
                             self.state = 280
                             self.match(BKITParser.LA)
@@ -1983,13 +1862,13 @@ class BKITParser ( Parser ):
 
                         else:
                             raise NoViableAltException(self)
-                        self.state = 286 
+                        self.state = 286
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,22,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 22, self._ctx)
+
                 self.state = 292
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 23, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1999,16 +1878,14 @@ class BKITParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-
     class Expr7Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def literals(self):
-            return self.getTypedRuleContext(BKITParser.LiteralsContext,0)
-
+            return self.getTypedRuleContext(BKITParser.LiteralsContext, 0)
 
         def ID(self):
             return self.getToken(BKITParser.ID, 0)
@@ -2017,21 +1894,16 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.LP, 0)
 
         def expr(self):
-            return self.getTypedRuleContext(BKITParser.ExprContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ExprContext, 0)
 
         def RP(self):
             return self.getToken(BKITParser.RP, 0)
 
         def functioncall(self):
-            return self.getTypedRuleContext(BKITParser.FunctioncallContext,0)
-
+            return self.getTypedRuleContext(BKITParser.FunctioncallContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_expr7
-
-
-
 
     def expr7(self):
 
@@ -2040,7 +1912,7 @@ class BKITParser ( Parser ):
         try:
             self.state = 300
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,24,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 24, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 293
@@ -2078,10 +1950,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class FunctioncallContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2092,17 +1963,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.LP, 0)
 
         def argumentslist(self):
-            return self.getTypedRuleContext(BKITParser.ArgumentslistContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ArgumentslistContext, 0)
 
         def RP(self):
             return self.getToken(BKITParser.RP, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_functioncall
-
-
-
 
     def functioncall(self):
 
@@ -2126,26 +1993,20 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ArgumentslistContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expr(self):
-            return self.getTypedRuleContext(BKITParser.ExprContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ExprContext, 0)
 
         def argumentslist_(self):
-            return self.getTypedRuleContext(BKITParser.Argumentslist_Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Argumentslist_Context, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_argumentslist
-
-
-
 
     def argumentslist(self):
 
@@ -2155,7 +2016,9 @@ class BKITParser ( Parser ):
             self.state = 311
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [BKITParser.TRUE, BKITParser.FALSE, BKITParser.SUB, BKITParser.SUBFLOAT, BKITParser.NOT, BKITParser.LP, BKITParser.LB, BKITParser.ID, BKITParser.INTLIT, BKITParser.FLOATLIT, BKITParser.STRINGLIT]:
+            if token in [BKITParser.TRUE, BKITParser.FALSE, BKITParser.SUB, BKITParser.SUBFLOAT, BKITParser.NOT,
+                         BKITParser.LP, BKITParser.LB, BKITParser.ID, BKITParser.INTLIT, BKITParser.FLOATLIT,
+                         BKITParser.STRINGLIT]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 307
                 self.expr()
@@ -2177,10 +2040,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class Argumentslist_Context(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2188,18 +2050,13 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.COMMA, 0)
 
         def expr(self):
-            return self.getTypedRuleContext(BKITParser.ExprContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ExprContext, 0)
 
         def argumentslist_(self):
-            return self.getTypedRuleContext(BKITParser.Argumentslist_Context,0)
-
+            return self.getTypedRuleContext(BKITParser.Argumentslist_Context, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_argumentslist_
-
-
-
 
     def argumentslist_(self):
 
@@ -2233,58 +2090,44 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StatementContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def vardecls(self):
-            return self.getTypedRuleContext(BKITParser.VardeclsContext,0)
-
+            return self.getTypedRuleContext(BKITParser.VardeclsContext, 0)
 
         def assignmentstmt(self):
-            return self.getTypedRuleContext(BKITParser.AssignmentstmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.AssignmentstmtContext, 0)
 
         def ifstmt(self):
-            return self.getTypedRuleContext(BKITParser.IfstmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.IfstmtContext, 0)
 
         def forstmt(self):
-            return self.getTypedRuleContext(BKITParser.ForstmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ForstmtContext, 0)
 
         def whilestmt(self):
-            return self.getTypedRuleContext(BKITParser.WhilestmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.WhilestmtContext, 0)
 
         def dowhilestmt(self):
-            return self.getTypedRuleContext(BKITParser.DowhilestmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.DowhilestmtContext, 0)
 
         def breakstmt(self):
-            return self.getTypedRuleContext(BKITParser.BreakstmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.BreakstmtContext, 0)
 
         def continuestmt(self):
-            return self.getTypedRuleContext(BKITParser.ContinuestmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ContinuestmtContext, 0)
 
         def callstmt(self):
-            return self.getTypedRuleContext(BKITParser.CallstmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.CallstmtContext, 0)
 
         def returnstmt(self):
-            return self.getTypedRuleContext(BKITParser.ReturnstmtContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ReturnstmtContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_statement
-
-
-
 
     def statement(self):
 
@@ -2293,7 +2136,7 @@ class BKITParser ( Parser ):
         try:
             self.state = 330
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,27,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 27, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 320
@@ -2363,19 +2206,17 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AssignmentstmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.ExprContext)
             else:
-                return self.getTypedRuleContext(BKITParser.ExprContext,i)
-
+                return self.getTypedRuleContext(BKITParser.ExprContext, i)
 
         def ASSIGN(self):
             return self.getToken(BKITParser.ASSIGN, 0)
@@ -2385,9 +2226,6 @@ class BKITParser ( Parser ):
 
         def getRuleIndex(self):
             return BKITParser.RULE_assignmentstmt
-
-
-
 
     def assignmentstmt(self):
 
@@ -2411,32 +2249,29 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class IfstmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def IF(self):
             return self.getToken(BKITParser.IF, 0)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.ExprContext)
             else:
-                return self.getTypedRuleContext(BKITParser.ExprContext,i)
+                return self.getTypedRuleContext(BKITParser.ExprContext, i)
 
-
-        def THEN(self, i:int=None):
+        def THEN(self, i: int = None):
             if i is None:
                 return self.getTokens(BKITParser.THEN)
             else:
                 return self.getToken(BKITParser.THEN, i)
 
         def if_statement(self):
-            return self.getTypedRuleContext(BKITParser.If_statementContext,0)
-
+            return self.getTypedRuleContext(BKITParser.If_statementContext, 0)
 
         def ENDIF(self):
             return self.getToken(BKITParser.ENDIF, 0)
@@ -2444,37 +2279,32 @@ class BKITParser ( Parser ):
         def DOT(self):
             return self.getToken(BKITParser.DOT, 0)
 
-        def ELSEIF(self, i:int=None):
+        def ELSEIF(self, i: int = None):
             if i is None:
                 return self.getTokens(BKITParser.ELSEIF)
             else:
                 return self.getToken(BKITParser.ELSEIF, i)
 
-        def elif_statement(self, i:int=None):
+        def elif_statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.Elif_statementContext)
             else:
-                return self.getTypedRuleContext(BKITParser.Elif_statementContext,i)
-
+                return self.getTypedRuleContext(BKITParser.Elif_statementContext, i)
 
         def ELSE(self):
             return self.getToken(BKITParser.ELSE, 0)
 
         def else_statement(self):
-            return self.getTypedRuleContext(BKITParser.Else_statementContext,0)
-
+            return self.getTypedRuleContext(BKITParser.Else_statementContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_ifstmt
-
-
-
 
     def ifstmt(self):
 
         localctx = BKITParser.IfstmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 64, self.RULE_ifstmt)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 337
@@ -2488,7 +2318,7 @@ class BKITParser ( Parser ):
             self.state = 348
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==BKITParser.ELSEIF:
+            while _la == BKITParser.ELSEIF:
                 self.state = 341
                 self.match(BKITParser.ELSEIF)
                 self.state = 342
@@ -2504,12 +2334,11 @@ class BKITParser ( Parser ):
             self.state = 353
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==BKITParser.ELSE:
+            if _la == BKITParser.ELSE:
                 self.state = 351
                 self.match(BKITParser.ELSE)
                 self.state = 352
                 self.else_statement()
-
 
             self.state = 355
             self.match(BKITParser.ENDIF)
@@ -2523,37 +2352,38 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class If_statementContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.StatementContext)
             else:
-                return self.getTypedRuleContext(BKITParser.StatementContext,i)
-
+                return self.getTypedRuleContext(BKITParser.StatementContext, i)
 
         def getRuleIndex(self):
             return BKITParser.RULE_if_statement
-
-
-
 
     def if_statement(self):
 
         localctx = BKITParser.If_statementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 66, self.RULE_if_statement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 361
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (
+                    1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (
+                            1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (
+                            1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (
+                            1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (
+                            1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
                 self.state = 358
                 self.statement()
                 self.state = 363
@@ -2568,37 +2398,38 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class Elif_statementContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.StatementContext)
             else:
-                return self.getTypedRuleContext(BKITParser.StatementContext,i)
-
+                return self.getTypedRuleContext(BKITParser.StatementContext, i)
 
         def getRuleIndex(self):
             return BKITParser.RULE_elif_statement
-
-
-
 
     def elif_statement(self):
 
         localctx = BKITParser.Elif_statementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 68, self.RULE_elif_statement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 367
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (
+                    1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (
+                            1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (
+                            1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (
+                            1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (
+                            1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
                 self.state = 364
                 self.statement()
                 self.state = 369
@@ -2613,37 +2444,38 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class Else_statementContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.StatementContext)
             else:
-                return self.getTypedRuleContext(BKITParser.StatementContext,i)
-
+                return self.getTypedRuleContext(BKITParser.StatementContext, i)
 
         def getRuleIndex(self):
             return BKITParser.RULE_else_statement
-
-
-
 
     def else_statement(self):
 
         localctx = BKITParser.Else_statementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 70, self.RULE_else_statement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 373
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (
+                    1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (
+                            1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (
+                            1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (
+                            1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (
+                            1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
                 self.state = 370
                 self.statement()
                 self.state = 375
@@ -2658,10 +2490,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ForstmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2677,14 +2508,13 @@ class BKITParser ( Parser ):
         def ASSIGN(self):
             return self.getToken(BKITParser.ASSIGN, 0)
 
-        def expr(self, i:int=None):
+        def expr(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.ExprContext)
             else:
-                return self.getTypedRuleContext(BKITParser.ExprContext,i)
+                return self.getTypedRuleContext(BKITParser.ExprContext, i)
 
-
-        def COMMA(self, i:int=None):
+        def COMMA(self, i: int = None):
             if i is None:
                 return self.getTokens(BKITParser.COMMA)
             else:
@@ -2702,24 +2532,20 @@ class BKITParser ( Parser ):
         def DOT(self):
             return self.getToken(BKITParser.DOT, 0)
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.StatementContext)
             else:
-                return self.getTypedRuleContext(BKITParser.StatementContext,i)
-
+                return self.getTypedRuleContext(BKITParser.StatementContext, i)
 
         def getRuleIndex(self):
             return BKITParser.RULE_forstmt
-
-
-
 
     def forstmt(self):
 
         localctx = BKITParser.ForstmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 72, self.RULE_forstmt)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 376
@@ -2747,7 +2573,13 @@ class BKITParser ( Parser ):
             self.state = 390
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (
+                    1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (
+                            1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (
+                            1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (
+                            1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (
+                            1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
                 self.state = 387
                 self.statement()
                 self.state = 392
@@ -2766,10 +2598,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class WhilestmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2777,8 +2608,7 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.WHILE, 0)
 
         def expr(self):
-            return self.getTypedRuleContext(BKITParser.ExprContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ExprContext, 0)
 
         def DO(self):
             return self.getToken(BKITParser.DO, 0)
@@ -2789,24 +2619,20 @@ class BKITParser ( Parser ):
         def DOT(self):
             return self.getToken(BKITParser.DOT, 0)
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.StatementContext)
             else:
-                return self.getTypedRuleContext(BKITParser.StatementContext,i)
-
+                return self.getTypedRuleContext(BKITParser.StatementContext, i)
 
         def getRuleIndex(self):
             return BKITParser.RULE_whilestmt
-
-
-
 
     def whilestmt(self):
 
         localctx = BKITParser.WhilestmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 74, self.RULE_whilestmt)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 396
@@ -2818,7 +2644,13 @@ class BKITParser ( Parser ):
             self.state = 402
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << BKITParser.VAR) | (1 << BKITParser.IF) | (1 << BKITParser.BREAK) | (1 << BKITParser.WHILE) | (
+                    1 << BKITParser.CONTINUE) | (1 << BKITParser.FOR) | (1 << BKITParser.RETURN) | (
+                            1 << BKITParser.TRUE) | (1 << BKITParser.DO) | (1 << BKITParser.FALSE) | (
+                            1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (
+                            1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (
+                            1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
                 self.state = 399
                 self.statement()
                 self.state = 404
@@ -2837,10 +2669,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DowhilestmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2851,8 +2682,7 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.WHILE, 0)
 
         def expr(self):
-            return self.getTypedRuleContext(BKITParser.ExprContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ExprContext, 0)
 
         def ENDDO(self):
             return self.getToken(BKITParser.ENDDO, 0)
@@ -2860,18 +2690,14 @@ class BKITParser ( Parser ):
         def DOT(self):
             return self.getToken(BKITParser.DOT, 0)
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(BKITParser.StatementContext)
             else:
-                return self.getTypedRuleContext(BKITParser.StatementContext,i)
-
+                return self.getTypedRuleContext(BKITParser.StatementContext, i)
 
         def getRuleIndex(self):
             return BKITParser.RULE_dowhilestmt
-
-
-
 
     def dowhilestmt(self):
 
@@ -2883,14 +2709,14 @@ class BKITParser ( Parser ):
             self.match(BKITParser.DO)
             self.state = 412
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,35,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 35, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 409
-                    self.statement() 
+                    self.statement()
                 self.state = 414
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,35,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 35, self._ctx)
 
             self.state = 415
             self.match(BKITParser.WHILE)
@@ -2908,10 +2734,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class BreakstmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2923,9 +2748,6 @@ class BKITParser ( Parser ):
 
         def getRuleIndex(self):
             return BKITParser.RULE_breakstmt
-
-
-
 
     def breakstmt(self):
 
@@ -2945,10 +2767,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ContinuestmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2960,9 +2781,6 @@ class BKITParser ( Parser ):
 
         def getRuleIndex(self):
             return BKITParser.RULE_continuestmt
-
-
-
 
     def continuestmt(self):
 
@@ -2982,10 +2800,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class CallstmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2996,8 +2813,7 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.LP, 0)
 
         def argumentslist(self):
-            return self.getTypedRuleContext(BKITParser.ArgumentslistContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ArgumentslistContext, 0)
 
         def RP(self):
             return self.getToken(BKITParser.RP, 0)
@@ -3007,9 +2823,6 @@ class BKITParser ( Parser ):
 
         def getRuleIndex(self):
             return BKITParser.RULE_callstmt
-
-
-
 
     def callstmt(self):
 
@@ -3035,10 +2848,9 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ReturnstmtContext(ParserRuleContext):
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -3049,20 +2861,16 @@ class BKITParser ( Parser ):
             return self.getToken(BKITParser.SEMI, 0)
 
         def expr(self):
-            return self.getTypedRuleContext(BKITParser.ExprContext,0)
-
+            return self.getTypedRuleContext(BKITParser.ExprContext, 0)
 
         def getRuleIndex(self):
             return BKITParser.RULE_returnstmt
-
-
-
 
     def returnstmt(self):
 
         localctx = BKITParser.ReturnstmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 84, self.RULE_returnstmt)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 432
@@ -3070,10 +2878,13 @@ class BKITParser ( Parser ):
             self.state = 434
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << BKITParser.TRUE) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (1 << BKITParser.STRINGLIT))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << BKITParser.TRUE) | (1 << BKITParser.FALSE) | (1 << BKITParser.SUB) | (
+                    1 << BKITParser.SUBFLOAT) | (1 << BKITParser.NOT) | (1 << BKITParser.LP) | (1 << BKITParser.LB) | (
+                            1 << BKITParser.ID) | (1 << BKITParser.INTLIT) | (1 << BKITParser.FLOATLIT) | (
+                            1 << BKITParser.STRINGLIT))) != 0):
                 self.state = 433
                 self.expr()
-
 
             self.state = 436
             self.match(BKITParser.SEMI)
@@ -3085,9 +2896,7 @@ class BKITParser ( Parser ):
             self.exitRule()
         return localctx
 
-
-
-    def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
+    def sempred(self, localctx: RuleContext, ruleIndex: int, predIndex: int):
         if self._predicates == None:
             self._predicates = dict()
         self._predicates[20] = self.expr1_sempred
@@ -3100,26 +2909,18 @@ class BKITParser ( Parser ):
         else:
             return pred(localctx, predIndex)
 
-    def expr1_sempred(self, localctx:Expr1Context, predIndex:int):
-            if predIndex == 0:
-                return self.precpred(self._ctx, 2)
-         
+    def expr1_sempred(self, localctx: Expr1Context, predIndex: int):
+        if predIndex == 0:
+            return self.precpred(self._ctx, 2)
 
-    def expr2_sempred(self, localctx:Expr2Context, predIndex:int):
-            if predIndex == 1:
-                return self.precpred(self._ctx, 2)
-         
+    def expr2_sempred(self, localctx: Expr2Context, predIndex: int):
+        if predIndex == 1:
+            return self.precpred(self._ctx, 2)
 
-    def expr3_sempred(self, localctx:Expr3Context, predIndex:int):
-            if predIndex == 2:
-                return self.precpred(self._ctx, 2)
-         
+    def expr3_sempred(self, localctx: Expr3Context, predIndex: int):
+        if predIndex == 2:
+            return self.precpred(self._ctx, 2)
 
-    def expr6_sempred(self, localctx:Expr6Context, predIndex:int):
-            if predIndex == 3:
-                return self.precpred(self._ctx, 2)
-         
-
-
-
-
+    def expr6_sempred(self, localctx: Expr6Context, predIndex: int):
+        if predIndex == 3:
+            return self.precpred(self._ctx, 2)

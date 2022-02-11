@@ -353,74 +353,73 @@ class D96Parser(Parser):
                      "ERROR_CHAR"]
 
     RULE_program = 0
-    RULE_class_declaration = 1
-    RULE_class_body_unit = 2
-    RULE_super_class_group = 3
-    RULE_method_declaration = 4
+    RULE_classDeclaration = 1
+    RULE_classBodyUnit = 2
+    RULE_superClassGroup = 3
+    RULE_methodDeclaration = 4
     RULE_constructor = 5
     RULE_destructor = 6
-    RULE_parameter_list = 7
+    RULE_parameterList = 7
     RULE_parameter = 8
-    RULE_d96_type = 9
-    RULE_attribute_declaration = 10
-    RULE_attribute_value_list = 11
-    RULE_identifier_list = 12
-    RULE_mixed_identifier_list = 13
-    RULE_expression_list = 14
-    RULE_element_expression = 15
-    RULE_index_operator = 16
-    RULE_relational_operator = 17
+    RULE_d96Type = 9
+    RULE_attributeDeclaration = 10
+    RULE_attributeValueList = 11
+    RULE_identifierList = 12
+    RULE_mixedIdentifierList = 13
+    RULE_expressionList = 14
+    RULE_elementExpression = 15
+    RULE_indexOperator = 16
+    RULE_relationalOperator = 17
     RULE_expression = 18
-    RULE_relational_expr = 19
-    RULE_and_or_expr = 20
-    RULE_add_sub_expr = 21
-    RULE_mul_add_mol_expr = 22
-    RULE_not_expr = 23
-    RULE_sign_expr = 24
-    RULE_index_operator_expr = 25
-    RULE_instance_access = 26
-    RULE_static_access = 27
-    RULE_object_creation = 28
-    RULE_atom_expr = 29
-    RULE_var_val_statement = 30
-    RULE_var_val_value_list = 31
+    RULE_relationalExpr = 19
+    RULE_andOrExpr = 20
+    RULE_addSubExpr = 21
+    RULE_mulAddMolExpr = 22
+    RULE_notExpr = 23
+    RULE_signExpr = 24
+    RULE_indexOperatorExpr = 25
+    RULE_instanceAccess = 26
+    RULE_staticAccess = 27
+    RULE_objectCreation = 28
+    RULE_atomExpr = 29
+    RULE_varValStatement = 30
+    RULE_varValValueList = 31
     RULE_lhs = 32
-    RULE_assign_statement = 33
-    RULE_if_statement = 34
-    RULE_if_part = 35
-    RULE_else_if_part = 36
-    RULE_else_part = 37
-    RULE_for_in_statement = 38
-    RULE_loop_part = 39
-    RULE_break_statement = 40
-    RULE_continue_statement = 41
-    RULE_return_statement = 42
-    RULE_member_access_instance = 43
-    RULE_member_access_static = 44
-    RULE_method_invocation_statement = 45
-    RULE_block_statement = 46
+    RULE_assignStatement = 33
+    RULE_ifStatement = 34
+    RULE_ifPart = 35
+    RULE_elseIfPart = 36
+    RULE_elsePart = 37
+    RULE_forInStatement = 38
+    RULE_loopPart = 39
+    RULE_breakStatement = 40
+    RULE_continueStatement = 41
+    RULE_returnStatement = 42
+    RULE_memberAccessInstance = 43
+    RULE_memberAccessStatic = 44
+    RULE_methodInvocationStatement = 45
+    RULE_blockStatement = 46
     RULE_statement = 47
     RULE_literal = 48
-    RULE_indexed_array = 49
-    RULE_multi_dimentional_array = 50
-    RULE_primitive_type = 51
-    RULE_array_type = 52
+    RULE_indexedArray = 49
+    RULE_multiDimentionalArray = 50
+    RULE_primitiveType = 51
+    RULE_arrayType = 52
 
-    ruleNames = ["program", "class_declaration", "class_body_unit", "super_class_group",
-                 "method_declaration", "constructor", "destructor", "parameter_list",
-                 "parameter", "d96_type", "attribute_declaration", "attribute_value_list",
-                 "identifier_list", "mixed_identifier_list", "expression_list",
-                 "element_expression", "index_operator", "relational_operator",
-                 "expression", "relational_expr", "and_or_expr", "add_sub_expr",
-                 "mul_add_mol_expr", "not_expr", "sign_expr", "index_operator_expr",
-                 "instance_access", "static_access", "object_creation",
-                 "atom_expr", "var_val_statement", "var_val_value_list",
-                 "lhs", "assign_statement", "if_statement", "if_part",
-                 "else_if_part", "else_part", "for_in_statement", "loop_part",
-                 "break_statement", "continue_statement", "return_statement",
-                 "member_access_instance", "member_access_static", "method_invocation_statement",
-                 "block_statement", "statement", "literal", "indexed_array",
-                 "multi_dimentional_array", "primitive_type", "array_type"]
+    ruleNames = ["program", "classDeclaration", "classBodyUnit", "superClassGroup",
+                 "methodDeclaration", "constructor", "destructor", "parameterList",
+                 "parameter", "d96Type", "attributeDeclaration", "attributeValueList",
+                 "identifierList", "mixedIdentifierList", "expressionList",
+                 "elementExpression", "indexOperator", "relationalOperator",
+                 "expression", "relationalExpr", "andOrExpr", "addSubExpr",
+                 "mulAddMolExpr", "notExpr", "signExpr", "indexOperatorExpr",
+                 "instanceAccess", "staticAccess", "objectCreation", "atomExpr",
+                 "varValStatement", "varValValueList", "lhs", "assignStatement",
+                 "ifStatement", "ifPart", "elseIfPart", "elsePart", "forInStatement",
+                 "loopPart", "breakStatement", "continueStatement", "returnStatement",
+                 "memberAccessInstance", "memberAccessStatic", "methodInvocationStatement",
+                 "blockStatement", "statement", "literal", "indexedArray",
+                 "multiDimentionalArray", "primitiveType", "arrayType"]
 
     EOF = Token.EOF
     COMMENT = 1
@@ -502,11 +501,11 @@ class D96Parser(Parser):
         def EOF(self):
             return self.getToken(D96Parser.EOF, 0)
 
-        def class_declaration(self, i: int = None):
+        def classDeclaration(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(D96Parser.Class_declarationContext)
+                return self.getTypedRuleContexts(D96Parser.ClassDeclarationContext)
             else:
-                return self.getTypedRuleContext(D96Parser.Class_declarationContext, i)
+                return self.getTypedRuleContext(D96Parser.ClassDeclarationContext, i)
 
         def getRuleIndex(self):
             return D96Parser.RULE_program
@@ -529,7 +528,7 @@ class D96Parser(Parser):
             _la = self._input.LA(1)
             while True:
                 self.state = 106
-                self.class_declaration()
+                self.classDeclaration()
                 self.state = 109
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -546,7 +545,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Class_declarationContext(ParserRuleContext):
+    class ClassDeclarationContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -565,28 +564,28 @@ class D96Parser(Parser):
         def RIGHT_CURLY_BRACKET(self):
             return self.getToken(D96Parser.RIGHT_CURLY_BRACKET, 0)
 
-        def super_class_group(self):
-            return self.getTypedRuleContext(D96Parser.Super_class_groupContext, 0)
+        def superClassGroup(self):
+            return self.getTypedRuleContext(D96Parser.SuperClassGroupContext, 0)
 
-        def class_body_unit(self, i: int = None):
+        def classBodyUnit(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(D96Parser.Class_body_unitContext)
+                return self.getTypedRuleContexts(D96Parser.ClassBodyUnitContext)
             else:
-                return self.getTypedRuleContext(D96Parser.Class_body_unitContext, i)
+                return self.getTypedRuleContext(D96Parser.ClassBodyUnitContext, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_class_declaration
+            return D96Parser.RULE_classDeclaration
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitClass_declaration"):
-                return visitor.visitClass_declaration(self)
+            if hasattr(visitor, "visitClassDeclaration"):
+                return visitor.visitClassDeclaration(self)
             else:
                 return visitor.visitChildren(self)
 
-    def class_declaration(self):
+    def classDeclaration(self):
 
-        localctx = D96Parser.Class_declarationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 2, self.RULE_class_declaration)
+        localctx = D96Parser.ClassDeclarationContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 2, self.RULE_classDeclaration)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -599,7 +598,7 @@ class D96Parser(Parser):
             _la = self._input.LA(1)
             if _la == D96Parser.COLON:
                 self.state = 115
-                self.super_class_group()
+                self.superClassGroup()
 
             self.state = 118
             self.match(D96Parser.LEFT_CURLY_BRACKET)
@@ -611,7 +610,7 @@ class D96Parser(Parser):
                     1 << D96Parser.K_DESTRUCTOR) | (1 << D96Parser.IDENTIFIER) | (
                             1 << D96Parser.DOLAR_IDENTIFIER))) != 0):
                 self.state = 119
-                self.class_body_unit()
+                self.classBodyUnit()
                 self.state = 124
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -626,32 +625,32 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Class_body_unitContext(ParserRuleContext):
+    class ClassBodyUnitContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def attribute_declaration(self):
-            return self.getTypedRuleContext(D96Parser.Attribute_declarationContext, 0)
+        def attributeDeclaration(self):
+            return self.getTypedRuleContext(D96Parser.AttributeDeclarationContext, 0)
 
-        def method_declaration(self):
-            return self.getTypedRuleContext(D96Parser.Method_declarationContext, 0)
+        def methodDeclaration(self):
+            return self.getTypedRuleContext(D96Parser.MethodDeclarationContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_class_body_unit
+            return D96Parser.RULE_classBodyUnit
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitClass_body_unit"):
-                return visitor.visitClass_body_unit(self)
+            if hasattr(visitor, "visitClassBodyUnit"):
+                return visitor.visitClassBodyUnit(self)
             else:
                 return visitor.visitChildren(self)
 
-    def class_body_unit(self):
+    def classBodyUnit(self):
 
-        localctx = D96Parser.Class_body_unitContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 4, self.RULE_class_body_unit)
+        localctx = D96Parser.ClassBodyUnitContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 4, self.RULE_classBodyUnit)
         try:
             self.state = 129
             self._errHandler.sync(self)
@@ -659,13 +658,13 @@ class D96Parser(Parser):
             if token in [D96Parser.K_VAL, D96Parser.K_VAR]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 127
-                self.attribute_declaration()
+                self.attributeDeclaration()
                 pass
             elif token in [D96Parser.K_CONSTRUCTOR, D96Parser.K_DESTRUCTOR, D96Parser.IDENTIFIER,
                            D96Parser.DOLAR_IDENTIFIER]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 128
-                self.method_declaration()
+                self.methodDeclaration()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -678,7 +677,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Super_class_groupContext(ParserRuleContext):
+    class SuperClassGroupContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -692,18 +691,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.IDENTIFIER, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_super_class_group
+            return D96Parser.RULE_superClassGroup
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitSuper_class_group"):
-                return visitor.visitSuper_class_group(self)
+            if hasattr(visitor, "visitSuperClassGroup"):
+                return visitor.visitSuperClassGroup(self)
             else:
                 return visitor.visitChildren(self)
 
-    def super_class_group(self):
+    def superClassGroup(self):
 
-        localctx = D96Parser.Super_class_groupContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_super_class_group)
+        localctx = D96Parser.SuperClassGroupContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 6, self.RULE_superClassGroup)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 131
@@ -718,7 +717,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Method_declarationContext(ParserRuleContext):
+    class MethodDeclarationContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -731,8 +730,8 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def block_statement(self):
-            return self.getTypedRuleContext(D96Parser.Block_statementContext, 0)
+        def blockStatement(self):
+            return self.getTypedRuleContext(D96Parser.BlockStatementContext, 0)
 
         def IDENTIFIER(self):
             return self.getToken(D96Parser.IDENTIFIER, 0)
@@ -740,8 +739,8 @@ class D96Parser(Parser):
         def DOLAR_IDENTIFIER(self):
             return self.getToken(D96Parser.DOLAR_IDENTIFIER, 0)
 
-        def parameter_list(self):
-            return self.getTypedRuleContext(D96Parser.Parameter_listContext, 0)
+        def parameterList(self):
+            return self.getTypedRuleContext(D96Parser.ParameterListContext, 0)
 
         def constructor(self):
             return self.getTypedRuleContext(D96Parser.ConstructorContext, 0)
@@ -750,18 +749,18 @@ class D96Parser(Parser):
             return self.getTypedRuleContext(D96Parser.DestructorContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_method_declaration
+            return D96Parser.RULE_methodDeclaration
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitMethod_declaration"):
-                return visitor.visitMethod_declaration(self)
+            if hasattr(visitor, "visitMethodDeclaration"):
+                return visitor.visitMethodDeclaration(self)
             else:
                 return visitor.visitChildren(self)
 
-    def method_declaration(self):
+    def methodDeclaration(self):
 
-        localctx = D96Parser.Method_declarationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 8, self.RULE_method_declaration)
+        localctx = D96Parser.MethodDeclarationContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 8, self.RULE_methodDeclaration)
         self._la = 0  # Token type
         try:
             self.state = 143
@@ -783,12 +782,12 @@ class D96Parser(Parser):
                 _la = self._input.LA(1)
                 if _la == D96Parser.IDENTIFIER:
                     self.state = 136
-                    self.parameter_list()
+                    self.parameterList()
 
                 self.state = 139
                 self.match(D96Parser.RIGHT_PAREN)
                 self.state = 140
-                self.block_statement()
+                self.blockStatement()
                 pass
             elif token in [D96Parser.K_CONSTRUCTOR]:
                 self.enterOuterAlt(localctx, 2)
@@ -827,11 +826,11 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def block_statement(self):
-            return self.getTypedRuleContext(D96Parser.Block_statementContext, 0)
+        def blockStatement(self):
+            return self.getTypedRuleContext(D96Parser.BlockStatementContext, 0)
 
-        def parameter_list(self):
-            return self.getTypedRuleContext(D96Parser.Parameter_listContext, 0)
+        def parameterList(self):
+            return self.getTypedRuleContext(D96Parser.ParameterListContext, 0)
 
         def getRuleIndex(self):
             return D96Parser.RULE_constructor
@@ -858,12 +857,12 @@ class D96Parser(Parser):
             _la = self._input.LA(1)
             if _la == D96Parser.IDENTIFIER:
                 self.state = 147
-                self.parameter_list()
+                self.parameterList()
 
             self.state = 150
             self.match(D96Parser.RIGHT_PAREN)
             self.state = 151
-            self.block_statement()
+            self.blockStatement()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -888,8 +887,8 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def block_statement(self):
-            return self.getTypedRuleContext(D96Parser.Block_statementContext, 0)
+        def blockStatement(self):
+            return self.getTypedRuleContext(D96Parser.BlockStatementContext, 0)
 
         def getRuleIndex(self):
             return D96Parser.RULE_destructor
@@ -913,7 +912,7 @@ class D96Parser(Parser):
             self.state = 155
             self.match(D96Parser.RIGHT_PAREN)
             self.state = 156
-            self.block_statement()
+            self.blockStatement()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -922,7 +921,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Parameter_listContext(ParserRuleContext):
+    class ParameterListContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -942,18 +941,18 @@ class D96Parser(Parser):
                 return self.getToken(D96Parser.SEMI_COLON, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_parameter_list
+            return D96Parser.RULE_parameterList
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitParameter_list"):
-                return visitor.visitParameter_list(self)
+            if hasattr(visitor, "visitParameterList"):
+                return visitor.visitParameterList(self)
             else:
                 return visitor.visitChildren(self)
 
-    def parameter_list(self):
+    def parameterList(self):
 
-        localctx = D96Parser.Parameter_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_parameter_list)
+        localctx = D96Parser.ParameterListContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 14, self.RULE_parameterList)
         self._la = 0  # Token type
         try:
             self.state = 166
@@ -1001,14 +1000,14 @@ class D96Parser(Parser):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def identifier_list(self):
-            return self.getTypedRuleContext(D96Parser.Identifier_listContext, 0)
+        def identifierList(self):
+            return self.getTypedRuleContext(D96Parser.IdentifierListContext, 0)
 
         def COLON(self):
             return self.getToken(D96Parser.COLON, 0)
 
-        def d96_type(self):
-            return self.getTypedRuleContext(D96Parser.D96_typeContext, 0)
+        def d96Type(self):
+            return self.getTypedRuleContext(D96Parser.D96TypeContext, 0)
 
         def getRuleIndex(self):
             return D96Parser.RULE_parameter
@@ -1026,11 +1025,11 @@ class D96Parser(Parser):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 168
-            self.identifier_list()
+            self.identifierList()
             self.state = 169
             self.match(D96Parser.COLON)
             self.state = 170
-            self.d96_type()
+            self.d96Type()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1039,35 +1038,35 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class D96_typeContext(ParserRuleContext):
+    class D96TypeContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def primitive_type(self):
-            return self.getTypedRuleContext(D96Parser.Primitive_typeContext, 0)
+        def primitiveType(self):
+            return self.getTypedRuleContext(D96Parser.PrimitiveTypeContext, 0)
 
         def IDENTIFIER(self):
             return self.getToken(D96Parser.IDENTIFIER, 0)
 
-        def array_type(self):
-            return self.getTypedRuleContext(D96Parser.Array_typeContext, 0)
+        def arrayType(self):
+            return self.getTypedRuleContext(D96Parser.ArrayTypeContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_d96_type
+            return D96Parser.RULE_d96Type
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitD96_type"):
-                return visitor.visitD96_type(self)
+            if hasattr(visitor, "visitD96Type"):
+                return visitor.visitD96Type(self)
             else:
                 return visitor.visitChildren(self)
 
-    def d96_type(self):
+    def d96Type(self):
 
-        localctx = D96Parser.D96_typeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_d96_type)
+        localctx = D96Parser.D96TypeContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 18, self.RULE_d96Type)
         try:
             self.state = 175
             self._errHandler.sync(self)
@@ -1075,7 +1074,7 @@ class D96Parser(Parser):
             if token in [D96Parser.K_INT, D96Parser.K_FLOAT, D96Parser.K_BOOLEAN, D96Parser.K_STRING]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 172
-                self.primitive_type()
+                self.primitiveType()
                 pass
             elif token in [D96Parser.IDENTIFIER]:
                 self.enterOuterAlt(localctx, 2)
@@ -1085,7 +1084,7 @@ class D96Parser(Parser):
             elif token in [D96Parser.K_ARRAY]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 174
-                self.array_type()
+                self.arrayType()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -1098,21 +1097,21 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Attribute_declarationContext(ParserRuleContext):
+    class AttributeDeclarationContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def mixed_identifier_list(self):
-            return self.getTypedRuleContext(D96Parser.Mixed_identifier_listContext, 0)
+        def mixedIdentifierList(self):
+            return self.getTypedRuleContext(D96Parser.MixedIdentifierListContext, 0)
 
         def COLON(self):
             return self.getToken(D96Parser.COLON, 0)
 
-        def d96_type(self):
-            return self.getTypedRuleContext(D96Parser.D96_typeContext, 0)
+        def d96Type(self):
+            return self.getTypedRuleContext(D96Parser.D96TypeContext, 0)
 
         def SEMI_COLON(self):
             return self.getToken(D96Parser.SEMI_COLON, 0)
@@ -1123,8 +1122,8 @@ class D96Parser(Parser):
         def K_VAR(self):
             return self.getToken(D96Parser.K_VAR, 0)
 
-        def attribute_value_list(self):
-            return self.getTypedRuleContext(D96Parser.Attribute_value_listContext, 0)
+        def attributeValueList(self):
+            return self.getTypedRuleContext(D96Parser.AttributeValueListContext, 0)
 
         def expression(self):
             return self.getTypedRuleContext(D96Parser.ExpressionContext, 0)
@@ -1136,18 +1135,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.DOLAR_IDENTIFIER, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_attribute_declaration
+            return D96Parser.RULE_attributeDeclaration
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitAttribute_declaration"):
-                return visitor.visitAttribute_declaration(self)
+            if hasattr(visitor, "visitAttributeDeclaration"):
+                return visitor.visitAttributeDeclaration(self)
             else:
                 return visitor.visitChildren(self)
 
-    def attribute_declaration(self):
+    def attributeDeclaration(self):
 
-        localctx = D96Parser.Attribute_declarationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_attribute_declaration)
+        localctx = D96Parser.AttributeDeclarationContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 20, self.RULE_attributeDeclaration)
         self._la = 0  # Token type
         try:
             self.state = 189
@@ -1163,11 +1162,11 @@ class D96Parser(Parser):
                     self._errHandler.reportMatch(self)
                     self.consume()
                 self.state = 178
-                self.mixed_identifier_list()
+                self.mixedIdentifierList()
                 self.state = 179
                 self.match(D96Parser.COLON)
                 self.state = 180
-                self.d96_type()
+                self.d96Type()
                 self.state = 181
                 self.match(D96Parser.SEMI_COLON)
                 pass
@@ -1189,7 +1188,7 @@ class D96Parser(Parser):
                     self._errHandler.reportMatch(self)
                     self.consume()
                 self.state = 185
-                self.attribute_value_list()
+                self.attributeValueList()
                 self.state = 186
                 self.expression()
                 self.state = 187
@@ -1205,7 +1204,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Attribute_value_listContext(ParserRuleContext):
+    class AttributeValueListContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -1215,8 +1214,8 @@ class D96Parser(Parser):
         def COLON(self):
             return self.getToken(D96Parser.COLON, 0)
 
-        def d96_type(self):
-            return self.getTypedRuleContext(D96Parser.D96_typeContext, 0)
+        def d96Type(self):
+            return self.getTypedRuleContext(D96Parser.D96TypeContext, 0)
 
         def OP_ASSIGN(self):
             return self.getToken(D96Parser.OP_ASSIGN, 0)
@@ -1227,8 +1226,8 @@ class D96Parser(Parser):
             else:
                 return self.getToken(D96Parser.COMMA, i)
 
-        def attribute_value_list(self):
-            return self.getTypedRuleContext(D96Parser.Attribute_value_listContext, 0)
+        def attributeValueList(self):
+            return self.getTypedRuleContext(D96Parser.AttributeValueListContext, 0)
 
         def expression(self):
             return self.getTypedRuleContext(D96Parser.ExpressionContext, 0)
@@ -1240,18 +1239,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.DOLAR_IDENTIFIER, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_attribute_value_list
+            return D96Parser.RULE_attributeValueList
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitAttribute_value_list"):
-                return visitor.visitAttribute_value_list(self)
+            if hasattr(visitor, "visitAttributeValueList"):
+                return visitor.visitAttributeValueList(self)
             else:
                 return visitor.visitChildren(self)
 
-    def attribute_value_list(self):
+    def attributeValueList(self):
 
-        localctx = D96Parser.Attribute_value_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_attribute_value_list)
+        localctx = D96Parser.AttributeValueListContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 22, self.RULE_attributeValueList)
         self._la = 0  # Token type
         try:
             self.state = 201
@@ -1262,7 +1261,7 @@ class D96Parser(Parser):
                 self.state = 191
                 self.match(D96Parser.COLON)
                 self.state = 192
-                self.d96_type()
+                self.d96Type()
                 self.state = 193
                 self.match(D96Parser.OP_ASSIGN)
                 pass
@@ -1278,7 +1277,7 @@ class D96Parser(Parser):
                     self._errHandler.reportMatch(self)
                     self.consume()
                 self.state = 197
-                self.attribute_value_list()
+                self.attributeValueList()
                 self.state = 198
                 self.expression()
                 self.state = 199
@@ -1295,7 +1294,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Identifier_listContext(ParserRuleContext):
+    class IdentifierListContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -1315,18 +1314,18 @@ class D96Parser(Parser):
                 return self.getToken(D96Parser.COMMA, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_identifier_list
+            return D96Parser.RULE_identifierList
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitIdentifier_list"):
-                return visitor.visitIdentifier_list(self)
+            if hasattr(visitor, "visitIdentifierList"):
+                return visitor.visitIdentifierList(self)
             else:
                 return visitor.visitChildren(self)
 
-    def identifier_list(self):
+    def identifierList(self):
 
-        localctx = D96Parser.Identifier_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_identifier_list)
+        localctx = D96Parser.IdentifierListContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_identifierList)
         self._la = 0  # Token type
         try:
             self.state = 211
@@ -1367,7 +1366,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Mixed_identifier_listContext(ParserRuleContext):
+    class MixedIdentifierListContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -1393,18 +1392,18 @@ class D96Parser(Parser):
                 return self.getToken(D96Parser.COMMA, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_mixed_identifier_list
+            return D96Parser.RULE_mixedIdentifierList
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitMixed_identifier_list"):
-                return visitor.visitMixed_identifier_list(self)
+            if hasattr(visitor, "visitMixedIdentifierList"):
+                return visitor.visitMixedIdentifierList(self)
             else:
                 return visitor.visitChildren(self)
 
-    def mixed_identifier_list(self):
+    def mixedIdentifierList(self):
 
-        localctx = D96Parser.Mixed_identifier_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_mixed_identifier_list)
+        localctx = D96Parser.MixedIdentifierListContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 26, self.RULE_mixedIdentifierList)
         self._la = 0  # Token type
         try:
             self.state = 221
@@ -1460,7 +1459,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Expression_listContext(ParserRuleContext):
+    class ExpressionListContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -1480,18 +1479,18 @@ class D96Parser(Parser):
                 return self.getToken(D96Parser.COMMA, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_expression_list
+            return D96Parser.RULE_expressionList
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitExpression_list"):
-                return visitor.visitExpression_list(self)
+            if hasattr(visitor, "visitExpressionList"):
+                return visitor.visitExpressionList(self)
             else:
                 return visitor.visitChildren(self)
 
-    def expression_list(self):
+    def expressionList(self):
 
-        localctx = D96Parser.Expression_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_expression_list)
+        localctx = D96Parser.ExpressionListContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 28, self.RULE_expressionList)
         self._la = 0  # Token type
         try:
             self.state = 231
@@ -1532,7 +1531,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Element_expressionContext(ParserRuleContext):
+    class ElementExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -1542,28 +1541,28 @@ class D96Parser(Parser):
         def expression(self):
             return self.getTypedRuleContext(D96Parser.ExpressionContext, 0)
 
-        def index_operator(self):
-            return self.getTypedRuleContext(D96Parser.Index_operatorContext, 0)
+        def indexOperator(self):
+            return self.getTypedRuleContext(D96Parser.IndexOperatorContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_element_expression
+            return D96Parser.RULE_elementExpression
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitElement_expression"):
-                return visitor.visitElement_expression(self)
+            if hasattr(visitor, "visitElementExpression"):
+                return visitor.visitElementExpression(self)
             else:
                 return visitor.visitChildren(self)
 
-    def element_expression(self):
+    def elementExpression(self):
 
-        localctx = D96Parser.Element_expressionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_element_expression)
+        localctx = D96Parser.ElementExpressionContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 30, self.RULE_elementExpression)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 233
             self.expression()
             self.state = 234
-            self.index_operator()
+            self.indexOperator()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1572,7 +1571,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Index_operatorContext(ParserRuleContext):
+    class IndexOperatorContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -1588,25 +1587,25 @@ class D96Parser(Parser):
         def RIGHT_SQUARE_BRACKET(self):
             return self.getToken(D96Parser.RIGHT_SQUARE_BRACKET, 0)
 
-        def index_operator(self, i: int = None):
+        def indexOperator(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(D96Parser.Index_operatorContext)
+                return self.getTypedRuleContexts(D96Parser.IndexOperatorContext)
             else:
-                return self.getTypedRuleContext(D96Parser.Index_operatorContext, i)
+                return self.getTypedRuleContext(D96Parser.IndexOperatorContext, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_index_operator
+            return D96Parser.RULE_indexOperator
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitIndex_operator"):
-                return visitor.visitIndex_operator(self)
+            if hasattr(visitor, "visitIndexOperator"):
+                return visitor.visitIndexOperator(self)
             else:
                 return visitor.visitChildren(self)
 
-    def index_operator(self):
+    def indexOperator(self):
 
-        localctx = D96Parser.Index_operatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_index_operator)
+        localctx = D96Parser.IndexOperatorContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 32, self.RULE_indexOperator)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 236
@@ -1621,7 +1620,7 @@ class D96Parser(Parser):
             while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 239
-                    self.index_operator()
+                    self.indexOperator()
                 self.state = 244
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input, 18, self._ctx)
@@ -1634,7 +1633,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Relational_operatorContext(ParserRuleContext):
+    class RelationalOperatorContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -1660,18 +1659,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.OP_GREATER_THAN_EQUAL, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_relational_operator
+            return D96Parser.RULE_relationalOperator
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitRelational_operator"):
-                return visitor.visitRelational_operator(self)
+            if hasattr(visitor, "visitRelationalOperator"):
+                return visitor.visitRelationalOperator(self)
             else:
                 return visitor.visitChildren(self)
 
-    def relational_operator(self):
+    def relationalOperator(self):
 
-        localctx = D96Parser.Relational_operatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_relational_operator)
+        localctx = D96Parser.RelationalOperatorContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 34, self.RULE_relationalOperator)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1700,11 +1699,11 @@ class D96Parser(Parser):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def relational_expr(self, i: int = None):
+        def relationalExpr(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(D96Parser.Relational_exprContext)
+                return self.getTypedRuleContexts(D96Parser.RelationalExprContext)
             else:
-                return self.getTypedRuleContext(D96Parser.Relational_exprContext, i)
+                return self.getTypedRuleContext(D96Parser.RelationalExprContext, i)
 
         def OP_STRING_CONCATENATION(self):
             return self.getToken(D96Parser.OP_STRING_CONCATENATION, 0)
@@ -1733,7 +1732,7 @@ class D96Parser(Parser):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 247
-                self.relational_expr()
+                self.relationalExpr()
                 self.state = 248
                 _la = self._input.LA(1)
                 if not (_la == D96Parser.OP_STRING_CONCATENATION or _la == D96Parser.OP_TWO_SAME_STRING):
@@ -1742,13 +1741,13 @@ class D96Parser(Parser):
                     self._errHandler.reportMatch(self)
                     self.consume()
                 self.state = 249
-                self.relational_expr()
+                self.relationalExpr()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 251
-                self.relational_expr()
+                self.relationalExpr()
                 pass
 
 
@@ -1760,35 +1759,35 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Relational_exprContext(ParserRuleContext):
+    class RelationalExprContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def and_or_expr(self, i: int = None):
+        def andOrExpr(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(D96Parser.And_or_exprContext)
+                return self.getTypedRuleContexts(D96Parser.AndOrExprContext)
             else:
-                return self.getTypedRuleContext(D96Parser.And_or_exprContext, i)
+                return self.getTypedRuleContext(D96Parser.AndOrExprContext, i)
 
-        def relational_operator(self):
-            return self.getTypedRuleContext(D96Parser.Relational_operatorContext, 0)
+        def relationalOperator(self):
+            return self.getTypedRuleContext(D96Parser.RelationalOperatorContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_relational_expr
+            return D96Parser.RULE_relationalExpr
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitRelational_expr"):
-                return visitor.visitRelational_expr(self)
+            if hasattr(visitor, "visitRelationalExpr"):
+                return visitor.visitRelationalExpr(self)
             else:
                 return visitor.visitChildren(self)
 
-    def relational_expr(self):
+    def relationalExpr(self):
 
-        localctx = D96Parser.Relational_exprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_relational_expr)
+        localctx = D96Parser.RelationalExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 38, self.RULE_relationalExpr)
         try:
             self.state = 259
             self._errHandler.sync(self)
@@ -1796,17 +1795,17 @@ class D96Parser(Parser):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 254
-                self.and_or_expr(0)
+                self.andOrExpr(0)
                 self.state = 255
-                self.relational_operator()
+                self.relationalOperator()
                 self.state = 256
-                self.and_or_expr(0)
+                self.andOrExpr(0)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 258
-                self.and_or_expr(0)
+                self.andOrExpr(0)
                 pass
 
 
@@ -1818,18 +1817,18 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class And_or_exprContext(ParserRuleContext):
+    class AndOrExprContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def add_sub_expr(self):
-            return self.getTypedRuleContext(D96Parser.Add_sub_exprContext, 0)
+        def addSubExpr(self):
+            return self.getTypedRuleContext(D96Parser.AddSubExprContext, 0)
 
-        def and_or_expr(self):
-            return self.getTypedRuleContext(D96Parser.And_or_exprContext, 0)
+        def andOrExpr(self):
+            return self.getTypedRuleContext(D96Parser.AndOrExprContext, 0)
 
         def OP_LOGICAL_AND(self):
             return self.getToken(D96Parser.OP_LOGICAL_AND, 0)
@@ -1838,26 +1837,26 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.OP_LOGICAL_OR, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_and_or_expr
+            return D96Parser.RULE_andOrExpr
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitAnd_or_expr"):
-                return visitor.visitAnd_or_expr(self)
+            if hasattr(visitor, "visitAndOrExpr"):
+                return visitor.visitAndOrExpr(self)
             else:
                 return visitor.visitChildren(self)
 
-    def and_or_expr(self, _p: int = 0):
+    def andOrExpr(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = D96Parser.And_or_exprContext(self, self._ctx, _parentState)
+        localctx = D96Parser.AndOrExprContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 40
-        self.enterRecursionRule(localctx, 40, self.RULE_and_or_expr, _p)
+        self.enterRecursionRule(localctx, 40, self.RULE_andOrExpr, _p)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 262
-            self.add_sub_expr(0)
+            self.addSubExpr(0)
             self._ctx.stop = self._input.LT(-1)
             self.state = 269
             self._errHandler.sync(self)
@@ -1867,8 +1866,8 @@ class D96Parser(Parser):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = D96Parser.And_or_exprContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_and_or_expr)
+                    localctx = D96Parser.AndOrExprContext(self, _parentctx, _parentState)
+                    self.pushNewRecursionContext(localctx, _startState, self.RULE_andOrExpr)
                     self.state = 264
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
@@ -1881,7 +1880,7 @@ class D96Parser(Parser):
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 266
-                    self.add_sub_expr(0)
+                    self.addSubExpr(0)
                 self.state = 271
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input, 21, self._ctx)
@@ -1894,18 +1893,18 @@ class D96Parser(Parser):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-    class Add_sub_exprContext(ParserRuleContext):
+    class AddSubExprContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def mul_add_mol_expr(self):
-            return self.getTypedRuleContext(D96Parser.Mul_add_mol_exprContext, 0)
+        def mulAddMolExpr(self):
+            return self.getTypedRuleContext(D96Parser.MulAddMolExprContext, 0)
 
-        def add_sub_expr(self):
-            return self.getTypedRuleContext(D96Parser.Add_sub_exprContext, 0)
+        def addSubExpr(self):
+            return self.getTypedRuleContext(D96Parser.AddSubExprContext, 0)
 
         def OP_ADDTION(self):
             return self.getToken(D96Parser.OP_ADDTION, 0)
@@ -1914,26 +1913,26 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.OP_SUBTRACTION, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_add_sub_expr
+            return D96Parser.RULE_addSubExpr
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitAdd_sub_expr"):
-                return visitor.visitAdd_sub_expr(self)
+            if hasattr(visitor, "visitAddSubExpr"):
+                return visitor.visitAddSubExpr(self)
             else:
                 return visitor.visitChildren(self)
 
-    def add_sub_expr(self, _p: int = 0):
+    def addSubExpr(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = D96Parser.Add_sub_exprContext(self, self._ctx, _parentState)
+        localctx = D96Parser.AddSubExprContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 42
-        self.enterRecursionRule(localctx, 42, self.RULE_add_sub_expr, _p)
+        self.enterRecursionRule(localctx, 42, self.RULE_addSubExpr, _p)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 273
-            self.mul_add_mol_expr(0)
+            self.mulAddMolExpr(0)
             self._ctx.stop = self._input.LT(-1)
             self.state = 280
             self._errHandler.sync(self)
@@ -1943,8 +1942,8 @@ class D96Parser(Parser):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = D96Parser.Add_sub_exprContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_add_sub_expr)
+                    localctx = D96Parser.AddSubExprContext(self, _parentctx, _parentState)
+                    self.pushNewRecursionContext(localctx, _startState, self.RULE_addSubExpr)
                     self.state = 275
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
@@ -1957,7 +1956,7 @@ class D96Parser(Parser):
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 277
-                    self.mul_add_mol_expr(0)
+                    self.mulAddMolExpr(0)
                 self.state = 282
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input, 22, self._ctx)
@@ -1970,18 +1969,18 @@ class D96Parser(Parser):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-    class Mul_add_mol_exprContext(ParserRuleContext):
+    class MulAddMolExprContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def not_expr(self):
-            return self.getTypedRuleContext(D96Parser.Not_exprContext, 0)
+        def notExpr(self):
+            return self.getTypedRuleContext(D96Parser.NotExprContext, 0)
 
-        def mul_add_mol_expr(self):
-            return self.getTypedRuleContext(D96Parser.Mul_add_mol_exprContext, 0)
+        def mulAddMolExpr(self):
+            return self.getTypedRuleContext(D96Parser.MulAddMolExprContext, 0)
 
         def OP_MULTIPLICATION(self):
             return self.getToken(D96Parser.OP_MULTIPLICATION, 0)
@@ -1993,26 +1992,26 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.OP_MODULO, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_mul_add_mol_expr
+            return D96Parser.RULE_mulAddMolExpr
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitMul_add_mol_expr"):
-                return visitor.visitMul_add_mol_expr(self)
+            if hasattr(visitor, "visitMulAddMolExpr"):
+                return visitor.visitMulAddMolExpr(self)
             else:
                 return visitor.visitChildren(self)
 
-    def mul_add_mol_expr(self, _p: int = 0):
+    def mulAddMolExpr(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = D96Parser.Mul_add_mol_exprContext(self, self._ctx, _parentState)
+        localctx = D96Parser.MulAddMolExprContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 44
-        self.enterRecursionRule(localctx, 44, self.RULE_mul_add_mol_expr, _p)
+        self.enterRecursionRule(localctx, 44, self.RULE_mulAddMolExpr, _p)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 284
-            self.not_expr()
+            self.notExpr()
             self._ctx.stop = self._input.LT(-1)
             self.state = 291
             self._errHandler.sync(self)
@@ -2022,8 +2021,8 @@ class D96Parser(Parser):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = D96Parser.Mul_add_mol_exprContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_mul_add_mol_expr)
+                    localctx = D96Parser.MulAddMolExprContext(self, _parentctx, _parentState)
+                    self.pushNewRecursionContext(localctx, _startState, self.RULE_mulAddMolExpr)
                     self.state = 286
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
@@ -2038,7 +2037,7 @@ class D96Parser(Parser):
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 288
-                    self.not_expr()
+                    self.notExpr()
                 self.state = 293
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input, 23, self._ctx)
@@ -2051,7 +2050,7 @@ class D96Parser(Parser):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-    class Not_exprContext(ParserRuleContext):
+    class NotExprContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -2061,25 +2060,25 @@ class D96Parser(Parser):
         def OP_LOGICAL_NOT(self):
             return self.getToken(D96Parser.OP_LOGICAL_NOT, 0)
 
-        def not_expr(self):
-            return self.getTypedRuleContext(D96Parser.Not_exprContext, 0)
+        def notExpr(self):
+            return self.getTypedRuleContext(D96Parser.NotExprContext, 0)
 
-        def sign_expr(self):
-            return self.getTypedRuleContext(D96Parser.Sign_exprContext, 0)
+        def signExpr(self):
+            return self.getTypedRuleContext(D96Parser.SignExprContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_not_expr
+            return D96Parser.RULE_notExpr
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitNot_expr"):
-                return visitor.visitNot_expr(self)
+            if hasattr(visitor, "visitNotExpr"):
+                return visitor.visitNotExpr(self)
             else:
                 return visitor.visitChildren(self)
 
-    def not_expr(self):
+    def notExpr(self):
 
-        localctx = D96Parser.Not_exprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_not_expr)
+        localctx = D96Parser.NotExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 46, self.RULE_notExpr)
         try:
             self.state = 297
             self._errHandler.sync(self)
@@ -2089,7 +2088,7 @@ class D96Parser(Parser):
                 self.state = 294
                 self.match(D96Parser.OP_LOGICAL_NOT)
                 self.state = 295
-                self.not_expr()
+                self.notExpr()
                 pass
             elif token in [D96Parser.K_ARRAY, D96Parser.K_NULL, D96Parser.K_NEW, D96Parser.OP_SUBTRACTION,
                            D96Parser.LEFT_PAREN, D96Parser.INTEGER_LITERAL2, D96Parser.INTEGER_LITERAL,
@@ -2097,7 +2096,7 @@ class D96Parser(Parser):
                            D96Parser.IDENTIFIER]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 296
-                self.sign_expr()
+                self.signExpr()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -2110,35 +2109,35 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Sign_exprContext(ParserRuleContext):
+    class SignExprContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def sign_expr(self):
-            return self.getTypedRuleContext(D96Parser.Sign_exprContext, 0)
+        def signExpr(self):
+            return self.getTypedRuleContext(D96Parser.SignExprContext, 0)
 
         def OP_SUBTRACTION(self):
             return self.getToken(D96Parser.OP_SUBTRACTION, 0)
 
-        def index_operator_expr(self):
-            return self.getTypedRuleContext(D96Parser.Index_operator_exprContext, 0)
+        def indexOperatorExpr(self):
+            return self.getTypedRuleContext(D96Parser.IndexOperatorExprContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_sign_expr
+            return D96Parser.RULE_signExpr
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitSign_expr"):
-                return visitor.visitSign_expr(self)
+            if hasattr(visitor, "visitSignExpr"):
+                return visitor.visitSignExpr(self)
             else:
                 return visitor.visitChildren(self)
 
-    def sign_expr(self):
+    def signExpr(self):
 
-        localctx = D96Parser.Sign_exprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_sign_expr)
+        localctx = D96Parser.SignExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 48, self.RULE_signExpr)
         try:
             self.state = 302
             self._errHandler.sync(self)
@@ -2148,14 +2147,14 @@ class D96Parser(Parser):
                 self.state = 299
                 self.match(D96Parser.OP_SUBTRACTION)
                 self.state = 300
-                self.sign_expr()
+                self.signExpr()
                 pass
             elif token in [D96Parser.K_ARRAY, D96Parser.K_NULL, D96Parser.K_NEW, D96Parser.LEFT_PAREN,
                            D96Parser.INTEGER_LITERAL2, D96Parser.INTEGER_LITERAL, D96Parser.FLOAT_LITERAL,
                            D96Parser.BOOLEAN_LITERAL, D96Parser.STRING_LITERAL, D96Parser.IDENTIFIER]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 301
-                self.index_operator_expr(0)
+                self.indexOperatorExpr(0)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -2168,42 +2167,42 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Index_operator_exprContext(ParserRuleContext):
+    class IndexOperatorExprContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def instance_access(self):
-            return self.getTypedRuleContext(D96Parser.Instance_accessContext, 0)
+        def instanceAccess(self):
+            return self.getTypedRuleContext(D96Parser.InstanceAccessContext, 0)
 
-        def index_operator_expr(self):
-            return self.getTypedRuleContext(D96Parser.Index_operator_exprContext, 0)
+        def indexOperatorExpr(self):
+            return self.getTypedRuleContext(D96Parser.IndexOperatorExprContext, 0)
 
-        def index_operator(self):
-            return self.getTypedRuleContext(D96Parser.Index_operatorContext, 0)
+        def indexOperator(self):
+            return self.getTypedRuleContext(D96Parser.IndexOperatorContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_index_operator_expr
+            return D96Parser.RULE_indexOperatorExpr
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitIndex_operator_expr"):
-                return visitor.visitIndex_operator_expr(self)
+            if hasattr(visitor, "visitIndexOperatorExpr"):
+                return visitor.visitIndexOperatorExpr(self)
             else:
                 return visitor.visitChildren(self)
 
-    def index_operator_expr(self, _p: int = 0):
+    def indexOperatorExpr(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = D96Parser.Index_operator_exprContext(self, self._ctx, _parentState)
+        localctx = D96Parser.IndexOperatorExprContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 50
-        self.enterRecursionRule(localctx, 50, self.RULE_index_operator_expr, _p)
+        self.enterRecursionRule(localctx, 50, self.RULE_indexOperatorExpr, _p)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 305
-            self.instance_access(0)
+            self.instanceAccess(0)
             self._ctx.stop = self._input.LT(-1)
             self.state = 311
             self._errHandler.sync(self)
@@ -2213,14 +2212,14 @@ class D96Parser(Parser):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = D96Parser.Index_operator_exprContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_index_operator_expr)
+                    localctx = D96Parser.IndexOperatorExprContext(self, _parentctx, _parentState)
+                    self.pushNewRecursionContext(localctx, _startState, self.RULE_indexOperatorExpr)
                     self.state = 307
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 308
-                    self.index_operator()
+                    self.indexOperator()
                 self.state = 313
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input, 26, self._ctx)
@@ -2233,18 +2232,18 @@ class D96Parser(Parser):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-    class Instance_accessContext(ParserRuleContext):
+    class InstanceAccessContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def static_access(self):
-            return self.getTypedRuleContext(D96Parser.Static_accessContext, 0)
+        def staticAccess(self):
+            return self.getTypedRuleContext(D96Parser.StaticAccessContext, 0)
 
-        def instance_access(self):
-            return self.getTypedRuleContext(D96Parser.Instance_accessContext, 0)
+        def instanceAccess(self):
+            return self.getTypedRuleContext(D96Parser.InstanceAccessContext, 0)
 
         def DOT(self):
             return self.getToken(D96Parser.DOT, 0)
@@ -2258,30 +2257,30 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def expression_list(self):
-            return self.getTypedRuleContext(D96Parser.Expression_listContext, 0)
+        def expressionList(self):
+            return self.getTypedRuleContext(D96Parser.ExpressionListContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_instance_access
+            return D96Parser.RULE_instanceAccess
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitInstance_access"):
-                return visitor.visitInstance_access(self)
+            if hasattr(visitor, "visitInstanceAccess"):
+                return visitor.visitInstanceAccess(self)
             else:
                 return visitor.visitChildren(self)
 
-    def instance_access(self, _p: int = 0):
+    def instanceAccess(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = D96Parser.Instance_accessContext(self, self._ctx, _parentState)
+        localctx = D96Parser.InstanceAccessContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 52
-        self.enterRecursionRule(localctx, 52, self.RULE_instance_access, _p)
+        self.enterRecursionRule(localctx, 52, self.RULE_instanceAccess, _p)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 315
-            self.static_access()
+            self.staticAccess()
             self._ctx.stop = self._input.LT(-1)
             self.state = 329
             self._errHandler.sync(self)
@@ -2291,8 +2290,8 @@ class D96Parser(Parser):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = D96Parser.Instance_accessContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_instance_access)
+                    localctx = D96Parser.InstanceAccessContext(self, _parentctx, _parentState)
+                    self.pushNewRecursionContext(localctx, _startState, self.RULE_instanceAccess)
                     self.state = 317
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
@@ -2318,7 +2317,7 @@ class D96Parser(Parser):
                                         1 << D96Parser.BOOLEAN_LITERAL) | (1 << D96Parser.STRING_LITERAL) | (
                                         1 << D96Parser.IDENTIFIER))) != 0):
                             self.state = 321
-                            self.expression_list()
+                            self.expressionList()
 
                         self.state = 324
                         self.match(D96Parser.RIGHT_PAREN)
@@ -2335,7 +2334,7 @@ class D96Parser(Parser):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-    class Static_accessContext(ParserRuleContext):
+    class StaticAccessContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -2357,25 +2356,25 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def expression_list(self):
-            return self.getTypedRuleContext(D96Parser.Expression_listContext, 0)
+        def expressionList(self):
+            return self.getTypedRuleContext(D96Parser.ExpressionListContext, 0)
 
-        def object_creation(self):
-            return self.getTypedRuleContext(D96Parser.Object_creationContext, 0)
+        def objectCreation(self):
+            return self.getTypedRuleContext(D96Parser.ObjectCreationContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_static_access
+            return D96Parser.RULE_staticAccess
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitStatic_access"):
-                return visitor.visitStatic_access(self)
+            if hasattr(visitor, "visitStaticAccess"):
+                return visitor.visitStaticAccess(self)
             else:
                 return visitor.visitChildren(self)
 
-    def static_access(self):
+    def staticAccess(self):
 
-        localctx = D96Parser.Static_accessContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 54, self.RULE_static_access)
+        localctx = D96Parser.StaticAccessContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 54, self.RULE_staticAccess)
         self._la = 0  # Token type
         try:
             self.state = 343
@@ -2406,7 +2405,7 @@ class D96Parser(Parser):
                                     1 << D96Parser.BOOLEAN_LITERAL) | (1 << D96Parser.STRING_LITERAL) | (
                                     1 << D96Parser.IDENTIFIER))) != 0):
                         self.state = 336
-                        self.expression_list()
+                        self.expressionList()
 
                     self.state = 339
                     self.match(D96Parser.RIGHT_PAREN)
@@ -2416,7 +2415,7 @@ class D96Parser(Parser):
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 342
-                self.object_creation()
+                self.objectCreation()
                 pass
 
 
@@ -2428,7 +2427,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Object_creationContext(ParserRuleContext):
+    class ObjectCreationContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -2447,25 +2446,25 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def expression_list(self):
-            return self.getTypedRuleContext(D96Parser.Expression_listContext, 0)
+        def expressionList(self):
+            return self.getTypedRuleContext(D96Parser.ExpressionListContext, 0)
 
-        def atom_expr(self):
-            return self.getTypedRuleContext(D96Parser.Atom_exprContext, 0)
+        def atomExpr(self):
+            return self.getTypedRuleContext(D96Parser.AtomExprContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_object_creation
+            return D96Parser.RULE_objectCreation
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitObject_creation"):
-                return visitor.visitObject_creation(self)
+            if hasattr(visitor, "visitObjectCreation"):
+                return visitor.visitObjectCreation(self)
             else:
                 return visitor.visitChildren(self)
 
-    def object_creation(self):
+    def objectCreation(self):
 
-        localctx = D96Parser.Object_creationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 56, self.RULE_object_creation)
+        localctx = D96Parser.ObjectCreationContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 56, self.RULE_objectCreation)
         self._la = 0  # Token type
         try:
             self.state = 353
@@ -2490,7 +2489,7 @@ class D96Parser(Parser):
                                 1 << D96Parser.BOOLEAN_LITERAL) | (1 << D96Parser.STRING_LITERAL) | (
                                 1 << D96Parser.IDENTIFIER))) != 0):
                     self.state = 348
-                    self.expression_list()
+                    self.expressionList()
 
                 self.state = 351
                 self.match(D96Parser.RIGHT_PAREN)
@@ -2500,7 +2499,7 @@ class D96Parser(Parser):
                            D96Parser.STRING_LITERAL, D96Parser.IDENTIFIER]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 352
-                self.atom_expr()
+                self.atomExpr()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -2513,7 +2512,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Atom_exprContext(ParserRuleContext):
+    class AtomExprContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -2539,18 +2538,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_atom_expr
+            return D96Parser.RULE_atomExpr
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitAtom_expr"):
-                return visitor.visitAtom_expr(self)
+            if hasattr(visitor, "visitAtomExpr"):
+                return visitor.visitAtomExpr(self)
             else:
                 return visitor.visitChildren(self)
 
-    def atom_expr(self):
+    def atomExpr(self):
 
-        localctx = D96Parser.Atom_exprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 58, self.RULE_atom_expr)
+        localctx = D96Parser.AtomExprContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 58, self.RULE_atomExpr)
         try:
             self.state = 362
             self._errHandler.sync(self)
@@ -2591,21 +2590,21 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Var_val_statementContext(ParserRuleContext):
+    class VarValStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def identifier_list(self):
-            return self.getTypedRuleContext(D96Parser.Identifier_listContext, 0)
+        def identifierList(self):
+            return self.getTypedRuleContext(D96Parser.IdentifierListContext, 0)
 
         def COLON(self):
             return self.getToken(D96Parser.COLON, 0)
 
-        def d96_type(self):
-            return self.getTypedRuleContext(D96Parser.D96_typeContext, 0)
+        def d96Type(self):
+            return self.getTypedRuleContext(D96Parser.D96TypeContext, 0)
 
         def SEMI_COLON(self):
             return self.getToken(D96Parser.SEMI_COLON, 0)
@@ -2619,25 +2618,25 @@ class D96Parser(Parser):
         def IDENTIFIER(self):
             return self.getToken(D96Parser.IDENTIFIER, 0)
 
-        def var_val_value_list(self):
-            return self.getTypedRuleContext(D96Parser.Var_val_value_listContext, 0)
+        def varValValueList(self):
+            return self.getTypedRuleContext(D96Parser.VarValValueListContext, 0)
 
         def expression(self):
             return self.getTypedRuleContext(D96Parser.ExpressionContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_var_val_statement
+            return D96Parser.RULE_varValStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitVar_val_statement"):
-                return visitor.visitVar_val_statement(self)
+            if hasattr(visitor, "visitVarValStatement"):
+                return visitor.visitVarValStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def var_val_statement(self):
+    def varValStatement(self):
 
-        localctx = D96Parser.Var_val_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 60, self.RULE_var_val_statement)
+        localctx = D96Parser.VarValStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 60, self.RULE_varValStatement)
         self._la = 0  # Token type
         try:
             self.state = 376
@@ -2653,11 +2652,11 @@ class D96Parser(Parser):
                     self._errHandler.reportMatch(self)
                     self.consume()
                 self.state = 365
-                self.identifier_list()
+                self.identifierList()
                 self.state = 366
                 self.match(D96Parser.COLON)
                 self.state = 367
-                self.d96_type()
+                self.d96Type()
                 self.state = 368
                 self.match(D96Parser.SEMI_COLON)
                 pass
@@ -2674,7 +2673,7 @@ class D96Parser(Parser):
                 self.state = 371
                 self.match(D96Parser.IDENTIFIER)
                 self.state = 372
-                self.var_val_value_list()
+                self.varValValueList()
                 self.state = 373
                 self.expression()
                 self.state = 374
@@ -2690,7 +2689,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Var_val_value_listContext(ParserRuleContext):
+    class VarValValueListContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -2700,8 +2699,8 @@ class D96Parser(Parser):
         def COLON(self):
             return self.getToken(D96Parser.COLON, 0)
 
-        def d96_type(self):
-            return self.getTypedRuleContext(D96Parser.D96_typeContext, 0)
+        def d96Type(self):
+            return self.getTypedRuleContext(D96Parser.D96TypeContext, 0)
 
         def OP_ASSIGN(self):
             return self.getToken(D96Parser.OP_ASSIGN, 0)
@@ -2715,25 +2714,25 @@ class D96Parser(Parser):
         def IDENTIFIER(self):
             return self.getToken(D96Parser.IDENTIFIER, 0)
 
-        def var_val_value_list(self):
-            return self.getTypedRuleContext(D96Parser.Var_val_value_listContext, 0)
+        def varValValueList(self):
+            return self.getTypedRuleContext(D96Parser.VarValValueListContext, 0)
 
         def expression(self):
             return self.getTypedRuleContext(D96Parser.ExpressionContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_var_val_value_list
+            return D96Parser.RULE_varValValueList
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitVar_val_value_list"):
-                return visitor.visitVar_val_value_list(self)
+            if hasattr(visitor, "visitVarValValueList"):
+                return visitor.visitVarValValueList(self)
             else:
                 return visitor.visitChildren(self)
 
-    def var_val_value_list(self):
+    def varValValueList(self):
 
-        localctx = D96Parser.Var_val_value_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 62, self.RULE_var_val_value_list)
+        localctx = D96Parser.VarValValueListContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 62, self.RULE_varValValueList)
         try:
             self.state = 388
             self._errHandler.sync(self)
@@ -2743,7 +2742,7 @@ class D96Parser(Parser):
                 self.state = 378
                 self.match(D96Parser.COLON)
                 self.state = 379
-                self.d96_type()
+                self.d96Type()
                 self.state = 380
                 self.match(D96Parser.OP_ASSIGN)
                 pass
@@ -2754,7 +2753,7 @@ class D96Parser(Parser):
                 self.state = 383
                 self.match(D96Parser.IDENTIFIER)
                 self.state = 384
-                self.var_val_value_list()
+                self.varValValueList()
                 self.state = 385
                 self.expression()
                 self.state = 386
@@ -2778,8 +2777,8 @@ class D96Parser(Parser):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def member_access_instance(self):
-            return self.getTypedRuleContext(D96Parser.Member_access_instanceContext, 0)
+        def memberAccessInstance(self):
+            return self.getTypedRuleContext(D96Parser.MemberAccessInstanceContext, 0)
 
         def DOT(self):
             return self.getToken(D96Parser.DOT, 0)
@@ -2793,8 +2792,8 @@ class D96Parser(Parser):
         def DOLAR_IDENTIFIER(self):
             return self.getToken(D96Parser.DOLAR_IDENTIFIER, 0)
 
-        def element_expression(self):
-            return self.getTypedRuleContext(D96Parser.Element_expressionContext, 0)
+        def elementExpression(self):
+            return self.getTypedRuleContext(D96Parser.ElementExpressionContext, 0)
 
         def getRuleIndex(self):
             return D96Parser.RULE_lhs
@@ -2816,7 +2815,7 @@ class D96Parser(Parser):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 390
-                self.member_access_instance(0)
+                self.memberAccessInstance(0)
                 self.state = 391
                 self.match(D96Parser.DOT)
                 self.state = 392
@@ -2842,7 +2841,7 @@ class D96Parser(Parser):
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 398
-                self.element_expression()
+                self.elementExpression()
                 pass
 
 
@@ -2854,7 +2853,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Assign_statementContext(ParserRuleContext):
+    class AssignStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -2874,18 +2873,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.SEMI_COLON, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_assign_statement
+            return D96Parser.RULE_assignStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitAssign_statement"):
-                return visitor.visitAssign_statement(self)
+            if hasattr(visitor, "visitAssignStatement"):
+                return visitor.visitAssignStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def assign_statement(self):
+    def assignStatement(self):
 
-        localctx = D96Parser.Assign_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 66, self.RULE_assign_statement)
+        localctx = D96Parser.AssignStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 66, self.RULE_assignStatement)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 401
@@ -2904,49 +2903,49 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class If_statementContext(ParserRuleContext):
+    class IfStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def if_part(self):
-            return self.getTypedRuleContext(D96Parser.If_partContext, 0)
+        def ifPart(self):
+            return self.getTypedRuleContext(D96Parser.IfPartContext, 0)
 
-        def else_if_part(self, i: int = None):
+        def elseIfPart(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(D96Parser.Else_if_partContext)
+                return self.getTypedRuleContexts(D96Parser.ElseIfPartContext)
             else:
-                return self.getTypedRuleContext(D96Parser.Else_if_partContext, i)
+                return self.getTypedRuleContext(D96Parser.ElseIfPartContext, i)
 
-        def else_part(self):
-            return self.getTypedRuleContext(D96Parser.Else_partContext, 0)
+        def elsePart(self):
+            return self.getTypedRuleContext(D96Parser.ElsePartContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_if_statement
+            return D96Parser.RULE_ifStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitIf_statement"):
-                return visitor.visitIf_statement(self)
+            if hasattr(visitor, "visitIfStatement"):
+                return visitor.visitIfStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def if_statement(self):
+    def ifStatement(self):
 
-        localctx = D96Parser.If_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 68, self.RULE_if_statement)
+        localctx = D96Parser.IfStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 68, self.RULE_ifStatement)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 406
-            self.if_part()
+            self.ifPart()
             self.state = 410
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la == D96Parser.K_ELSE_IF:
                 self.state = 407
-                self.else_if_part()
+                self.elseIfPart()
                 self.state = 412
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -2956,7 +2955,7 @@ class D96Parser(Parser):
             _la = self._input.LA(1)
             if _la == D96Parser.K_ELSE:
                 self.state = 413
-                self.else_part()
+                self.elsePart()
 
 
         except RecognitionException as re:
@@ -2967,7 +2966,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class If_partContext(ParserRuleContext):
+    class IfPartContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -2986,22 +2985,22 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def block_statement(self):
-            return self.getTypedRuleContext(D96Parser.Block_statementContext, 0)
+        def blockStatement(self):
+            return self.getTypedRuleContext(D96Parser.BlockStatementContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_if_part
+            return D96Parser.RULE_ifPart
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitIf_part"):
-                return visitor.visitIf_part(self)
+            if hasattr(visitor, "visitIfPart"):
+                return visitor.visitIfPart(self)
             else:
                 return visitor.visitChildren(self)
 
-    def if_part(self):
+    def ifPart(self):
 
-        localctx = D96Parser.If_partContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 70, self.RULE_if_part)
+        localctx = D96Parser.IfPartContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 70, self.RULE_ifPart)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 416
@@ -3013,7 +3012,7 @@ class D96Parser(Parser):
             self.state = 419
             self.match(D96Parser.RIGHT_PAREN)
             self.state = 420
-            self.block_statement()
+            self.blockStatement()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3022,7 +3021,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Else_if_partContext(ParserRuleContext):
+    class ElseIfPartContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3041,22 +3040,22 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def block_statement(self):
-            return self.getTypedRuleContext(D96Parser.Block_statementContext, 0)
+        def blockStatement(self):
+            return self.getTypedRuleContext(D96Parser.BlockStatementContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_else_if_part
+            return D96Parser.RULE_elseIfPart
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitElse_if_part"):
-                return visitor.visitElse_if_part(self)
+            if hasattr(visitor, "visitElseIfPart"):
+                return visitor.visitElseIfPart(self)
             else:
                 return visitor.visitChildren(self)
 
-    def else_if_part(self):
+    def elseIfPart(self):
 
-        localctx = D96Parser.Else_if_partContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 72, self.RULE_else_if_part)
+        localctx = D96Parser.ElseIfPartContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 72, self.RULE_elseIfPart)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 422
@@ -3068,7 +3067,7 @@ class D96Parser(Parser):
             self.state = 425
             self.match(D96Parser.RIGHT_PAREN)
             self.state = 426
-            self.block_statement()
+            self.blockStatement()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3077,7 +3076,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Else_partContext(ParserRuleContext):
+    class ElsePartContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3087,28 +3086,28 @@ class D96Parser(Parser):
         def K_ELSE(self):
             return self.getToken(D96Parser.K_ELSE, 0)
 
-        def block_statement(self):
-            return self.getTypedRuleContext(D96Parser.Block_statementContext, 0)
+        def blockStatement(self):
+            return self.getTypedRuleContext(D96Parser.BlockStatementContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_else_part
+            return D96Parser.RULE_elsePart
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitElse_part"):
-                return visitor.visitElse_part(self)
+            if hasattr(visitor, "visitElsePart"):
+                return visitor.visitElsePart(self)
             else:
                 return visitor.visitChildren(self)
 
-    def else_part(self):
+    def elsePart(self):
 
-        localctx = D96Parser.Else_partContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 74, self.RULE_else_part)
+        localctx = D96Parser.ElsePartContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 74, self.RULE_elsePart)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 428
             self.match(D96Parser.K_ELSE)
             self.state = 429
-            self.block_statement()
+            self.blockStatement()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3117,7 +3116,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class For_in_statementContext(ParserRuleContext):
+    class ForInStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3130,28 +3129,28 @@ class D96Parser(Parser):
         def LEFT_PAREN(self):
             return self.getToken(D96Parser.LEFT_PAREN, 0)
 
-        def loop_part(self):
-            return self.getTypedRuleContext(D96Parser.Loop_partContext, 0)
+        def loopPart(self):
+            return self.getTypedRuleContext(D96Parser.LoopPartContext, 0)
 
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def block_statement(self):
-            return self.getTypedRuleContext(D96Parser.Block_statementContext, 0)
+        def blockStatement(self):
+            return self.getTypedRuleContext(D96Parser.BlockStatementContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_for_in_statement
+            return D96Parser.RULE_forInStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitFor_in_statement"):
-                return visitor.visitFor_in_statement(self)
+            if hasattr(visitor, "visitForInStatement"):
+                return visitor.visitForInStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def for_in_statement(self):
+    def forInStatement(self):
 
-        localctx = D96Parser.For_in_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 76, self.RULE_for_in_statement)
+        localctx = D96Parser.ForInStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 76, self.RULE_forInStatement)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 431
@@ -3159,11 +3158,11 @@ class D96Parser(Parser):
             self.state = 432
             self.match(D96Parser.LEFT_PAREN)
             self.state = 433
-            self.loop_part()
+            self.loopPart()
             self.state = 434
             self.match(D96Parser.RIGHT_PAREN)
             self.state = 435
-            self.block_statement()
+            self.blockStatement()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3172,15 +3171,15 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Loop_partContext(ParserRuleContext):
+    class LoopPartContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def member_access_instance(self):
-            return self.getTypedRuleContext(D96Parser.Member_access_instanceContext, 0)
+        def memberAccessInstance(self):
+            return self.getTypedRuleContext(D96Parser.MemberAccessInstanceContext, 0)
 
         def K_IN(self):
             return self.getToken(D96Parser.K_IN, 0)
@@ -3198,23 +3197,23 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.K_BY, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_loop_part
+            return D96Parser.RULE_loopPart
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitLoop_part"):
-                return visitor.visitLoop_part(self)
+            if hasattr(visitor, "visitLoopPart"):
+                return visitor.visitLoopPart(self)
             else:
                 return visitor.visitChildren(self)
 
-    def loop_part(self):
+    def loopPart(self):
 
-        localctx = D96Parser.Loop_partContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 78, self.RULE_loop_part)
+        localctx = D96Parser.LoopPartContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 78, self.RULE_loopPart)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 437
-            self.member_access_instance(0)
+            self.memberAccessInstance(0)
             self.state = 438
             self.match(D96Parser.K_IN)
             self.state = 439
@@ -3241,7 +3240,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Break_statementContext(ParserRuleContext):
+    class BreakStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3255,18 +3254,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.SEMI_COLON, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_break_statement
+            return D96Parser.RULE_breakStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitBreak_statement"):
-                return visitor.visitBreak_statement(self)
+            if hasattr(visitor, "visitBreakStatement"):
+                return visitor.visitBreakStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def break_statement(self):
+    def breakStatement(self):
 
-        localctx = D96Parser.Break_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 80, self.RULE_break_statement)
+        localctx = D96Parser.BreakStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 80, self.RULE_breakStatement)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 446
@@ -3281,7 +3280,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Continue_statementContext(ParserRuleContext):
+    class ContinueStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3295,18 +3294,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.SEMI_COLON, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_continue_statement
+            return D96Parser.RULE_continueStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitContinue_statement"):
-                return visitor.visitContinue_statement(self)
+            if hasattr(visitor, "visitContinueStatement"):
+                return visitor.visitContinueStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def continue_statement(self):
+    def continueStatement(self):
 
-        localctx = D96Parser.Continue_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 82, self.RULE_continue_statement)
+        localctx = D96Parser.ContinueStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 82, self.RULE_continueStatement)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 449
@@ -3321,7 +3320,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Return_statementContext(ParserRuleContext):
+    class ReturnStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3338,18 +3337,18 @@ class D96Parser(Parser):
             return self.getTypedRuleContext(D96Parser.ExpressionContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_return_statement
+            return D96Parser.RULE_returnStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitReturn_statement"):
-                return visitor.visitReturn_statement(self)
+            if hasattr(visitor, "visitReturnStatement"):
+                return visitor.visitReturnStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def return_statement(self):
+    def returnStatement(self):
 
-        localctx = D96Parser.Return_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 84, self.RULE_return_statement)
+        localctx = D96Parser.ReturnStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 84, self.RULE_returnStatement)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3377,21 +3376,21 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Member_access_instanceContext(ParserRuleContext):
+    class MemberAccessInstanceContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def member_access_static(self):
-            return self.getTypedRuleContext(D96Parser.Member_access_staticContext, 0)
+        def memberAccessStatic(self):
+            return self.getTypedRuleContext(D96Parser.MemberAccessStaticContext, 0)
 
-        def object_creation(self):
-            return self.getTypedRuleContext(D96Parser.Object_creationContext, 0)
+        def objectCreation(self):
+            return self.getTypedRuleContext(D96Parser.ObjectCreationContext, 0)
 
-        def member_access_instance(self):
-            return self.getTypedRuleContext(D96Parser.Member_access_instanceContext, 0)
+        def memberAccessInstance(self):
+            return self.getTypedRuleContext(D96Parser.MemberAccessInstanceContext, 0)
 
         def DOT(self):
             return self.getToken(D96Parser.DOT, 0)
@@ -3405,25 +3404,25 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def expression_list(self):
-            return self.getTypedRuleContext(D96Parser.Expression_listContext, 0)
+        def expressionList(self):
+            return self.getTypedRuleContext(D96Parser.ExpressionListContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_member_access_instance
+            return D96Parser.RULE_memberAccessInstance
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitMember_access_instance"):
-                return visitor.visitMember_access_instance(self)
+            if hasattr(visitor, "visitMemberAccessInstance"):
+                return visitor.visitMemberAccessInstance(self)
             else:
                 return visitor.visitChildren(self)
 
-    def member_access_instance(self, _p: int = 0):
+    def memberAccessInstance(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = D96Parser.Member_access_instanceContext(self, self._ctx, _parentState)
+        localctx = D96Parser.MemberAccessInstanceContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 86
-        self.enterRecursionRule(localctx, 86, self.RULE_member_access_instance, _p)
+        self.enterRecursionRule(localctx, 86, self.RULE_memberAccessInstance, _p)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3432,12 +3431,12 @@ class D96Parser(Parser):
             la_ = self._interp.adaptivePredict(self._input, 43, self._ctx)
             if la_ == 1:
                 self.state = 459
-                self.member_access_static()
+                self.memberAccessStatic()
                 pass
 
             elif la_ == 2:
                 self.state = 460
-                self.object_creation()
+                self.objectCreation()
                 pass
 
             self._ctx.stop = self._input.LT(-1)
@@ -3449,8 +3448,8 @@ class D96Parser(Parser):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = D96Parser.Member_access_instanceContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_member_access_instance)
+                    localctx = D96Parser.MemberAccessInstanceContext(self, _parentctx, _parentState)
+                    self.pushNewRecursionContext(localctx, _startState, self.RULE_memberAccessInstance)
                     self.state = 463
                     if not self.precpred(self._ctx, 3):
                         from antlr4.error.Errors import FailedPredicateException
@@ -3476,7 +3475,7 @@ class D96Parser(Parser):
                                         1 << D96Parser.BOOLEAN_LITERAL) | (1 << D96Parser.STRING_LITERAL) | (
                                         1 << D96Parser.IDENTIFIER))) != 0):
                             self.state = 467
-                            self.expression_list()
+                            self.expressionList()
 
                         self.state = 470
                         self.match(D96Parser.RIGHT_PAREN)
@@ -3493,7 +3492,7 @@ class D96Parser(Parser):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-    class Member_access_staticContext(ParserRuleContext):
+    class MemberAccessStaticContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3515,22 +3514,22 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def expression_list(self):
-            return self.getTypedRuleContext(D96Parser.Expression_listContext, 0)
+        def expressionList(self):
+            return self.getTypedRuleContext(D96Parser.ExpressionListContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_member_access_static
+            return D96Parser.RULE_memberAccessStatic
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitMember_access_static"):
-                return visitor.visitMember_access_static(self)
+            if hasattr(visitor, "visitMemberAccessStatic"):
+                return visitor.visitMemberAccessStatic(self)
             else:
                 return visitor.visitChildren(self)
 
-    def member_access_static(self):
+    def memberAccessStatic(self):
 
-        localctx = D96Parser.Member_access_staticContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 88, self.RULE_member_access_static)
+        localctx = D96Parser.MemberAccessStaticContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 88, self.RULE_memberAccessStatic)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3561,7 +3560,7 @@ class D96Parser(Parser):
                                 1 << D96Parser.BOOLEAN_LITERAL) | (1 << D96Parser.STRING_LITERAL) | (
                                 1 << D96Parser.IDENTIFIER))) != 0):
                     self.state = 483
-                    self.expression_list()
+                    self.expressionList()
 
                 self.state = 486
                 self.match(D96Parser.RIGHT_PAREN)
@@ -3575,7 +3574,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Method_invocation_statementContext(ParserRuleContext):
+    class MethodInvocationStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3585,8 +3584,8 @@ class D96Parser(Parser):
         def SEMI_COLON(self):
             return self.getToken(D96Parser.SEMI_COLON, 0)
 
-        def member_access_instance(self):
-            return self.getTypedRuleContext(D96Parser.Member_access_instanceContext, 0)
+        def memberAccessInstance(self):
+            return self.getTypedRuleContext(D96Parser.MemberAccessInstanceContext, 0)
 
         def DOT(self):
             return self.getToken(D96Parser.DOT, 0)
@@ -3606,22 +3605,22 @@ class D96Parser(Parser):
         def DOLAR_IDENTIFIER(self):
             return self.getToken(D96Parser.DOLAR_IDENTIFIER, 0)
 
-        def expression_list(self):
-            return self.getTypedRuleContext(D96Parser.Expression_listContext, 0)
+        def expressionList(self):
+            return self.getTypedRuleContext(D96Parser.ExpressionListContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_method_invocation_statement
+            return D96Parser.RULE_methodInvocationStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitMethod_invocation_statement"):
-                return visitor.visitMethod_invocation_statement(self)
+            if hasattr(visitor, "visitMethodInvocationStatement"):
+                return visitor.visitMethodInvocationStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def method_invocation_statement(self):
+    def methodInvocationStatement(self):
 
-        localctx = D96Parser.Method_invocation_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 90, self.RULE_method_invocation_statement)
+        localctx = D96Parser.MethodInvocationStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 90, self.RULE_methodInvocationStatement)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3630,7 +3629,7 @@ class D96Parser(Parser):
             la_ = self._interp.adaptivePredict(self._input, 51, self._ctx)
             if la_ == 1:
                 self.state = 489
-                self.member_access_instance(0)
+                self.memberAccessInstance(0)
                 self.state = 490
                 self.match(D96Parser.DOT)
                 self.state = 491
@@ -3648,7 +3647,7 @@ class D96Parser(Parser):
                                 1 << D96Parser.BOOLEAN_LITERAL) | (1 << D96Parser.STRING_LITERAL) | (
                                 1 << D96Parser.IDENTIFIER))) != 0):
                     self.state = 493
-                    self.expression_list()
+                    self.expressionList()
 
                 self.state = 496
                 self.match(D96Parser.RIGHT_PAREN)
@@ -3674,7 +3673,7 @@ class D96Parser(Parser):
                                 1 << D96Parser.BOOLEAN_LITERAL) | (1 << D96Parser.STRING_LITERAL) | (
                                 1 << D96Parser.IDENTIFIER))) != 0):
                     self.state = 502
-                    self.expression_list()
+                    self.expressionList()
 
                 self.state = 505
                 self.match(D96Parser.RIGHT_PAREN)
@@ -3690,7 +3689,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Block_statementContext(ParserRuleContext):
+    class BlockStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -3710,18 +3709,18 @@ class D96Parser(Parser):
                 return self.getTypedRuleContext(D96Parser.StatementContext, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_block_statement
+            return D96Parser.RULE_blockStatement
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitBlock_statement"):
-                return visitor.visitBlock_statement(self)
+            if hasattr(visitor, "visitBlockStatement"):
+                return visitor.visitBlockStatement(self)
             else:
                 return visitor.visitChildren(self)
 
-    def block_statement(self):
+    def blockStatement(self):
 
-        localctx = D96Parser.Block_statementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 92, self.RULE_block_statement)
+        localctx = D96Parser.BlockStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 92, self.RULE_blockStatement)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3763,32 +3762,32 @@ class D96Parser(Parser):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def var_val_statement(self):
-            return self.getTypedRuleContext(D96Parser.Var_val_statementContext, 0)
+        def varValStatement(self):
+            return self.getTypedRuleContext(D96Parser.VarValStatementContext, 0)
 
-        def assign_statement(self):
-            return self.getTypedRuleContext(D96Parser.Assign_statementContext, 0)
+        def assignStatement(self):
+            return self.getTypedRuleContext(D96Parser.AssignStatementContext, 0)
 
-        def if_statement(self):
-            return self.getTypedRuleContext(D96Parser.If_statementContext, 0)
+        def ifStatement(self):
+            return self.getTypedRuleContext(D96Parser.IfStatementContext, 0)
 
-        def for_in_statement(self):
-            return self.getTypedRuleContext(D96Parser.For_in_statementContext, 0)
+        def forInStatement(self):
+            return self.getTypedRuleContext(D96Parser.ForInStatementContext, 0)
 
-        def break_statement(self):
-            return self.getTypedRuleContext(D96Parser.Break_statementContext, 0)
+        def breakStatement(self):
+            return self.getTypedRuleContext(D96Parser.BreakStatementContext, 0)
 
-        def continue_statement(self):
-            return self.getTypedRuleContext(D96Parser.Continue_statementContext, 0)
+        def continueStatement(self):
+            return self.getTypedRuleContext(D96Parser.ContinueStatementContext, 0)
 
-        def return_statement(self):
-            return self.getTypedRuleContext(D96Parser.Return_statementContext, 0)
+        def returnStatement(self):
+            return self.getTypedRuleContext(D96Parser.ReturnStatementContext, 0)
 
-        def method_invocation_statement(self):
-            return self.getTypedRuleContext(D96Parser.Method_invocation_statementContext, 0)
+        def methodInvocationStatement(self):
+            return self.getTypedRuleContext(D96Parser.MethodInvocationStatementContext, 0)
 
-        def block_statement(self):
-            return self.getTypedRuleContext(D96Parser.Block_statementContext, 0)
+        def blockStatement(self):
+            return self.getTypedRuleContext(D96Parser.BlockStatementContext, 0)
 
         def getRuleIndex(self):
             return D96Parser.RULE_statement
@@ -3810,55 +3809,55 @@ class D96Parser(Parser):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 519
-                self.var_val_statement()
+                self.varValStatement()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 520
-                self.assign_statement()
+                self.assignStatement()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 521
-                self.if_statement()
+                self.ifStatement()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 522
-                self.for_in_statement()
+                self.forInStatement()
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
                 self.state = 523
-                self.break_statement()
+                self.breakStatement()
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
                 self.state = 524
-                self.continue_statement()
+                self.continueStatement()
                 pass
 
             elif la_ == 7:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 525
-                self.return_statement()
+                self.returnStatement()
                 pass
 
             elif la_ == 8:
                 self.enterOuterAlt(localctx, 8)
                 self.state = 526
-                self.method_invocation_statement()
+                self.methodInvocationStatement()
                 pass
 
             elif la_ == 9:
                 self.enterOuterAlt(localctx, 9)
                 self.state = 527
-                self.block_statement()
+                self.blockStatement()
                 pass
 
 
@@ -3892,11 +3891,11 @@ class D96Parser(Parser):
         def STRING_LITERAL(self):
             return self.getToken(D96Parser.STRING_LITERAL, 0)
 
-        def indexed_array(self):
-            return self.getTypedRuleContext(D96Parser.Indexed_arrayContext, 0)
+        def indexedArray(self):
+            return self.getTypedRuleContext(D96Parser.IndexedArrayContext, 0)
 
-        def multi_dimentional_array(self):
-            return self.getTypedRuleContext(D96Parser.Multi_dimentional_arrayContext, 0)
+        def multiDimentionalArray(self):
+            return self.getTypedRuleContext(D96Parser.MultiDimentionalArrayContext, 0)
 
         def getRuleIndex(self):
             return D96Parser.RULE_literal
@@ -3948,13 +3947,13 @@ class D96Parser(Parser):
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
                 self.state = 535
-                self.indexed_array()
+                self.indexedArray()
                 pass
 
             elif la_ == 7:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 536
-                self.multi_dimentional_array()
+                self.multiDimentionalArray()
                 pass
 
 
@@ -3966,7 +3965,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Indexed_arrayContext(ParserRuleContext):
+    class IndexedArrayContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -4012,11 +4011,11 @@ class D96Parser(Parser):
             else:
                 return self.getToken(D96Parser.INTEGER_LITERAL, i)
 
-        def indexed_array(self, i: int = None):
+        def indexedArray(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(D96Parser.Indexed_arrayContext)
+                return self.getTypedRuleContexts(D96Parser.IndexedArrayContext)
             else:
-                return self.getTypedRuleContext(D96Parser.Indexed_arrayContext, i)
+                return self.getTypedRuleContext(D96Parser.IndexedArrayContext, i)
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -4025,18 +4024,18 @@ class D96Parser(Parser):
                 return self.getToken(D96Parser.COMMA, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_indexed_array
+            return D96Parser.RULE_indexedArray
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitIndexed_array"):
-                return visitor.visitIndexed_array(self)
+            if hasattr(visitor, "visitIndexedArray"):
+                return visitor.visitIndexedArray(self)
             else:
                 return visitor.visitChildren(self)
 
-    def indexed_array(self):
+    def indexedArray(self):
 
-        localctx = D96Parser.Indexed_arrayContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 98, self.RULE_indexed_array)
+        localctx = D96Parser.IndexedArrayContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 98, self.RULE_indexedArray)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -4133,7 +4132,7 @@ class D96Parser(Parser):
                 pass
             elif token in [D96Parser.K_ARRAY]:
                 self.state = 583
-                self.indexed_array()
+                self.indexedArray()
                 self.state = 588
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -4141,7 +4140,7 @@ class D96Parser(Parser):
                     self.state = 584
                     self.match(D96Parser.COMMA)
                     self.state = 585
-                    self.indexed_array()
+                    self.indexedArray()
                     self.state = 590
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
@@ -4160,7 +4159,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Multi_dimentional_arrayContext(ParserRuleContext):
+    class MultiDimentionalArrayContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -4176,11 +4175,11 @@ class D96Parser(Parser):
         def RIGHT_PAREN(self):
             return self.getToken(D96Parser.RIGHT_PAREN, 0)
 
-        def indexed_array(self, i: int = None):
+        def indexedArray(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(D96Parser.Indexed_arrayContext)
+                return self.getTypedRuleContexts(D96Parser.IndexedArrayContext)
             else:
-                return self.getTypedRuleContext(D96Parser.Indexed_arrayContext, i)
+                return self.getTypedRuleContext(D96Parser.IndexedArrayContext, i)
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -4189,18 +4188,18 @@ class D96Parser(Parser):
                 return self.getToken(D96Parser.COMMA, i)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_multi_dimentional_array
+            return D96Parser.RULE_multiDimentionalArray
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitMulti_dimentional_array"):
-                return visitor.visitMulti_dimentional_array(self)
+            if hasattr(visitor, "visitMultiDimentionalArray"):
+                return visitor.visitMultiDimentionalArray(self)
             else:
                 return visitor.visitChildren(self)
 
-    def multi_dimentional_array(self):
+    def multiDimentionalArray(self):
 
-        localctx = D96Parser.Multi_dimentional_arrayContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 100, self.RULE_multi_dimentional_array)
+        localctx = D96Parser.MultiDimentionalArrayContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 100, self.RULE_multiDimentionalArray)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -4214,7 +4213,7 @@ class D96Parser(Parser):
             _la = self._input.LA(1)
             if _la == D96Parser.K_ARRAY:
                 self.state = 597
-                self.indexed_array()
+                self.indexedArray()
                 self.state = 602
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -4222,7 +4221,7 @@ class D96Parser(Parser):
                     self.state = 598
                     self.match(D96Parser.COMMA)
                     self.state = 599
-                    self.indexed_array()
+                    self.indexedArray()
                     self.state = 604
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
@@ -4237,7 +4236,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Primitive_typeContext(ParserRuleContext):
+    class PrimitiveTypeContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -4257,18 +4256,18 @@ class D96Parser(Parser):
             return self.getToken(D96Parser.K_STRING, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_primitive_type
+            return D96Parser.RULE_primitiveType
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitPrimitive_type"):
-                return visitor.visitPrimitive_type(self)
+            if hasattr(visitor, "visitPrimitiveType"):
+                return visitor.visitPrimitiveType(self)
             else:
                 return visitor.visitChildren(self)
 
-    def primitive_type(self):
+    def primitiveType(self):
 
-        localctx = D96Parser.Primitive_typeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 102, self.RULE_primitive_type)
+        localctx = D96Parser.PrimitiveTypeContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 102, self.RULE_primitiveType)
         self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
@@ -4289,7 +4288,7 @@ class D96Parser(Parser):
             self.exitRule()
         return localctx
 
-    class Array_typeContext(ParserRuleContext):
+    class ArrayTypeContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
@@ -4311,25 +4310,25 @@ class D96Parser(Parser):
         def RIGHT_SQUARE_BRACKET(self):
             return self.getToken(D96Parser.RIGHT_SQUARE_BRACKET, 0)
 
-        def primitive_type(self):
-            return self.getTypedRuleContext(D96Parser.Primitive_typeContext, 0)
+        def primitiveType(self):
+            return self.getTypedRuleContext(D96Parser.PrimitiveTypeContext, 0)
 
-        def array_type(self):
-            return self.getTypedRuleContext(D96Parser.Array_typeContext, 0)
+        def arrayType(self):
+            return self.getTypedRuleContext(D96Parser.ArrayTypeContext, 0)
 
         def getRuleIndex(self):
-            return D96Parser.RULE_array_type
+            return D96Parser.RULE_arrayType
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitArray_type"):
-                return visitor.visitArray_type(self)
+            if hasattr(visitor, "visitArrayType"):
+                return visitor.visitArrayType(self)
             else:
                 return visitor.visitChildren(self)
 
-    def array_type(self):
+    def arrayType(self):
 
-        localctx = D96Parser.Array_typeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 104, self.RULE_array_type)
+        localctx = D96Parser.ArrayTypeContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 104, self.RULE_arrayType)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 611
@@ -4341,11 +4340,11 @@ class D96Parser(Parser):
             token = self._input.LA(1)
             if token in [D96Parser.K_INT, D96Parser.K_FLOAT, D96Parser.K_BOOLEAN, D96Parser.K_STRING]:
                 self.state = 613
-                self.primitive_type()
+                self.primitiveType()
                 pass
             elif token in [D96Parser.K_ARRAY]:
                 self.state = 614
-                self.array_type()
+                self.arrayType()
                 pass
             else:
                 raise NoViableAltException(self)
@@ -4367,38 +4366,38 @@ class D96Parser(Parser):
     def sempred(self, localctx: RuleContext, ruleIndex: int, predIndex: int):
         if self._predicates == None:
             self._predicates = dict()
-        self._predicates[20] = self.and_or_expr_sempred
-        self._predicates[21] = self.add_sub_expr_sempred
-        self._predicates[22] = self.mul_add_mol_expr_sempred
-        self._predicates[25] = self.index_operator_expr_sempred
-        self._predicates[26] = self.instance_access_sempred
-        self._predicates[43] = self.member_access_instance_sempred
+        self._predicates[20] = self.andOrExpr_sempred
+        self._predicates[21] = self.addSubExpr_sempred
+        self._predicates[22] = self.mulAddMolExpr_sempred
+        self._predicates[25] = self.indexOperatorExpr_sempred
+        self._predicates[26] = self.instanceAccess_sempred
+        self._predicates[43] = self.memberAccessInstance_sempred
         pred = self._predicates.get(ruleIndex, None)
         if pred is None:
             raise Exception("No predicate with index:" + str(ruleIndex))
         else:
             return pred(localctx, predIndex)
 
-    def and_or_expr_sempred(self, localctx: And_or_exprContext, predIndex: int):
+    def andOrExpr_sempred(self, localctx: AndOrExprContext, predIndex: int):
         if predIndex == 0:
             return self.precpred(self._ctx, 2)
 
-    def add_sub_expr_sempred(self, localctx: Add_sub_exprContext, predIndex: int):
+    def addSubExpr_sempred(self, localctx: AddSubExprContext, predIndex: int):
         if predIndex == 1:
             return self.precpred(self._ctx, 2)
 
-    def mul_add_mol_expr_sempred(self, localctx: Mul_add_mol_exprContext, predIndex: int):
+    def mulAddMolExpr_sempred(self, localctx: MulAddMolExprContext, predIndex: int):
         if predIndex == 2:
             return self.precpred(self._ctx, 2)
 
-    def index_operator_expr_sempred(self, localctx: Index_operator_exprContext, predIndex: int):
+    def indexOperatorExpr_sempred(self, localctx: IndexOperatorExprContext, predIndex: int):
         if predIndex == 3:
             return self.precpred(self._ctx, 2)
 
-    def instance_access_sempred(self, localctx: Instance_accessContext, predIndex: int):
+    def instanceAccess_sempred(self, localctx: InstanceAccessContext, predIndex: int):
         if predIndex == 4:
             return self.precpred(self._ctx, 2)
 
-    def member_access_instance_sempred(self, localctx: Member_access_instanceContext, predIndex: int):
+    def memberAccessInstance_sempred(self, localctx: MemberAccessInstanceContext, predIndex: int):
         if predIndex == 5:
             return self.precpred(self._ctx, 3)
