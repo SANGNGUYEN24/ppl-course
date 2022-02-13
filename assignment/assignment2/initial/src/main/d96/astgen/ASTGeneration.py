@@ -169,8 +169,17 @@ class ASTGeneration(D96Visitor):
                 return IntLiteral(int(ctx.INTEGER_LITERAL2().getText(), 0))
         elif ctx.FLOAT_LITERAL():
             return FloatLiteral(float(ctx.FLOAT_LITERAL().getText()))
-        elif ctx.BOOLEAN_LITERAL():
-            return BooleanLiteral
+        elif ctx.TRUE():
+            return BooleanLiteral(True)
+        elif ctx.FALSE():
+            return BooleanLiteral(False)
+        # TODO what is StringType
+        elif ctx.STRING_LITERAL():
+            return StringLiteral(ctx.STRING_LITERAL().getText())
+        elif ctx.indexedArray():
+            return ctx.indexedArray().accept(self)
+        else:
+            return ctx.multiDimentionalArray().accept(self)
 
     def visitIndexedArray(self, ctx: D96Parser.IndexedArrayContext):
         pass
