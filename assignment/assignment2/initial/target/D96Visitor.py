@@ -19,13 +19,8 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#classBodyUnit.
-    def visitClassBodyUnit(self, ctx:D96Parser.ClassBodyUnitContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#superClassGroup.
-    def visitSuperClassGroup(self, ctx:D96Parser.SuperClassGroupContext):
+    # Visit a parse tree produced by D96Parser#memberDeclaration.
+    def visitMemberDeclaration(self, ctx:D96Parser.MemberDeclarationContext):
         return self.visitChildren(ctx)
 
 

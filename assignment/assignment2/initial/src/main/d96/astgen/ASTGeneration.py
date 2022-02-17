@@ -10,15 +10,12 @@ from initial.target.D96Parser import D96Parser
 
 class ASTGeneration(D96Visitor):
     def visitProgram(self, ctx: D96Parser.ProgramContext):
-        return Program(ctx.classDeclaration().accept(self))
+        return Program(list(map(lambda x: self.visit(x), ctx.classDeclaration())))
 
     def visitClassDeclaration(self, ctx: D96Parser.ClassDeclarationContext):
-        pass
+        superClass = Id(ctx.IDENTIFIER())
 
-    def visitClassBodyUnit(self, ctx: D96Parser.ClassBodyUnitContext):
-        pass
-
-    def visitSuperClassGroup(self, ctx: D96Parser.SuperClassGroupContext):
+    def visitMemberDeclaration(self, ctx:D96Parser.MemberDeclarationContext):
         pass
 
     def visitMethodDeclaration(self, ctx: D96Parser.MethodDeclarationContext):

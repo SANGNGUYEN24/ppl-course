@@ -11,13 +11,13 @@ language = Python3;
 //==================== Program struture start ====================
 program:  			classDeclaration+ EOF;
 //-----------------------------------------------------------------
-classDeclaration:	K_CLASS IDENTIFIER superClassGroup?
-					LEFT_CURLY_BRACKET classBodyUnit* RIGHT_CURLY_BRACKET
+classDeclaration:	K_CLASS IDENTIFIER (COLON IDENTIFIER)?
+					LEFT_CURLY_BRACKET memberDeclaration* RIGHT_CURLY_BRACKET
 					;// Class declaration
-classBodyUnit:	    attributeDeclaration | methodDeclaration
+memberDeclaration   :attributeDeclaration
+                    | methodDeclaration
 					;
 // BUG Program class has super class???
-superClassGroup: 	COLON IDENTIFIER;
 //-----------------------------------------------------------------
 methodDeclaration:	(IDENTIFIER | DOLAR_IDENTIFIER)
                     LEFT_PAREN parameterList? RIGHT_PAREN blockStatement
