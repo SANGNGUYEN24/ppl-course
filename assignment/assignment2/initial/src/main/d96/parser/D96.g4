@@ -17,7 +17,6 @@ classDeclaration:	K_CLASS IDENTIFIER (COLON IDENTIFIER)?
 memberDeclaration   :attributeDeclaration
                     | methodDeclaration
 					;
-// BUG Program class has super class???
 //-----------------------------------------------------------------
 methodDeclaration:	(IDENTIFIER | DOLAR_IDENTIFIER)
                     LEFT_PAREN parameterList? RIGHT_PAREN blockStatement
@@ -322,16 +321,14 @@ FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 					;
 
 // 3. Boolean
-TRUE:	            'True';
-FALSE:              'False';
+BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
 STRING_LITERAL		: DOUBLE_QUOTE STR_CHAR* DOUBLE_QUOTE { self.text = self.text[1:-1] };
 
 literal:            INTEGER_LITERAL
                     | INTEGER_LITERAL2
                     | FLOAT_LITERAL
-                    | TRUE
-                    | FALSE
+                    | BOOLEAN_LITERAL
                     | STRING_LITERAL
                     | indexedArray | multiDimentionalArray;
 // 5. Indexed array
@@ -340,8 +337,7 @@ indexedArray:  		K_ARRAY
 							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)?
 							|(INTEGER_LITERAL2 (COMMA INTEGER_LITERAL2)*)
 							|(FLOAT_LITERAL (COMMA FLOAT_LITERAL)*)
-							|(TRUE (COMMA TRUE)*)
-							|(FALSE (COMMA FALSE)*)
+							|(BOOLEAN_LITERAL (COMMA BOOLEAN_LITERAL)*)
 							|(STRING_LITERAL (COMMA STRING_LITERAL)*)
 							|((indexedArray) (COMMA indexedArray)*)
 						)

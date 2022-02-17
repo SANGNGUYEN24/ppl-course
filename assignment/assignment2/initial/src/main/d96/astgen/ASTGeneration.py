@@ -2,10 +2,15 @@
 # from D96Visitor import D96Visitor
 # from D96Parser import D96Parser
 # from AST import *
+from functools import reduce
 
 from initial.src.main.d96.utils.AST import *
 from initial.target.D96Visitor import D96Visitor
 from initial.target.D96Parser import D96Parser
+
+
+def flatten(aList):
+    return reduce(lambda x, y: x + y, aList, [])
 
 
 class ASTGeneration(D96Visitor):
@@ -13,9 +18,15 @@ class ASTGeneration(D96Visitor):
         return Program(list(map(lambda x: self.visit(x), ctx.classDeclaration())))
 
     def visitClassDeclaration(self, ctx: D96Parser.ClassDeclarationContext):
-        superClass = Id(ctx.IDENTIFIER())
+        superClass = Id(ctx.IDENTIFIER(1)) if ctx.IDENTIFIER(1) else None
+        memberDeclarationList = flatten([self.visit(x) for x in ctx.memberDeclaration()])
+        return ClassDecl(
+            ctx.IDENTIFIER().getText(),
+            memberDeclarationList,
+            superClass
+        )
 
-    def visitMemberDeclaration(self, ctx:D96Parser.MemberDeclarationContext):
+    def visitMemberDeclaration(self, ctx: D96Parser.MemberDeclarationContext):
         pass
 
     def visitMethodDeclaration(self, ctx: D96Parser.MethodDeclarationContext):
