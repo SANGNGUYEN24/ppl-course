@@ -27,7 +27,7 @@ constructor:		K_CONSTRUCTOR LEFT_PAREN parameterList? RIGHT_PAREN  blockStatemen
 					;
 destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  blockStatement
 					;
-parameterList: 	    parameter | parameter (SEMI_COLON parameter)+
+parameterList: 	    parameter (SEMI_COLON parameter)*
 					;//; a, b, c: Int
 parameter:    		identifierList COLON d96Type
 					;//a, b, c: String

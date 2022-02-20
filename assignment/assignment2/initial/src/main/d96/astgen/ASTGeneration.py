@@ -4,7 +4,6 @@ from D96Parser import D96Parser
 from AST import *
 from functools import reduce
 
-
 # from initial.src.main.d96.utils.AST import *
 # from initial.target.D96Visitor import D96Visitor
 # from initial.target.D96Parser import D96Parser
@@ -22,6 +21,17 @@ def flatten(lst):
 
     head, tail = lst[0], lst[1:]
     return flatten(head) + flatten(tail)
+
+
+def convertStringToPrimitiveType(s):
+    if s == "Int":
+        return IntType()
+    if s == "Boolean":
+        return BoolType()
+    if s == "Float":
+        return FloatType()
+    if s == "String":
+        return StringType()
 
 
 class ASTGeneration(D96Visitor):
@@ -89,16 +99,16 @@ class ASTGeneration(D96Visitor):
             return [self.visit(x) for x in ctx.parameter()]
 
     def visitParameter(self, ctx: D96Parser.ParameterContext):
-        variableList = [self.visit(ctx.identifierList())] if ctx.identifierList() else []
+        variableList = self.visit(ctx.identifierList())
         varType = self.visit(ctx.d96Type())
         return [VarDecl(variable, varType) for variable in variableList]
 
     def visitD96Type(self, ctx: D96Parser.D96TypeContext):
-        if ctx.primitiveType():
-            return self.visit(ctx.primitiveType())
-        elif ctx.IDENTIFIER():
-            return Id(ctx.IDENTIFIER().getText())
-        else:
+        if ctx.PRIMITIVE_TYPE():
+            return convertStringToPrimitiveType(ctx.PRIMITIVE_TYPE().getText())
+        if ctx.IDENTIFIER():
+            return ClassType(Id(ctx.IDENTIFIER().getText()))
+        if ctx.arrayType():
             return self.visit(ctx.arrayType())
 
     def visitAttributeDeclaration(self, ctx: D96Parser.AttributeDeclarationContext):
@@ -109,9 +119,9 @@ class ASTGeneration(D96Visitor):
 
     def visitIdentifierList(self, ctx: D96Parser.IdentifierListContext):
         if ctx.IDENTIFIER(0):
-            return Id(ctx.IDENTIFIER(0).getText())
+            return [Id(ctx.IDENTIFIER(0).getText())]
         else:
-            return [Id(x) for x in ctx.IDENTIFIER()]
+            return [Id(x.getText()) for x in ctx.IDENTIFIER()]
 
     def visitMixedIdentifierList(self, ctx: D96Parser.MixedIdentifierListContext):
         pass
@@ -241,16 +251,6 @@ class ASTGeneration(D96Visitor):
 
     def visitMultiDimentionalArray(self, ctx: D96Parser.MultiDimentionalArrayContext):
         pass
-
-    def visitPrimitiveType(self, ctx: D96Parser.PrimitiveTypeContext):
-        if ctx.K_BOOLEAN():
-            return BoolType()
-        if ctx.K_INT():
-            return IntType()
-        if ctx.K_FLOAT():
-            return FloatType()
-        if ctx.K_STRING():
-            return StringType()
 
     def visitArrayType(self, ctx: D96Parser.ArrayTypeContext):
         pass
