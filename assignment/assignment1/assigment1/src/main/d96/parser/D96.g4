@@ -27,11 +27,11 @@ constructor:		K_CONSTRUCTOR LEFT_PAREN parameterList? RIGHT_PAREN  blockStatemen
 					;
 destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  blockStatement
 					;
-parameterList: 	    parameter | parameter (SEMI_COLON parameter)+
+parameterList: 	    parameter (SEMI_COLON parameter)*
 					;//; a, b, c: Int
 parameter:    		identifierList COLON d96Type
 					;//a, b, c: String
-d96Type:            primitiveType | IDENTIFIER | arrayType
+d96Type:            PRIMITIVE_TYPE | IDENTIFIER | arrayType
                     ;// ID for class type
 //----------------------------------------------------------------
 attributeDeclaration:
@@ -42,7 +42,7 @@ attributeValueList:
                     COLON d96Type OP_ASSIGN
                     | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) attributeValueList expression COMMA
                     ;
-identifierList: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
+identifierList: 	IDENTIFIER (COMMA IDENTIFIER)*
 					;// My1stCons, My2ndCons
 mixedIdentifierList:
                     (IDENTIFIER | DOLAR_IDENTIFIER)
@@ -211,10 +211,6 @@ K_ELSE: 			'Else';
 K_FOR_EACH: 		'Foreach';
 K_ARRAY:			'Array';
 K_IN: 				'In';
-K_INT: 				'Int';
-K_FLOAT: 			'Float';
-K_BOOLEAN: 			'Boolean';
-K_STRING:			'String';
 K_RETURN:			'Return';
 K_NULL: 			'Null';
 K_CLASS: 			'Class';
@@ -350,21 +346,23 @@ multiDimentionalArray: 	K_ARRAY
                             )
                             RIGHT_PAREN
 					    ;
+// Primitive type
+PRIMITIVE_TYPE: 	'Int'
+                    | 'Float'
+                    | 'Boolean'
+                    | 'String'
+                    ;
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			[_a-zA-Z][_a-zA-Z0-9]*;
 DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================
-
-// Primitive type
-primitiveType: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
-
 // Array type
 // An array type declaration is in the form of: Array[<element_type>, <size>].
 arrayType: 		K_ARRAY
 						LEFT_SQUARE_BRACKET
-							(primitiveType | arrayType) COMMA INTEGER_LITERAL2
+							(PRIMITIVE_TYPE | arrayType) COMMA INTEGER_LITERAL2
 						RIGHT_SQUARE_BRACKET
 					;
 //==================== Type and Value end ====================

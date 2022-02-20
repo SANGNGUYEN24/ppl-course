@@ -40,7 +40,7 @@ class ASTGeneration(D96Visitor):
 
     def visitClassDeclaration(self, ctx: D96Parser.ClassDeclarationContext):
         superClass = Id(ctx.IDENTIFIER(1).getText()) if ctx.IDENTIFIER(1) else None
-        memberDeclarationList = flatten([self.visit(x) for x in ctx.memberDeclaration()])
+        memberDeclarationList = [self.visit(x) for x in ctx.memberDeclaration()]
         return ClassDecl(
             Id(ctx.IDENTIFIER(0).getText()),
             memberDeclarationList,
