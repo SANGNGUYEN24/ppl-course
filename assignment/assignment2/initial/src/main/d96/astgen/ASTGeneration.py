@@ -26,7 +26,7 @@ def flatten(lst):
 
 class ASTGeneration(D96Visitor):
     def visitProgram(self, ctx: D96Parser.ProgramContext):
-        return Program(list(map(lambda x: self.visit(x), ctx.classDeclaration())))
+        return Program([self.visit(x) for x in ctx.classDeclaration()])
 
     def visitClassDeclaration(self, ctx: D96Parser.ClassDeclarationContext):
         superClass = Id(ctx.IDENTIFIER(1).getText()) if ctx.IDENTIFIER(1) else None
@@ -86,13 +86,20 @@ class ASTGeneration(D96Visitor):
         if ctx.parameter(0):
             return self.visit(ctx.parameter(0))
         else:
-            return list(map(lambda x: self.visit(x), ctx.parameter()))
+            return [self.visit(x) for x in ctx.parameter()]
 
     def visitParameter(self, ctx: D96Parser.ParameterContext):
-        pass
+        variableList = [self.visit(ctx.identifierList())] if ctx.identifierList() else []
+        varType = self.visit(ctx.d96Type())
+        return [VarDecl(variable, varType) for variable in variableList]
 
     def visitD96Type(self, ctx: D96Parser.D96TypeContext):
-        pass
+        if ctx.primitiveType():
+            return self.visit(ctx.primitiveType())
+        elif ctx.IDENTIFIER():
+            return Id(ctx.IDENTIFIER().getText())
+        else:
+            return self.visit(ctx.arrayType())
 
     def visitAttributeDeclaration(self, ctx: D96Parser.AttributeDeclarationContext):
         pass
@@ -101,7 +108,10 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitIdentifierList(self, ctx: D96Parser.IdentifierListContext):
-        pass
+        if ctx.IDENTIFIER(0):
+            return Id(ctx.IDENTIFIER(0).getText())
+        else:
+            return [Id(x) for x in ctx.IDENTIFIER()]
 
     def visitMixedIdentifierList(self, ctx: D96Parser.MixedIdentifierListContext):
         pass

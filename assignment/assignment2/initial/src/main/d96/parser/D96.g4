@@ -31,7 +31,7 @@ parameterList: 	    parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
 parameter:    		identifierList COLON d96Type
 					;//a, b, c: String
-d96Type:            primitiveType | IDENTIFIER | arrayType
+d96Type:            PRIMITIVE_TYPE | IDENTIFIER | arrayType
                     ;// ID for class type
 //----------------------------------------------------------------
 attributeDeclaration:
@@ -358,13 +358,13 @@ DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
 //==================== 4. Type and Value start ====================
 
 // Primitive type
-primitiveType: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
+PRIMITIVE_TYPE: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
 
 // Array type
 // An array type declaration is in the form of: Array[<element_type>, <size>].
 arrayType: 		K_ARRAY
 						LEFT_SQUARE_BRACKET
-							(primitiveType | arrayType) COMMA INTEGER_LITERAL2
+							(PRIMITIVE_TYPE | arrayType) COMMA INTEGER_LITERAL2
 						RIGHT_SQUARE_BRACKET
 					;
 //==================== Type and Value end ====================
