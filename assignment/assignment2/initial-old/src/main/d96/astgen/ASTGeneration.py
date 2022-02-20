@@ -1,12 +1,12 @@
 # TODO Import lai 3 lines nhu ban dau
-# from D96Visitor import D96Visitor
-# from D96Parser import D96Parser
-# from AST import *
+from D96Visitor import D96Visitor
+from D96Parser import D96Parser
+from AST import *
 from functools import reduce
 
-from initial.src.main.d96.utils.AST import *
-from initial.target.D96Visitor import D96Visitor
-from initial.target.D96Parser import D96Parser
+# from initial.src.main.d96.utils.AST import *
+# from initial.target.D96Visitor import D96Visitor
+# from initial.target.D96Parser import D96Parser
 
 
 def flatten(aList):
@@ -18,28 +18,19 @@ class ASTGeneration(D96Visitor):
         return Program(list(map(lambda x: self.visit(x), ctx.classDeclaration())))
 
     def visitClassDeclaration(self, ctx: D96Parser.ClassDeclarationContext):
-        superClass = Id(ctx.IDENTIFIER(1).getText()) if ctx.IDENTIFIER(1) else None
+        superClass = Id(ctx.IDENTIFIER(1)) if ctx.IDENTIFIER(1) else None
         memberDeclarationList = flatten([self.visit(x) for x in ctx.memberDeclaration()])
         return ClassDecl(
-            Id(ctx.IDENTIFIER(0).getText()),
+            ctx.IDENTIFIER().getText(),
             memberDeclarationList,
             superClass
         )
 
     def visitMemberDeclaration(self, ctx: D96Parser.MemberDeclarationContext):
-        if ctx.attributeDeclaration():
-            return self.visit(ctx.attributeDeclaration())
-        else:
-            return self.visit(ctx.methodDeclaration())
+        pass
 
     def visitMethodDeclaration(self, ctx: D96Parser.MethodDeclarationContext):
-        if ctx.constructor():
-            return self.visit(ctx.constructor())
-        if ctx.destructor():
-            return self.visit(ctx.destructor())
-
-        methodName = Id(ctx.IDENTIFIER().getText()) if ctx.IDENTIFIER() else Id(ctx.DOLAR_IDENTIFIER())
-
+        pass
 
     def visitConstructor(self, ctx: D96Parser.ConstructorContext):
         pass

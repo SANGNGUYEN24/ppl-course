@@ -239,7 +239,7 @@ class CallStmt(Stmt):
 class VarDecl(StoreDecl):
     variable: Id
     varType: Type
-    varInit: Expr = None  # None if there is no initial
+    varInit: Expr = None  # None if there is no initial-old
 
     def __str__(self):
         return "VarDecl(" + str(self.variable) + "," + str(self.varType) + ("," + str(self.varInit) if self.varInit else "") + ")"
@@ -261,7 +261,7 @@ class Block(Stmt):
 class ConstDecl(StoreDecl):
     constant: Id
     constType: Type
-    value: Expr = None # None if there is no initial
+    value: Expr = None # None if there is no initial-old
 
     def __str__(self):
         return "ConstDecl(" + str(self.constant) + "," + str(self.constType) + "," + str(self.value) + ")"
