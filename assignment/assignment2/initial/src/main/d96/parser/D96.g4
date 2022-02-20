@@ -211,10 +211,6 @@ K_ELSE: 			'Else';
 K_FOR_EACH: 		'Foreach';
 K_ARRAY:			'Array';
 K_IN: 				'In';
-K_INT: 				'Int';
-K_FLOAT: 			'Float';
-K_BOOLEAN: 			'Boolean';
-K_STRING:			'String';
 K_RETURN:			'Return';
 K_NULL: 			'Null';
 K_CLASS: 			'Class';
@@ -350,16 +346,18 @@ multiDimentionalArray: 	K_ARRAY
                             )
                             RIGHT_PAREN
 					    ;
+// Primitive type
+PRIMITIVE_TYPE: 	'Int'
+                    | 'Float'
+                    | 'Boolean'
+                    | 'String'
+                    ;
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			[_a-zA-Z][_a-zA-Z0-9]*;
 DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================
-
-// Primitive type
-PRIMITIVE_TYPE: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
-
 // Array type
 // An array type declaration is in the form of: Array[<element_type>, <size>].
 arrayType: 		K_ARRAY

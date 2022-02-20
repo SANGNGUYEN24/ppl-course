@@ -93,7 +93,7 @@ class ASTGeneration(D96Visitor):
         return MethodDecl(kind, methodName, param, body)
 
     def visitParameterList(self, ctx: D96Parser.ParameterListContext):
-        return [self.visit(x) for x in ctx.parameter()]
+        return flatten([self.visit(x) for x in ctx.parameter()])
 
     def visitParameter(self, ctx: D96Parser.ParameterContext):
         variableList = self.visit(ctx.identifierList())
@@ -115,10 +115,7 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitIdentifierList(self, ctx: D96Parser.IdentifierListContext):
-        if ctx.IDENTIFIER(0):
-            return [Id(ctx.IDENTIFIER(0).getText())]
-        else:
-            return [Id(x.getText()) for x in ctx.IDENTIFIER()]
+        return [Id(x.getText()) for x in ctx.IDENTIFIER()]
 
     def visitMixedIdentifierList(self, ctx: D96Parser.MixedIdentifierListContext):
         pass
