@@ -42,7 +42,7 @@ attributeValueList:
                     COLON d96Type OP_ASSIGN
                     | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) attributeValueList expression COMMA
                     ;
-identifierList: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
+identifierList: 	IDENTIFIER (COMMA IDENTIFIER)*
 					;// My1stCons, My2ndCons
 mixedIdentifierList:
                     (IDENTIFIER | DOLAR_IDENTIFIER)
