@@ -4,9 +4,9 @@ from D96Parser import D96Parser
 from AST import *
 from functools import reduce
 
-# from initial.src.main.d96.utils.AST import *
-# from initial.target.D96Visitor import D96Visitor
-# from initial.target.D96Parser import D96Parser
+# from initial-old.src.main.d96.utils.AST import *
+# from initial-old.target.D96Visitor import D96Visitor
+# from initial-old.target.D96Parser import D96Parser
 
 
 def flatten(aList):

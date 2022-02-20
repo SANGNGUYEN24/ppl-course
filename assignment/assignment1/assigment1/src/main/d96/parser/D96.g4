@@ -9,43 +9,42 @@ options {
 language = Python3;
 }
 //==================== Program struture start ====================
-program:  			class_declaration+ EOF;
+program:  			classDeclaration+ EOF;
 //-----------------------------------------------------------------
-class_declaration:	K_CLASS IDENTIFIER super_class_group?
-					LEFT_CURLY_BRACKET class_body_unit* RIGHT_CURLY_BRACKET
+classDeclaration:	K_CLASS IDENTIFIER (COLON IDENTIFIER)?
+					LEFT_CURLY_BRACKET memberDeclaration* RIGHT_CURLY_BRACKET
 					;// Class declaration
-class_body_unit:	attribute_declaration | method_declaration
+memberDeclaration   :attributeDeclaration
+                    | methodDeclaration
 					;
-// BUG Program class has super class???
-super_class_group: 	COLON IDENTIFIER;
 //-----------------------------------------------------------------
-method_declaration:	(IDENTIFIER | DOLAR_IDENTIFIER)
-                    LEFT_PAREN parameter_list? RIGHT_PAREN block_statement
+methodDeclaration:	(IDENTIFIER | DOLAR_IDENTIFIER)
+                    LEFT_PAREN parameterList? RIGHT_PAREN blockStatement
 					| constructor
 					| destructor
 					;// getSomeThing(){...}
-constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statement
+constructor:		K_CONSTRUCTOR LEFT_PAREN parameterList? RIGHT_PAREN  blockStatement
 					;
-destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
+destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  blockStatement
 					;
-parameter_list: 	parameter | parameter (SEMI_COLON parameter)+
+parameterList: 	    parameter | parameter (SEMI_COLON parameter)+
 					;//; a, b, c: Int
-parameter:    		identifier_list COLON d96_type
+parameter:    		identifierList COLON d96Type
 					;//a, b, c: String
-d96_type:           primitive_type | IDENTIFIER | array_type
+d96Type:            primitiveType | IDENTIFIER | arrayType
                     ;// ID for class type
 //----------------------------------------------------------------
-attribute_declaration:
-                    (K_VAL | K_VAR) mixed_identifier_list COLON d96_type SEMI_COLON // not assigned
-                    | (K_VAL | K_VAR) (IDENTIFIER | DOLAR_IDENTIFIER) attribute_value_list expression SEMI_COLON// assigned
+attributeDeclaration:
+                    (K_VAL | K_VAR) mixedIdentifierList COLON d96Type SEMI_COLON // not assigned
+                    | (K_VAL | K_VAR) (IDENTIFIER | DOLAR_IDENTIFIER) attributeValueList expression SEMI_COLON// assigned
                     ;
-attribute_value_list:
-                    COLON d96_type OP_ASSIGN
-                    | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) attribute_value_list expression COMMA
+attributeValueList:
+                    COLON d96Type OP_ASSIGN
+                    | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) attributeValueList expression COMMA
                     ;
-identifier_list: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
+identifierList: 	IDENTIFIER | IDENTIFIER (COMMA IDENTIFIER)+
 					;// My1stCons, My2ndCons
-mixed_identifier_list:
+mixedIdentifierList:
                     (IDENTIFIER | DOLAR_IDENTIFIER)
                     | (IDENTIFIER | DOLAR_IDENTIFIER)(COMMA (IDENTIFIER | DOLAR_IDENTIFIER))+
                     ;
@@ -53,17 +52,17 @@ mixed_identifier_list:
 
 
 //==================== Expression start ====================
-expression_list:	expression | expression (COMMA expression)+
+expressionList: 	expression | expression (COMMA expression)+
 					;// 1+2, 1+2, 2*5
 //----------------------------------------------------------------
 // Index operator
-element_expression:	expression index_operator
+elementExpression:	expression indexOperator
 					;
-index_operator:		LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET index_operator*
+indexOperator:		LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET indexOperator*
 					;// a[1] or b[1][2] or A[1+2]
 //-----------------------------------------------------------------
 // All expression
-relational_operator:
+relationalOperator:
 					OP_IS_EQUAL_TO
 					| OP_NOT_EQUAL_TO
 					| OP_LESS_THAN
@@ -72,47 +71,47 @@ relational_operator:
 					| OP_GREATER_THAN_EQUAL
 					;
 
-expression:			relational_expr (OP_STRING_CONCATENATION | OP_TWO_SAME_STRING) relational_expr
-					| relational_expr
+expression:			relationalExpr (OP_STRING_CONCATENATION | OP_TWO_SAME_STRING) relationalExpr
+					| relationalExpr
 					;// +. ==
 
-relational_expr:	and_or_expr relational_operator and_or_expr
-                    | and_or_expr
+relationalExpr:	    andOrExpr relationalOperator andOrExpr
+                    | andOrExpr
 					;// == != < > <= >=
-and_or_expr:		and_or_expr (OP_LOGICAL_AND | OP_LOGICAL_OR) add_sub_expr
-					| add_sub_expr
+andOrExpr:		    andOrExpr (OP_LOGICAL_AND | OP_LOGICAL_OR) addSubExpr
+					| addSubExpr
 					;// && ||
-add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
-					| mul_add_mol_expr
+addSubExpr:		    addSubExpr (OP_ADDTION | OP_SUBTRACTION) mulAddMolExpr
+					| mulAddMolExpr
 					;
-mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr 
-					| not_expr
+mulAddMolExpr:	    mulAddMolExpr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) notExpr
+					| notExpr
 					;
-not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
+notExpr:			OP_LOGICAL_NOT notExpr | signExpr
 					;
-sign_expr:			(OP_SUBTRACTION) sign_expr | index_operator_expr
+signExpr:			(OP_SUBTRACTION) signExpr | indexOperatorExpr
 					;
-index_operator_expr:
-					index_operator_expr index_operator | instance_access
+indexOperatorExpr:
+					indexOperatorExpr indexOperator | instanceAccess
 					;
 // Member access
-instance_access:
-					instance_access DOT IDENTIFIER
-					(LEFT_PAREN expression_list? RIGHT_PAREN)?
-					| static_access
+instanceAccess:
+					instanceAccess DOT IDENTIFIER
+					(LEFT_PAREN expressionList? RIGHT_PAREN)?
+					| staticAccess
 					;
-static_access:
+staticAccess:
 					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
-					(LEFT_PAREN expression_list? RIGHT_PAREN)?
-					| object_creation
+					(LEFT_PAREN expressionList? RIGHT_PAREN)?
+					| objectCreation
 					;
 // Object creation
-object_creation:	K_NEW IDENTIFIER 
-					LEFT_PAREN expression_list? RIGHT_PAREN
-					| atom_expr
+objectCreation:	K_NEW IDENTIFIER
+					LEFT_PAREN expressionList? RIGHT_PAREN
+					| atomExpr
 					;
 
-atom_expr:			literal
+atomExpr:			literal
                     | 'Null'
 					| IDENTIFIER
 					| LEFT_PAREN expression RIGHT_PAREN
@@ -122,81 +121,81 @@ atom_expr:			literal
 
 //==================== Statement start ====================
 // Variable and Constant Declaration Statement
-var_val_statement:	(K_VAL | K_VAR) identifier_list COLON d96_type SEMI_COLON // not assigned
-                    | (K_VAL | K_VAR) IDENTIFIER var_val_value_list expression SEMI_COLON// assigned
+varValStatement:	(K_VAL | K_VAR) identifierList COLON d96Type SEMI_COLON // not assigned
+                    | (K_VAL | K_VAR) IDENTIFIER varValValueList expression SEMI_COLON// assigned
                     ;
 
-var_val_value_list :
-                    COLON d96_type OP_ASSIGN
-                    | COMMA IDENTIFIER var_val_value_list expression COMMA;
+varValValueList :
+                    COLON d96Type OP_ASSIGN
+                    | COMMA IDENTIFIER varValValueList expression COMMA;
 // Assign statement
-lhs:                member_access_instance DOT IDENTIFIER
+lhs:                memberAccessInstance DOT IDENTIFIER
                     | IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
                     | IDENTIFIER
-                    | element_expression
+                    | elementExpression
                     ;
-assign_statement: 	lhs OP_ASSIGN expression SEMI_COLON
+assignStatement: 	lhs OP_ASSIGN expression SEMI_COLON
 					;
 // If statement
 // ---------------------------------------------------------------------------
-if_statement:		if_part
-					else_if_part*
-					else_part?
+ifStatement:		ifPart
+					elseIfPart*
+					elsePart?
 					;
-if_part:			K_IF LEFT_PAREN expression RIGHT_PAREN block_statement		
+ifPart:			    K_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
 					;
-else_if_part:		K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement
+elseIfPart:		    K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
 					;
-else_part:			K_ELSE block_statement
+elsePart:			K_ELSE blockStatement
 					;
-//-----------------------------------------------------------------------------		
+//-----------------------------------------------------------------------------
 // For in statement
 //-----------------------------------------------------------------------------
-for_in_statement:	K_FOR_EACH
-					LEFT_PAREN loop_part RIGHT_PAREN
-					block_statement
+forInStatement:	    K_FOR_EACH
+					LEFT_PAREN loopPart RIGHT_PAREN
+					blockStatement
 					;
-loop_part:			member_access_instance K_IN expression DOUBLE_DOT expression
+loopPart:			memberAccessInstance K_IN expression DOUBLE_DOT expression
 					(K_BY expression)?
 					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
 // Break statement
-break_statement:	K_BREAK SEMI_COLON
+breakStatement:	    K_BREAK SEMI_COLON
 					;// Break;
 // Continue statement
-continue_statement:	K_CONTINUE SEMI_COLON
+continueStatement:	K_CONTINUE SEMI_COLON
 					;// Continue;
-// Return statements 
-return_statement:   K_RETURN expression? SEMI_COLON
+// Return statements
+returnStatement:    K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
-member_access_instance:
-                    member_access_instance DOT IDENTIFIER (LEFT_PAREN expression_list? RIGHT_PAREN)?
-                    | member_access_static
-                    | object_creation
+memberAccessInstance:
+                    memberAccessInstance DOT IDENTIFIER (LEFT_PAREN expressionList? RIGHT_PAREN)?
+                    | memberAccessStatic
+                    | objectCreation
                     ;
-member_access_static:
+memberAccessStatic:
                     IDENTIFIER DOUBLE_COLON
-                    (DOLAR_IDENTIFIER | DOLAR_IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN)?
+                    (DOLAR_IDENTIFIER | DOLAR_IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN)?
                     ;
-method_invocation_statement:
-                    (member_access_instance DOT IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN
-                    | IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN)
+methodInvocationStatement:
+                    (memberAccessInstance DOT IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN
+                    | IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN)
                     SEMI_COLON
 					;// Shape::$getNumOfShape();
-block_statement:	LEFT_CURLY_BRACKET
+blockStatement:	    LEFT_CURLY_BRACKET
 					statement*
 					RIGHT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
-statement: 			var_val_statement
-					| assign_statement
-					| if_statement
-					| for_in_statement
-					| break_statement
-					| continue_statement
-					| return_statement
-					| method_invocation_statement
-					| block_statement
+statement: 			varValStatement
+					| assignStatement
+					| ifStatement
+					| forInStatement
+					| breakStatement
+					| continueStatement
+					| returnStatement
+					| methodInvocationStatement
+					| blockStatement
 					;
 //==================== Statement end ====================
 
@@ -206,8 +205,8 @@ COMMENT: 			'##' .*? '##' -> skip; 	// ## This is a comment ##
 // 3.4 Keywords, define the keywords on top
 K_BREAK: 			'Break';
 K_CONTINUE: 		'Continue';
-K_IF: 				'If'; 
-K_ELSE_IF: 			'Elseif'; 
+K_IF: 				'If';
+K_ELSE_IF: 			'Elseif';
 K_ELSE: 			'Else';
 K_FOR_EACH: 		'Foreach';
 K_ARRAY:			'Array';
@@ -280,7 +279,7 @@ fragment DECIMAL_DIGIT:		[0-9];
 // 1. Integer
 fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]DECIMAL_DIGIT*('_'DECIMAL_DIGIT+)*
 					;
-fragment OCTAL:		OCTAL_NOTATION ( 
+fragment OCTAL:		OCTAL_NOTATION (
 					'0' | [1-7]OCTAL_DIGIT*('_'OCTAL_DIGIT+)*
 					)
 					;
@@ -315,7 +314,7 @@ fragment DECIMAL_PART:	DOT DECIMAL_DIGIT*;
 fragment EXPONENT: 		[eE][-+]? DECIMAL_DIGIT+;
 
 // 2. Float
-FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?	
+FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
 					| INTEGER_PART EXPONENT
 					| DECIMAL_PART EXPONENT)
 					{self.text = self.text.replace("_", "")}
@@ -326,24 +325,28 @@ BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
 STRING_LITERAL		: DOUBLE_QUOTE STR_CHAR* DOUBLE_QUOTE { self.text = self.text[1:-1] };
 
-literal:            INTEGER_LITERAL | INTEGER_LITERAL2 | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL
-                    | indexed_array | multi_dimentional_array;
+literal:            INTEGER_LITERAL
+                    | INTEGER_LITERAL2
+                    | FLOAT_LITERAL
+                    | BOOLEAN_LITERAL
+                    | STRING_LITERAL
+                    | indexedArray | multiDimentionalArray;
 // 5. Indexed array
-indexed_array:  		K_ARRAY
+indexedArray:  		K_ARRAY
 						LEFT_PAREN(
 							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)?
 							|(INTEGER_LITERAL2 (COMMA INTEGER_LITERAL2)*)
 							|(FLOAT_LITERAL (COMMA FLOAT_LITERAL)*)
 							|(BOOLEAN_LITERAL (COMMA BOOLEAN_LITERAL)*)
 							|(STRING_LITERAL (COMMA STRING_LITERAL)*)
-							|((indexed_array) (COMMA indexed_array)*)
+							|((indexedArray) (COMMA indexedArray)*)
 						)
 						RIGHT_PAREN
 						;	// Array() Array(1) Array(1,2,3)
 // 6. Multi-dimensional array
-multi_dimentional_array: 	K_ARRAY
+multiDimentionalArray: 	K_ARRAY
                             LEFT_PAREN(
-                            (indexed_array (COMMA indexed_array)*)?
+                            (indexedArray (COMMA indexedArray)*)?
                             )
                             RIGHT_PAREN
 					    ;
@@ -355,13 +358,13 @@ DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
 //==================== 4. Type and Value start ====================
 
 // Primitive type
-primitive_type: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
+primitiveType: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING;
 
 // Array type
 // An array type declaration is in the form of: Array[<element_type>, <size>].
-array_type: 		K_ARRAY
+arrayType: 		K_ARRAY
 						LEFT_SQUARE_BRACKET
-							(primitive_type | array_type) COMMA INTEGER_LITERAL2
+							(primitiveType | arrayType) COMMA INTEGER_LITERAL2
 						RIGHT_SQUARE_BRACKET
 					;
 //==================== Type and Value end ====================

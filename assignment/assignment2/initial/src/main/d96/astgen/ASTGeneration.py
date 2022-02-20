@@ -1,16 +1,27 @@
 # TODO Import lai 3 lines nhu ban dau
-# from D96Visitor import D96Visitor
-# from D96Parser import D96Parser
-# from AST import *
+from D96Visitor import D96Visitor
+from D96Parser import D96Parser
+from AST import *
 from functools import reduce
 
-from initial.src.main.d96.utils.AST import *
-from initial.target.D96Visitor import D96Visitor
-from initial.target.D96Parser import D96Parser
+
+# from initial.src.main.d96.utils.AST import *
+# from initial.target.D96Visitor import D96Visitor
+# from initial.target.D96Parser import D96Parser
 
 
-def flatten(aList):
-    return reduce(lambda x, y: x + y, aList, [])
+def flatten(lst):
+    if not isinstance(lst, list):
+        return [lst]
+
+    if len(lst) == 0:
+        return []
+
+    if len(lst) == 1:
+        return flatten(lst[0])
+
+    head, tail = lst[0], lst[1:]
+    return flatten(head) + flatten(tail)
 
 
 class ASTGeneration(D96Visitor):
@@ -38,17 +49,44 @@ class ASTGeneration(D96Visitor):
         if ctx.destructor():
             return self.visit(ctx.destructor())
 
-        methodName = Id(ctx.IDENTIFIER().getText()) if ctx.IDENTIFIER() else Id(ctx.DOLAR_IDENTIFIER())
+        param = self.visit(ctx.parameterList()) if ctx.parameterList() else []
+        # TODO xem lai dieu kien cua statementList
+        # Program([ClassDecl(Id(Adam),Id(Human),[MethodDecl(Id(main),Static,[],Block([None]))])])
+        # Block([None]) expect Block([]) khi function main ko co gi
+        statementList = [self.visit(ctx.blockStatement())] if ctx.blockStatement() else []
+        # body = Block(statementList)
+        body = Block([])
 
+        # TODO Dieu kien chi main trong Program class moi la Static
+        if ctx.IDENTIFIER():
+            methodName = Id(ctx.IDENTIFIER().getText())
+            kind = Static() if methodName == Id("main") else Instance()
+            # param = []
+        else:
+            methodName = Id(ctx.DOLAR_IDENTIFIER().getText())
+            kind = Static()
+
+        return MethodDecl(kind, methodName, param, body)
 
     def visitConstructor(self, ctx: D96Parser.ConstructorContext):
-        pass
+        kind = Instance()
+        methodName = Id("Constructor")
+        param = self.visit(ctx.parameterList()) if ctx.parameterList() else []
+        body = Block([])
+        return MethodDecl(kind, methodName, param, body)
 
     def visitDestructor(self, ctx: D96Parser.DestructorContext):
-        pass
+        kind = Instance()
+        methodName = Id("Destructor")
+        param = []
+        body = Block([])
+        return MethodDecl(kind, methodName, param, body)
 
     def visitParameterList(self, ctx: D96Parser.ParameterListContext):
-        pass
+        if ctx.parameter(0):
+            return self.visit(ctx.parameter(0))
+        else:
+            return list(map(lambda x: self.visit(x), ctx.parameter()))
 
     def visitParameter(self, ctx: D96Parser.ParameterContext):
         pass
