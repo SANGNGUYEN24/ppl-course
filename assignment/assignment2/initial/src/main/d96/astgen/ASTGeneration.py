@@ -71,7 +71,6 @@ class ASTGeneration(D96Visitor):
         if ctx.IDENTIFIER():
             methodName = Id(ctx.IDENTIFIER().getText())
             kind = Static() if methodName == Id("main") else Instance()
-            # param = []
         else:
             methodName = Id(ctx.DOLAR_IDENTIFIER().getText())
             kind = Static()
@@ -247,4 +246,12 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitArrayType(self, ctx: D96Parser.ArrayTypeContext):
-        pass
+        size = int(ctx.INTEGER_LITERAL2().getText())
+        if ctx.PRIMITIVE_TYPE():
+            eleType = convertStringToPrimitiveType(ctx.PRIMITIVE_TYPE().getText())
+        elif ctx.arrayType():
+            eleType = self.visit(ctx.arrayType())
+        else:
+            eleType = None
+
+        return ArrayType(size, eleType)
