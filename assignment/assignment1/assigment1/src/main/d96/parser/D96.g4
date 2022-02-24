@@ -44,9 +44,7 @@ attributeValueList:
                     ;
 identifierList: 	IDENTIFIER (COMMA IDENTIFIER)*
 					;// My1stCons, My2ndCons
-mixedIdentifierList:
-                    (IDENTIFIER | DOLAR_IDENTIFIER)
-                    | (IDENTIFIER | DOLAR_IDENTIFIER)(COMMA (IDENTIFIER | DOLAR_IDENTIFIER))+
+mixedIdentifierList:(IDENTIFIER | DOLAR_IDENTIFIER)(COMMA (IDENTIFIER | DOLAR_IDENTIFIER))*
                     ;
 //==================== Program struture end ====================
 
@@ -355,6 +353,9 @@ PRIMITIVE_TYPE: 	'Int'
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			[_a-zA-Z][_a-zA-Z0-9]*;
 DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
+//MIXED_IDENTIFIER:   [_a-zA-Z][_a-zA-Z0-9]*
+//                    | '$'[_a-zA-Z0-9]+
+//                    ;
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================

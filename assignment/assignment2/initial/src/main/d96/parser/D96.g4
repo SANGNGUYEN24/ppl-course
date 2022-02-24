@@ -34,14 +34,20 @@ parameter:    		identifierList COLON d96Type
 d96Type:            PRIMITIVE_TYPE | IDENTIFIER | arrayType
                     ;// ID for class type
 //----------------------------------------------------------------
-attributeDeclaration:
-                    (K_VAL | K_VAR) mixedIdentifierList COLON d96Type SEMI_COLON // not assigned
-                    | (K_VAL | K_VAR) (IDENTIFIER | DOLAR_IDENTIFIER) attributeValueList expression SEMI_COLON// assigned
-                    ;
-attributeValueList:
-                    COLON d96Type OP_ASSIGN
-                    | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) attributeValueList expression COMMA
-                    ;
+//attributeDeclaration:
+//                    (K_VAL | K_VAR) mixedIdentifierList COLON d96Type SEMI_COLON // not assigned
+//                    | (K_VAL | K_VAR) (IDENTIFIER | DOLAR_IDENTIFIER) attributeValueList expression SEMI_COLON// assigned
+//                    ;
+//attributeValueList:
+//                    COLON d96Type OP_ASSIGN
+//                    | COMMA (IDENTIFIER | DOLAR_IDENTIFIER) attributeValueList expression COMMA
+//                    ;
+//attributeDeclaration:
+//                    (IDENTIFIER | DOLAR_IDENTIFIER) idExtend expression SEMI_COLON
+//                    ;
+//idExtend:           COMMA (IDENTIFIER | DOLAR_IDENTIFIER) idExtend expression COMMA | COLON d96Type OP_ASSIGN
+//                    ;
+
 identifierList: 	IDENTIFIER (COMMA IDENTIFIER)*
 					;// My1stCons, My2ndCons
 mixedIdentifierList:(IDENTIFIER | DOLAR_IDENTIFIER)(COMMA (IDENTIFIER | DOLAR_IDENTIFIER))*
@@ -353,6 +359,9 @@ PRIMITIVE_TYPE: 	'Int'
 // 3.3 Identifier, Dolar identifer
 IDENTIFIER:			[_a-zA-Z][_a-zA-Z0-9]*;
 DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
+MIXED_IDENTIFIER:   [_a-zA-Z][_a-zA-Z0-9]*
+                    | '$'[_a-zA-Z0-9]+
+                    ;
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================
