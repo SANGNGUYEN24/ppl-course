@@ -44,9 +44,7 @@ attributeValueList:
                     ;
 identifierList: 	IDENTIFIER (COMMA IDENTIFIER)*
 					;// My1stCons, My2ndCons
-mixedIdentifierList:
-                    (IDENTIFIER | DOLAR_IDENTIFIER)
-                    | (IDENTIFIER | DOLAR_IDENTIFIER)(COMMA (IDENTIFIER | DOLAR_IDENTIFIER))+
+mixedIdentifierList:(IDENTIFIER | DOLAR_IDENTIFIER)(COMMA (IDENTIFIER | DOLAR_IDENTIFIER))*
                     ;
 //==================== Program struture end ====================
 

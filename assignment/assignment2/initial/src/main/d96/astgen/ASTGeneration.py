@@ -3,10 +3,10 @@ from D96Visitor import D96Visitor
 from D96Parser import D96Parser
 from AST import *
 from functools import reduce
-
-# from initial.src.main.d96.utils.AST import *
-# from initial.target.D96Visitor import D96Visitor
-# from initial.target.D96Parser import D96Parser
+#
+from initial.src.main.d96.utils.AST import *
+from initial.target.D96Visitor import D96Visitor
+from initial.target.D96Parser import D96Parser
 
 
 def flatten(lst):
@@ -59,12 +59,12 @@ class ASTGeneration(D96Visitor):
         if ctx.destructor():
             return self.visit(ctx.destructor())
 
-        param = self.visit(ctx.parameterList()) if ctx.parameterList() else []
         # TODO xem lai dieu kien cua statementList
         # Program([ClassDecl(Id(Adam),Id(Human),[MethodDecl(Id(main),Static,[],Block([None]))])])
         # Block([None]) expect Block([]) khi function main ko co gi
-        statementList = [self.visit(ctx.blockStatement())] if ctx.blockStatement() else []
+        # statementList = [self.visit(ctx.blockStatement())] if ctx.blockStatement() else []
         # body = Block(statementList)
+        param = self.visit(ctx.parameterList()) if ctx.parameterList() else []
         body = Block([])
 
         # TODO Dieu kien chi main trong Program class moi la Static
@@ -108,7 +108,11 @@ class ASTGeneration(D96Visitor):
             return self.visit(ctx.arrayType())
 
     def visitAttributeDeclaration(self, ctx: D96Parser.AttributeDeclarationContext):
-        pass
+
+        variableList = self.visit(ctx.mixedIdentifierList())
+        d96Type = self.visit(ctx.d96Type())
+
+        return AttributeDecl(kind, decl)
 
     def visitAttributeValueList(self, ctx: D96Parser.AttributeValueListContext):
         pass
@@ -117,7 +121,7 @@ class ASTGeneration(D96Visitor):
         return [Id(x.getText()) for x in ctx.IDENTIFIER()]
 
     def visitMixedIdentifierList(self, ctx: D96Parser.MixedIdentifierListContext):
-        pass
+
 
     def visitExpressionList(self, ctx: D96Parser.ExpressionListContext):
         pass
@@ -253,5 +257,4 @@ class ASTGeneration(D96Visitor):
             eleType = self.visit(ctx.arrayType())
         else:
             eleType = None
-
         return ArrayType(size, eleType)
