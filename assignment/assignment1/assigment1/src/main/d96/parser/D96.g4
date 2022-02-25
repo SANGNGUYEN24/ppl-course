@@ -11,14 +11,29 @@ language = Python3;
 //==================== Program struture start ====================
 program:  			classDeclaration+ EOF;
 //-----------------------------------------------------------------
-classDeclaration:	K_CLASS IDENTIFIER (COLON IDENTIFIER)?
-					LEFT_CURLY_BRACKET memberDeclaration* RIGHT_CURLY_BRACKET
+classDeclaration:	normalClassDecl
+                    | programClassDecl
 					;// Class declaration
+normalClassDecl:    K_CLASS (K_MAIN | IDENTIFIER) (COLON IDENTIFIER)?
+					LEFT_CURLY_BRACKET memberDeclaration* RIGHT_CURLY_BRACKET
+                    ;
+programClassDecl:   K_CLASS K_PROGRAM (COLON IDENTIFIER)?
+					LEFT_CURLY_BRACKET programClassMemDecl* RIGHT_CURLY_BRACKET
+                    ;
+programClassMemDecl:
+                    attributeDeclaration
+                    | methodDeclaration
+					| mainMethodDecl
+                    ;
+mainMethodDecl:     K_MAIN
+                    LEFT_PAREN RIGHT_PAREN blockStatement
+                    ;// No prameter in static main
+
 memberDeclaration   :attributeDeclaration
                     | methodDeclaration
 					;
 //-----------------------------------------------------------------
-methodDeclaration:	(IDENTIFIER | DOLAR_IDENTIFIER)
+methodDeclaration:	(K_MAIN | IDENTIFIER | DOLAR_IDENTIFIER)
                     LEFT_PAREN parameterList? RIGHT_PAREN blockStatement
 					| constructor
 					| destructor
@@ -101,13 +116,14 @@ staticAccess:
 					| objectCreation
 					;
 // Object creation
-objectCreation:	K_NEW IDENTIFIER
+objectCreation:	    K_NEW IDENTIFIER
 					LEFT_PAREN expressionList? RIGHT_PAREN
 					| atomExpr
 					;
 
 atomExpr:			literal
                     | K_NULL
+                    | K_SELF
 					| IDENTIFIER
 					| LEFT_PAREN expression RIGHT_PAREN
 					;
@@ -208,6 +224,9 @@ K_ARRAY:			'Array';
 K_IN: 				'In';
 K_RETURN:			'Return';
 K_NULL: 			'Null';
+K_SELF: 			'Self';
+K_MAIN:             'main';
+K_PROGRAM:          'Program';
 K_CLASS: 			'Class';
 K_VAL: 				'Val';
 K_VAR: 				'Var';

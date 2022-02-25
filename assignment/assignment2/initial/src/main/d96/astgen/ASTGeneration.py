@@ -6,9 +6,9 @@ from functools import reduce
 
 
 # #
-from initial.src.main.d96.utils.AST import *
-from initial.target.D96Visitor import D96Visitor
-from initial.target.D96Parser import D96Parser
+# from initial.src.main.d96.utils.AST import *
+# from initial.target.D96Visitor import D96Visitor
+# from initial.target.D96Parser import D96Parser
 
 
 def flatten(lst):
@@ -145,7 +145,7 @@ class ASTGeneration(D96Visitor):
         # No expression
         for i in range(len(identifierList)):
             identifier = identifierList[i]
-            # initialValue = expressionList[i] if len(expressionList) > 0 else None
+            initialValue = expressionList[i] if len(expressionList) > 0 else None
             if "$" in identifier:
                 kind = Static()
                 if isConstant:
@@ -155,7 +155,7 @@ class ASTGeneration(D96Visitor):
                             ConstDecl(
                                 Id(identifier),
                                 d96Type,
-                                # initialValue
+                                initialValue
                             )
                         )
                     ]
@@ -166,7 +166,7 @@ class ASTGeneration(D96Visitor):
                             VarDecl(
                                 Id(identifier),
                                 d96Type,
-                                # initialValue
+                                initialValue
                             )
                         )
                     ]
@@ -179,7 +179,7 @@ class ASTGeneration(D96Visitor):
                             ConstDecl(
                                 Id(identifier),
                                 d96Type,
-                                # initialValue
+                                initialValue
                             )
                         )
                     ]
@@ -190,7 +190,7 @@ class ASTGeneration(D96Visitor):
                             VarDecl(
                                 Id(identifier),
                                 d96Type,
-                                # initialValue
+                                initialValue
                             )
                         )
                     ]
@@ -246,10 +246,19 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitStaticAccess(self, ctx: D96Parser.StaticAccessContext):
-        pass
+        if ctx.objectCreation():
+            return self.visit(ctx.objectCreation())
+        # else:
+
 
     def visitObjectCreation(self, ctx: D96Parser.ObjectCreationContext):
-        pass
+        if ctx.atomExpr():
+            return self.visit(ctx.atomExpr())
+        return NewExpr(
+            Id(ctx.IDENTIFIER().getText()),
+            self.visit(ctx.expressionList()) if ctx.expressionList() else []
+        )
+
 
     def visitAtomExpr(self, ctx: D96Parser.AtomExprContext):
         if ctx.literal():
