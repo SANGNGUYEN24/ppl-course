@@ -133,13 +133,10 @@ atomExpr:			literal
 
 //==================== Statement start ====================
 // Variable and Constant Declaration Statement
-varValStatement:	(K_VAL | K_VAR) identifierList COLON d96Type SEMI_COLON // not assigned
-                    | (K_VAL | K_VAR) IDENTIFIER varValValueList expression SEMI_COLON// assigned
+varValStatement:	(K_VAL | K_VAR)
+                    IDENTIFIER (COMMA IDENTIFIER)*
+                    COLON d96Type (OP_ASSIGN expression (COMMA expression)*)? SEMI_COLON
                     ;
-
-varValValueList :
-                    COLON d96Type OP_ASSIGN
-                    | COMMA IDENTIFIER varValValueList expression COMMA;
 // Assign statement
 lhs:                instanceAccess DOT IDENTIFIER
                     | instanceAccess DOUBLE_COLON DOLAR_IDENTIFIER
@@ -150,16 +147,20 @@ assignStatement: 	lhs OP_ASSIGN expression SEMI_COLON
 					;
 // If statement
 // ---------------------------------------------------------------------------
-ifStatement:		ifPart
-					elseIfPart*
-					elsePart?
-					;
-ifPart:			    K_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
-					;
-elseIfPart:		    K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
-					;
-elsePart:			K_ELSE blockStatement
-					;
+//ifStatement:		ifPart
+//					elseIfPart*
+//					elsePart?
+//					;
+//ifPart:			    K_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
+//					;
+//elseIfPart:		    K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
+//					;
+//elsePart:			K_ELSE blockStatement
+//					;
+ifStatement:        K_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
+                    | K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
+                    | K_ELSE blockStatement
+                    ;
 //-----------------------------------------------------------------------------
 // For in statement
 //-----------------------------------------------------------------------------

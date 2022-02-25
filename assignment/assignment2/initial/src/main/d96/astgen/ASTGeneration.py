@@ -411,10 +411,56 @@ class ASTGeneration(D96Visitor):
         return self.visit(ctx.expression())
 
     def visitVarValStatement(self, ctx: D96Parser.VarValStatementContext):
-        pass
+        d96Type = self.visit(ctx.d96Type())
+        if ctx.IDENTIFIER(1):
+            identifierList = [self.visit(x) for x in ctx.IDENTIFIER()]
+            print("identifierList", identifierList)
+        else:
+            identifierList = [self.visit(ctx.IDENTIFIER(0))]
+            print("identifierList", identifierList)
 
-    def visitVarValValueList(self, ctx: D96Parser.VarValValueListContext):
-        pass
+        if ctx.expression(1):
+            expressionList = [self.visit(x) for x in ctx.expression()]
+        else:
+            if ctx.expression(0):
+                expressionList = [self.visit(ctx.expression(0))]
+            else:
+                expressionList = []
+
+        print("expressionlist", expressionList)
+        result = []
+        isConstant = True if ctx.K_VAL() else False
+
+        # No expression
+        for i in range(len(identifierList)):
+            identifier = identifierList[i]
+            initialValue = expressionList[i] if len(expressionList) > 0 else None
+            kind = Instance()
+            if isConstant:
+                result += [
+                    AttributeDecl(
+                        kind,
+                        ConstDecl(
+                            Id(identifier),
+                            d96Type,
+                            initialValue
+                        )
+                    )
+                ]
+            else:
+                result += [
+                    AttributeDecl(
+                        kind,
+                        VarDecl(
+                            Id(identifier),
+                            d96Type,
+                            initialValue
+                        )
+                    )
+                ]
+
+        print("result", result)
+        return result
 
     def visitLhs(self, ctx: D96Parser.LhsContext):
         if ctx.instanceAccess():
@@ -442,14 +488,6 @@ class ASTGeneration(D96Visitor):
     def visitIfStatement(self, ctx: D96Parser.IfStatementContext):
         pass
 
-    def visitIfPart(self, ctx: D96Parser.IfPartContext):
-        pass
-
-    def visitElseIfPart(self, ctx: D96Parser.ElseIfPartContext):
-        pass
-
-    def visitElsePart(self, ctx: D96Parser.ElsePartContext):
-        pass
 
     def visitForInStatement(self, ctx: D96Parser.ForInStatementContext):
         return For(

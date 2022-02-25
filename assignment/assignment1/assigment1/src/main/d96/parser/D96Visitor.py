@@ -174,11 +174,6 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#varValValueList.
-    def visitVarValValueList(self, ctx:D96Parser.VarValValueListContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by D96Parser#lhs.
     def visitLhs(self, ctx:D96Parser.LhsContext):
         return self.visitChildren(ctx)
@@ -191,21 +186,6 @@ class D96Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by D96Parser#ifStatement.
     def visitIfStatement(self, ctx:D96Parser.IfStatementContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#ifPart.
-    def visitIfPart(self, ctx:D96Parser.IfPartContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#elseIfPart.
-    def visitElseIfPart(self, ctx:D96Parser.ElseIfPartContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by D96Parser#elsePart.
-    def visitElsePart(self, ctx:D96Parser.ElsePartContext):
         return self.visitChildren(ctx)
 
 
