@@ -147,16 +147,6 @@ assignStatement: 	lhs OP_ASSIGN expression SEMI_COLON
 					;
 // If statement
 // ---------------------------------------------------------------------------
-//ifStatement:		ifPart
-//					elseIfPart*
-//					elsePart?
-//					;
-//ifPart:			    K_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
-//					;
-//elseIfPart:		    K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
-//					;
-//elsePart:			K_ELSE blockStatement
-//					;
 ifStatement:        K_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
                     | K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
                     | K_ELSE blockStatement
@@ -330,7 +320,7 @@ literal:            INTEGER_LITERAL
                     | FLOAT_LITERAL
                     | BOOLEAN_LITERAL
                     | STRING_LITERAL
-                    | indexedArray | multiDimentionalArray;
+                    | indexedArray;
 // 5. Indexed array
 indexedArray:  		K_ARRAY
 						LEFT_PAREN(
@@ -344,12 +334,7 @@ indexedArray:  		K_ARRAY
 						RIGHT_PAREN
 						;	// Array() Array(1) Array(1,2,3)
 // 6. Multi-dimensional array
-multiDimentionalArray: 	K_ARRAY
-                            LEFT_PAREN(
-                            (indexedArray (COMMA indexedArray)*)?
-                            )
-                            RIGHT_PAREN
-					    ;
+
 // Primitive type
 PRIMITIVE_TYPE: 	'Int'
                     | 'Float'

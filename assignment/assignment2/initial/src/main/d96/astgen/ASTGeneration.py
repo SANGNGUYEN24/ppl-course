@@ -486,8 +486,11 @@ class ASTGeneration(D96Visitor):
         )
 
     def visitIfStatement(self, ctx: D96Parser.IfStatementContext):
-        pass
-
+        return If(
+            self.visit(ctx.expression()),
+            self.visit(ctx.blockStatement()),
+            self.visit(ctx.blockStatement()) if ctx.K_ELSE() else None
+        )
 
     def visitForInStatement(self, ctx: D96Parser.ForInStatementContext):
         return For(
@@ -553,7 +556,22 @@ class ASTGeneration(D96Visitor):
             return ctx.multiDimentionalArray()
 
     def visitIndexedArray(self, ctx: D96Parser.IndexedArrayContext):
-        pass
+        if ctx.INTEGER_LITERAL():
+            destinations = ctx.INTEGER_LITERAL()
+        elif ctx.INTEGER_LITERAL2():
+            destinations = ctx.INTEGER_LITERAL2()
+        elif ctx.FLOAT_LITERAL():
+            destinations = ctx.FLOAT_LITERAL()
+        elif ctx.BOOLEAN_LITERAL():
+            destinations = ctx.BOOLEAN_LITERAL()
+        elif ctx.STRING_LITERAL():
+            destinations = ctx.STRING_LITERAL()
+        else:
+            destinations = ctx.indexedArray()
+
+        return ArrayLiteral(
+            [self.visit(child) for child in destinations]
+        )
 
     def visitMultiDimentionalArray(self, ctx: D96Parser.MultiDimentionalArrayContext):
         pass
