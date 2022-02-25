@@ -240,24 +240,28 @@ class ASTGeneration(D96Visitor):
         return ctx.DOLAR_IDENTIFIER().getText()
 
     def visitExpressionList(self, ctx: D96Parser.ExpressionListContext):
-        pass
+        if ctx.expression(1):
+            return [self.visit(x) for x in ctx.expression()]
+        return ctx.expression()
 
     def visitElementExpression(self, ctx: D96Parser.ElementExpressionContext):
-        pass
+        return ArrayCell(
+            self.visit(ctx.expression()),
+            self.visit(ctx.indexOperator())
+        )
 
     def visitIndexOperator(self, ctx: D96Parser.IndexOperatorContext):
-
+        return [self.visit(x) for x in ctx.expression()]
 
     def visitExpression(self, ctx: D96Parser.ExpressionContext):
         if ctx.relationalExpr(0):
             if ctx.OP_STRING_CONCATENATION():
-                operator = ctx.OP_STRING_CONCATENATION()
+                operator = ctx.OP_STRING_CONCATENATION().getText()
             else:
-                operator = ctx.OP_TWO_SAME_STRING()
+                operator = ctx.OP_TWO_SAME_STRING().getText()
 
-            operatorStr = operator.getText()
             return BinaryOp(
-                operatorStr,
+                operator,
                 self.visit(ctx.relationalExpr(0)),
                 self.visit(ctx.relationalExpr(1))
             )
@@ -280,9 +284,9 @@ class ASTGeneration(D96Visitor):
 
     def visitRelationalExpr(self, ctx: D96Parser.RelationalExprContext):
         if ctx.andOrExpr(0):
-            operatorStr = self.visit(ctx.relationalOperator())
+            operator = self.visit(ctx.relationalOperator())
             return BinaryOp(
-                operatorStr,
+                operator,
                 self.visit(ctx.andOrExpr(0)),
                 self.visit(ctx.andOrExpr(1))
             )
@@ -291,13 +295,12 @@ class ASTGeneration(D96Visitor):
     def visitAndOrExpr(self, ctx: D96Parser.AndOrExprContext):
         if ctx.addSubExpr():
             if ctx.OP_LOGICAL_AND():
-                operator = ctx.OP_LOGICAL_AND()
+                operator = ctx.OP_LOGICAL_AND().getText()
             else:
-                operator = ctx.OP_LOGICAL_OR()
+                operator = ctx.OP_LOGICAL_OR().getText()
 
-            operatorStr = operator.getText()
             return BinaryOp(
-                operatorStr,
+                operator,
                 self.visit(ctx.andOrExpr()),
                 self.visit(ctx.addSubExpr())
             )
@@ -306,13 +309,12 @@ class ASTGeneration(D96Visitor):
     def visitAddSubExpr(self, ctx: D96Parser.AddSubExprContext):
         if ctx.addSubExpr():
             if ctx.OP_SUBTRACTION():
-                operator = ctx.OP_SUBTRACTION()
+                operator = ctx.OP_SUBTRACTION().getText()
             else:
-                operator = ctx.OP_ADDTION()
+                operator = ctx.OP_ADDTION().getText()
 
-            operatorStr = operator.getText()
             return BinaryOp(
-                operatorStr,
+                operator,
                 self.visit(ctx.addSubExpr()),
                 self.visit(ctx.mulAddMolExpr())
             )
@@ -321,15 +323,14 @@ class ASTGeneration(D96Visitor):
     def visitMulAddMolExpr(self, ctx: D96Parser.MulAddMolExprContext):
         if ctx.mulAddMolExpr():
             if ctx.OP_MULTIPLICATION():
-                operator = ctx.OP_MULTIPLICATION()
+                operator = ctx.OP_MULTIPLICATION().getText()
             elif ctx.OP_MODULO():
-                operator = ctx.OP_MODULO()
+                operator = ctx.OP_MODULO().getText()
             else:
-                operator = ctx.OP_DIVISION()
+                operator = ctx.OP_DIVISION().getText()
 
-            operatorStr = operator.getText()
             return BinaryOp(
-                operatorStr,
+                operator,
                 self.visit(ctx.mulAddMolExpr()),
                 self.visit(ctx.notExpr())
             )
@@ -346,9 +347,9 @@ class ASTGeneration(D96Visitor):
     def visitSignExpr(self, ctx: D96Parser.SignExprContext):
         if ctx.indexOperatorExpr():
             return self.visit(ctx.indexOperatorExpr())
-        operatorStr = ctx.OP_SUBTRACTION().getText() if ctx.OP_SUBTRACTION() else ctx.OP_ADDTION().getText()
+        operator = ctx.OP_SUBTRACTION().getText() if ctx.OP_SUBTRACTION() else ctx.OP_ADDTION().getText()
         return UnaryOp(
-            operatorStr,
+            operator,
             self.visit(ctx.signExpr())
         )
 
@@ -459,10 +460,28 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitBlockStatement(self, ctx: D96Parser.BlockStatementContext):
-        pass
+        return [self.visit(child) for child in ctx.statement()]
 
     def visitStatement(self, ctx: D96Parser.StatementContext):
-        pass
+        if ctx.varValStatement():
+            child = ctx.varValStatement()
+        elif ctx.assignStatement():
+            child = ctx.assignStatement()
+        elif ctx.ifStatement():
+            child = ctx.ifStatement()
+        elif ctx.forInStatement():
+            child = ctx.forInStatement()
+        elif ctx.breakStatement():
+            child = ctx.breakStatement()
+        elif ctx.continueStatement():
+            child = ctx.continueStatement()
+        elif ctx.returnStatement():
+            child = ctx.continueStatement()
+        elif ctx.methodInvocationStatement():
+            child = ctx.methodInvocationStatement()
+        else:
+            child = ctx.blockStatement()
+        return self.visit(child)
 
     def visitLiteral(self, ctx: D96Parser.LiteralContext):
         if ctx.INTEGER_LITERAL2():

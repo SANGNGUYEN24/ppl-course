@@ -68,7 +68,7 @@ expressionList: 	expression | expression (COMMA expression)+
 // Index operator
 elementExpression:	expression indexOperator
 					;
-indexOperator:		LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET indexOperator*
+indexOperator:		(LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET)+
 					;// a[1] or b[1][2] or A[1+2]
 //-----------------------------------------------------------------
 // All expression
@@ -141,7 +141,7 @@ varValValueList :
                     COLON d96Type OP_ASSIGN
                     | COMMA IDENTIFIER varValValueList expression COMMA;
 // Assign statement
-lhs:                memberAccessInstance DOT IDENTIFIER
+lhs:                instanceAccess DOT IDENTIFIER
                     | IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
                     | IDENTIFIER
                     | elementExpression
@@ -167,7 +167,7 @@ forInStatement:	    K_FOR_EACH
 					LEFT_PAREN loopPart RIGHT_PAREN
 					blockStatement
 					;
-loopPart:			memberAccessInstance K_IN expression DOUBLE_DOT expression
+loopPart:			instanceAccess K_IN expression DOUBLE_DOT expression
 					(K_BY expression)?
 					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
@@ -181,19 +181,8 @@ continueStatement:	K_CONTINUE SEMI_COLON
 returnStatement:    K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
-memberAccessInstance:
-                    memberAccessInstance DOT IDENTIFIER (LEFT_PAREN expressionList? RIGHT_PAREN)?
-                    | memberAccessStatic
-                    | objectCreation
-                    ;
-memberAccessStatic:
-                    IDENTIFIER DOUBLE_COLON
-                    (DOLAR_IDENTIFIER | DOLAR_IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN)?
-                    ;
 methodInvocationStatement:
-                    (memberAccessInstance DOT IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN
-                    | IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN)
-                    SEMI_COLON
+                    instanceAccess SEMI_COLON
 					;// Shape::$getNumOfShape();
 blockStatement:	    LEFT_CURLY_BRACKET
 					statement*
