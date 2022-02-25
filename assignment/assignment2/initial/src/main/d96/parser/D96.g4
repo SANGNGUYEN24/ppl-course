@@ -22,8 +22,8 @@ programClassDecl:   K_CLASS K_PROGRAM (COLON IDENTIFIER)?
                     ;
 programClassMemDecl:
                     attributeDeclaration
-                    | methodDeclaration
 					| mainMethodDecl
+                    | methodDeclaration
                     ;
 mainMethodDecl:     K_MAIN
                     LEFT_PAREN RIGHT_PAREN blockStatement

@@ -4,7 +4,6 @@ from D96Parser import D96Parser
 from AST import *
 from functools import reduce
 
-
 # #
 # from initial.src.main.d96.utils.AST import *
 # from initial.target.D96Visitor import D96Visitor
@@ -53,12 +52,44 @@ class ASTGeneration(D96Visitor):
         return Program([self.visit(x) for x in ctx.classDeclaration()])
 
     def visitClassDeclaration(self, ctx: D96Parser.ClassDeclarationContext):
+        if ctx.normalClassDecl():
+            return self.visit(ctx.normalClassDecl())
+        return self.visit(ctx.programClassDecl())
+
+    def visitNormalClassDecl(self, ctx: D96Parser.NormalClassDeclContext):
+        className = Id(ctx.K_MAIN().getText()) if ctx.K_MAIN() else Id(ctx.IDENTIFIER(0).getText())
         superClass = Id(ctx.IDENTIFIER(1).getText()) if ctx.IDENTIFIER(1) else None
         memberDeclarationList = flatten([self.visit(x) for x in ctx.memberDeclaration()])
         return ClassDecl(
-            Id(ctx.IDENTIFIER(0).getText()),
+            className,
             memberDeclarationList,
             superClass
+        )
+
+    def visitProgramClassDecl(self, ctx:D96Parser.ProgramClassDeclContext):
+        className = Id(ctx.K_PROGRAM().getText())
+        superClass = Id(ctx.IDENTIFIER().getText()) if ctx.IDENTIFIER() else None
+        memberDeclarationList = flatten([self.visit(x) for x in ctx.programClassMemDecl()])
+        return ClassDecl(
+            className,
+            memberDeclarationList,
+            superClass
+        )
+
+    def visitProgramClassMemDecl(self, ctx:D96Parser.ProgramClassMemDeclContext):
+        if ctx.attributeDeclaration():
+            return self.visit(ctx.attributeDeclaration())
+        if ctx.mainMethodDecl():
+            return self.visit(ctx.mainMethodDecl())
+        return self.visit(ctx.methodDeclaration())
+
+    def visitMainMethodDecl(self, ctx:D96Parser.MainMethodDeclContext):
+        body = Block([])
+        return MethodDecl(
+            Static(),
+            Id(ctx.K_MAIN().getText()),
+            [],
+            body
         )
 
     def visitMemberDeclaration(self, ctx: D96Parser.MemberDeclarationContext):
@@ -82,9 +113,12 @@ class ASTGeneration(D96Visitor):
         body = Block([])
 
         # TODO Dieu kien chi main trong Program class moi la Static
-        if ctx.IDENTIFIER():
+        if ctx.K_MAIN():
+            methodName = Id(ctx.K_MAIN().getText())
+            kind = Instance()
+        elif ctx.IDENTIFIER():
             methodName = Id(ctx.IDENTIFIER().getText())
-            kind = Static() if methodName == Id("main") else Instance()
+            kind = Instance()
         else:
             methodName = Id(ctx.DOLAR_IDENTIFIER().getText())
             kind = Static()
@@ -250,7 +284,6 @@ class ASTGeneration(D96Visitor):
             return self.visit(ctx.objectCreation())
         # else:
 
-
     def visitObjectCreation(self, ctx: D96Parser.ObjectCreationContext):
         if ctx.atomExpr():
             return self.visit(ctx.atomExpr())
@@ -258,7 +291,6 @@ class ASTGeneration(D96Visitor):
             Id(ctx.IDENTIFIER().getText()),
             self.visit(ctx.expressionList()) if ctx.expressionList() else []
         )
-
 
     def visitAtomExpr(self, ctx: D96Parser.AtomExprContext):
         if ctx.literal():
