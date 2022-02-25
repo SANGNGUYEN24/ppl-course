@@ -214,11 +214,6 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#loopPart.
-    def visitLoopPart(self, ctx:D96Parser.LoopPartContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by D96Parser#breakStatement.
     def visitBreakStatement(self, ctx:D96Parser.BreakStatementContext):
         return self.visitChildren(ctx)

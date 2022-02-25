@@ -142,7 +142,7 @@ varValValueList :
                     | COMMA IDENTIFIER varValValueList expression COMMA;
 // Assign statement
 lhs:                instanceAccess DOT IDENTIFIER
-                    | IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
+                    | instanceAccess DOUBLE_COLON DOLAR_IDENTIFIER
                     | IDENTIFIER
                     | elementExpression
                     ;
@@ -164,12 +164,11 @@ elsePart:			K_ELSE blockStatement
 // For in statement
 //-----------------------------------------------------------------------------
 forInStatement:	    K_FOR_EACH
-					LEFT_PAREN loopPart RIGHT_PAREN
+                    LEFT_PAREN
+                    IDENTIFIER K_IN expression DOUBLE_DOT expression (K_BY expression)?
+                    RIGHT_PAREN
 					blockStatement
 					;
-loopPart:			IDENTIFIER K_IN expression DOUBLE_DOT expression
-					(K_BY expression)?
-					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
 // Break statement
 breakStatement:	    K_BREAK SEMI_COLON

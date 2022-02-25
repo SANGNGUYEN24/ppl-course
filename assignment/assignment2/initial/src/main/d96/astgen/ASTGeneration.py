@@ -417,10 +417,27 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitLhs(self, ctx: D96Parser.LhsContext):
-        pass
+        if ctx.instanceAccess():
+            if ctx.IDENTIFIER():
+                return FieldAccess(
+                    self.visit(ctx.instanceAccess()),
+                    Id(ctx.IDENTIFIER().getText())
+                )
+            else:
+                return FieldAccess(
+                    self.visit(ctx.instanceAccess()),
+                    Id(ctx.DOLAR_IDENTIFIER().getText())
+                )
+        if ctx.elementExpression():
+            return self.visit(ctx.elementExpression())
+
+        return Id(ctx.IDENTIFIER().getText())
 
     def visitAssignStatement(self, ctx: D96Parser.AssignStatementContext):
-        pass
+        return Assign(
+            self.visit(ctx.lhs()),
+            self.visit(ctx.expression())
+        )
 
     def visitIfStatement(self, ctx: D96Parser.IfStatementContext):
         pass
@@ -435,10 +452,13 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitForInStatement(self, ctx: D96Parser.ForInStatementContext):
-        pass
-
-    def visitLoopPart(self, ctx: D96Parser.LoopPartContext):
-        pass
+        return For(
+            Id(ctx.IDENTIFIER().getText()),
+            self.visit(ctx.expression(0)),
+            self.visit(ctx.expression(1)),
+            self.visit(ctx.blockStatement()),
+            self.visit(ctx.expression(2)) if ctx.expression(2) else None
+        )
 
     def visitBreakStatement(self, ctx: D96Parser.BreakStatementContext):
         return Break()
