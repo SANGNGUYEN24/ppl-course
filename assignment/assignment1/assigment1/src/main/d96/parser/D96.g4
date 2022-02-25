@@ -22,8 +22,8 @@ programClassDecl:   K_CLASS K_PROGRAM (COLON IDENTIFIER)?
                     ;
 programClassMemDecl:
                     attributeDeclaration
-                    | methodDeclaration
 					| mainMethodDecl
+                    | methodDeclaration
                     ;
 mainMethodDecl:     K_MAIN
                     LEFT_PAREN RIGHT_PAREN blockStatement
@@ -102,7 +102,8 @@ notExpr:			OP_LOGICAL_NOT notExpr | signExpr
 signExpr:			(OP_SUBTRACTION) signExpr | indexOperatorExpr
 					;
 indexOperatorExpr:
-					indexOperatorExpr indexOperator | instanceAccess
+					instanceAccess indexOperator
+					| instanceAccess
 					;
 // Member access
 instanceAccess:
@@ -111,7 +112,7 @@ instanceAccess:
 					| staticAccess
 					;
 staticAccess:
-					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
+					staticAccess DOUBLE_COLON DOLAR_IDENTIFIER
 					(LEFT_PAREN expressionList? RIGHT_PAREN)?
 					| objectCreation
 					;

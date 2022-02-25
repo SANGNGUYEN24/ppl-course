@@ -5,9 +5,9 @@ from AST import *
 from functools import reduce
 
 # #
-# from initial.src.main.d96.utils.AST import *
-# from initial.target.D96Visitor import D96Visitor
-# from initial.target.D96Parser import D96Parser
+from initial.src.main.d96.utils.AST import *
+from initial.target.D96Visitor import D96Visitor
+from initial.target.D96Parser import D96Parser
 
 
 def flatten(lst):
@@ -66,7 +66,7 @@ class ASTGeneration(D96Visitor):
             superClass
         )
 
-    def visitProgramClassDecl(self, ctx:D96Parser.ProgramClassDeclContext):
+    def visitProgramClassDecl(self, ctx: D96Parser.ProgramClassDeclContext):
         className = Id(ctx.K_PROGRAM().getText())
         superClass = Id(ctx.IDENTIFIER().getText()) if ctx.IDENTIFIER() else None
         memberDeclarationList = flatten([self.visit(x) for x in ctx.programClassMemDecl()])
@@ -76,14 +76,14 @@ class ASTGeneration(D96Visitor):
             superClass
         )
 
-    def visitProgramClassMemDecl(self, ctx:D96Parser.ProgramClassMemDeclContext):
+    def visitProgramClassMemDecl(self, ctx: D96Parser.ProgramClassMemDeclContext):
         if ctx.attributeDeclaration():
             return self.visit(ctx.attributeDeclaration())
         if ctx.mainMethodDecl():
             return self.visit(ctx.mainMethodDecl())
         return self.visit(ctx.methodDeclaration())
 
-    def visitMainMethodDecl(self, ctx:D96Parser.MainMethodDeclContext):
+    def visitMainMethodDecl(self, ctx: D96Parser.MainMethodDeclContext):
         body = Block([])
         return MethodDecl(
             Static(),
@@ -112,7 +112,6 @@ class ASTGeneration(D96Visitor):
         param = self.visit(ctx.parameterList()) if ctx.parameterList() else []
         body = Block([])
 
-        # TODO Dieu kien chi main trong Program class moi la Static
         if ctx.K_MAIN():
             methodName = Id(ctx.K_MAIN().getText())
             kind = Instance()
@@ -274,15 +273,38 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitIndexOperatorExpr(self, ctx: D96Parser.IndexOperatorExprContext):
-        pass
+
+        return ArrayCell()
 
     def visitInstanceAccess(self, ctx: D96Parser.InstanceAccessContext):
-        pass
+        preExpression = self.visit(ctx.instanceAccess())
+        accessField = Id(ctx.IDENTIFIER().getText())
+        if ctx.staticAccess():
+            return self.visit(ctx.staticAccess())
+        else:
+            if ctx.LEFT_PAREN():  # Access a function
+                if ctx.expressionList():
+                    expressionList = self.visit(ctx.expressionList())
+                else:
+                    expressionList = []
+                return CallExpr(preExpression, accessField, expressionList)
+            else:  # Access an attribute
+                return FieldAccess(preExpression, accessField)
 
     def visitStaticAccess(self, ctx: D96Parser.StaticAccessContext):
+        preExpression = self.visit(ctx.staticAccess())
+        accessField = Id(ctx.DOLAR_IDENTIFIER().getText())
         if ctx.objectCreation():
             return self.visit(ctx.objectCreation())
-        # else:
+        else:
+            if ctx.LEFT_PAREN():  # Access a function
+                if ctx.expressionList():
+                    expressionList = self.visit(ctx.expressionList())
+                else:
+                    expressionList = []
+                return CallExpr(preExpression, accessField, expressionList)
+            else:  # Access an attribute
+                return FieldAccess(preExpression, accessField)
 
     def visitObjectCreation(self, ctx: D96Parser.ObjectCreationContext):
         if ctx.atomExpr():
