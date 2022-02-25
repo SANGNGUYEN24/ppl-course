@@ -84,7 +84,7 @@ class ASTGeneration(D96Visitor):
         return self.visit(ctx.methodDeclaration())
 
     def visitMainMethodDecl(self, ctx: D96Parser.MainMethodDeclContext):
-        body = Block([])
+        body = self.visit(ctx.blockStatement())
         return MethodDecl(
             Static(),
             Id(ctx.K_MAIN().getText()),
@@ -110,7 +110,7 @@ class ASTGeneration(D96Visitor):
         # statementList = [self.visit(ctx.blockStatement())] if ctx.blockStatement() else []
         # body = Block(statementList)
         param = self.visit(ctx.parameterList()) if ctx.parameterList() else []
-        body = Block([])
+        body = self.visit(ctx.blockStatement())
 
         if ctx.K_MAIN():
             methodName = Id(ctx.K_MAIN().getText())
@@ -128,14 +128,14 @@ class ASTGeneration(D96Visitor):
         kind = Instance()
         methodName = Id("Constructor")
         param = self.visit(ctx.parameterList()) if ctx.parameterList() else []
-        body = Block([])
+        body = self.visit(ctx.blockStatement())
         return MethodDecl(kind, methodName, param, body)
 
     def visitDestructor(self, ctx: D96Parser.DestructorContext):
         kind = Instance()
         methodName = Id("Destructor")
         param = []
-        body = Block([])
+        body = self.visit(ctx.blockStatement())
         return MethodDecl(kind, methodName, param, body)
 
     def visitParameterList(self, ctx: D96Parser.ParameterListContext):
@@ -515,7 +515,7 @@ class ASTGeneration(D96Visitor):
         return self.visit(ctx.instanceAccess())
 
     def visitBlockStatement(self, ctx: D96Parser.BlockStatementContext):
-        return [self.visit(child) for child in ctx.statement()]
+        return Block([self.visit(child) for child in ctx.statement()] if ctx.statement() else [])
 
     def visitStatement(self, ctx: D96Parser.StatementContext):
         if ctx.varValStatement():
