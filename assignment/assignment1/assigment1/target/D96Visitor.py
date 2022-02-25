@@ -19,6 +19,26 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by D96Parser#normalClassDecl.
+    def visitNormalClassDecl(self, ctx:D96Parser.NormalClassDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#programClassDecl.
+    def visitProgramClassDecl(self, ctx:D96Parser.ProgramClassDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#programClassMemDecl.
+    def visitProgramClassMemDecl(self, ctx:D96Parser.ProgramClassMemDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by D96Parser#mainMethodDecl.
+    def visitMainMethodDecl(self, ctx:D96Parser.MainMethodDeclContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by D96Parser#memberDeclaration.
     def visitMemberDeclaration(self, ctx:D96Parser.MemberDeclarationContext):
         return self.visitChildren(ctx)
