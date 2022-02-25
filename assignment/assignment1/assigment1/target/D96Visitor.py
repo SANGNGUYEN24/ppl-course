@@ -59,18 +59,13 @@ class D96Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#attributeValueList.
-    def visitAttributeValueList(self, ctx:D96Parser.AttributeValueListContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by D96Parser#identifierList.
     def visitIdentifierList(self, ctx:D96Parser.IdentifierListContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by D96Parser#mixedIdentifierList.
-    def visitMixedIdentifierList(self, ctx:D96Parser.MixedIdentifierListContext):
+    # Visit a parse tree produced by D96Parser#mixedIdentifier.
+    def visitMixedIdentifier(self, ctx:D96Parser.MixedIdentifierContext):
         return self.visitChildren(ctx)
 
 

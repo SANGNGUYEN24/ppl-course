@@ -3,7 +3,9 @@ from D96Visitor import D96Visitor
 from D96Parser import D96Parser
 from AST import *
 from functools import reduce
-#
+
+
+# #
 from initial.src.main.d96.utils.AST import *
 from initial.target.D96Visitor import D96Visitor
 from initial.target.D96Parser import D96Parser
@@ -34,13 +36,25 @@ def convertStringToPrimitiveType(s):
         return StringType()
 
 
+def text2int(text):
+    if text[0] != '0':
+        return int(text)
+    elif text == '0':
+        return 0
+    elif text[1] in ['x', 'X']:
+        return int(text, 16)
+    elif text[1] in ['b', 'B']:
+        return int(text, 2)
+    return int(text[0] + 'o' + text[1:])
+
+
 class ASTGeneration(D96Visitor):
     def visitProgram(self, ctx: D96Parser.ProgramContext):
         return Program([self.visit(x) for x in ctx.classDeclaration()])
 
     def visitClassDeclaration(self, ctx: D96Parser.ClassDeclarationContext):
         superClass = Id(ctx.IDENTIFIER(1).getText()) if ctx.IDENTIFIER(1) else None
-        memberDeclarationList = [self.visit(x) for x in ctx.memberDeclaration()]
+        memberDeclarationList = flatten([self.visit(x) for x in ctx.memberDeclaration()])
         return ClassDecl(
             Id(ctx.IDENTIFIER(0).getText()),
             memberDeclarationList,
@@ -108,20 +122,89 @@ class ASTGeneration(D96Visitor):
             return self.visit(ctx.arrayType())
 
     def visitAttributeDeclaration(self, ctx: D96Parser.AttributeDeclarationContext):
-
-        variableList = self.visit(ctx.mixedIdentifierList())
         d96Type = self.visit(ctx.d96Type())
+        if ctx.mixedIdentifier(1):
+            identifierList = [self.visit(x) for x in ctx.mixedIdentifier()]
+            print("identifierList", identifierList)
+        else:
+            identifierList = [self.visit(ctx.mixedIdentifier(0))]
+            print("identifierList", identifierList)
 
-        return AttributeDecl(kind, decl)
+        if ctx.expression(1):
+            expressionList = [self.visit(x) for x in ctx.expression()]
+        else:
+            if ctx.expression(0):
+                expressionList = [self.visit(ctx.expression(0))]
+            else:
+                expressionList = []
 
-    def visitAttributeValueList(self, ctx: D96Parser.AttributeValueListContext):
-        pass
+        print("expressionlist", expressionList)
+        result = []
+        isConstant = True if ctx.K_VAL() else False
+
+        # No expression
+        for i in range(len(identifierList)):
+            identifier = identifierList[i]
+            # initialValue = expressionList[i] if len(expressionList) > 0 else None
+            if "$" in identifier:
+                kind = Static()
+                if isConstant:
+                    result += [
+                        AttributeDecl(
+                            kind,
+                            ConstDecl(
+                                Id(identifier),
+                                d96Type,
+                                # initialValue
+                            )
+                        )
+                    ]
+                else:
+                    result += [
+                        AttributeDecl(
+                            kind,
+                            VarDecl(
+                                Id(identifier),
+                                d96Type,
+                                # initialValue
+                            )
+                        )
+                    ]
+            else:
+                kind = Instance()
+                if isConstant:
+                    result += [
+                        AttributeDecl(
+                            kind,
+                            ConstDecl(
+                                Id(identifier),
+                                d96Type,
+                                # initialValue
+                            )
+                        )
+                    ]
+                else:
+                    result += [
+                        AttributeDecl(
+                            kind,
+                            VarDecl(
+                                Id(identifier),
+                                d96Type,
+                                # initialValue
+                            )
+                        )
+                    ]
+
+        print("result", result)
+        return result
 
     def visitIdentifierList(self, ctx: D96Parser.IdentifierListContext):
         return [Id(x.getText()) for x in ctx.IDENTIFIER()]
 
-    def visitMixedIdentifierList(self, ctx: D96Parser.MixedIdentifierListContext):
-
+    def visitMixedIdentifier(self, ctx: D96Parser.MixedIdentifierContext):
+        if ctx.IDENTIFIER():
+            return ctx.IDENTIFIER().getText()
+        return ctx.DOLAR_IDENTIFIER().getText()
 
     def visitExpressionList(self, ctx: D96Parser.ExpressionListContext):
         pass
@@ -169,7 +252,15 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitAtomExpr(self, ctx: D96Parser.AtomExprContext):
-        pass
+        if ctx.literal():
+            return self.visit(ctx.literal())
+        if ctx.K_NULL():
+            return NullLiteral()
+        if ctx.K_SELF():
+            return SelfLiteral()
+        if ctx.IDENTIFIER():
+            return ctx.IDENTIFIER().getText()
+        return self.visit(ctx.expression())
 
     def visitVarValStatement(self, ctx: D96Parser.VarValStatementContext):
         pass
