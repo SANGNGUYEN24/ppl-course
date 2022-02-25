@@ -5,9 +5,9 @@ from AST import *
 from functools import reduce
 
 # #
-from initial.src.main.d96.utils.AST import *
-from initial.target.D96Visitor import D96Visitor
-from initial.target.D96Parser import D96Parser
+# from initial.src.main.d96.utils.AST import *
+# from initial.target.D96Visitor import D96Visitor
+# from initial.target.D96Parser import D96Parser
 
 
 def flatten(lst):
@@ -552,8 +552,6 @@ class ASTGeneration(D96Visitor):
         # TODO Xem lai phan Array
         if ctx.indexedArray():
             return ctx.indexedArray()
-        if ctx.multiDimentionalArray():
-            return ctx.multiDimentionalArray()
 
     def visitIndexedArray(self, ctx: D96Parser.IndexedArrayContext):
         if ctx.INTEGER_LITERAL():
@@ -572,9 +570,6 @@ class ASTGeneration(D96Visitor):
         return ArrayLiteral(
             [self.visit(child) for child in destinations]
         )
-
-    def visitMultiDimentionalArray(self, ctx: D96Parser.MultiDimentionalArrayContext):
-        pass
 
     def visitArrayType(self, ctx: D96Parser.ArrayTypeContext):
         size = int(ctx.INTEGER_LITERAL2().getText())
