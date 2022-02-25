@@ -246,35 +246,119 @@ class ASTGeneration(D96Visitor):
         pass
 
     def visitIndexOperator(self, ctx: D96Parser.IndexOperatorContext):
-        pass
 
-    def visitRelationalOperator(self, ctx: D96Parser.RelationalOperatorContext):
-        pass
 
     def visitExpression(self, ctx: D96Parser.ExpressionContext):
-        pass
+        if ctx.relationalExpr(0):
+            if ctx.OP_STRING_CONCATENATION():
+                operator = ctx.OP_STRING_CONCATENATION()
+            else:
+                operator = ctx.OP_TWO_SAME_STRING()
+
+            operatorStr = operator.getText()
+            return BinaryOp(
+                operatorStr,
+                self.visit(ctx.relationalExpr(0)),
+                self.visit(ctx.relationalExpr(1))
+            )
+        return self.visit(ctx.relationalExpr())
+
+    def visitRelationalOperator(self, ctx: D96Parser.RelationalOperatorContext):
+        if ctx.OP_IS_EQUAL_TO():
+            operator = ctx.OP_IS_EQUAL_TO()
+        elif ctx.OP_NOT_EQUAL_TO():
+            operator = ctx.OP_NOT_EQUAL_TO()
+        elif ctx.OP_LESS_THAN():
+            operator = ctx.OP_LESS_THAN()
+        elif ctx.OP_LESS_THAN_EQUAL():
+            operator = ctx.OP_LESS_THAN_EQUAL()
+        elif ctx.OP_GREATER_THAN():
+            operator = ctx.OP_GREATER_THAN()
+        else:
+            operator = ctx.OP_GREATER_THAN_EQUAL()
+        return operator.getText()
 
     def visitRelationalExpr(self, ctx: D96Parser.RelationalExprContext):
-        pass
+        if ctx.andOrExpr(0):
+            operatorStr = self.visit(ctx.relationalOperator())
+            return BinaryOp(
+                operatorStr,
+                self.visit(ctx.andOrExpr(0)),
+                self.visit(ctx.andOrExpr(1))
+            )
+        return self.visit(ctx.andOrExpr())
 
     def visitAndOrExpr(self, ctx: D96Parser.AndOrExprContext):
-        pass
+        if ctx.addSubExpr():
+            if ctx.OP_LOGICAL_AND():
+                operator = ctx.OP_LOGICAL_AND()
+            else:
+                operator = ctx.OP_LOGICAL_OR()
+
+            operatorStr = operator.getText()
+            return BinaryOp(
+                operatorStr,
+                self.visit(ctx.andOrExpr()),
+                self.visit(ctx.addSubExpr())
+            )
+        return self.visit(ctx.addSubExpr())
 
     def visitAddSubExpr(self, ctx: D96Parser.AddSubExprContext):
-        pass
+        if ctx.addSubExpr():
+            if ctx.OP_SUBTRACTION():
+                operator = ctx.OP_SUBTRACTION()
+            else:
+                operator = ctx.OP_ADDTION()
+
+            operatorStr = operator.getText()
+            return BinaryOp(
+                operatorStr,
+                self.visit(ctx.addSubExpr()),
+                self.visit(ctx.mulAddMolExpr())
+            )
+        return self.visit(ctx.mulAddMolExpr())
 
     def visitMulAddMolExpr(self, ctx: D96Parser.MulAddMolExprContext):
-        pass
+        if ctx.mulAddMolExpr():
+            if ctx.OP_MULTIPLICATION():
+                operator = ctx.OP_MULTIPLICATION()
+            elif ctx.OP_MODULO():
+                operator = ctx.OP_MODULO()
+            else:
+                operator = ctx.OP_DIVISION()
+
+            operatorStr = operator.getText()
+            return BinaryOp(
+                operatorStr,
+                self.visit(ctx.mulAddMolExpr()),
+                self.visit(ctx.notExpr())
+            )
+        return self.visit(ctx.notExpr())
 
     def visitNotExpr(self, ctx: D96Parser.NotExprContext):
-        pass
+        if ctx.signExpr():
+            return self.visit(ctx.signExpr())
+        return UnaryOp(
+            ctx.OP_LOGICAL_NOT().getText(),
+            self.visit(ctx.notExpr())
+        )
 
     def visitSignExpr(self, ctx: D96Parser.SignExprContext):
-        pass
+        if ctx.indexOperatorExpr():
+            return self.visit(ctx.indexOperatorExpr())
+        operatorStr = ctx.OP_SUBTRACTION().getText() if ctx.OP_SUBTRACTION() else ctx.OP_ADDTION().getText()
+        return UnaryOp(
+            operatorStr,
+            self.visit(ctx.signExpr())
+        )
 
     def visitIndexOperatorExpr(self, ctx: D96Parser.IndexOperatorExprContext):
-
-        return ArrayCell()
+        if ctx.indexOperator():
+            return ArrayCell(
+                self.visit(ctx.instanceAccess()),
+                self.visit(ctx.indexOperator())
+            )
+        return self.visit(ctx.instanceAccess())
 
     def visitInstanceAccess(self, ctx: D96Parser.InstanceAccessContext):
         preExpression = self.visit(ctx.instanceAccess())

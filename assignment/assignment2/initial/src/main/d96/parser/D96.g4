@@ -99,7 +99,7 @@ mulAddMolExpr:	    mulAddMolExpr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) no
 					;
 notExpr:			OP_LOGICAL_NOT notExpr | signExpr
 					;
-signExpr:			(OP_SUBTRACTION) signExpr | indexOperatorExpr
+signExpr:			(OP_SUBTRACTION | OP_ADDTION) signExpr | indexOperatorExpr
 					;
 indexOperatorExpr:
 					instanceAccess indexOperator
