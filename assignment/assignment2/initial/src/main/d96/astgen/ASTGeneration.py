@@ -450,14 +450,8 @@ class ASTGeneration(D96Visitor):
         expression = self.visit(ctx.expression()) if ctx.expression() else None
         return Return(expression)
 
-    def visitMemberAccessInstance(self, ctx: D96Parser.MemberAccessInstanceContext):
-        pass
-
-    def visitMemberAccessStatic(self, ctx: D96Parser.MemberAccessStaticContext):
-        pass
-
     def visitMethodInvocationStatement(self, ctx: D96Parser.MethodInvocationStatementContext):
-        pass
+        return self.visit(ctx.instanceAccess())
 
     def visitBlockStatement(self, ctx: D96Parser.BlockStatementContext):
         return [self.visit(child) for child in ctx.statement()]

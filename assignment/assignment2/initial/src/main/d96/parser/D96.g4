@@ -167,7 +167,7 @@ forInStatement:	    K_FOR_EACH
 					LEFT_PAREN loopPart RIGHT_PAREN
 					blockStatement
 					;
-loopPart:			instanceAccess K_IN expression DOUBLE_DOT expression
+loopPart:			IDENTIFIER K_IN expression DOUBLE_DOT expression
 					(K_BY expression)?
 					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------

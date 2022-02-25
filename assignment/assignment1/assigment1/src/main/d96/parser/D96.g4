@@ -167,7 +167,7 @@ forInStatement:	    K_FOR_EACH
 					LEFT_PAREN loopPart RIGHT_PAREN
 					blockStatement
 					;
-loopPart:			instanceAccess K_IN expression DOUBLE_DOT expression
+loopPart:			IDENTIFIER K_IN expression DOUBLE_DOT expression
 					(K_BY expression)?
 					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
@@ -181,19 +181,7 @@ continueStatement:	K_CONTINUE SEMI_COLON
 returnStatement:    K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
-//memberAccessInstance:
-//                    memberAccessInstance DOT IDENTIFIER (LEFT_PAREN expressionList? RIGHT_PAREN)?
-//                    | memberAccessStatic
-//                    | objectCreation
-//                    ;
-//memberAccessStatic:
-//                    IDENTIFIER DOUBLE_COLON
-//                    (DOLAR_IDENTIFIER | DOLAR_IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN)?
-//                    ;
 methodInvocationStatement:
-//                    (memberAccessInstance DOT IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN
-//                    | IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN expressionList? RIGHT_PAREN)
-//                    SEMI_COLON
                     instanceAccess SEMI_COLON
 					;// Shape::$getNumOfShape();
 blockStatement:	    LEFT_CURLY_BRACKET
