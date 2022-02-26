@@ -4,7 +4,6 @@ from D96Parser import D96Parser
 from AST import *
 from functools import reduce
 
-# #
 # from initial.src.main.d96.utils.AST import *
 # from initial.target.D96Visitor import D96Visitor
 # from initial.target.D96Parser import D96Parser
@@ -35,7 +34,7 @@ def convertStringToPrimitiveType(s):
         return StringType()
 
 
-def text2int(text):
+def textToInt(text):
     if text[0] != '0':
         return int(text)
     elif text == '0':
@@ -44,7 +43,7 @@ def text2int(text):
         return int(text, 16)
     elif text[1] in ['b', 'B']:
         return int(text, 2)
-    return int(text[0] + 'o' + text[1:])
+    return int(text[0] + 'o' + text[1:], 8)
 
 
 class ASTGeneration(D96Visitor):
@@ -178,7 +177,15 @@ class ASTGeneration(D96Visitor):
         # No expression
         for i in range(len(identifierList)):
             identifier = identifierList[i]
-            initialValue = expressionList[i] if len(expressionList) > 0 else None
+
+            if len(expressionList) > 0:
+                initialValue = expressionList[i]
+            else:
+                if "ClassType" in str(d96Type):
+                    initialValue = NullLiteral()
+                else:
+                    initialValue = None
+
             if "$" in identifier:
                 kind = Static()
                 if isConstant:
@@ -242,7 +249,7 @@ class ASTGeneration(D96Visitor):
     def visitExpressionList(self, ctx: D96Parser.ExpressionListContext):
         if ctx.expression(1):
             return [self.visit(x) for x in ctx.expression()]
-        return ctx.expression()
+        return [self.visit(ctx.expression(0))]
 
     def visitElementExpression(self, ctx: D96Parser.ElementExpressionContext):
         return ArrayCell(
@@ -254,18 +261,19 @@ class ASTGeneration(D96Visitor):
         return [self.visit(x) for x in ctx.expression()]
 
     def visitExpression(self, ctx: D96Parser.ExpressionContext):
-        if ctx.relationalExpr(0):
-            if ctx.OP_STRING_CONCATENATION():
-                operator = ctx.OP_STRING_CONCATENATION().getText()
-            else:
-                operator = ctx.OP_TWO_SAME_STRING().getText()
+        if ctx.getChildCount() == 1:
+            return self.visit(ctx.relationalExpr(0))
 
-            return BinaryOp(
-                operator,
-                self.visit(ctx.relationalExpr(0)),
-                self.visit(ctx.relationalExpr(1))
-            )
-        return self.visit(ctx.relationalExpr())
+        if ctx.OP_STRING_CONCATENATION():
+            operator = ctx.OP_STRING_CONCATENATION().getText()
+        else:
+            operator = ctx.OP_TWO_SAME_STRING().getText()
+
+        return BinaryOp(
+            operator,
+            self.visit(ctx.relationalExpr(0)),
+            self.visit(ctx.relationalExpr(1))
+        )
 
     def visitRelationalOperator(self, ctx: D96Parser.RelationalOperatorContext):
         if ctx.OP_IS_EQUAL_TO():
@@ -283,58 +291,62 @@ class ASTGeneration(D96Visitor):
         return operator.getText()
 
     def visitRelationalExpr(self, ctx: D96Parser.RelationalExprContext):
-        if ctx.andOrExpr(0):
-            operator = self.visit(ctx.relationalOperator())
-            return BinaryOp(
-                operator,
-                self.visit(ctx.andOrExpr(0)),
-                self.visit(ctx.andOrExpr(1))
-            )
-        return self.visit(ctx.andOrExpr())
+        if ctx.getChildCount() == 1:
+            return self.visit(ctx.andOrExpr(0))
+
+        operator = self.visit(ctx.relationalOperator())
+        return BinaryOp(
+            operator,
+            self.visit(ctx.andOrExpr(0)),
+            self.visit(ctx.andOrExpr(1))
+        )
 
     def visitAndOrExpr(self, ctx: D96Parser.AndOrExprContext):
-        if ctx.addSubExpr():
-            if ctx.OP_LOGICAL_AND():
-                operator = ctx.OP_LOGICAL_AND().getText()
-            else:
-                operator = ctx.OP_LOGICAL_OR().getText()
+        if ctx.getChildCount() == 1:
+            return self.visit(ctx.addSubExpr())
 
-            return BinaryOp(
-                operator,
-                self.visit(ctx.andOrExpr()),
-                self.visit(ctx.addSubExpr())
-            )
-        return self.visit(ctx.addSubExpr())
+        if ctx.OP_LOGICAL_AND():
+            operator = ctx.OP_LOGICAL_AND().getText()
+        else:
+            operator = ctx.OP_LOGICAL_OR().getText()
+
+        return BinaryOp(
+            operator,
+            self.visit(ctx.andOrExpr(0)),
+            self.visit(ctx.addSubExpr(0))
+        )
 
     def visitAddSubExpr(self, ctx: D96Parser.AddSubExprContext):
-        if ctx.addSubExpr():
-            if ctx.OP_SUBTRACTION():
-                operator = ctx.OP_SUBTRACTION().getText()
-            else:
-                operator = ctx.OP_ADDTION().getText()
+        if ctx.getChildCount() == 1:
+            return self.visit(ctx.mulAddMolExpr())
 
-            return BinaryOp(
-                operator,
-                self.visit(ctx.addSubExpr()),
-                self.visit(ctx.mulAddMolExpr())
-            )
-        return self.visit(ctx.mulAddMolExpr())
+        if ctx.OP_SUBTRACTION():
+            operator = ctx.OP_SUBTRACTION().getText()
+        else:
+            operator = ctx.OP_ADDTION().getText()
+
+        return BinaryOp(
+            operator,
+            self.visit(ctx.addSubExpr(0)),
+            self.visit(ctx.mulAddMolExpr(0))
+        )
 
     def visitMulAddMolExpr(self, ctx: D96Parser.MulAddMolExprContext):
-        if ctx.mulAddMolExpr():
-            if ctx.OP_MULTIPLICATION():
-                operator = ctx.OP_MULTIPLICATION().getText()
-            elif ctx.OP_MODULO():
-                operator = ctx.OP_MODULO().getText()
-            else:
-                operator = ctx.OP_DIVISION().getText()
+        if ctx.getChildCount() == 1:
+            return self.visit(ctx.notExpr())
 
-            return BinaryOp(
-                operator,
-                self.visit(ctx.mulAddMolExpr()),
-                self.visit(ctx.notExpr())
-            )
-        return self.visit(ctx.notExpr())
+        if ctx.OP_MULTIPLICATION():
+            operator = ctx.OP_MULTIPLICATION().getText()
+        elif ctx.OP_MODULO():
+            operator = ctx.OP_MODULO().getText()
+        else:
+            operator = ctx.OP_DIVISION().getText()
+
+        return BinaryOp(
+            operator,
+            self.visit(ctx.mulAddMolExpr(0)),
+            self.visit(ctx.notExpr(0))
+        )
 
     def visitNotExpr(self, ctx: D96Parser.NotExprContext):
         if ctx.signExpr():
@@ -362,11 +374,11 @@ class ASTGeneration(D96Visitor):
         return self.visit(ctx.instanceAccess())
 
     def visitInstanceAccess(self, ctx: D96Parser.InstanceAccessContext):
-        preExpression = self.visit(ctx.instanceAccess())
-        accessField = Id(ctx.IDENTIFIER().getText())
         if ctx.staticAccess():
             return self.visit(ctx.staticAccess())
         else:
+            preExpression = self.visit(ctx.instanceAccess())
+            accessField = Id(ctx.IDENTIFIER().getText())
             if ctx.LEFT_PAREN():  # Access a function
                 if ctx.expressionList():
                     expressionList = self.visit(ctx.expressionList())
@@ -377,11 +389,11 @@ class ASTGeneration(D96Visitor):
                 return FieldAccess(preExpression, accessField)
 
     def visitStaticAccess(self, ctx: D96Parser.StaticAccessContext):
-        preExpression = self.visit(ctx.staticAccess())
-        accessField = Id(ctx.DOLAR_IDENTIFIER().getText())
         if ctx.objectCreation():
             return self.visit(ctx.objectCreation())
         else:
+            preExpression = self.visit(ctx.staticAccess())
+            accessField = Id(ctx.DOLAR_IDENTIFIER().getText())
             if ctx.LEFT_PAREN():  # Access a function
                 if ctx.expressionList():
                     expressionList = self.visit(ctx.expressionList())
@@ -413,10 +425,10 @@ class ASTGeneration(D96Visitor):
     def visitVarValStatement(self, ctx: D96Parser.VarValStatementContext):
         d96Type = self.visit(ctx.d96Type())
         if ctx.IDENTIFIER(1):
-            identifierList = [self.visit(x) for x in ctx.IDENTIFIER()]
+            identifierList = [x.getText() for x in ctx.IDENTIFIER()]
             print("identifierList", identifierList)
         else:
-            identifierList = [self.visit(ctx.IDENTIFIER(0))]
+            identifierList = [ctx.IDENTIFIER(0).getText()]
             print("identifierList", identifierList)
 
         if ctx.expression(1):
@@ -434,28 +446,29 @@ class ASTGeneration(D96Visitor):
         # No expression
         for i in range(len(identifierList)):
             identifier = identifierList[i]
-            initialValue = expressionList[i] if len(expressionList) > 0 else None
-            kind = Instance()
+
+            if len(expressionList) > 0:
+                initialValue = expressionList[i]
+            else:
+                if "ClassType" in str(d96Type):
+                    initialValue = NullLiteral()
+                else:
+                    initialValue = None
+
             if isConstant:
                 result += [
-                    AttributeDecl(
-                        kind,
-                        ConstDecl(
-                            Id(identifier),
-                            d96Type,
-                            initialValue
-                        )
+                    ConstDecl(
+                        Id(identifier),
+                        d96Type,
+                        initialValue
                     )
                 ]
             else:
                 result += [
-                    AttributeDecl(
-                        kind,
-                        VarDecl(
-                            Id(identifier),
-                            d96Type,
-                            initialValue
-                        )
+                    VarDecl(
+                        Id(identifier),
+                        d96Type,
+                        initialValue
                     )
                 ]
 
@@ -515,7 +528,7 @@ class ASTGeneration(D96Visitor):
         return self.visit(ctx.instanceAccess())
 
     def visitBlockStatement(self, ctx: D96Parser.BlockStatementContext):
-        return Block([self.visit(child) for child in ctx.statement()] if ctx.statement() else [])
+        return Block(flatten([self.visit(child) for child in ctx.statement()]) if ctx.statement() else [])
 
     def visitStatement(self, ctx: D96Parser.StatementContext):
         if ctx.varValStatement():
@@ -540,39 +553,35 @@ class ASTGeneration(D96Visitor):
 
     def visitLiteral(self, ctx: D96Parser.LiteralContext):
         if ctx.INTEGER_LITERAL2():
-            return IntLiteral(int(ctx.INTEGER_LITERAL2().getText()))
+            return IntLiteral(textToInt(ctx.INTEGER_LITERAL2().getText()))
         if ctx.INTEGER_LITERAL():
-            return IntLiteral(int(ctx.INTEGER_LITERAL().getText()))
+            return IntLiteral(textToInt(ctx.INTEGER_LITERAL().getText()))
         if ctx.FLOAT_LITERAL():
             return FloatLiteral(float(ctx.FLOAT_LITERAL().getText()))
         if ctx.BOOLEAN_LITERAL():
             return BooleanLiteral(ctx.BOOLEAN_LITERAL().getText() == "True")
         if ctx.STRING_LITERAL():
             return StringLiteral(ctx.STRING_LITERAL().getText())
-        # TODO Xem lai phan Array
         if ctx.indexedArray():
-            return ctx.indexedArray()
+            return self.visit(ctx.indexedArray())
 
     def visitIndexedArray(self, ctx: D96Parser.IndexedArrayContext):
-        if ctx.INTEGER_LITERAL():
-            destinations = ctx.INTEGER_LITERAL()
+        if ctx.INTEGER_LITERAL(0):
+            exprList = [IntLiteral(textToInt(child.getText())) for child in ctx.INTEGER_LITERAL()]
         elif ctx.INTEGER_LITERAL2():
-            destinations = ctx.INTEGER_LITERAL2()
+            exprList = [IntLiteral(textToInt(child.getText())) for child in ctx.INTEGER_LITERAL2()]
         elif ctx.FLOAT_LITERAL():
-            destinations = ctx.FLOAT_LITERAL()
+            exprList = [FloatLiteral(textToInt(child.getText())) for child in ctx.FLOAT_LITERAL()]
         elif ctx.BOOLEAN_LITERAL():
-            destinations = ctx.BOOLEAN_LITERAL()
+            exprList = [BooleanLiteral(child.getText() == "True") for child in ctx.FLOAT_LITERAL()]
         elif ctx.STRING_LITERAL():
-            destinations = ctx.STRING_LITERAL()
+            exprList = [StringLiteral(child.getText()) for child in ctx.FLOAT_LITERAL()]
         else:
-            destinations = ctx.indexedArray()
-
-        return ArrayLiteral(
-            [self.visit(child) for child in destinations]
-        )
+            exprList = [self.visit(child) for child in ctx.indexedArray()]
+        return ArrayLiteral(exprList)
 
     def visitArrayType(self, ctx: D96Parser.ArrayTypeContext):
-        size = int(ctx.INTEGER_LITERAL2().getText())
+        size = textToInt((ctx.INTEGER_LITERAL2().getText()))
         if ctx.PRIMITIVE_TYPE():
             eleType = convertStringToPrimitiveType(ctx.PRIMITIVE_TYPE().getText())
         elif ctx.arrayType():
