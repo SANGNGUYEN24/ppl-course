@@ -157,10 +157,10 @@ class ASTGeneration(D96Visitor):
         d96Type = self.visit(ctx.d96Type())
         if ctx.mixedIdentifier(1):
             identifierList = [self.visit(x) for x in ctx.mixedIdentifier()]
-            print("identifierList", identifierList)
+            # print("identifierList", identifierList)
         else:
             identifierList = [self.visit(ctx.mixedIdentifier(0))]
-            print("identifierList", identifierList)
+            # print("identifierList", identifierList)
 
         if ctx.expression(1):
             expressionList = [self.visit(x) for x in ctx.expression()]
@@ -170,7 +170,7 @@ class ASTGeneration(D96Visitor):
             else:
                 expressionList = []
 
-        print("expressionlist", expressionList)
+        # print("expressionlist", expressionList)
         result = []
         isConstant = True if ctx.K_VAL() else False
 
@@ -235,7 +235,7 @@ class ASTGeneration(D96Visitor):
                         )
                     ]
 
-        print("result", result)
+        # print("result", result)
         return result
 
     def visitIdentifierList(self, ctx: D96Parser.IdentifierListContext):
@@ -312,8 +312,8 @@ class ASTGeneration(D96Visitor):
 
         return BinaryOp(
             operator,
-            self.visit(ctx.andOrExpr(0)),
-            self.visit(ctx.addSubExpr(0))
+            self.visit(ctx.andOrExpr()),
+            self.visit(ctx.addSubExpr())
         )
 
     def visitAddSubExpr(self, ctx: D96Parser.AddSubExprContext):
@@ -327,8 +327,8 @@ class ASTGeneration(D96Visitor):
 
         return BinaryOp(
             operator,
-            self.visit(ctx.addSubExpr(0)),
-            self.visit(ctx.mulAddMolExpr(0))
+            self.visit(ctx.addSubExpr()),
+            self.visit(ctx.mulAddMolExpr())
         )
 
     def visitMulAddMolExpr(self, ctx: D96Parser.MulAddMolExprContext):
@@ -344,8 +344,8 @@ class ASTGeneration(D96Visitor):
 
         return BinaryOp(
             operator,
-            self.visit(ctx.mulAddMolExpr(0)),
-            self.visit(ctx.notExpr(0))
+            self.visit(ctx.mulAddMolExpr()),
+            self.visit(ctx.notExpr())
         )
 
     def visitNotExpr(self, ctx: D96Parser.NotExprContext):
@@ -419,17 +419,17 @@ class ASTGeneration(D96Visitor):
         if ctx.K_SELF():
             return SelfLiteral()
         if ctx.IDENTIFIER():
-            return ctx.IDENTIFIER().getText()
+            return Id(ctx.IDENTIFIER().getText())
         return self.visit(ctx.expression())
 
     def visitVarValStatement(self, ctx: D96Parser.VarValStatementContext):
         d96Type = self.visit(ctx.d96Type())
         if ctx.IDENTIFIER(1):
             identifierList = [x.getText() for x in ctx.IDENTIFIER()]
-            print("identifierList", identifierList)
+            # print("identifierList", identifierList)
         else:
             identifierList = [ctx.IDENTIFIER(0).getText()]
-            print("identifierList", identifierList)
+            # print("identifierList", identifierList)
 
         if ctx.expression(1):
             expressionList = [self.visit(x) for x in ctx.expression()]
@@ -439,7 +439,7 @@ class ASTGeneration(D96Visitor):
             else:
                 expressionList = []
 
-        print("expressionlist", expressionList)
+        # print("expressionlist", expressionList)
         result = []
         isConstant = True if ctx.K_VAL() else False
 
@@ -472,7 +472,7 @@ class ASTGeneration(D96Visitor):
                     )
                 ]
 
-        print("result", result)
+        # print("result", result)
         return result
 
     def visitLhs(self, ctx: D96Parser.LhsContext):
@@ -498,11 +498,22 @@ class ASTGeneration(D96Visitor):
             self.visit(ctx.expression())
         )
 
+    # TODO Xem lai If statement, dieu kien Else If
     def visitIfStatement(self, ctx: D96Parser.IfStatementContext):
         return If(
             self.visit(ctx.expression()),
             self.visit(ctx.blockStatement()),
-            self.visit(ctx.blockStatement()) if ctx.K_ELSE() else None
+            self.visit(ctx.elsePart()) if ctx.elsePart() else None
+        )
+
+    def visitElsePart(self, ctx:D96Parser.ElsePartContext):
+        if ctx.K_ELSE():
+            return self.visit(ctx.blockStatement())
+
+        return If(
+            self.visit(ctx.expression()),
+            self.visit(ctx.blockStatement()),
+            self.visit(ctx.elsePart()) if ctx.elsePart() else None
         )
 
     def visitForInStatement(self, ctx: D96Parser.ForInStatementContext):

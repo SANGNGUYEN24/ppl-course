@@ -148,7 +148,9 @@ assignStatement: 	lhs OP_ASSIGN expression SEMI_COLON
 // If statement
 // ---------------------------------------------------------------------------
 ifStatement:        K_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
-                    | K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
+                    elsePart?
+                    ;
+elsePart:           K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement elsePart?
                     | K_ELSE blockStatement
                     ;
 //-----------------------------------------------------------------------------
