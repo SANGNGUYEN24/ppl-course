@@ -1,4 +1,3 @@
-# TODO Import lai 3 lines nhu ban dau
 from D96Visitor import D96Visitor
 from D96Parser import D96Parser
 from AST import *
@@ -22,7 +21,6 @@ def flatten(lst):
     head, tail = lst[0], lst[1:]
     return flatten(head) + flatten(tail)
 
-
 def convertStringToPrimitiveType(s):
     if s == "Int":
         return IntType()
@@ -32,7 +30,6 @@ def convertStringToPrimitiveType(s):
         return FloatType()
     if s == "String":
         return StringType()
-
 
 def textToInt(text):
     if text[0] != '0':
@@ -103,11 +100,6 @@ class ASTGeneration(D96Visitor):
         if ctx.destructor():
             return self.visit(ctx.destructor())
 
-        # TODO xem lai dieu kien cua statementList
-        # Program([ClassDecl(Id(Adam),Id(Human),[MethodDecl(Id(main),Static,[],Block([None]))])])
-        # Block([None]) expect Block([]) khi function main ko co gi
-        # statementList = [self.visit(ctx.blockStatement())] if ctx.blockStatement() else []
-        # body = Block(statementList)
         param = self.visit(ctx.parameterList()) if ctx.parameterList() else []
         body = self.visit(ctx.blockStatement())
 
@@ -497,7 +489,6 @@ class ASTGeneration(D96Visitor):
             self.visit(ctx.expression())
         )
 
-    # TODO Xem lai If statement, dieu kien Else If
     def visitIfStatement(self, ctx: D96Parser.IfStatementContext):
         return If(
             self.visit(ctx.expression()),
@@ -521,7 +512,7 @@ class ASTGeneration(D96Visitor):
             self.visit(ctx.expression(0)),
             self.visit(ctx.expression(1)),
             self.visit(ctx.blockStatement()),
-            self.visit(ctx.expression(2)) if ctx.expression(2) else None
+            self.visit(ctx.expression(2)) if ctx.expression(2) else IntLiteral(1)
         )
 
     def visitBreakStatement(self, ctx: D96Parser.BreakStatementContext):
