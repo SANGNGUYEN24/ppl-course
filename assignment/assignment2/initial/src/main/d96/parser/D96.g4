@@ -112,7 +112,7 @@ instanceAccess:
 					| staticAccess
 					;
 staticAccess:
-					staticAccess DOUBLE_COLON DOLAR_IDENTIFIER
+					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER
 					(LEFT_PAREN expressionList? RIGHT_PAREN)?
 					| objectCreation
 					;
@@ -174,7 +174,9 @@ returnStatement:    K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
 methodInvocationStatement:
-                    instanceAccess SEMI_COLON
+                    (instanceAccess DOT IDENTIFIER
+					| IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER)
+					(LEFT_PAREN expressionList? RIGHT_PAREN) SEMI_COLON
 					;// Shape::$getNumOfShape();
 blockStatement:	    LEFT_CURLY_BRACKET
 					statement*

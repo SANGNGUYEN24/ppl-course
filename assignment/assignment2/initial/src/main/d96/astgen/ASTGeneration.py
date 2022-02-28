@@ -391,7 +391,7 @@ class ASTGeneration(D96Visitor):
         if ctx.objectCreation():
             return self.visit(ctx.objectCreation())
         else:
-            preExpression = self.visit(ctx.staticAccess())
+            preExpression = Id(ctx.IDENTIFIER().getText())
             accessField = Id(ctx.DOLAR_IDENTIFIER().getText())
             if ctx.LEFT_PAREN():  # Access a function
                 if ctx.expressionList():
@@ -449,7 +449,7 @@ class ASTGeneration(D96Visitor):
             if len(expressionList) > 0:
                 initialValue = expressionList[i]
             else:
-                if "ClassType" in str(d96Type):
+                if isinstance(d96Type, ClassType):
                     initialValue = NullLiteral()
                 else:
                     initialValue = None
@@ -505,7 +505,7 @@ class ASTGeneration(D96Visitor):
             self.visit(ctx.elsePart()) if ctx.elsePart() else None
         )
 
-    def visitElsePart(self, ctx:D96Parser.ElsePartContext):
+    def visitElsePart(self, ctx: D96Parser.ElsePartContext):
         if ctx.K_ELSE():
             return self.visit(ctx.blockStatement())
 
@@ -535,7 +535,13 @@ class ASTGeneration(D96Visitor):
         return Return(expression)
 
     def visitMethodInvocationStatement(self, ctx: D96Parser.MethodInvocationStatementContext):
-        return self.visit(ctx.instanceAccess())
+        preExpression = self.visit(ctx.instanceAccess()) if ctx.instanceAccess() else Id(ctx.IDENTIFIER().getText())
+        method = Id(ctx.IDENTIFIER().getText()) if ctx.instanceAccess() else Id(ctx.DOLAR_IDENTIFIER().getText())
+        if ctx.expressionList():
+            expressionList = self.visit(ctx.expressionList())
+        else:
+            expressionList = []
+        return CallStmt(preExpression, method, expressionList)
 
     def visitBlockStatement(self, ctx: D96Parser.BlockStatementContext):
         return Block(flatten([self.visit(child) for child in ctx.statement()]) if ctx.statement() else [])
@@ -554,7 +560,7 @@ class ASTGeneration(D96Visitor):
         elif ctx.continueStatement():
             child = ctx.continueStatement()
         elif ctx.returnStatement():
-            child = ctx.continueStatement()
+            child = ctx.returnStatement()
         elif ctx.methodInvocationStatement():
             child = ctx.methodInvocationStatement()
         else:
