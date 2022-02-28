@@ -359,9 +359,8 @@ class ASTGeneration(D96Visitor):
     def visitSignExpr(self, ctx: D96Parser.SignExprContext):
         if ctx.indexOperatorExpr():
             return self.visit(ctx.indexOperatorExpr())
-        operator = ctx.OP_SUBTRACTION().getText() if ctx.OP_SUBTRACTION() else ctx.OP_ADDTION().getText()
         return UnaryOp(
-            operator,
+            ctx.OP_SUBTRACTION().getText(),
             self.visit(ctx.signExpr())
         )
 
