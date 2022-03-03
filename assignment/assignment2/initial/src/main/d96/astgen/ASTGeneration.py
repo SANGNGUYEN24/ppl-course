@@ -173,7 +173,7 @@ class ASTGeneration(D96Visitor):
             if len(expressionList) > 0:
                 initialValue = expressionList[i]
             else:
-                if "ClassType" in str(d96Type):
+                if isinstance(d96Type, ClassType):
                     initialValue = NullLiteral()
                 else:
                     initialValue = None
