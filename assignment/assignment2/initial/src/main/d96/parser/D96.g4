@@ -64,12 +64,6 @@ mixedIdentifier:    IDENTIFIER | DOLAR_IDENTIFIER
 //==================== Expression start ====================
 expressionList: 	expression | expression (COMMA expression)+
 					;// 1+2, 1+2, 2*5
-//----------------------------------------------------------------
-// Index operator
-elementExpression:	expression indexOperator
-					;
-indexOperator:		(LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET)+
-					;// a[1] or b[1][2] or A[1+2]
 //-----------------------------------------------------------------
 // All expression
 relationalOperator:
@@ -99,11 +93,11 @@ mulAddMolExpr:	    mulAddMolExpr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) no
 					;
 notExpr:			OP_LOGICAL_NOT notExpr | signExpr
 					;
-signExpr:			OP_SUBTRACTION signExpr | indexOperatorExpr
+signExpr:			OP_SUBTRACTION signExpr | elementExpr
 					;
-indexOperatorExpr:
-					instanceAccess indexOperator
-					| instanceAccess
+// Index operator
+elementExpr:	    elementExpr (LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET)+
+                    | instanceAccess
 					;
 // Member access
 instanceAccess:
@@ -141,7 +135,7 @@ varValStatement:	(K_VAL | K_VAR)
 lhs:                instanceAccess DOT IDENTIFIER
                     | instanceAccess DOUBLE_COLON DOLAR_IDENTIFIER
                     | IDENTIFIER
-                    | elementExpression
+                    | elementExpr
                     ;
 assignStatement: 	lhs OP_ASSIGN expression SEMI_COLON
 					;
