@@ -1,3 +1,7 @@
- 
-           ForEachfWYnd_
-        
+
+    Class Eva : Human {
+        function(){
+            a = "a"==."b"==."b";
+        }
+    }
+    

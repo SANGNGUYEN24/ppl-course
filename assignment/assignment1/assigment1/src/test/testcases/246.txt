@@ -1,0 +1,14 @@
+
+                Class Eva : Human{
+                    function(){
+                        Var a: Array[Int, 01];
+                        Var aaaa: Array[Int, 0x1];
+                        Var a_kjhsdf: Array[Int, 0X1];
+                        Var ajs: Array[Int, 0b1];
+                        Var acm: Array[Int, 0B1];
+                        Var a: Array[Int, 15678_65];
+                        Var a: Array[Int, 00];
+                    }
+                }
+
+            

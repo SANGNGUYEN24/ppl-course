@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
             g__2_CF4a O6HSm3GemCZdrxFLt##"
+=======
+successful
+>>>>>>> develop

@@ -1,3 +1,1 @@
- 
-           97Ekh"62"W9_"##. *##\n9+"0xe8##"0 ##500"X XT b i_tQ0900x0"==C_lXbdi0 "##\t##awOt_6##"##X0F _OO7
-        
+Class m_{Var $8,$_,$__:Boolean ;Val K__tE,$E_5,_,ZZ5:F2_;Destructor (){} }Class j{}Class E:V84{Constructor (){} }

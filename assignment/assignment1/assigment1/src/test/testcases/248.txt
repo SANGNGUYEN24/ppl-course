@@ -1,0 +1,8 @@
+
+                Class Eva : Human{
+                    function(){
+                        Var a: Array[Int, 0x0];
+                    }
+                }
+
+            

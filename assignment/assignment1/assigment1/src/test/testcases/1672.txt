@@ -1,0 +1,1 @@
+Class WI:__{Val $_:Array [Array [Array [Array [String ,031],0b11000],062],05];Var $2n:Boolean ;Constructor (q,_:_){} }

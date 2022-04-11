@@ -1,1 +1,8 @@
-## Hello there ## ##
+
+            Class Adam : Human {
+                Var a: Int = 12.e23;
+                method_() {
+                    Var $a: String;
+                }
+            }
+            

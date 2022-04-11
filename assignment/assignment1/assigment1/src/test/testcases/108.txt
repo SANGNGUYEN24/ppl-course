@@ -1,1 +1,1 @@
-abc$_129_139avfe
+Class main{}

@@ -1,3 +1,7 @@
- 
-           0x0AC001200.0000.00E0.0E.0E
-        
+
+    Class Eva : Human {
+        function(){
+        a=+1;
+        }
+    }
+    

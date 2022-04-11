@@ -1,3 +1,7 @@
- 
-           /-===."\tKa9d_cIfe"83d_ybDHicn5ivaUKAPJDvpKJ i+.uF0H1Gb H
-        
+
+    Class Human {
+        function(){
+            ;
+        }
+    }
+    

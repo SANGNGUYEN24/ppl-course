@@ -1,1 +1,1 @@
-,,;,::,x,+,+,/,SelfBooleanInArray,<EOF>
+Error on line 3 col 25: -

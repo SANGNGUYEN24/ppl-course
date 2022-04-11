@@ -1,1 +1,16 @@
-####
+
+            Class Adam : Human {
+                method() {
+                    If (1 + 1 == 0) {
+                        Out.X.print(1 + 2);
+                    }
+                    Elseif (1 + 2 == 3) {
+                        System.sus(11 - "3222");
+                    }
+                    Else {
+                        Break;
+                        Return;
+                    }
+                }
+            }
+            

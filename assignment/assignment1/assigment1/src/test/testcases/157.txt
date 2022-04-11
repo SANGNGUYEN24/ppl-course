@@ -1,1 +1,5 @@
-## Hello #
+Class Rectangle: Human {
+        getArea() {
+        Return self.length * self.width;
+    }
+}

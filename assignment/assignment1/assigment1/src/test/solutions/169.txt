@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
             _Ix__EANDoCsd6hBO _zvnSUb4tgkfj02"
+=======
+successful
+>>>>>>> develop

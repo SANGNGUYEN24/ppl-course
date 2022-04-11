@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
            _xa_m9WAXr_b2gr"
+=======
+Error on line 4 col 21: $1
+>>>>>>> develop

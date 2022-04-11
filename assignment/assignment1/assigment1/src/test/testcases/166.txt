@@ -1,9 +1,7 @@
- 
-            Class foo {
-                get() {
-                             ## New year ##
-                             <block statement>
-                         If(1 <= 2 && 3 > 4 || 6 < 7 && !True || 1 != 4)
-                     }
-            }
-        
+
+    Class Human {
+        function(){
+            function2(1+1,"a"+."b","a"==."b");
+        }
+    }
+    

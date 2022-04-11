@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
            _262 18+00++8##O4o##_239+7e"
+=======
+Error on line 4 col 24: +.
+>>>>>>> develop

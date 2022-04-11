@@ -1,11 +1,5 @@
- 
-            Class program {
-                get() {
-                    If(1 == 1) {
-                        ForEach(x In 1 .. 100)
-                    }
-                Var a : X =  New X();
-                Val i : Float = 1.23_3e-1;
-            }
-            }
-        
+
+    Class Human {
+        sum(a,b:Int; c,d:Float){}
+    }
+    

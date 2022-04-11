@@ -1,3 +1,7 @@
- 
-            uYiUuCz_Q xU_####QrvhIYE
-        
+
+    Class Human {
+        function(){
+            a=New X().Y();
+        }
+    }
+    

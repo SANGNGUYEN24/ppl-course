@@ -1,2 +1,7 @@
- 
-           K e7##==.7"2Q##a FGO"2H%50B6_        
+
+    Class Human {
+        function(){
+            Var a();
+        }
+    }
+    

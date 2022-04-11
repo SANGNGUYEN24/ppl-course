@@ -1,1 +1,6 @@
-0xContinue 0xBreak 0xFalse 0xString Val Var New
+
+            Class Center {
+                Var c,d,e:String;
+                Var a: Array[Int, 4] = Array(1, 3, 4, 5);
+            }
+           

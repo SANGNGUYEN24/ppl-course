@@ -1,1 +1,8 @@
- "This is a string containing tab \t" 
+
+            Class Adam : Human {
+                Var a: Int = 12.e23;
+                jolie() {
+                    Self.a = 0x759AL;
+                }
+            }
+            

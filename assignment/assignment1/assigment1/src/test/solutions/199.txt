@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
            "
+=======
+successful
+>>>>>>> develop

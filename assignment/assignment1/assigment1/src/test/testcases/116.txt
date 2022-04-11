@@ -1,1 +1,17 @@
-0X9_12ADC
+
+            Class AdamEva{
+                $func(a, b: Int){
+                    If (True){
+                        If (_a + e == "String"){
+                            Return;
+                        }
+                        Elseif(1 + 1 = 2){
+                            Return Self.x * Self.y;
+                        }
+                    }
+                    Else{
+                        X.print(Bruh);
+                    }
+                }
+            }
+            

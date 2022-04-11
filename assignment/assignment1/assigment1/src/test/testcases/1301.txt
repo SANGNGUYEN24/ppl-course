@@ -1,0 +1,1 @@
+Class b:_8{Var $_R:Array [Array [Array [Array [Array [Array [Array [Float ,0xE],0b1_1_0],0B11111],0137],0b1011001],0x64],0XA];}

@@ -1,3 +1,7 @@
- 
-           _xa_m9WAXr_b2gr"##"GZ##
-        
+
+    Class Eva : Human {
+        function(){
+        Var a :Int = $1-----5;
+        }
+    }
+    

@@ -1,1 +1,8 @@
- "The string: \
+
+            Class Adam : Human {
+                Var a: Int = 12.e23;
+                method_() {
+                    a.$function();
+                }
+            }
+            

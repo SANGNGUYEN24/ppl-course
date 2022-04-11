@@ -1,3 +1,8 @@
- 
-            g__2_CF4a O6HSm3GemCZdrxFLt##"##"S
-        
+
+    Class Eva {
+        function(){
+            a = ("a"+."b")+."b";
+            c = ("a"==."a")==True;
+        }
+    }
+    

@@ -1,0 +1,7 @@
+
+                Class Eva : Human{
+                    function(){}
+                    Class Nupakachi{}
+                }
+
+            

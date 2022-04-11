@@ -1,2 +1,7 @@
- 
-            uSxn1U +.40x7010900X70X0-5"\f==##e0b5##*        
+
+    Class Eva {
+        function(){
+            a = b < c < True;
+        }
+    }
+    

@@ -1,3 +1,7 @@
- 
-           ei8Fat p Z81qnWy 9IH_6e
-        
+
+    Class Human {
+        function(){
+            a=b.c.d.e;
+        }
+    }
+    

@@ -1,3 +1,7 @@
- 
-           SY##"## "\16u_##_BT_ZRDr_Wevo_acTI##\b1eYFl_D0Q7mtLJ##==.pT
-        
+
+    Class Human {
+        function(){
+            Foreach (i In a[1] .. function() By _123()) {}
+        }
+    }
+    

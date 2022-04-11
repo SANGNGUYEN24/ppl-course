@@ -1,22 +1,9 @@
 
-Class S04kP{
-	Zu0ui(ACBOX,i0P4B:Boolean){
-		Break ;
-	}
-	T1sW6(AIAt8,PPjr9,AnnDl:lNjDo;d$R6Z,6LYyZ:lNjDo;WwWY1,kSKBt:Boolean){
-		\"n_kmmJ5kpd\"ZyyCvm(VtrEZ,9yBah,Q8eRk:Int;0saxb,xPV7R:String);
-		Break ;
-	}
-	Val EjozI,MW0yD,WCU7J,1M$uB:Boolean=Gt795,True,1626527363049549,False;
-	NUICs(t8b66,FmDDO,XEeWA:lNjDo;timt6:String){
-		Val fP5Af,W_ImE:Int;
-	}
-}
-Class Program{ 
-	 Main(){
-		Return 5793645858387X774;
-	}
-}
-Class CgDap{
-	Val 4lseY,SepUP:Int=True,True;
-}
+                Class Eva : Human{
+                    function(){
+                        a=1;
+                    }
+                    Foreach (x In 1 .. 100 by 2){}
+                }
+
+            

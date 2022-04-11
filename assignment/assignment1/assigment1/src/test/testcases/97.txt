@@ -1,0 +1,7 @@
+
+            Val a, $b, $c: Int = 1 + 2, 1+3, 23-9;
+            ## This will be skipped ##
+            Hello(a[i+7]);
+            ## This also ##
+
+        

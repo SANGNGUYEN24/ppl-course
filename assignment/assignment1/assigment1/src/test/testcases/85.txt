@@ -1,0 +1,6 @@
+
+            Class S{
+                Val a: Int = 1_111_111;
+                print("Every moment is a opportunity");
+            }
+        

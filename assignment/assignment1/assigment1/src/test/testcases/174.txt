@@ -1,3 +1,7 @@
- 
-           20o__e*53 0x0x0b9EE081++
-        
+
+    Class Human {
+        function(){
+            a.b();
+        }
+    }
+    

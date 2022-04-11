@@ -1,3 +1,4 @@
+// Nguyen Dinh Sang - 1952955
 grammar D96;
 
 @lexer::header {
@@ -7,24 +8,8 @@ from lexererr import *
 options {
 language = Python3;
 }
-// @lexer::members {
-// def emit(self):
-//     tk = self.type
-//     result = super().emit()
-//     if tk == self.ERROR_TOKEN:
-//         raise ErrorToken(result.text)
-//     elif tk == self.UNCLOSE_STRING:       
-//         raise UncloseString(result.text)
-//     elif tk == self.ILLEGAL_ESCAPE:
-//         raise IllegalEscape(result.text)
-//     elif tk == self.UNTERMINATED_COMMENT:
-//         raise UnterminatedComment()
-//     else:
-//         return result;
-// }
-
-
 //==================== Program struture start ====================
+<<<<<<< HEAD
 
 program:  			many_class EOF;
 	
@@ -39,10 +24,33 @@ class_declaration:	K_CLASS IDENTIFIER super_class_group? class_body
 class_body:			LEFT_CURLY_BRACKET class_body_unit* RIGHT_CURLY_BRACKET
 					;
 class_body_unit:	attribute_declaration | method_declaration
-					;
-// BUG Program class has super class???
-super_class_group: 	COLON IDENTIFIER;
+=======
+program:  			classDeclaration+ EOF;
 //-----------------------------------------------------------------
+classDeclaration:	normalClassDecl
+                    | programClassDecl
+					;// Class declaration
+normalClassDecl:    K_CLASS (K_MAIN | IDENTIFIER) (COLON IDENTIFIER)?
+					LEFT_CURLY_BRACKET memberDeclaration* RIGHT_CURLY_BRACKET
+                    ;
+programClassDecl:   K_CLASS K_PROGRAM (COLON IDENTIFIER)?
+					LEFT_CURLY_BRACKET programClassMemDecl* RIGHT_CURLY_BRACKET
+                    ;
+programClassMemDecl:
+                    attributeDeclaration
+					| mainMethodDecl
+                    | methodDeclaration
+                    ;
+mainMethodDecl:     K_MAIN
+                    LEFT_PAREN RIGHT_PAREN blockStatement
+                    ;// No prameter in static main
+
+memberDeclaration   :attributeDeclaration
+                    | methodDeclaration
+>>>>>>> develop
+					;
+//-----------------------------------------------------------------
+<<<<<<< HEAD
 program_class_declaration:
 					K_CLASS 'Program' program_class_body 
 					;// Special class which is the entry of the program
@@ -71,41 +79,60 @@ main_method_declaration:
 					;// main(){...}
 
 method_declaration:	identifier parameter_list block_statement
+=======
+methodDeclaration:	(K_MAIN | IDENTIFIER | DOLAR_IDENTIFIER)
+                    LEFT_PAREN parameterList? RIGHT_PAREN blockStatement
+>>>>>>> develop
 					| constructor
 					| destructor
 					;// getSomeThing(){...}
-constructor:		K_CONSTRUCTOR LEFT_PAREN parameter_list? RIGHT_PAREN  block_statement
+constructor:		K_CONSTRUCTOR LEFT_PAREN parameterList? RIGHT_PAREN  blockStatement
 					;
-destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  block_statement 
-					;
+<<<<<<< HEAD
 parameter_list: 	LEFT_PAREN 
 					(parameter | parameter parameter_list_tail)? 
 					RIGHT_PAREN
 					;
 parameter_list_tail:(SEMI_COLON parameter)*
+=======
+destructor:			K_DESTRUCTOR LEFT_PAREN RIGHT_PAREN  blockStatement
+					;
+parameterList: 	    parameter (SEMI_COLON parameter)*
+>>>>>>> develop
 					;//; a, b, c: Int
-parameter:    		identifier_list COLON primitive_type
+parameter:    		identifierList COLON d96Type
 					;//a, b, c: String
+<<<<<<< HEAD
 
+=======
+d96Type:            PRIMITIVE_TYPE | IDENTIFIER | arrayType
+                    ;// ID for class type
+//----------------------------------------------------------------
+attributeDeclaration:
+                    (K_VAL | K_VAR)
+                    mixedIdentifier (COMMA mixedIdentifier)*
+                    COLON d96Type (OP_ASSIGN expression (COMMA expression)*)? SEMI_COLON
+                    ;
+identifierList: 	IDENTIFIER (COMMA IDENTIFIER)*
+					;// My1stCons, My2ndCons
+mixedIdentifier:    IDENTIFIER | DOLAR_IDENTIFIER
+                    ;
+>>>>>>> develop
 //==================== Program struture end ====================
 
 
 //==================== Expression start ====================
-expression_list:	expression | expression expression_list_tail
+expressionList: 	expression | expression (COMMA expression)+
 					;// 1+2, 1+2, 2*5
-
-expression_list_tail:	
-					(COMMA expression expression_list_tail)*
-					;// , 1+2, 1+2, 2*5
 //----------------------------------------------------------------
 // Index operator
-element_expression:	expression index_operator
+elementExpression:	expression indexOperator
 					;
-index_operator:		LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET index_operator*
+indexOperator:		(LEFT_SQUARE_BRACKET expression RIGHT_SQUARE_BRACKET)+
 					;// a[1] or b[1][2] or A[1+2]
 //-----------------------------------------------------------------
 // All expression
-relational_operator:
+relationalOperator:
 					OP_IS_EQUAL_TO
 					| OP_NOT_EQUAL_TO
 					| OP_LESS_THAN
@@ -114,155 +141,132 @@ relational_operator:
 					| OP_GREATER_THAN_EQUAL
 					;
 
-expression:			expression (OP_STRING_CONCATENATION | OP_TWO_SAME_STRING) relational_expr
-					| relational_expr
-					;
+expression:			relationalExpr (OP_STRING_CONCATENATION | OP_TWO_SAME_STRING) relationalExpr
+					| relationalExpr
+					;// +. ==
 
-relational_expr:	relational_expr relational_operator and_or_expr | and_or_expr
+relationalExpr:	    andOrExpr relationalOperator andOrExpr
+                    | andOrExpr
+					;// == != < > <= >=
+andOrExpr:		    andOrExpr (OP_LOGICAL_AND | OP_LOGICAL_OR) addSubExpr
+					| addSubExpr
+					;// && ||
+addSubExpr:		    addSubExpr (OP_ADDTION | OP_SUBTRACTION) mulAddMolExpr
+					| mulAddMolExpr
 					;
-and_or_expr:		and_or_expr (OP_LOGICAL_AND | OP_LOGICAL_OR) add_sub_expr
-					| add_sub_expr
+mulAddMolExpr:	    mulAddMolExpr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) notExpr
+					| notExpr
 					;
-add_sub_expr:		add_sub_expr (OP_ADDTION | OP_SUBTRACTION) mul_add_mol_expr
-					| mul_add_mol_expr
+notExpr:			OP_LOGICAL_NOT notExpr | signExpr
 					;
-mul_add_mol_expr:	mul_add_mol_expr (OP_MULTIPLICATION | OP_DIVISION| OP_MODULO) not_expr 
-					| not_expr
+signExpr:			(OP_SUBTRACTION | OP_ADDTION) signExpr | indexOperatorExpr
 					;
-not_expr:			OP_LOGICAL_NOT not_expr | sign_expr
-					;
-sign_expr:			(OP_SUBTRACTION) sign_expr | index_operator_expr 
-					;
-
-index_operator_expr:
-					index_operator_expr index_operator | instance_attribute_access
+indexOperatorExpr:
+					instanceAccess indexOperator
+					| instanceAccess
 					;
 // Member access
-instance_attribute_access:
-					instance_attribute_access DOT IDENTIFIER | instace_method_invocation
-					;// getClassObject.object
-					// TODO review lai dieu kien co DOLAR_IDENTIFIER ko?
-					// <expression> is an expression that returns an object of a class and 
-					// <identifier> is an attribute of the class.	
-instace_method_invocation:
-					instace_method_invocation DOUBLE_COLON IDENTIFIER 
-					LEFT_PAREN expression_list? RIGHT_PAREN 
-					| atom_expr
-					;// the first <identifier> is a class name and 
-					// <identifier> is a static method name of the class. 
-static_method_invocation:
-					IDENTIFIER DOUBLE_COLON 
-					LEFT_PAREN expression_list? RIGHT_PAREN
+instanceAccess:
+					instanceAccess DOT IDENTIFIER
+					(LEFT_PAREN expressionList? RIGHT_PAREN)?
+					| staticAccess
 					;
-static_attribute_access:
-					IDENTIFIER DOUBLE_COLON IDENTIFIER
-					;// the first <identifier> is a class name, and 
-					// the second <identifier> is a static attribute of the class.
+staticAccess:
+					staticAccess DOUBLE_COLON DOLAR_IDENTIFIER
+					(LEFT_PAREN expressionList? RIGHT_PAREN)?
+					| objectCreation
+					;
 // Object creation
-object_creation:	K_NEW IDENTIFIER 
-					LEFT_PAREN expression_list? RIGHT_PAREN
+objectCreation:	    K_NEW IDENTIFIER
+					LEFT_PAREN expressionList? RIGHT_PAREN
+					| atomExpr
 					;
 
-atom_expr:			literal
+atomExpr:			literal
+                    | K_NULL
+                    | K_SELF
 					| IDENTIFIER
 					| LEFT_PAREN expression RIGHT_PAREN
-					| function_call
-					| static_method_invocation
-					| static_attribute_access
-					;
-function_call:		IDENTIFIER LEFT_PAREN expression_list? RIGHT_PAREN
 					;
 //------------------------------------------------------------------------
 //==================== Expression end ====================
 
 //==================== Statement start ====================
 // Variable and Constant Declaration Statement
-// TODO check xem co dung dolar identifier ko?
-var_val_statement:	(K_VAL | K_VAR) 
-					identifier_list 
-					COLON 
-					(array_type | primitive_type) (OP_ASSIGN expression_list)? SEMI_COLON
-					;// Val My1stCons, My2ndCons: Int = 1 + 5, 2;
-					// However, the static property of attribute cannot be applied to them 
-					// so its name should not follow the dollar identifier rule.
+varValStatement:	(K_VAL | K_VAR)
+                    IDENTIFIER (COMMA IDENTIFIER)*
+                    COLON d96Type (OP_ASSIGN expression (COMMA expression)*)? SEMI_COLON
+                    ;
 // Assign statement
-assign_statement: 	(identifier | element_expression) OP_ASSIGN expression SEMI_COLON
+lhs:                instanceAccess DOT IDENTIFIER
+                    | instanceAccess DOUBLE_COLON DOLAR_IDENTIFIER
+                    | IDENTIFIER
+                    | elementExpression
+                    ;
+assignStatement: 	lhs OP_ASSIGN expression SEMI_COLON
 					;
 // If statement
 // ---------------------------------------------------------------------------
-if_statement:		if_part
-					else_if_part*
-					else_part?
-					;
-if_part:			K_IF LEFT_PAREN expression RIGHT_PAREN block_statement		
-					;
-else_if_part:		K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN block_statement
-					;
-else_part:			K_ELSE block_statement
-					;
-//-----------------------------------------------------------------------------		
+ifStatement:        K_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
+                    | K_ELSE_IF LEFT_PAREN expression RIGHT_PAREN blockStatement
+                    | K_ELSE blockStatement
+                    ;
+//-----------------------------------------------------------------------------
 // For in statement
 //-----------------------------------------------------------------------------
-for_in_statement:	K_FOR_EACH
-					LEFT_PAREN loop_part RIGHT_PAREN
-					block_statement
+forInStatement:	    K_FOR_EACH
+                    LEFT_PAREN
+                    IDENTIFIER K_IN expression DOUBLE_DOT expression (K_BY expression)?
+                    RIGHT_PAREN
+					blockStatement
 					;
-loop_part:			IDENTIFIER K_IN INTEGER_LITERAL DOUBLE_DOT INTEGER_LITERAL
-					(K_BY INTEGER_LITERAL)?
-					;// i In 1 .. 100 [By 2]?
 //-----------------------------------------------------------------------------
 // Break statement
-break_statement:	K_BREAK SEMI_COLON
+breakStatement:	    K_BREAK SEMI_COLON
 					;// Break;
 // Continue statement
-continue_statement:	K_CONTINUE SEMI_COLON
+continueStatement:	K_CONTINUE SEMI_COLON
 					;// Continue;
-// Return statements 
-return_statement:   K_RETURN expression SEMI_COLON
+// Return statements
+returnStatement:    K_RETURN expression? SEMI_COLON
 					;
 // Method invocation statement
-method_invocation_statement: 
-					IDENTIFIER DOUBLE_COLON DOLAR_IDENTIFIER LEFT_PAREN RIGHT_PAREN SEMI_COLON
+methodInvocationStatement:
+                    instanceAccess SEMI_COLON
 					;// Shape::$getNumOfShape();
-block_statement:	LEFT_CURLY_BRACKET
+blockStatement:	    LEFT_CURLY_BRACKET
 					statement*
 					RIGHT_CURLY_BRACKET
 					;//The <block statement> includes zero or many statements
-
-statement: 			var_val_statement
-					| assign_statement
-					| if_statement
-					| for_in_statement
-					| break_statement
-					| continue_statement
-					| return_statement
-					| method_invocation_statement
+statement: 			varValStatement
+					| assignStatement
+					| ifStatement
+					| forInStatement
+					| breakStatement
+					| continueStatement
+					| returnStatement
+					| methodInvocationStatement
+					| blockStatement
 					;
-
 //==================== Statement end ====================
 
 //==================== Lexical rules start ====================
-// TODO: 3.1 Character set
 // 3.2 Program comment
 COMMENT: 			'##' .*? '##' -> skip; 	// ## This is a comment ##
 // 3.4 Keywords, define the keywords on top
 K_BREAK: 			'Break';
 K_CONTINUE: 		'Continue';
-K_IF: 				'If'; 
-K_ELSE_IF: 			'Elseif'; 
+K_IF: 				'If';
+K_ELSE_IF: 			'Elseif';
 K_ELSE: 			'Else';
 K_FOR_EACH: 		'Foreach';
-// TODO xem lại True False
-//TRUE: 		'True';
-//FALSE: 		'False';
 K_ARRAY:			'Array';
 K_IN: 				'In';
-K_INT: 				'Int';
-K_FLOAT: 			'Float';
-K_BOOLEAN: 			'Boolean';
-K_STRING:			'String';
 K_RETURN:			'Return';
 K_NULL: 			'Null';
+K_SELF: 			'Self';
+K_MAIN:             'main';
+K_PROGRAM:          'Program';
 K_CLASS: 			'Class';
 K_VAL: 				'Val';
 K_VAR: 				'Var';
@@ -270,9 +274,6 @@ K_CONSTRUCTOR:		'Constructor';
 K_DESTRUCTOR:		'Destructor';
 K_NEW:				'New';
 K_BY: 				'By';
-K_MAIN:				'main';
-K_SELF:				'self';
-
 // 3.5 Operators
 OP_ASSIGN: 					'=';
 // Boolean type
@@ -315,107 +316,113 @@ SEMI_COLON:				';';
 LEFT_CURLY_BRACKET:		'{';
 RIGHT_CURLY_BRACKET:	'}';
 // Quote
-fragment SINGLE_QUOTE:	'\'';
 fragment DOUBLE_QUOTE:	'"';
-// Escape
-ESCAPE:				 	'\'"' 
-						|'\\b'		// \b backspace
-						|'\\f'		// \f form feed
-						|'\\r'		// \r carriage return
-						|'\\n'		// \n newline
-						|'\\t'		// \t horizontal tab
-						|'\\\''		// \' single quote
-						|'\\\\';	// \\ backslash
 // 3.7 Literals
 fragment OCTAL_NOTATION: 	'0';
 fragment HEXA_NOTATION: 	'0x' | '0X';
 fragment BINARY_NOTATION: 	'0b' | '0B';
-fragment HEXA_DIGIT: 		[0-9a-fA-F]; 		// base 16
+fragment HEXA_DIGIT: 		[0-9A-F]; 		// base 16
 fragment OCTAL_DIGIT: 		[0-7]; 				// base 8
 fragment BINARY_DIGIT: 		[01]; 				// base 2
 
 fragment DECIMAL_DIGIT:		[0-9];
-fragment EXPONENT: 			[eE][-+]? DECIMAL+;
-
 // 1. Integer
-fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]'_'?(DECIMAL_DIGIT+'_'?)*DECIMAL_DIGIT
+fragment DECIMAL: 	DECIMAL_DIGIT | [1-9]DECIMAL_DIGIT*('_'DECIMAL_DIGIT+)*
 					;
-fragment OCTAL:		OCTAL_NOTATION ( 
-					'0' | ([1-7](OCTAL_DIGIT+'_'?)*OCTAL_DIGIT)
+fragment OCTAL:		OCTAL_NOTATION (
+					'0' | [1-7]OCTAL_DIGIT*('_'OCTAL_DIGIT+)*
 					)
-					;// '0'([0-7]+'_')*[0-7]+
-
+					;
 fragment HEXA: 		HEXA_NOTATION(
 					'0'
-					| ([1-9a-fA-F](HEXA_DIGIT+'_'?)*HEXA_DIGIT)
+					| [1-9A-F]HEXA_DIGIT*('_' HEXA_DIGIT+)*
 					)
 					;
-
 fragment BINARY: 	BINARY_NOTATION(
 					'0'
-					| ('1'(BINARY_DIGIT+'_'?)*BINARY_DIGIT)
+					| '1'BINARY_DIGIT*('_'BINARY_DIGIT+)*
 					)
 					;
-
-INTEGER_LITERAL:	DECIMAL | OCTAL | HEXA | BINARY
+// For Array
+fragment DECIMAL2: 	[1-9] (DECIMAL_DIGIT*('_'DECIMAL_DIGIT+)*)?
+					;
+fragment OCTAL2:	OCTAL_NOTATION [1-7]OCTAL_DIGIT*('_'OCTAL_DIGIT+)*
+                    ;
+fragment HEXA2: 	HEXA_NOTATION [1-9A-F]HEXA_DIGIT*('_' HEXA_DIGIT+)*
+					;
+fragment BINARY2: 	BINARY_NOTATION '1' BINARY_DIGIT*('_'BINARY_DIGIT+)*
+					;
+INTEGER_LITERAL2:	(DECIMAL2 | OCTAL2 | HEXA2 | BINARY2)
                     {self.text = self.text.replace("_", "")}
 					;
+INTEGER_LITERAL:	(DECIMAL | OCTAL | HEXA | BINARY)
+                    {self.text = self.text.replace("_", "")}
+					;
+// For Float
+fragment INTEGER_PART:	DECIMAL;
+fragment DECIMAL_PART:	DOT DECIMAL_DIGIT*;
+fragment EXPONENT: 		[eE][-+]? DECIMAL_DIGIT+;
+
 // 2. Float
+<<<<<<< HEAD
 // TODO check lai dieu kien Float
 FLOAT_LITERAL:		(DECIMAL DOT DECIMAL? EXPONENT?		
 					|DECIMAL EXPONENT						
 					|DOT DECIMAL? EXPONENT)				
+=======
+FLOAT_LITERAL       :(INTEGER_PART DECIMAL_PART EXPONENT?
+					| INTEGER_PART EXPONENT
+					| DECIMAL_PART EXPONENT)
+>>>>>>> develop
 					{self.text = self.text.replace("_", "")}
 					;
+
 // 3. Boolean
 BOOLEAN_LITERAL:	'True' | 'False';
 // 4. String
-STRING_LITERAL: 	DOUBLE_QUOTE 
-					(ESCAPE |~('"'| '\\' | '\''))*?
-					DOUBLE_QUOTE
-					;
-literal:            INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL | indexed_array | multi_dimentional_array;
+STRING_LITERAL		: DOUBLE_QUOTE STR_CHAR* DOUBLE_QUOTE { self.text = self.text[1:-1] };
+
+literal:            INTEGER_LITERAL
+                    | INTEGER_LITERAL2
+                    | FLOAT_LITERAL
+                    | BOOLEAN_LITERAL
+                    | STRING_LITERAL
+                    | indexedArray;
 // 5. Indexed array
-indexed_array:  		K_ARRAY
+indexedArray:  		K_ARRAY
 						LEFT_PAREN(
 							(INTEGER_LITERAL (COMMA INTEGER_LITERAL)*)?
+							|(INTEGER_LITERAL2 (COMMA INTEGER_LITERAL2)*)
 							|(FLOAT_LITERAL (COMMA FLOAT_LITERAL)*)
 							|(BOOLEAN_LITERAL (COMMA BOOLEAN_LITERAL)*)
-							|(STRING_LITERAL (COMMA STRING_LITERAL)*)						
+							|(STRING_LITERAL (COMMA STRING_LITERAL)*)
+							|((indexedArray) (COMMA indexedArray)*)
 						)
 						RIGHT_PAREN
-					;	// Array() Array(1) Array(1,2,3)
+						;	// Array() Array(1) Array(1,2,3)
 // 6. Multi-dimensional array
-multi_dimentional_array: 	K_ARRAY
-                            LEFT_PAREN(
-                            (indexed_array (COMMA indexed_array)*)?
-                            )
-                            RIGHT_PAREN
-					    ;
 
+// Primitive type
+PRIMITIVE_TYPE: 	'Int'
+                    | 'Float'
+                    | 'Boolean'
+                    | 'String'
+                    ;
 // 3.3 Identifier, Dolar identifer
-IDENTIFIER:			([a-z] | [A-Z] | '_') ([a-z] | [A-Z] | '_' | [0-9])*;
-DOLAR_IDENTIFIER: 	'$'([a-z] | [A-Z] | '_' | [0-9])+;
-identifier: 		IDENTIFIER | DOLAR_IDENTIFIER
-					;
+IDENTIFIER:			[_a-zA-Z][_a-zA-Z0-9]*;
+DOLAR_IDENTIFIER: 	'$'[_a-zA-Z0-9]+;
 //==================== 3. Lexical rules end ====================
 
 //==================== 4. Type and Value start ====================
-
-// Primitive type
-primitive_type: 	K_BOOLEAN | K_INT | K_FLOAT | K_STRING | K_ARRAY;
-
 // Array type
 // An array type declaration is in the form of: Array[<element_type>, <size>].
-array_type: 		K_ARRAY
+arrayType: 		K_ARRAY
 						LEFT_SQUARE_BRACKET
-							primitive_type COMMA INTEGER_LITERAL
+							(PRIMITIVE_TYPE | arrayType) COMMA INTEGER_LITERAL2
 						RIGHT_SQUARE_BRACKET
-					; 
-
-class_type:			K_NEW IDENTIFIER LEFT_PAREN RIGHT_PAREN
-					;// New X()
+					;
 //==================== Type and Value end ====================
+<<<<<<< HEAD
 
 
 WHITE_SPACE: [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
@@ -447,3 +454,34 @@ ERROR_TOKEN : . {raise ErrorToken(self.text)};
 
 
 
+=======
+WS : [ \t\r\n\f]+ -> skip ; // skip spaces, tabs, newlines
+
+UNCLOSE_STRING:     DOUBLE_QUOTE STR_CHAR*
+                    {
+                        y = str(self.text)
+                        possible = ['b','\t','\n','\f','\r',"'",'\\']
+                        if y[-1] in possible:
+                            raise UncloseString(y[1:-1])
+                        else:
+                            raise UncloseString(y[1:])
+                    }
+                    ;
+ILLEGAL_ESCAPE:     DOUBLE_QUOTE STR_CHAR* ESC_ILLEGAL
+                    {
+                        y = str(self.text)
+                        raise IllegalEscape(y[1:])
+                    }
+                    ;
+fragment STR_CHAR: ~[\b\t\n\f\r"\\] | ESC_ACCEPT | '\'' DOUBLE_QUOTE;
+
+fragment ESC_ACCEPT: '\\' [btnfr"\\] ;
+
+fragment ESC_ILLEGAL: '\\' ~[btnfr"\\] ;
+
+ERROR_CHAR:         .
+                    {
+                        raise ErrorToken(self.text)
+                    }
+                    ;
+>>>>>>> develop

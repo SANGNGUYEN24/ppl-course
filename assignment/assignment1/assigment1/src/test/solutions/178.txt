@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
            SY##"
+=======
+Error on line 4 col 42: (
+>>>>>>> develop

@@ -1,1 +1,8 @@
-## !_203 Hello ## ####
+
+            Class Adam : Human {
+                Var a: Int = 12.e23;
+                method_() {
+                    a[123]["ss"][1 + "233"] = New X(Array(22)).Y(759);
+                }
+            }
+            

@@ -1,3 +1,9 @@
- 
-           7exV" "$CxG
-        
+
+    Class Eva : Human {
+        function(){
+            a::$b__7_78jh=2;
+            a::$e_____o76978();
+            a::$c::$d=2;
+        }
+    }
+    

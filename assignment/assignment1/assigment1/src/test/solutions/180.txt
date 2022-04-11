@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
           9Gj_i7Wd_hp ##\n+RP8##5Iza1uG__y__##_-"
+=======
+successful
+>>>>>>> develop

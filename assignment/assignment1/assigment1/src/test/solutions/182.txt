@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
            S_n2Rl"
+=======
+successful
+>>>>>>> develop

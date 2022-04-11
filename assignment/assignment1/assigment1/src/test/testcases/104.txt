@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 __A1_2_3
+=======
+
+            ## Define class Car ##
+            Class Car : Vehicle{
+                Val speed: Float = 0;
+                Val $model, tireNum: Int;
+            }
+
+        
+>>>>>>> develop

@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
            _xn1t"
+=======
+Error on line 4 col 18: =
+>>>>>>> develop

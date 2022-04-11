@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 a1_23,<EOF>
+=======
+Error on line 1 col 8: <EOF>
+>>>>>>> develop

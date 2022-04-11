@@ -1,5 +1,9 @@
- 
-            Class foo {
-                Var a : Int = Self.x() + $a.$10 % _12::_abc2 * _84.a12 - 09 + 0xBN;
-            }
-        
+
+    Class Human {
+        Constructor(width, height : Int; name:String){
+            Self.Area=Self.width*Self.height;
+            Self.name="shape"+.name;
+        }
+        Destructor(){}
+    }
+    

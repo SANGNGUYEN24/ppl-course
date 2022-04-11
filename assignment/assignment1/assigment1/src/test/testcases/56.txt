@@ -1,0 +1,1 @@
+ "Sang" +. "is"+. "handsome" ==. "Sang is handsome" 

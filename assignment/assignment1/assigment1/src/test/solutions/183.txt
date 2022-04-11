@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Unclosed String:  
             e0B0XUZfA_UJ K c2GQVuMjRJ_R"
+=======
+Error on line 4 col 24: ==
+>>>>>>> develop

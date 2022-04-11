@@ -1,1 +1,5 @@
-ELSEIFIF-If,ElseIf+.==.Else##new##Return(.,)
+
+            Class Error {
+                Constructor(param: String) {}
+            }
+            

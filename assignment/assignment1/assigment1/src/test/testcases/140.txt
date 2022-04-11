@@ -1,1 +1,5 @@
-!-=[<!_33>]SelfIf,./!==
+
+            Class _____ {
+                Constructor(param: Int);
+            }
+            

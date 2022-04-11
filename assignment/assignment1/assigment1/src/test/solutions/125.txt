@@ -1,1 +1,1 @@
-12.5e-34,<EOF>
+Error on line 5 col 36: 00

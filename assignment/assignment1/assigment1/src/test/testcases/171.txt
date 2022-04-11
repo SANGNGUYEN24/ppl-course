@@ -1,3 +1,7 @@
- 
-           "69060+e_dl_fYz##"xq==.$
-        
+
+    Class Human {
+        function(){
+            a();
+        }
+    }
+    

@@ -1,0 +1,1 @@
+Class tP:B_{Constructor (){}Var $_W__,$l,E_:Float ;Destructor (){ {} }Var _:_;_(){ {} }}Class T{Var E__eL_:Float ;Destructor (){Break ;} }

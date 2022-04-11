@@ -1,0 +1,1 @@
+Class _4{Var $d5:Array [Boolean ,0x13];Var _,$7,$6,_,$_,_50_0:Array [Array [Array [Boolean ,0X41],0b1],0xA];Var $_:Float ;}

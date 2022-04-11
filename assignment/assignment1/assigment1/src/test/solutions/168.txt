@@ -1,1 +1,1 @@
-Class,foo,{,Var,a,:,Int,=,Self,.,x,(,),+,$a,.,$10,%,_12,::,_abc2,*,_84,.,a12,-,0,9,+,0,xBN,;,},<EOF>
+successful

@@ -1,1 +1,6 @@
-=!####The end of file<>!+=*#
+
+            Class Error {
+                method(s) {
+                }
+            }
+            

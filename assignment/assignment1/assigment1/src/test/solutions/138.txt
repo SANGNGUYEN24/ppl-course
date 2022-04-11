@@ -1,1 +1,1 @@
-..,::,In,+,Break,-,Array,%,Constructor,<EOF>
+Error on line 3 col 20: If

@@ -1,0 +1,9 @@
+
+                Class Eva : Human{
+                    function(){
+                        b::$f=1;
+                    }
+                    a = 19783642;
+                }
+
+            

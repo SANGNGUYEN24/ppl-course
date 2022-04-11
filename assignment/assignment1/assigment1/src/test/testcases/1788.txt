@@ -1,0 +1,1 @@
+Class k19_{Var _1_,$T5:Array [Array [Array [Float ,0b10],0B10_0],02];Constructor (nb,G,g4:Float ){Var _4:Array [Array [Array [Float ,0B1010111],1],0x3D];} }Class _:__{}

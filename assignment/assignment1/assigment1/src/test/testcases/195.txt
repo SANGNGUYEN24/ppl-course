@@ -1,3 +1,7 @@
- 
-           _xn1t"==.4-5
-        
+
+            Class Eva : Human {
+                function(){
+                a+=1;
+                }
+            }
+            

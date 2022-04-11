@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 Unclosed String:  
             Class foo {
                 Var a : Int = New A(a[1][2] % 20 ==. "
+=======
+Error on line 7 col 19: $numOfHuman
+>>>>>>> develop

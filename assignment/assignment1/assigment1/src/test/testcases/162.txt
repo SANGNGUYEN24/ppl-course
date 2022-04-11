@@ -1,6 +1,11 @@
- 
-            Class program {
-                Var x,y : Int = 10;
-                Val $x, yz = 10;
-            }
-        
+
+Class Human2 {
+    $getNumOfHuman() {
+        If (a == (1+1) ){
+            Var b,c:Boolean = True, False;
+        }
+        Foreach (i In 1 .. 100 By 2) {
+             Var a:Boolean = True;
+        }
+    }
+}

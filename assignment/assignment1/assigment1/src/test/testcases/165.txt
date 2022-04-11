@@ -1,7 +1,7 @@
- 
-            Class foo {
-                Var $a, b, c : Int = 1, 2, ;
-                Var $x,y : Int = 1, 2 ;
-                Val c, d : Int = 1, 2,3 ;
-            }
-        
+
+    Class Human {
+        function(){
+            Var a: Boolean = !!True;
+        }
+    }
+    

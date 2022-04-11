@@ -1,0 +1,1 @@
+Class __{Constructor (){}Var _:Array [Array [Array [Array [Array [Array [Boolean ,0xF],04],0x4D],0B1100100],87],0250];}Class _{$O(__,__,_P__1,d:_6){} }

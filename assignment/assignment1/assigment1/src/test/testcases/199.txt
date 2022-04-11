@@ -1,3 +1,7 @@
- 
-           "ZBzNzM_LgCC4 W_r_La4
-        
+
+    Class Eva : Human {
+        function(){
+        b=1+-1--1+-1-+-1;
+        }
+    }
+    

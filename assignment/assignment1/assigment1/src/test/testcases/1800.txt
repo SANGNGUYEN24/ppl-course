@@ -1,0 +1,1 @@
+Class CC:HQ{Constructor (){Continue ;}Constructor (_,h5_M_:Array [Array [Int ,78],0XD]){} }Class _:_9sVv0{}Class iO:R_{}Class R:_{}

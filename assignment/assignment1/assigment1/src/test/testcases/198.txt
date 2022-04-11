@@ -1,3 +1,8 @@
- 
-           t1X93_+.+ /1aq_Kq_9R3_
-        
+
+    Class Eva : Human {
+        function(){
+            a=-1+1;
+            b=1+-1--1+-1---1;
+        }
+    }
+    

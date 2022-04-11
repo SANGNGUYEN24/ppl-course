@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 _1,<EOF>
+=======
+successful
+>>>>>>> develop

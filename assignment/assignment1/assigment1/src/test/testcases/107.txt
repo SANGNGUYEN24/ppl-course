@@ -1,1 +1,7 @@
-abc_cd $_95 ABCxre _293cjSjdl;
+
+            Class Eva{
+                getSpeed(a, b, c: Int; d, e: String){
+                    X.print("speed is: " +.  "20km/h");
+                }
+            }
+            

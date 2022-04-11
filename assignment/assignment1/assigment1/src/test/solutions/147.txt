@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 Unclosed String:  "
+=======
+Error on line 4 col 18: =
+>>>>>>> develop
