@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="962c7da8-cce2-4505-8659-4e39adfede56" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/_212_CO3005__Assignment.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assignment2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/external/jasmin.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/lib/io.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/lib/io.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/astgen/ASTGeneration.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/AST.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/StaticCheck.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/StaticError.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/Utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/Visitor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/t.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/CodeGenError.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/CodeGenerator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/Emitter.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/Frame.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/MachineCode.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96Lexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96Lexer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96Lexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96Parser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MC.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MC.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MCLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MCLexer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MCLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MCParser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/D96.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/lexererr.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/utils/AST.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/utils/Utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/utils/Visitor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/run.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuite.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuiteMien.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuiteNam.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuiteNamBo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuitePhuNghia.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuite_PN.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/CheckerSuite.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/CodeGenSuite.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/LexerSuite.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/ParserSuite.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/TestUtils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/solutions/500/BKOOLClass.j" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/solutions/500/MCClass.j" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/solutions/501/BKOOLClass.j" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/initial/src/test/solutions/501/MCClass.j" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/slide5.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.j" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.j" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/.idea/initial.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/initial/target/BKOOL.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/initial/target/BKOOL.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/initial/target/BKOOLLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/initial/target/BKOOLLexer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/initial/target/BKOOLLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/initial/target/BKOOLParser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../initial/initial/target/BKOOLVisitor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../quiz/.idea/quiz.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../quiz/.idea/quiz.iml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="28MgJ8nTNWZcBoJqPw6qpuLR2QI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/development-area/ppl/ppl-course/assignment/assignment3/src/main/d96/checker&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\development-area\ppl\ppl-course\assignment\assignment3\src\main\d96\checker" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="962c7da8-cce2-4505-8659-4e39adfede56" name="Changes" comment="" />
+      <created>1651031798662</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1651031798662</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

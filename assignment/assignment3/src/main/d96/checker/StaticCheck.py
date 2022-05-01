@@ -42,12 +42,39 @@ class Symbol:
 
     @staticmethod
     def getClassDeclSymbol(decl):
-        return Symbol(name=decl.classname, mtype=ClassType, kind=Class)
+        return Symbol(name=decl.classname, mtype=ClassType, kind=Class())
 
     @staticmethod
     def setIsGlobal(self):
         self.isGlobal = True
         return self
+
+
+class SymbolTable:
+    symbolList = List[Symbol]
+    parent = Symbol
+
+    @staticmethod
+    def initSymbolTable():
+        """
+        For each new scope I create a new empty symbol table
+        """
+        newSymbolTable = SymbolTable()
+        newSymbolTable.parent = None
+        return newSymbolTable
+
+
+    @staticmethod
+    def scopeSymbolTable(scope):
+        """
+        When opening a new scope, we first construct a new symbol table and then set its parent to the
+        current scope
+        """
+        # scope : SymbolTable
+        newSymbolTable = SymbolTable.initSymbolTable()
+        newSymbolTable.parent = scope
+        return newSymbolTable
+
 
 
 class StaticChecker(BaseVisitor):
@@ -63,6 +90,7 @@ class StaticChecker(BaseVisitor):
         return self.visit(self.ast, StaticChecker.global_envi)
 
     def visitProgram(self, ast, c):
+        print("From visitProgram: ast.decl: ", ast.decl)
         classSymbols = [Symbol.getClassDeclSymbol(x) for x in ast.decl]
         classNameList = [i.name for i in classSymbols]
         print("From visitProgram: ", classSymbols)
@@ -74,6 +102,8 @@ class StaticChecker(BaseVisitor):
 
     def visitClassDecl(self, ast, c):
         print("From visitClassDecl: ", c)
+        print("From visitClassDecl: ast.decl: ", ast.decl)
+
         return 0
 
     def visitFuncDecl(self, ast, c):
