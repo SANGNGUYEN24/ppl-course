@@ -6,6 +6,9 @@ from Visitor import *
 from StaticError import *
 
 
+class SType: pass
+
+
 class MType:
     """
     partype -> param type   ->  List<Type>
@@ -20,61 +23,267 @@ class MType:
         return 'MType([' + ','.join([str(i) for i in self.partype]) + '],' + str(self.rettype) + ')'
 
 
+class Scope:
+
+    def getName(self): pass
+
+    def getScope(self): pass
+
+    """
+    Get symbol if name defined in this specific scope
+    """
+
+    def getSymbol(self, name): pass
+
+    def getSymbols(self): pass
+
+    def getSymbolNames(self): pass
+
+    def getNestedScopedSymbols(self): pass
+
+    """
+    Return a list of scopes nested within this scope
+    :return List[Scope]
+    """
+
+    def getNestedScopes(self): pass
+
+    def getEnclosingPathToRoot(self): pass
+
+    """
+    Add a nested local scope to this scope; it's like define() but
+    for non SymbolWithScope objects. E.g., a FunctionSymbol will
+    add a LocalScope for its block via this method.
+    :return void
+    """
+
+    def nest(self, symbol): pass
+
+    def define(self, symbol): pass
+
+    """
+    Look up name in this scope or recursively in parent scope if not here
+    """
+
+    def resolve(self, name): pass
+
+
+class BaseScope(Scope):
+    enclosingScope: Scope
+    """
+    All symbols defined in this scope; can include classes, functions,
+	variables, or anything else that is a Symbol impl. It does NOT
+	include non-Symbol-based things like LocalScope.
+	"""
+    symbols = {}
+
+    """
+    All directly contained scopes, typically LocalScopes within a
+	LocalScope or a LocalScope within a FunctionSymbol. This does not
+	include SymbolWithScope objects.
+    """
+    nestedScopeNotSymbols = []
+
+    def __init__(self, enclosingScope=None):
+        if enclosingScope is None: pass
+        self.enclosingScope = enclosingScope
+
+    def __str__(self):
+        return str(self.symbols.keys())
+
+    def define(self, symbol):
+        if self.symbols.__contains__(symbol.name):
+            raise Redeclared(symbol.kind, symbol.name)
+        symbol.scope = self
+        self.symbols[symbol.name] = symbol
+
+    def resolve(self, name):
+        s = self.symbols.get(name)
+        if s is not None: return s
+        # If not here, resolve in parent scope
+        parent = self.enclosingScope
+        if parent is not None: parent.resolve(name)
+        return None
+
+    def getSymbol(self, name):
+        return self.symbols.get(name)
+
+    def getSymbols(self):
+        return [s for s in self.symbols.values()]
+
+    def getSymbolNames(self):
+        return self.symbols.keys()
+
+    def getNumOfSymbols(self):
+        return len(self.symbols)
+
+    def nest(self, scope):
+        self.nestedScopeNotSymbols.append(scope)
+
+    def getNestedScopedSymbols(self):
+        scopes = []
+        for s in self.getSymbols():
+            if isinstance(s, Scope):
+                scopes.append(s)
+        return scopes
+
+    def getNestedScopes(self):
+        allScopes = [self.getSymbols(), self.nestedScopeNotSymbols]
+        return allScopes
+
+    def getOuterMostEnclosingScope(self):
+        s = self
+        while s.enclosingScope is not None:
+            s = s.enclosingScope
+        return s
+
+    def getEnclosingPathToRoot(self):
+        scopeList = []
+        s = self
+        while s is not None:
+            scopeList.append(s)
+            s = s.enclosingScope
+        return scopeList
+
+
+class GlobalScope(BaseScope):
+    def __init__(self, scope):
+        super().__init__(scope)
+
+    def getName(self):
+        return "global"
+
+
+class LocalScope(BaseScope):
+    def __init__(self, scope):
+        super().__init__(scope)
+
+    def getName(self):
+        return "local"
+
+
 class Symbol:
-    def __init__(self, name, mtype, value=None, kind=None, isGlobal=False):
-        """
-        :param name:    string
-        :param mtype:   MType | IntType | BoolType | FloatType | StringType | ArrayType
-        :param value:   dynamic
-        :param kind:    Class | Method | SpecialMethod | Attribute | Parameter | Constant | Variable | Identifier
-        """
+    """
+    :param name:    string
+    :param mtype:   MType | IntType | BoolType | FloatType | StringType | ArrayType
+    :param value:   dynamic
+    :param kind:    Class | Method | SpecialMethod | Attribute | Parameter | Constant | Variable | Identifier
+    """
+    name: str
+    mtype: MType
+    type: SType
+    scope: Scope
+    kind: Kind
+
+    def __init__(self, name):
         self.name = name
-        self.mtype = mtype
-        self.value = value
-        self.kind = kind
-        self.isGlobal = isGlobal
 
     def __str__(self):
         return 'Symbol(' + self.name + ',' + str(self.mtype) + ',' + str(self.kind) + ')'
 
-    def getKind(self):
-        return self.kind if type(self.kind) is MType else Identifier()
 
-    @staticmethod
-    def getClassDeclSymbol(decl):
-        return Symbol(name=decl.classname, mtype=ClassType, kind=Class())
+class SymbolWithScope(BaseScope, Symbol, Scope):
+    name: str
 
-    @staticmethod
-    def setIsGlobal(self):
-        self.isGlobal = True
-        return self
+    def __init__(self, name):
+        super().__init__()
+        self.name = name
 
-
-class SymbolTable:
-    symbolList = List[Symbol]
-    parent = Symbol
-
-    @staticmethod
-    def initSymbolTable():
-        """
-        For each new scope I create a new empty symbol table
-        """
-        newSymbolTable = SymbolTable()
-        newSymbolTable.parent = None
-        return newSymbolTable
+    def getQualifiedName(self):
+        return f"{self.enclosingScope.getName()}'.'{self.name}"
 
 
-    @staticmethod
-    def scopeSymbolTable(scope):
-        """
-        When opening a new scope, we first construct a new symbol table and then set its parent to the
-        current scope
-        """
-        # scope : SymbolTable
-        newSymbolTable = SymbolTable.initSymbolTable()
-        newSymbolTable.parent = scope
-        return newSymbolTable
+class MemberSymbol(Symbol):
+    pass
 
+
+class MethodSymbol(MemberSymbol):
+    def __init__(self, name):
+        super().__init__(name)
+
+
+class VariableSymbol(Symbol):
+    def __init__(self, name):
+        super().__init__(name)
+
+
+class ParameterSymbol(VariableSymbol):
+    def __init__(self, name):
+        super().__init__(name)
+
+
+class FieldSymbol(VariableSymbol, MemberSymbol):
+    def __init__(self, name):
+        super().__init__(name)
+
+
+class ClassSymbol(SymbolWithScope, MemberSymbol):
+    superClassName: str
+
+    def __init__(self, name):
+        super().__init__(name)
+
+    def getSuperClassScope(self):
+        if self.superClassName is not None:
+            if self.enclosingScope is not None:
+                superClass = self.enclosingScope.resolve(self.superClassName)
+                if isinstance(superClass, ClassSymbol):
+                    return superClass
+        return None
+
+    def getSuperClassScopes(self):
+        superClassScope = self.getSuperClassScope()
+        if superClassScope is not None: return [superClassScope]
+
+    def resolve(self, name):
+        s = self.resolveMember(name)
+        if s is not None: return s
+        # If not here, go to parent scope
+        parent = self.enclosingScope
+        if parent is not None: return parent.resolve(name)
+        return None  # If not found
+
+    """
+    Look for a member with this name in this scope or any super class.
+    Return null if no member found.
+    """
+
+    def resolveMember(self, name):
+        s = self.symbols.get(name)
+        if isinstance(s, MemberSymbol): return s
+
+        # Traverse super class
+        superClassScopes = self.getSuperClassScopes()
+        if superClassScopes is not None:
+            for ele in superClassScopes:
+                s = ele.resolveMember(self.name)
+                if isinstance(s, MemberSymbol): return s
+        return None
+
+    """
+    Look for a field with this name in this scope or any super class.
+    Return null if no field found.
+    """
+
+    def resolveField(self, name):
+        s = self.resolveMember(name)
+        if isinstance(s, FieldSymbol): return s
+        return None
+
+    def resolveMethod(self, name):
+        s = self.resolveMember(name)
+        if isinstance(s, MethodSymbol): return s
+
+    """
+    Return the set of all methods defined within this class
+    """
+
+    def getAllDefinedMethods(self):
+        methods = set()
+        for ele in self.getSymbols():
+            if isinstance(ele, MemberSymbol):
+                methods.add(ele)
+        return methods
 
 
 class StaticChecker(BaseVisitor):
@@ -90,19 +299,21 @@ class StaticChecker(BaseVisitor):
         return self.visit(self.ast, StaticChecker.global_envi)
 
     def visitProgram(self, ast, c):
-        print("From visitProgram: ast.decl: ", ast.decl)
+        print("From visitProgram/ast.decl: ", ast.decl)
         classSymbols = [Symbol.getClassDeclSymbol(x) for x in ast.decl]
         classNameList = [i.name for i in classSymbols]
-        print("From visitProgram: ", classSymbols)
-        for i in range(0, len(classSymbols)):
-            if classSymbols[i].name in classNameList[i + 1:]:
-                raise Redeclared(k=classSymbols[i].kind,
-                                 n=str(classSymbols[i].name.name))
+        print("From visitProgram/classSymbols ", classSymbols)
+        for x in ast.decl:
+            self.visit(x, c)
+
+        # for i in range(0, len(classSymbols)):
+        #     if classSymbols[i].name in classNameList[i + 1:]:
+        #         raise Redeclared(k=classSymbols[i].kind,
+        #                          n=str(classSymbols[i].name.name))
         return []
 
     def visitClassDecl(self, ast, c):
-        print("From visitClassDecl: ", c)
-        print("From visitClassDecl: ast.decl: ", ast.decl)
+        print("From visitClassDecl/ast: ", ast)
 
         return 0
 

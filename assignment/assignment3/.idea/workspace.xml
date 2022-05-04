@@ -5,58 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="962c7da8-cce2-4505-8659-4e39adfede56" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/_212_CO3005__Assignment.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assignment2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/external/jasmin.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/lib/io.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/lib/io.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/astgen/ASTGeneration.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/AST.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/StaticCheck.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/StaticError.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/Utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/Visitor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/checker/t.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/CodeGenError.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/CodeGenerator.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/Emitter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/Frame.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/codegen/MachineCode.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96Lexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96Lexer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96Lexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/D96Parser.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MC.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MC.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MCLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MCLexer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MCLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/.antlr/MCParser.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/D96.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/parser/lexererr.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/utils/AST.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/utils/Utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/main/d96/utils/Visitor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/run.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuite.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuiteMien.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuiteNam.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuiteNamBo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuitePhuNghia.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/ASTGenSuite_PN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/CheckerSuite.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/CodeGenSuite.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/LexerSuite.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/ParserSuite.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/TestUtils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/solutions/500/BKOOLClass.j" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/solutions/500/MCClass.j" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/solutions/501/BKOOLClass.j" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/initial/src/test/solutions/501/MCClass.j" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/slide5.pdf" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/d96/checker/t.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/symtab/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/symtab/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/symtab/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/symtab/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/symtab/.idea/symtab.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/symtab/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/symtab/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.j" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.j" afterDir="false" />
@@ -81,6 +41,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
@@ -100,7 +67,8 @@
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/development-area/ppl/ppl-course/assignment/assignment3/src/main/d96/checker&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/development-area/ppl/ppl-course/assignment/assignment3/symtab&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
   <component name="RecentsManager">
