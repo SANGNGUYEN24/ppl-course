@@ -14,6 +14,7 @@
       <change afterPath="$PROJECT_DIR$/symtab/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/CheckerSuite.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/CheckerSuite.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symtab" beforeDir="false" afterPath="$PROJECT_DIR$/symtab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" afterDir="false" />

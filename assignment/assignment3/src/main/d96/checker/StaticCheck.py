@@ -1,9 +1,15 @@
 """
  * @author nhphung
 """
+from pprint import pprint
+
 from AST import *
 from Visitor import *
 from StaticError import *
+
+"""
+Print output for checking
+"""
 
 
 class Scope:
@@ -112,15 +118,15 @@ class Scope:
 class GlobalScope(Scope):
     name = "global"
 
-    def __init__(self, scope):
-        super().__init__(scope)
+    def __init__(self):
+        super().__init__()
 
 
 class LocalScope(Scope):
     name = "local"
 
-    def __init__(self, scope):
-        super().__init__(scope)
+    def __init__(self):
+        super().__init__()
 
 
 class MType:
@@ -189,10 +195,9 @@ class FieldSymbol(VariableSymbol, MemberSymbol):
 
 
 class ClassSymbol(SymbolWithScope, MemberSymbol):
-    superClassName: str
-
-    def __init__(self, name):
+    def __init__(self, name, superClassName):
         super().__init__(name)
+        self.superClassName = superClassName
 
     def getSuperClassScope(self):
         if self.superClassName is not None:
@@ -258,43 +263,44 @@ class ClassSymbol(SymbolWithScope, MemberSymbol):
 
 
 class StaticChecker(BaseVisitor):
-    global_envi = [
-        # Symbol("getInt", MType([], IntType())),
-        # Symbol("putIntLn", MType([IntType()], VoidType()))
-    ]
+    globalScope = GlobalScope()
 
     def __init__(self, ast):
         self.ast = ast
 
     def check(self):
-        return self.visit(self.ast, StaticChecker.global_envi)
+        return self.visit(self.ast, StaticChecker.globalScope)
 
-    def visitProgram(self, ast, c):
-        print("From visitProgram/ast.decl: ", ast.decl)
-        classSymbols = [Symbol.getClassDeclSymbol(x) for x in ast.decl]
-        classNameList = [i.name for i in classSymbols]
-        print("From visitProgram/classSymbols ", classSymbols)
-        for x in ast.decl:
-            self.visit(x, c)
-
-        # for i in range(0, len(classSymbols)):
-        #     if classSymbols[i].name in classNameList[i + 1:]:
-        #         raise Redeclared(k=classSymbols[i].kind,
-        #                          n=str(classSymbols[i].name.name))
+    def visitProgram(self, ast, presentScope):
+        TAG = "----visitProgram----"
+        for ele in ast.decl:  # ele is ClassDecl
+            classSymbol = ClassSymbol(name=ele.classname,
+                                      superClassName=ele.parentname.name if ele.parentname is not None else None)
+            presentScope.symbols[classSymbol.name.name] = classSymbol
+            self.visit(ele, presentScope)
+        pprint(presentScope.symbols)
+        print(TAG)
         return []
 
-    def visitClassDecl(self, ast, c):
-        print("From visitClassDecl/ast: ", ast)
+    def visitClassDecl(self, ast, presentScope):
+        TAG = "----visitClassDecl----"
+        # Check super class exist
+        if presentScope.symbols.get(ast.parentname.name) is None:
+            raise Undeclared(k=Class(), n=ast.parentname.name)
+        # Create a local scope in this class
+        localScope = LocalScope()
+        print(TAG, ast.classname.name)
+        # localScope.symbols = {}
+        # pprint(bigSymbolTable.symbols)
 
-        return 0
 
-    def visitFuncDecl(self, ast, c):
+    def visitFuncDecl(self, ast, presentScope):
         return list(map(lambda x: self.visit(x, (c, True)), ast.body.stmt))
 
-    def visitCallExpr(self, ast, c):
+    def visitCallExpr(self, ast, presentScope):
         at = [self.visit(x, (c[0], False)) for x in ast.param]
 
-        res = self.lookup(ast.method.name, c[0], lambda x: x.name)
+        res = self.lookup(ast.method.name, presentScope[0], lambda x: x.name)
         if res is None or not type(res.mtype) is MType:
             raise Undeclared(Function(), ast.method.name)
         elif len(res.mtype.partype) != len(at):
@@ -305,5 +311,5 @@ class StaticChecker(BaseVisitor):
         else:
             return res.mtype.rettype
 
-    def visitIntLiteral(self, ast, c):
+    def visitIntLiteral(self, ast, presentScope):
         return IntType()
