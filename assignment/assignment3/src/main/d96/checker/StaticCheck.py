@@ -6,104 +6,31 @@ from Visitor import *
 from StaticError import *
 
 
-class SType: pass
-
-
-class MType:
-    """
-    partype -> param type   ->  List<Type>
-    rettype -> return type  ->  Type
-    """
-
-    def __init__(self, partype, rettype):
-        self.partype = partype
-        self.rettype = rettype
-
-    def __str__(self):
-        return 'MType([' + ','.join([str(i) for i in self.partype]) + '],' + str(self.rettype) + ')'
-
-
 class Scope:
-
-    def getName(self): pass
-
-    def getScope(self): pass
-
-    """
-    Get symbol if name defined in this specific scope
-    """
-
-    def getSymbol(self, name): pass
-
-    def getSymbols(self): pass
-
-    def getSymbolNames(self): pass
-
-    def getNestedScopedSymbols(self): pass
-
-    """
-    Return a list of scopes nested within this scope
-    :return List[Scope]
-    """
-
-    def getNestedScopes(self): pass
-
-    def getEnclosingPathToRoot(self): pass
-
-    """
-    Add a nested local scope to this scope; it's like define() but
-    for non SymbolWithScope objects. E.g., a FunctionSymbol will
-    add a LocalScope for its block via this method.
-    :return void
-    """
-
-    def nest(self, symbol): pass
-
-    def define(self, symbol): pass
-
-    """
-    Look up name in this scope or recursively in parent scope if not here
-    """
-
-    def resolve(self, name): pass
-
-
-class BaseScope(Scope):
-    enclosingScope: Scope
-    """
-    All symbols defined in this scope; can include classes, functions,
-	variables, or anything else that is a Symbol impl. It does NOT
-	include non-Symbol-based things like LocalScope.
-	"""
-    symbols = {}
-
-    """
-    All directly contained scopes, typically LocalScopes within a
-	LocalScope or a LocalScope within a FunctionSymbol. This does not
-	include SymbolWithScope objects.
-    """
-    nestedScopeNotSymbols = []
-
     def __init__(self, enclosingScope=None):
-        if enclosingScope is None: pass
+        """
+        It is the nearest parent scope
+        """
         self.enclosingScope = enclosingScope
+        """
+        All symbols defined in this scope; can include classes, functions,
+        variables, or anything else that is a Symbol impl. It does NOT
+        include non-Symbol-based things like LocalScope.
+        """
+        self.symbols = {}
+        """
+        All directly contained scopes, typically LocalScopes within a
+        LocalScope or a LocalScope within a FunctionSymbol. This does not
+        include SymbolWithScope objects.
+        """
+        self.nestedScopeNotSymbols = []
 
     def __str__(self):
         return str(self.symbols.keys())
 
-    def define(self, symbol):
-        if self.symbols.__contains__(symbol.name):
-            raise Redeclared(symbol.kind, symbol.name)
-        symbol.scope = self
-        self.symbols[symbol.name] = symbol
-
-    def resolve(self, name):
-        s = self.symbols.get(name)
-        if s is not None: return s
-        # If not here, resolve in parent scope
-        parent = self.enclosingScope
-        if parent is not None: parent.resolve(name)
-        return None
+    """
+    Get symbol if name defined in this specific scope
+    """
 
     def getSymbol(self, name):
         return self.symbols.get(name)
@@ -117,7 +44,16 @@ class BaseScope(Scope):
     def getNumOfSymbols(self):
         return len(self.symbols)
 
+    """
+    Add a nested local scope to this scope; it's like define() but
+    for non SymbolWithScope objects. E.g., a FunctionSymbol will
+    add a LocalScope for its block via this method.
+    :return void
+    """
+
     def nest(self, scope):
+        if isinstance(scope, SymbolWithScope):
+            raise Exception(f"Add SymbolWithScope Instance {scope.name} via define()")
         self.nestedScopeNotSymbols.append(scope)
 
     def getNestedScopedSymbols(self):
@@ -126,6 +62,11 @@ class BaseScope(Scope):
             if isinstance(s, Scope):
                 scopes.append(s)
         return scopes
+
+    """
+    Return a list of scopes nested within this scope
+    :return List[Scope]
+    """
 
     def getNestedScopes(self):
         allScopes = [self.getSymbols(), self.nestedScopeNotSymbols]
@@ -145,21 +86,55 @@ class BaseScope(Scope):
             s = s.enclosingScope
         return scopeList
 
+    """
+    Define a Symbol in this scope
+    """
 
-class GlobalScope(BaseScope):
+    def define(self, symbol):
+        if self.symbols.__contains__(symbol.name):
+            raise Redeclared(symbol.kind, symbol.name)
+        symbol.scope = self
+        self.symbols[symbol.name] = symbol
+
+    """
+    Look up name in this scope or recursively in parent scope if not here
+    """
+
+    def resolve(self, name):
+        s = self.symbols.get(name)
+        if s is not None: return s
+        # If not here, resolve in parent scope
+        parent = self.enclosingScope
+        if parent is not None: parent.resolve(name)
+        return None
+
+
+class GlobalScope(Scope):
+    name = "global"
+
     def __init__(self, scope):
         super().__init__(scope)
 
-    def getName(self):
-        return "global"
 
+class LocalScope(Scope):
+    name = "local"
 
-class LocalScope(BaseScope):
     def __init__(self, scope):
         super().__init__(scope)
 
-    def getName(self):
-        return "local"
+
+class MType:
+    """
+    partype -> param type   ->  List<Type>
+    rettype -> return type  ->  Type
+    """
+
+    def __init__(self, partype, rettype):
+        self.partype = partype
+        self.rettype = rettype
+
+    def __str__(self):
+        return 'MType([' + ','.join([str(i) for i in self.partype]) + '],' + str(self.rettype) + ')'
 
 
 class Symbol:
@@ -169,22 +144,18 @@ class Symbol:
     :param value:   dynamic
     :param kind:    Class | Method | SpecialMethod | Attribute | Parameter | Constant | Variable | Identifier
     """
-    name: str
-    mtype: MType
-    type: SType
-    scope: Scope
-    kind: Kind
 
-    def __init__(self, name):
+    def __init__(self, name, d96Type=None, scope=None, kind=None):
         self.name = name
+        self.d96Type = d96Type
+        self.scope = scope
+        self.kind = kind
 
     def __str__(self):
         return 'Symbol(' + self.name + ',' + str(self.mtype) + ',' + str(self.kind) + ')'
 
 
-class SymbolWithScope(BaseScope, Symbol, Scope):
-    name: str
-
+class SymbolWithScope(Scope, Symbol):
     def __init__(self, name):
         super().__init__()
         self.name = name

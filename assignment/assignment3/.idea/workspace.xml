@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="962c7da8-cce2-4505-8659-4e39adfede56" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/d96/checker/t.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/misc.xml" afterDir="false" />
@@ -13,9 +12,9 @@
       <change afterPath="$PROJECT_DIR$/symtab/.idea/symtab.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symtab" beforeDir="false" afterPath="$PROJECT_DIR$/symtab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.class" afterDir="false" />
