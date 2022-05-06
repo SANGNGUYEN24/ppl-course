@@ -97,10 +97,16 @@ class Scope:
     """
 
     def define(self, symbol):
-        if self.symbols.__contains__(symbol.name):
-            raise Redeclared(symbol.kind, symbol.name)
+        symbolName = ""
+        if isinstance(symbol, ClassSymbol):
+            symbolName = symbol.name.name
+        elif isinstance(symbol, MethodSymbol):
+            symbolName = symbol.name
+
+        if self.symbols.__contains__(symbolName):
+            raise Redeclared(symbol.kind, symbolName)
         symbol.scope = self
-        self.symbols[symbol.name] = symbol
+        self.symbols[symbolName] = symbol
 
     """
     Look up name in this scope or recursively in parent scope if not here
@@ -174,7 +180,7 @@ class MemberSymbol(Symbol):
     pass
 
 
-class MethodSymbol(MemberSymbol):
+class MethodSymbol(SymbolWithScope, MemberSymbol):
     def __init__(self, name):
         super().__init__(name)
 
@@ -273,26 +279,68 @@ class StaticChecker(BaseVisitor):
 
     def visitProgram(self, ast, presentScope):
         TAG = "----visitProgram----"
-        for ele in ast.decl:  # ele is ClassDecl
-            classSymbol = ClassSymbol(name=ele.classname,
-                                      superClassName=ele.parentname.name if ele.parentname is not None else None)
-            presentScope.symbols[classSymbol.name.name] = classSymbol
-            self.visit(ele, presentScope)
-        pprint(presentScope.symbols)
+        res = []
         print(TAG)
-        return []
+        print("presentScope before: ")
+        pprint(presentScope.symbols)
+        # pprint(ast.decl)
+        # If Program class is not present, raise NoEntryPoint
+        hasProgramClass = False
+        for ele in ast.decl:
+            if ele.classname.name == "Program":
+                hasProgramClass = True
+                break
+        if hasProgramClass:
+            for ele in ast.decl:  # ele is ClassDecl
+                classSymbol = ClassSymbol(name=ele.classname,
+                                          superClassName=ele.parentname.name if ele.parentname is not None else None)
+                # classSymbol.scope = LocalScope()
+                # classSymbol.enclosingScope = presentScope
+                # presentScope.symbols[classSymbol.name.name] = classSymbol
+                presentScope.define(classSymbol)
+                newScope = LocalScope()
+                newScope.enclosingScope = presentScope
+                res.append(self.visit(ele, newScope))
+        else:
+            raise NoEntryPoint()
+
+        print(TAG)
+        print("presentScope after: ")
+        pprint(presentScope.symbols)
+        return res
 
     def visitClassDecl(self, ast, presentScope):
         TAG = "----visitClassDecl----"
-        # Check super class exist
-        if presentScope.symbols.get(ast.parentname.name) is None:
-            raise Undeclared(k=Class(), n=ast.parentname.name)
-        # Create a local scope in this class
-        localScope = LocalScope()
         print(TAG, ast.classname.name)
-        # localScope.symbols = {}
-        # pprint(bigSymbolTable.symbols)
+        print("ast:")
+        pprint(ast)
+        print("presentScope before: ")
+        pprint(presentScope.symbols)
+        # Check Program class
+        if ast.classname.name == "Program":
+            hasMain = False
+            for ele in ast.memlist:
+                # TODO lack condition about return void
+                if isinstance(ele, MethodDecl) and ele.name.name == "main" and len(ele.param) == 0:
+                    hasMain = True
+                    mainMethodSymbol = MethodSymbol(name="main")
+                    # mainMethodSymbol.scope = LocalScope()
+                    # mainMethodSymbol.enclosingScope = presentScope
+                    # presentScope.symbols[mainMethodSymbol.name] = mainMethodSymbol
+                    presentScope.define(mainMethodSymbol)
+                    break
+            if not hasMain:
+                raise NoEntryPoint()
+        # Check super class exist
+        if ast.parentname is not None:
+            if presentScope.enclosingScope.symbols.get(ast.parentname.name) is None:
+                raise Undeclared(k=Class(), n=ast.parentname.name)
 
+
+
+        print("presentScope after: ")
+        pprint(presentScope.symbols)
+        return []
 
     def visitFuncDecl(self, ast, presentScope):
         return list(map(lambda x: self.visit(x, (c, True)), ast.body.stmt))
