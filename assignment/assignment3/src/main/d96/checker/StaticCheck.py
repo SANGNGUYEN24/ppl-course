@@ -98,14 +98,22 @@ class Scope:
 
     def define(self, symbol):
         symbolName = ""
+        kind = None
         if isinstance(symbol, ClassSymbol):
             symbolName = symbol.name.name
+            kind = Class()
         elif isinstance(symbol, MethodSymbol):
             symbolName = symbol.name
+            kind = Method()
+        elif isinstance(symbol, AttributeSymbol):
+            symbolName = symbol.name
+            kind = Attribute()
 
         if self.symbols.__contains__(symbolName):
-            raise Redeclared(symbol.kind, symbolName)
+            raise Redeclared(kind, symbolName)
         symbol.scope = self
+        print("In define")
+        pprint(self.symbols)
         self.symbols[symbolName] = symbol
 
     """
@@ -185,19 +193,15 @@ class MethodSymbol(SymbolWithScope, MemberSymbol):
         super().__init__(name)
 
 
-class VariableSymbol(Symbol):
+class ParameterSymbol():
     def __init__(self, name):
         super().__init__(name)
 
 
-class ParameterSymbol(VariableSymbol):
-    def __init__(self, name):
+class AttributeSymbol(Symbol):
+    def __init__(self, name, isConstant):
         super().__init__(name)
-
-
-class FieldSymbol(VariableSymbol, MemberSymbol):
-    def __init__(self, name):
-        super().__init__(name)
+        self.isConstant = isConstant
 
 
 class ClassSymbol(SymbolWithScope, MemberSymbol):
@@ -269,13 +273,12 @@ class ClassSymbol(SymbolWithScope, MemberSymbol):
 
 
 class StaticChecker(BaseVisitor):
-    globalScope = GlobalScope()
-
     def __init__(self, ast):
         self.ast = ast
+        self.globalScope = GlobalScope()
 
     def check(self):
-        return self.visit(self.ast, StaticChecker.globalScope)
+        return self.visit(self.ast, self.globalScope)
 
     def visitProgram(self, ast, presentScope):
         TAG = "----visitProgram----"
@@ -283,7 +286,6 @@ class StaticChecker(BaseVisitor):
         print(TAG)
         print("presentScope before: ")
         pprint(presentScope.symbols)
-        # pprint(ast.decl)
         # If Program class is not present, raise NoEntryPoint
         hasProgramClass = False
         for ele in ast.decl:
@@ -294,9 +296,6 @@ class StaticChecker(BaseVisitor):
             for ele in ast.decl:  # ele is ClassDecl
                 classSymbol = ClassSymbol(name=ele.classname,
                                           superClassName=ele.parentname.name if ele.parentname is not None else None)
-                # classSymbol.scope = LocalScope()
-                # classSymbol.enclosingScope = presentScope
-                # presentScope.symbols[classSymbol.name.name] = classSymbol
                 presentScope.define(classSymbol)
                 newScope = LocalScope()
                 newScope.enclosingScope = presentScope
@@ -316,7 +315,11 @@ class StaticChecker(BaseVisitor):
         pprint(ast)
         print("presentScope before: ")
         pprint(presentScope.symbols)
-        # Check Program class
+        # Check super class exist
+        if ast.parentname is not None:
+            if presentScope.enclosingScope.symbols.get(ast.parentname.name) is None:
+                raise Undeclared(k=Class(), n=ast.parentname.name)
+        # Check Program class condition
         if ast.classname.name == "Program":
             hasMain = False
             for ele in ast.memlist:
@@ -324,40 +327,43 @@ class StaticChecker(BaseVisitor):
                 if isinstance(ele, MethodDecl) and ele.name.name == "main" and len(ele.param) == 0:
                     hasMain = True
                     mainMethodSymbol = MethodSymbol(name="main")
-                    # mainMethodSymbol.scope = LocalScope()
-                    # mainMethodSymbol.enclosingScope = presentScope
-                    # presentScope.symbols[mainMethodSymbol.name] = mainMethodSymbol
                     presentScope.define(mainMethodSymbol)
                     break
             if not hasMain:
                 raise NoEntryPoint()
-        # Check super class exist
-        if ast.parentname is not None:
-            if presentScope.enclosingScope.symbols.get(ast.parentname.name) is None:
-                raise Undeclared(k=Class(), n=ast.parentname.name)
-
-
+                # Visit body
+            for ele in ast.memlist:
+                # Visit attribute
+                if isinstance(ele, AttributeDecl):
+                    if isinstance(ele.decl, ConstDecl):
+                        attributeSymbol = AttributeSymbol(name=ele.decl.constant.name, isConstant=True)
+                        presentScope.define(attributeSymbol)
+                    else:
+                        attributeSymbol = AttributeSymbol(name=ele.decl.variable.name, isConstant=False)
+                        presentScope.define(attributeSymbol)
+                # Visit method
+                elif isinstance(ele, MethodDecl) and ele.name.name != "main":
+                    methodSymbol = MethodSymbol(name=ele.name.name)
+                    presentScope.define(methodSymbol)
+        else:
+            # Visit body
+            for ele in ast.memlist:
+                # Visit attribute
+                if isinstance(ele, AttributeDecl):
+                    if isinstance(ele.decl, ConstDecl):
+                        attributeSymbol = AttributeSymbol(name=ele.decl.constant.name, isConstant=True)
+                        presentScope.define(attributeSymbol)
+                    else:
+                        attributeSymbol = AttributeSymbol(name=ele.decl.variable.name, isConstant=False)
+                        presentScope.define(attributeSymbol)
+                # Visit method
+                elif isinstance(ele, MethodDecl):
+                    methodSymbol = MethodSymbol(name=ele.name.name)
+                    presentScope.define(methodSymbol)
 
         print("presentScope after: ")
         pprint(presentScope.symbols)
         return []
 
-    def visitFuncDecl(self, ast, presentScope):
-        return list(map(lambda x: self.visit(x, (c, True)), ast.body.stmt))
-
-    def visitCallExpr(self, ast, presentScope):
-        at = [self.visit(x, (c[0], False)) for x in ast.param]
-
-        res = self.lookup(ast.method.name, presentScope[0], lambda x: x.name)
-        if res is None or not type(res.mtype) is MType:
-            raise Undeclared(Function(), ast.method.name)
-        elif len(res.mtype.partype) != len(at):
-            if c[1]:
-                raise TypeMismatchInStatement(ast)
-            else:
-                raise TypeMismatchInExpression(ast)
-        else:
-            return res.mtype.rettype
-
-    def visitIntLiteral(self, ast, presentScope):
-        return IntType()
+    def visitVarDecl(self, ast, presentScope):
+        pass
