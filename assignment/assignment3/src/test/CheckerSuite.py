@@ -87,13 +87,184 @@ class CheckerSuite(unittest.TestCase):
         e = "Redeclared Method: foo"
         self.assertTrue(TestChecker.test(i, e, 6))
 
+    def test_redeclared_method_2(self):
+        print("____Test 7____")
+        i = """
+                        Class Program{
+                            main(){}
+                        }
+                        Class A{
+                            foo(){}
+                            foo2(){}
+                            function(){}
+                            foo(){}
+                        }
+                    """
+        e = "Redeclared Method: foo"
+        self.assertTrue(TestChecker.test(i, e, 7))
+
+    def test_redeclared_method_3(self):
+        print("____Test 8____")
+        i = """
+                        Class Program{
+                            main(){}
+                        }
+                        Class A{
+                            foo(){}
+                            foo2(){}
+                            function(){}
+                            foo2(){}
+                        }
+                    """
+        e = "Redeclared Method: foo2"
+        self.assertTrue(TestChecker.test(i, e, 8))
+
+    def test_redeclared_method_in_program(self):
+        print("____Test 9____")
+        i = """
+                        Class Program{
+                            main(){}
+                            main(){}
+                        }
+                    """
+        e = "Redeclared Method: main"
+        self.assertTrue(TestChecker.test(i, e, 9))
+
+    def test_redeclared_variable(self):
+        print("____Test 10____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{
+                        foo(){
+                            Var a : Int = 4;
+                            Var a : Float;
+                        }
+                    }
+                """
+        e = "Redeclared Variable: a"
+        self.assertTrue(TestChecker.test(i, e, 10))
+
+    def test_redeclared_const(self):
+        print("____Test 11____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{
+                        foo(){
+                            Var a : Int = 4;
+                            Val a : Float = 10;
+                        }
+                    }
+                """
+        e = "Redeclared Constant: a"
+        self.assertTrue(TestChecker.test(i, e, 11))
+
+    def test_redeclared_variable_2(self):
+        print("____Test 12____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{
+                        foo(a : Int){
+                            Var a : Int = 4;
+                        }
+                    }
+                """
+        e = "Redeclared Variable: a"
+        self.assertTrue(TestChecker.test(i, e, 12))
+
+    def test_redeclared_param(self):
+        print("____Test 13____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{
+                        foo(a, b, c, b : Int){
+                            Var a : Int = 4;
+                        }
+                    }
+                """
+        e = "Redeclared Parameter: b"
+        self.assertTrue(TestChecker.test(i, e, 13))
 
 
+    def test_redeclared_variable_3(self):
+        print("____Test 14____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{
+                        foo(a, b: Int){
+                            Var a : Int = 4;
+                        }
+                    }
+                """
+        e = "Redeclared Variable: a"
+        self.assertTrue(TestChecker.test(i, e, 14))
 
+    def test_redeclared_class(self):
+        print("____Test 15____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{}
+                    Class A{}
+                """
+        e = "Redeclared Class: A"
+        self.assertTrue(TestChecker.test(i, e, 15))
 
+    def test_redeclared_class_2(self):
+        print("____Test 16____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{}
+                    Class B : A{}
+                    Class C : A{}
+                    Class B{}
+                """
+        e = "Redeclared Class: B"
+        self.assertTrue(TestChecker.test(i, e, 16))
 
+    def test_cannot_assign_to_constant(self):
+        print("____Test 17____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{
+                        foo(a, b: Int){
+                            Val c : Int = 4;
+                            c = 10;
+                        }
+                    }
+                """
+        e = "Cannot Assign To Constant: AssignStmt(Id(c),IntLit(10))"
+        self.assertTrue(TestChecker.test(i, e, 17))
 
-
+    def test_cannot_assign_to_constant_1(self):
+        print("____Test 18____")
+        i = """
+                    Class Program{
+                        main(){}
+                    }
+                    Class A{
+                        Val c: Int = 4;
+                        foo(a, b: Int){
+                            c = 10;
+                        }
+                    }
+                """
+        e = "Cannot Assign To Constant: AssignStmt(Id(c),IntLit(10))"
+        self.assertTrue(TestChecker.test(i, e, 18))
 
 
 

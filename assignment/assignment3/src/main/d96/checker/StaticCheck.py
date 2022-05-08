@@ -92,28 +92,35 @@ class Scope:
             s = s.enclosingScope
         return scopeList
 
+    @staticmethod
+    def getNewLocalScope(enclosingScope):
+        newScope = LocalScope()
+        newScope.enclosingScope = enclosingScope
+        return newScope
+
     """
     Define a Symbol in this scope
     """
 
     def define(self, symbol):
-        symbolName = ""
         kind = None
+        symbolName = symbol.name
         if isinstance(symbol, ClassSymbol):
-            symbolName = symbol.name.name
             kind = Class()
         elif isinstance(symbol, MethodSymbol):
-            symbolName = symbol.name
             kind = Method()
         elif isinstance(symbol, AttributeSymbol):
-            symbolName = symbol.name
             kind = Attribute()
+        elif isinstance(symbol, VariableSymbol):
+            kind = Variable()
+        elif isinstance(symbol, ConstSymbol):
+            kind = Constant()
+        elif isinstance(symbol, ParameterSymbol):
+            kind = Parameter()
 
         if self.symbols.__contains__(symbolName):
             raise Redeclared(kind, symbolName)
         symbol.scope = self
-        print("In define")
-        pprint(self.symbols)
         self.symbols[symbolName] = symbol
 
     """
@@ -122,11 +129,14 @@ class Scope:
 
     def resolve(self, name):
         s = self.symbols.get(name)
+        print("s !!!!!!!", s)
         if s is not None: return s
         # If not here, resolve in parent scope
         parent = self.enclosingScope
-        if parent is not None: parent.resolve(name)
-        return None
+        if parent is not None:
+            return parent.resolve(name)
+        else:
+            return None
 
 
 class GlobalScope(Scope):
@@ -171,8 +181,8 @@ class Symbol:
         self.scope = scope
         self.kind = kind
 
-    def __str__(self):
-        return 'Symbol(' + self.name + ',' + str(self.mtype) + ',' + str(self.kind) + ')'
+    # def __str__(self):
+    #     return 'Symbol(' + self.name + ',' + str(self.d96Type) + ',' + str(self.scope) + ',' + str(self.kind) + ')'
 
 
 class SymbolWithScope(Scope, Symbol):
@@ -193,7 +203,17 @@ class MethodSymbol(SymbolWithScope, MemberSymbol):
         super().__init__(name)
 
 
-class ParameterSymbol():
+class VariableSymbol(Symbol):
+    def __init__(self, name):
+        super().__init__(name)
+
+
+class ConstSymbol(Symbol):
+    def __init__(self, name):
+        super().__init__(name)
+
+
+class ParameterSymbol(Symbol):
     def __init__(self, name):
         super().__init__(name)
 
@@ -251,10 +271,10 @@ class ClassSymbol(SymbolWithScope, MemberSymbol):
     Return null if no field found.
     """
 
-    def resolveField(self, name):
-        s = self.resolveMember(name)
-        if isinstance(s, FieldSymbol): return s
-        return None
+    # def resolveField(self, name):
+    #     s = self.resolveMember(name)
+    #     if isinstance(s, FieldSymbol): return s
+    #     return None
 
     def resolveMethod(self, name):
         s = self.resolveMember(name)
@@ -282,9 +302,8 @@ class StaticChecker(BaseVisitor):
 
     def visitProgram(self, ast, presentScope):
         TAG = "----visitProgram----"
-        res = []
         print(TAG)
-        print("presentScope before: ")
+        print("Program presentScope before: ")
         pprint(presentScope.symbols)
         # If Program class is not present, raise NoEntryPoint
         hasProgramClass = False
@@ -294,26 +313,25 @@ class StaticChecker(BaseVisitor):
                 break
         if hasProgramClass:
             for ele in ast.decl:  # ele is ClassDecl
-                classSymbol = ClassSymbol(name=ele.classname,
+                classSymbol = ClassSymbol(name=ele.classname.name,
                                           superClassName=ele.parentname.name if ele.parentname is not None else None)
                 presentScope.define(classSymbol)
-                newScope = LocalScope()
-                newScope.enclosingScope = presentScope
-                res.append(self.visit(ele, newScope))
+                newScope = Scope.getNewLocalScope(enclosingScope=presentScope)
+                self.visit(ele, newScope)
         else:
             raise NoEntryPoint()
 
         print(TAG)
-        print("presentScope after: ")
+        print("Program presentScope after: ")
         pprint(presentScope.symbols)
-        return res
 
     def visitClassDecl(self, ast, presentScope):
         TAG = "----visitClassDecl----"
+        res = []
         print(TAG, ast.classname.name)
         print("ast:")
         pprint(ast)
-        print("presentScope before: ")
+        print("Class presentScope before: ")
         pprint(presentScope.symbols)
         # Check super class exist
         if ast.parentname is not None:
@@ -322,16 +340,7 @@ class StaticChecker(BaseVisitor):
         # Check Program class condition
         if ast.classname.name == "Program":
             hasMain = False
-            for ele in ast.memlist:
-                # TODO lack condition about return void
-                if isinstance(ele, MethodDecl) and ele.name.name == "main" and len(ele.param) == 0:
-                    hasMain = True
-                    mainMethodSymbol = MethodSymbol(name="main")
-                    presentScope.define(mainMethodSymbol)
-                    break
-            if not hasMain:
-                raise NoEntryPoint()
-                # Visit body
+            # Visit body
             for ele in ast.memlist:
                 # Visit attribute
                 if isinstance(ele, AttributeDecl):
@@ -342,10 +351,18 @@ class StaticChecker(BaseVisitor):
                         attributeSymbol = AttributeSymbol(name=ele.decl.variable.name, isConstant=False)
                         presentScope.define(attributeSymbol)
                 # Visit method
-                elif isinstance(ele, MethodDecl) and ele.name.name != "main":
-                    methodSymbol = MethodSymbol(name=ele.name.name)
-                    presentScope.define(methodSymbol)
-        else:
+                elif isinstance(ele, MethodDecl):
+                    # TODO lack condition about return void
+                    if ele.name.name == "main" and len(ele.param) == 0:
+                        hasMain = True
+                        mainMethodSymbol = MethodSymbol(name="main")
+                        presentScope.define(mainMethodSymbol)
+                    elif ele.name.name != "main":
+                        methodSymbol = MethodSymbol(name=ele.name.name)
+                        presentScope.define(methodSymbol)
+            if not hasMain:
+                raise NoEntryPoint()
+        else:  # Other class
             # Visit body
             for ele in ast.memlist:
                 # Visit attribute
@@ -360,10 +377,57 @@ class StaticChecker(BaseVisitor):
                 elif isinstance(ele, MethodDecl):
                     methodSymbol = MethodSymbol(name=ele.name.name)
                     presentScope.define(methodSymbol)
+                    newScope = Scope.getNewLocalScope(enclosingScope=presentScope)
+                    self.visit(ele, newScope)
 
-        print("presentScope after: ")
+        print("Class presentScope after: ")
         pprint(presentScope.symbols)
+
+    def visitMethodDecl(self, ast, presentScope):
+        TAG = "----visitMethodDecl----"
+        print(TAG, ast.name.name)
+        print("ast:")
+        pprint(ast)
+        print("Method presentScope before: ")
+        pprint(presentScope.symbols)
+
+        for ele in ast.param:
+            paramSymbol = ParameterSymbol(name=ele.variable.name)
+            presentScope.define(paramSymbol)
+
+        print("presentScope after param loop: ")
+        pprint(presentScope.symbols)
+
+        for ele in ast.body.inst:
+            # symbol = None
+            if isinstance(ele, VarDecl):
+                symbol = VariableSymbol(ele.variable.name)
+                presentScope.define(symbol)
+            elif isinstance(ele, ConstDecl):
+                symbol = ConstSymbol(ele.constant.name)
+                presentScope.define(symbol)
+            elif isinstance(ele, Block):
+                newScope = Scope.getNewLocalScope(enclosingScope=presentScope)
+                self.visit(ele, newScope)
+            elif isinstance(ele, Assign):
+                print("Enclosing Scope Symbols:")
+                pprint(presentScope.enclosingScope.symbols)
+                if isinstance(ele.lhs, Id):
+                    s = presentScope.resolve(ele.lhs.name)
+                    if isinstance(s, AttributeSymbol):
+                        if s.isConstant:
+                            raise CannotAssignToConstant(ele)
+                        else:
+                            self.visit(ele, presentScope)
+                    elif isinstance(s, ConstSymbol):
+                        raise CannotAssignToConstant(ele)
+                    else:
+                        self.visit(ele, presentScope)
+
+        print("Method presentScope after: ")
+        pprint(presentScope.symbols)
+
         return []
 
-    def visitVarDecl(self, ast, presentScope):
-        pass
+    def visitAssign(self, ast, prentScope):
+        return []
