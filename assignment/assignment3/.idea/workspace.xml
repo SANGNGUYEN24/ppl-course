@@ -13,10 +13,12 @@
       <change afterPath="$PROJECT_DIR$/symtab/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_212_CO3005__Assignment.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/_212_CO3005__Assignment.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/CheckerSuite.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/CheckerSuite.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symtab" beforeDir="false" afterPath="$PROJECT_DIR$/symtab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../initial/src/main/d96/checker/StaticCheck.py" beforeDir="false" afterPath="$PROJECT_DIR$/../initial/src/main/d96/checker/StaticCheck.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/.idea/drive-download-20220419T080618Z-001.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.j" beforeDir="false" afterPath="$PROJECT_DIR$/../../drive-download-20220419T080618Z-001/test.j" afterDir="false" />
@@ -62,15 +64,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/development-area/ppl/ppl-course/assignment/assignment3/symtab&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/development-area/ppl/ppl-course/assignment/assignment3-ref/Assignment3",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\development-area\ppl\ppl-course\assignment\assignment3\src\main\d96\checker" />
