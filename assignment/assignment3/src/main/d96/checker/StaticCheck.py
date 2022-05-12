@@ -7,6 +7,21 @@ from AST import *
 from Visitor import *
 from StaticError import *
 
+
+class ExprUtils:
+    @staticmethod
+    def isOpForNumber(op):
+        return str(op) in ['+', '-', '*', '/', '>', '<', '>=', '<=']
+
+    @staticmethod
+    def isIntOrFloat(t):
+        return type(t) in [IntType, FloatType]
+
+    @staticmethod
+    def mergeNumberType(leftType, rightType):
+        return FloatType() if FloatType in [type(leftType), type(rightType)] else IntType()
+
+
 """
 Print output for checking
 """
@@ -128,6 +143,7 @@ class Scope:
     """
 
     def resolve(self, name):
+        print("resolve:", name)
         s = self.symbols.get(name)
         if s is not None: return s
         # If not here, resolve in parent scope
@@ -342,11 +358,21 @@ class StaticChecker(BaseVisitor):
             for ele in ast.memlist:
                 # Visit attribute
                 if isinstance(ele, AttributeDecl):
-                    if isinstance(ele.decl, ConstDecl):
-                        attributeSymbol = AttributeSymbol(name=ele.decl.constant.name, isConstant=True)
+                    decl = ele.decl
+                    if isinstance(decl, ConstDecl):
+                        value = decl.value
+                        # If error exist in value, it is raised in self.visit
+                        # TODO check type of the value
+                        valueType = self.visit(value, presentScope)
+                        attributeSymbol = AttributeSymbol(name=decl.constant.name, isConstant=True)
+                        attributeSymbol.d96Type = valueType
                         presentScope.define(attributeSymbol)
-                    else:
-                        attributeSymbol = AttributeSymbol(name=ele.decl.variable.name, isConstant=False)
+                    elif isinstance(decl, VarDecl):
+                        varInit = decl.varInit
+                        print(varInit)
+                        varInitType = self.visit(varInit, presentScope)
+                        attributeSymbol = AttributeSymbol(name=decl.variable.name, isConstant=False)
+                        attributeSymbol.d96Type = varInitType
                         presentScope.define(attributeSymbol)
                 # Visit method
                 elif isinstance(ele, MethodDecl):
@@ -370,13 +396,15 @@ class StaticChecker(BaseVisitor):
                         value = decl.value
                         # If error exist in value, it is raised in self.visit
                         # TODO check type of the value
-                        self.visit(value, presentScope)
+                        valueType = self.visit(value, presentScope)
                         attributeSymbol = AttributeSymbol(name=decl.constant.name, isConstant=True)
+                        attributeSymbol.d96Type = valueType
                         presentScope.define(attributeSymbol)
                     elif isinstance(decl, VarDecl):
                         varInit = decl.varInit
-                        self.visit(varInit, presentScope)
+                        varInitType = self.visit(varInit, presentScope)
                         attributeSymbol = AttributeSymbol(name=decl.variable.name, isConstant=False)
+                        attributeSymbol.d96Type = varInitType
                         presentScope.define(attributeSymbol)
                 # Visit method
                 elif isinstance(ele, MethodDecl):
@@ -407,6 +435,8 @@ class StaticChecker(BaseVisitor):
             # symbol = None
             if isinstance(ele, VarDecl):
                 self.visit(ele, presentScope)
+                varSymbol = VariableSymbol(name=ele.variable.name)
+                presentScope.define(varSymbol)
             elif isinstance(ele, ConstDecl):
                 constType = ele.constType
                 constValue = ele.value
@@ -447,26 +477,59 @@ class StaticChecker(BaseVisitor):
 
     def visitVarDecl(self, ast, presentScope):
         TAG = "----visitVarDecl----"
-        print(TAG, ast.name)
+        print(TAG)
         print("ast:")
         pprint(ast)
 
+        if presentScope.resolve(ast.variable.name) is not None:
+            raise Redeclared(Variable(), n=ast.variable.name)
+
         varInit = ast.varInit
         print("ast.varInit: ", varInit)
-        if isinstance(varInit, Id):
+        if varInit is not None:
             self.visit(varInit, presentScope)
 
-        varSymbol = VariableSymbol(name=ast.variable.name)
-        presentScope.define(varSymbol)
-
     def visitId(self, ast, presentScope):
+        print("----visitId----")
+        print("ast: ", ast)
         idSymbol = presentScope.resolve(ast.name)
+        print("idSymbol: ", idSymbol)
         if idSymbol is None:
             raise Undeclared(Identifier(), ast.name)
-        return idSymbol
+        return idSymbol.d96Type
 
     def visitBinaryOp(self, ast, presentScope):
-        pass
+        print("----visitBinaryOp----")
+        leftType = self.visit(ast.left, presentScope)
+        rightType = self.visit(ast.right, presentScope)
+        op = ast.op
+        print("op: ", op)
+
+        if ExprUtils.isOpForNumber(op):
+            if not ExprUtils.isIntOrFloat(leftType) or ExprUtils.isIntOrFloat(rightType):
+                raise TypeMismatchInExpression(ast)
+            if str(op) is '%':
+                if FloatType in [leftType, rightType]:
+                    raise TypeMismatchInExpression(ast)
+                return IntType()
+            if op in ['+', '-', '*', '/']: return ExprUtils.mergeNumberType(leftType, rightType)
+            return BoolType()  # For op like =, <,>, <=,...
+        if not isinstance(leftType, BoolType) and not isinstance(rightType, BoolType):
+            raise TypeMismatchInExpression(ast)
+
+        return BoolType()
+
+    def visitFieldAccess(self, ast, presentScope):
+        print("----visitFieldAccess----")
+        print("ast: ", ast)
+        # Get scope of field obj
+        objSymbol = presentScope.resolve(ast.obj.name)
+        if objSymbol is None:
+            raise Undeclared(Class(), ast.obj.name)
+        else:
+            fieldSymbol = objSymbol.scope.resolve(ast.fieldname.name)
+            if fieldSymbol is None:
+                raise Undeclared(k=Attribute(), n=ast.fieldname.name)
 
     def visitIntLiteral(self, ast, presentScope):
         return IntType()
