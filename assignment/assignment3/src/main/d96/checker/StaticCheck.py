@@ -15,7 +15,9 @@ class D96Utils:
 
     @staticmethod
     def isIntOrFloat(t):
-        return t in [IntType(), FloatType()]
+        if isinstance(t, IntType) or isinstance(t, FloatType):
+            return True
+        return False
 
     @staticmethod
     def mergeNumberType(leftType, rightType):
@@ -32,7 +34,7 @@ class D96Utils:
             return True
         else:
             if isConstant:
-                raise TypeMismatchInConstant(constdecl=ast)
+                raise TypeMismatchInConstant(ast)
             else:
                 raise TypeMismatchInStatement(ast)
 
@@ -60,6 +62,7 @@ class Scope:
         include SymbolWithScope objects.
         """
         self.nestedScopeNotSymbols = []
+        self.inLoop = False
 
     def __str__(self):
         return str(self.symbols.keys())
@@ -336,7 +339,7 @@ class StaticChecker(BaseVisitor):
         TAG = "----visitProgram----"
         # print(TAG)
         # print("Program presentScope before: ")
-        # pprint(presentScope.symbols)
+        # p#print(presentScope.symbols)
         # If Program class is not present, raise NoEntryPoint
         hasProgramClass = False
         for ele in ast.decl:
@@ -356,15 +359,16 @@ class StaticChecker(BaseVisitor):
 
         # print(TAG)
         # print("Program presentScope after: ")
-        # pprint(presentScope.symbols)
+        # p#print(presentScope.symbols)
+        return []
 
     def visitClassDecl(self, ast, presentScope):
         TAG = "----visitClassDecl----"
         # print(TAG, ast.classname.name)
         # print("ast:")
-        # pprint(ast)
+        # p#print(ast)
         # print("Class presentScope before: ")
-        # pprint(presentScope.symbols)
+        # p#print(presentScope.symbols)
         # Check super class exist
         if ast.parentname is not None:
             if presentScope.enclosingScope.symbols.get(ast.parentname.name) is None:
@@ -378,14 +382,6 @@ class StaticChecker(BaseVisitor):
                 if isinstance(ele, AttributeDecl):
                     decl = ele.decl
                     if isinstance(decl, ConstDecl):
-                        value = decl.value
-                        # # If error exist in value, it is raised in self.visit
-                        # # TODO check type of the value
-                        # valueType = self.visit(value, presentScope)
-                        # attributeSymbol = AttributeSymbol(name=decl.constant.name, isConstant=True)
-                        # attributeSymbol.d96Type = valueType
-                        # presentScope.define(attributeSymbol)
-
                         constType = decl.constType
                         value = decl.value
                         valueType = self.visit(value, presentScope)
@@ -394,13 +390,6 @@ class StaticChecker(BaseVisitor):
                             attributeSymbol.d96Type = valueType
                             presentScope.define(attributeSymbol)
                     elif isinstance(decl, VarDecl):
-                        # varInit = decl.varInit
-                        # #print(varInit)
-                        # varInitType = self.visit(varInit, presentScope)
-                        # attributeSymbol = AttributeSymbol(name=decl.variable.name, isConstant=False)
-                        # attributeSymbol.d96Type = varInitType
-                        # presentScope.define(attributeSymbol)
-
                         varType = decl.varType
                         varInit = decl.varInit
                         if varInit is not None:
@@ -417,7 +406,9 @@ class StaticChecker(BaseVisitor):
                     if ele.name.name == "main" and len(ele.param) == 0:
                         hasMain = True
                         mainMethodSymbol = MethodSymbol(name="main")
+                        newScope = Scope.getNewLocalScope(enclosingScope=presentScope)
                         presentScope.define(mainMethodSymbol)
+                        self.visit(ele, newScope)
                     elif ele.name.name != "main":
                         methodSymbol = MethodSymbol(name=ele.name.name)
                         presentScope.define(methodSymbol)
@@ -461,22 +452,23 @@ class StaticChecker(BaseVisitor):
                     self.visit(ele, newScope)
 
         # print("Class presentScope after: ")
-        # pprint(presentScope.symbols)
+        # p#print(presentScope.symbols)
+        return []
 
     def visitMethodDecl(self, ast, presentScope):
         TAG = "----visitMethodDecl----"
         # print(TAG, ast.name.name)
         # print("ast:")
-        # pprint(ast)
+        # p#print(ast)
         # print("Method presentScope before: ")
-        # pprint(presentScope.symbols)
+        # p#print(presentScope.symbols)
 
         for ele in ast.param:
             paramSymbol = ParameterSymbol(name=ele.variable.name)
             presentScope.define(paramSymbol)
 
         # print("presentScope after param loop: ")
-        # pprint(presentScope.symbols)
+        # p#print(presentScope.symbols)
 
         for ele in ast.body.inst:
             # symbol = None
@@ -512,34 +504,46 @@ class StaticChecker(BaseVisitor):
                 newScope = Scope.getNewLocalScope(enclosingScope=presentScope)
                 self.visit(ele, newScope)
             elif isinstance(ele, Assign):
-                if isinstance(ele.lhs, Id):
-                    s = presentScope.resolve(ele.lhs.name)
-                    if isinstance(s, AttributeSymbol):
-                        if s.isConstant:
-                            raise CannotAssignToConstant(ele)
-                        else:
-                            self.visit(ele, presentScope)
-                    elif isinstance(s, ConstSymbol):
-                        raise CannotAssignToConstant(ele)
-                    else:
-                        self.visit(ele, presentScope)
-            elif isinstance(ele, If):
+                self.visit(ele, presentScope)
+            elif isinstance(ele, If) or isinstance(ele, For):
                 newScope = Scope.getNewLocalScope(enclosingScope=presentScope)
                 self.visit(ele, newScope)
+            elif isinstance(ele, Break):
+                raise MustInLoop(ele)
+            elif isinstance(ele, Return):
+                self.visit(ele, presentScope)
+            else:
+                self.visit(ele, presentScope)
 
         # print("Method presentScope after: ")
-        # pprint(presentScope.symbols)
+        # p#print(presentScope.symbols)
 
         return []
 
-    def visitAssign(self, ast, presentScope):
+    def visitAssign(self, ast: Assign, presentScope):
+        # print("Hello")
+        lhs = ast.lhs
+        if isinstance(lhs, Id):
+            s = presentScope.resolve(lhs.name)
+            # print("s: ", s)
+            if s is None:
+                raise Undeclared(Identifier(), n=lhs.name)
+            if isinstance(s, AttributeSymbol):
+                if s.isConstant:
+                    raise CannotAssignToConstant(ast)
+                else:
+                    self.visit(ast, presentScope)
+            elif isinstance(s, ConstSymbol):
+                raise CannotAssignToConstant(ast)
+            else:
+                self.visit(ast, presentScope)
         return []
 
     def visitVarDecl(self, ast, presentScope):
         TAG = "----visitVarDecl----"
         # print(TAG)
         # print("ast:")
-        # pprint(ast)
+        # p#print(ast)
 
         if presentScope.resolve(ast.variable.name) is not None:
             raise Redeclared(Variable(), n=ast.variable.name)
@@ -549,11 +553,13 @@ class StaticChecker(BaseVisitor):
         if varInit is not None:
             self.visit(varInit, presentScope)
 
+        return []
+
     def visitConstDecl(self, ast, presentScope):
         TAG = "----visitConstDecl----"
         # print(TAG)
         # print("ast:")
-        # pprint(ast)
+        # p#print(ast)
 
         if presentScope.resolve(ast.constant.name) is not None:
             raise Redeclared(Variable(), n=ast.constant.name)
@@ -562,6 +568,8 @@ class StaticChecker(BaseVisitor):
         # print("ast.varInit: ", value)
         if value is not None:
             self.visit(value, presentScope)
+
+        return []
 
     def visitId(self, ast, presentScope):
         # print("----visitId----")
@@ -583,9 +591,8 @@ class StaticChecker(BaseVisitor):
 
         if D96Utils.isOpForNumber(op):
             if D96Utils.isIntOrFloat(leftType) is False or D96Utils.isIntOrFloat(rightType) is False:
-                # print("Hello")
                 raise TypeMismatchInExpression(ast)
-            if str(op) is '%':
+            if str(op) == '%':
                 if FloatType in [leftType, rightType]:
                     raise TypeMismatchInExpression(ast)
                 return IntType()
@@ -630,14 +637,42 @@ class StaticChecker(BaseVisitor):
         if type(conditionType) is not BoolType:
             raise TypeMismatchInStatement(ast)
 
-        thenStmt = self.visit(ast.thenStmt, presentScope)
-        elseStmt = self.visit(ast.elseStmt, presentScope)
+        self.visit(ast.thenStmt, LocalScope())
+        self.visit(ast.elseStmt, LocalScope())
 
         # print("thenStmt:", thenStmt)
         # print("elseStmt:", elseStmt)
 
     def visitBlock(self, ast: Block, presentScope):
         return [self.visit(x, presentScope) for x in ast.inst]
+
+    def visitFor(self, ast : For, presentScope):
+        scalarVarSymbol = presentScope.resolve(ast.id.name)
+        if scalarVarSymbol is None:
+            return Undeclared(Variable(), ast.id.name)
+        expr1Type = self.visit(ast.expr1, presentScope)
+        expr2Type = self.visit(ast.expr2, presentScope)
+        if not isinstance(expr1Type, IntType) or isinstance(expr2Type, IntType):
+            raise TypeMismatchInStatement(ast)
+
+        return []
+
+    def visitCallStmt(self, ast, presentScope):
+        objSymbol = presentScope.resolve(ast.obj.name)
+        if objSymbol is None:
+            raise Undeclared(Class(), ast.obj.name)
+        else:
+            symbol = objSymbol.scope.resolve(ast.method.name)
+            # print("methodSymbol:", symbol)
+            if not isinstance(symbol, MethodSymbol):
+                raise Undeclared(k=Method(), n=ast.method.name)
+
+    def visitUnaryOp(self, ast : UnaryOp, presentScope):
+        op = str(ast.op)
+        expType = self.visit(ast.body, presentScope)
+        if (op == '-' and not D96Utils.isIntOrFloat(expType)) or (op == '!' and type(expType) is not BoolType):
+            raise TypeMismatchInExpression(ast)
+        return expType
 
     def visitIntLiteral(self, ast, presentScope):
         return IntType()
