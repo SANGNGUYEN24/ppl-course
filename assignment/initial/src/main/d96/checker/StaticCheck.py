@@ -9,8 +9,13 @@ from StaticError import *
 
 class MType:
     def __init__(self,partype,rettype):
+        """
+        partype -
+        """
         self.partype = partype
         self.rettype = rettype
+
+
 
 class Symbol:
     def __init__(self,name,mtype,value = None):
@@ -20,10 +25,12 @@ class Symbol:
 
 class StaticChecker(BaseVisitor,Utils):
 
-    global_envi = [
-    Symbol("getInt",MType([],IntType())),
-    Symbol("putIntLn",MType([IntType()],VoidType()))
-    ]
+    # global_envi = [
+    # # Symbol("getInt",MType([],IntType())),
+    # # Symbol("putIntLn",MType([IntType()],VoidType()))
+    # ]
+
+    ds = {}
             
     
     def __init__(self,ast):
@@ -32,7 +39,7 @@ class StaticChecker(BaseVisitor,Utils):
  
     
     def check(self):
-        return self.visit(self.ast,StaticChecker.global_envi)
+        return self.visit(self.ast,StaticChecker.ds)
 
     def visitProgram(self,ast, c): 
         return [self.visit(x,c) for x in ast.decl]

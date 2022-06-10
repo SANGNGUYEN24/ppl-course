@@ -66,7 +66,7 @@ def visitIf(self, ctx, o):
 
 # c5
 def visitFuncDecl(self, ctx, o):
-    paraType = list(map(lambda x: x.typ, ctx.param))
+    paraType = list(map(lambda x: x.typee, ctx.param))
     funcType = MType(paraType, ctx.returnType)
 
     self.emit.printout(self.emit.emitMETHOD(ctx.name, funcType, True))

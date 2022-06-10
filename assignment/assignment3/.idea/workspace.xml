@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="962c7da8-cce2-4505-8659-4e39adfede56" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/d96/codegen/CodeGenerator (1).py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/d96/codegen/CodeGeneratorrrrrr.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/d96/codegen/CodeGeneratorrrrrrrrrrr.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/d96/codegen/PPLEmitter.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/misc.xml" afterDir="false" />
@@ -13,9 +17,10 @@
       <change afterPath="$PROJECT_DIR$/symtab/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/symtab/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_212_CO3005__Assignment.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/_212_CO3005__Assignment.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/checker/StaticCheck.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/CheckerSuite.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/CheckerSuite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/d96/checker/t.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/checker/t.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/d96/codegen/CodeGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/codegen/CodeGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/d96/codegen/Emitter.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/d96/codegen/Emitter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/CodeGenSuite.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/symtab" beforeDir="false" afterPath="$PROJECT_DIR$/symtab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/symtab/src/org/antlr/symtab/ClassSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../initial/src/main/d96/checker/StaticCheck.py" beforeDir="false" afterPath="$PROJECT_DIR$/../initial/src/main/d96/checker/StaticCheck.py" afterDir="false" />
@@ -64,16 +69,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/development-area/ppl/ppl-course/assignment/assignment3-ref/Assignment3",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/development-area/ppl/ppl-course/assignment/assignment3-ref/Assignment3&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\development-area\ppl\ppl-course\assignment\assignment3\src\main\d96\checker" />

@@ -1,7 +1,7 @@
 from Utils import *
 from StaticCheck import *
 from StaticError import *
-import CodeGenerator as cgen
+import CodeGeneratorrrrrrrrrrr as cgen
 from MachineCode import JasminCode
 
 
@@ -16,10 +16,14 @@ class Emitter():
         typeIn = type(inType)
         if typeIn is IntType:
             return "I"
+        elif typeIn is FloatType:
+            return "F"
         elif typeIn is cgen.StringType:
             return "Ljava/lang/String;"
         elif typeIn is VoidType:
             return "V"
+        elif typeIn is BoolType:
+            return "Z"
         elif typeIn is cgen.ArrayPointerType:
             return "[" + self.getJVMType(inType.eleType)
         elif typeIn is MType:
@@ -31,6 +35,10 @@ class Emitter():
         typeIn = type(inType)
         if typeIn is IntType:
             return "int"
+        elif typeIn is FloatType:
+            return "float"
+        elif typeIn is BoolType:
+            return "boolean"
         elif typeIn is cgen.StringType:
             return "java/lang/String"
         elif typeIn is VoidType:
@@ -141,7 +149,8 @@ class Emitter():
         #frame: Frame
         #... -> ..., value
         
-        frame.push()
+        if frame: 
+            frame.push()
         if type(inType) is IntType:
             return self.jvm.emitILOAD(index)
         elif type(inType) is cgen.ArrayPointerType or type(inType) is cgen.ClassType or type(inType) is StringType:
@@ -211,7 +220,7 @@ class Emitter():
         #in_: Type
         #frame: Frame
 
-        frame.push()
+        if frame: frame.push()
         return self.jvm.emitGETSTATIC(lexeme, self.getJVMType(in_))
 
     def emitPUTSTATIC(self, lexeme, in_, frame):
@@ -569,11 +578,12 @@ class Emitter():
         #in_: Type
         #frame: Frame
 
-        if type(in_) is IntType:
-            frame.pop()
-            return self.jvm.emitIRETURN()
-        elif type(in_) is VoidType:
-            return self.jvm.emitRETURN()
+        if type(in_) is VoidType: return self.jvm.emitRETURN()
+
+        frame.pop()
+        if type(in_) in [IntType, BoolType]: return self.jvm.emitIRETURN()
+        if type(in_) is FloatType: return self.jvm.emitFRETURN()
+        return self.jvm.emitARETURN()
 
     ''' generate code that represents a label	
     *   @param label the label
@@ -636,8 +646,5 @@ class Emitter():
     def clearBuff(self):
         self.buff.clear()
 
-
-
-
-
-        
+    ''' generate new  
+    '''
